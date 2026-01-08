@@ -1,8 +1,10 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --bg-1: #000000;
+  --bg-1: #032B5E;
+  --bg-2: #F79315;
+  --second-orange: #FDB352;
   --bg-nav: #292D2F;
-  --vt-c-white-mute: #f2f2f2;
+  --bg-hidden: #FEFADC;
 
   --primary: #F3DFA2;
   --important: #BB4430;
@@ -67,6 +69,7 @@ body {
     background-color 0.5s;
   line-height: 1.6;
   font-family:
+    'Nunito',
     Inter,
     -apple-system,
     BlinkMacSystemFont,
