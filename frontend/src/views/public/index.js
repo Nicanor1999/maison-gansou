@@ -7,6 +7,7 @@ import ContactsPublicView from "./Contacts.vue";
 import ProjectsPublicView from "./Projects.vue";
 import RecruitmentPublicView from "./Recruitment.vue";
 import TestimonialsPublicView from "./Testimonials.vue";
+import ProjectsSelected from "./ProjectsSelected.vue";
 
 
-export { BlogPublicView, BookingsPublicView, ContactsPublicView, ProjectsPublicView, AboutUsPublicView , LayoutPublicView, RecruitmentPublicView, TestimonialsPublicView, HomePublicView };
+export { BlogPublicView, BookingsPublicView, ContactsPublicView, ProjectsPublicView, AboutUsPublicView , LayoutPublicView, RecruitmentPublicView, TestimonialsPublicView, HomePublicView, ProjectsSelected };

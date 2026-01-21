@@ -1,14 +1,8 @@
 <template>
-
-    <div class="navBar h-[10%] w-screen bg-transparent text-gray-700 flex justify-center absolute top-0">
-      <div class="h-full w-[96%] flex items-center justify-between">
-
-        <router-link to="/">
-          <img src="@/assets/pictures/MG logo 2.png" class="h-12 w-auto md:h-14 lg:h-16 object-contain cursor-pointer" alt="Maison Gansou Logo"/>
-        </router-link>
-        <div class="h-[70%] w-[50%] flex justify-end md:justify-between items-center">
-          <div class="hidden md:block w-[calc(80%-40px)] h-full">
-            <nav class="h-full w-full flex justify-around items-center text-white">
+    <div class="navBar h-[10%] w-full bg-transparent text-gray-700 absolute top-0">
+        <div class="h-full w-full">
+          <div class="hidden w-full h-full sm:flex justify-center xl:items-center items-center">
+            <nav class="h-[30%]  w-[40%] flex justify-around" :style="{ color: navColor }">
               <router-link
                 to="/bookings"
                 class="nav-link text-sm lg:text-base xl:text-base 2xl:text-lg transition-all relative"
@@ -39,43 +33,40 @@
               >
             </nav>
           </div>
-          <div class="cursor-pointer" @click="toggleMenu">
-            <transition name="icon-rotate" mode="out-in">
-              <span
-                :key="isMenuOpen"
-                class="material-symbols-outlined transition-colors"
-                style="
-                  font-size: 40px;
-                  color: white;
-                  font-variation-settings:
-                    'FILL' 0,
-                    'wght' 400,
-                    'GRAD' 0,
-                    'opsz' 40;
-                "
-                @mouseenter="$event.target.style.color = 'var(--bg-1)'"
-                @mouseleave="$event.target.style.color = 'white'"
-              >
-                {{ isMenuOpen ? 'close' : 'menu' }}
-              </span>
-            </transition>
-          </div>
         </div>
-      </div>
     </div>
 </template>
 <script>
+import { useUiStore } from '@/stores/ui'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 export default {
   name: 'SidebarComponent',
-  data() {
-    return {
-      isMenuOpen: false,
+  setup() {
+    const uiStore = useUiStore()
+    const route = useRoute()
+    
+    const isMenuOpen = computed(() => uiStore.isMenuOpen)
+    const isHomePage = computed(() => route.name === 'home' || route.path === '/')
+    const isProjectSelectedPage = computed(() => route.name === 'projects-selected')
+    
+    // Pages avec un firstPart sombre qui nécessitent une nav blanche au début
+    const hasDarkFirstPart = computed(() => isHomePage.value || isProjectSelectedPage.value)
+    
+    const navColor = computed(() => {
+      return hasDarkFirstPart.value ? 'white' : 'var(--bg-1)'
+    })
+    
+    const toggleMenu = () => {
+      uiStore.toggleMenu()
     }
-  },
-  methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen
-    },
+    
+    return {
+      isMenuOpen,
+      navColor,
+      toggleMenu,
+    }
   },
 }
 </script>
@@ -93,7 +84,7 @@ export default {
   width: 0;
   height: 2px;
   background: var(--bg-2);
-  transition: all 0.3s ease;
+  transition: all 0.6s ease;
   transform: translateX(-50%);
 }
 
@@ -102,13 +93,13 @@ export default {
 }
 
 .nav-link:hover {
-  color: var(--bg-2);
+  color: var(--second-orange);
   /* font-weight: bold; */
   transform: translateY(-2px);
 }
 
 .nav-active {
-  color: var(--bg-2) !important;
+  color: var(--second-orange) !important;
   font-weight: 700 !important;
 }
 

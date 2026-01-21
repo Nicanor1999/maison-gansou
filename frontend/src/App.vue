@@ -3,7 +3,7 @@
     <router-view></router-view>
     
     <!-- Loader avec animation Lottie -->
-    <div v-if="ui.isLoading" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+    <div v-if="ui.isLoading" class="fixed inset-0 bg-[var(--bg-hidden)] flex items-center justify-center z-50">
       <div class="flex flex-col items-center gap-4">
         <Vue3Lottie 
           :animationData="loaderAnimation" 
@@ -29,9 +29,9 @@ const ui = useUiStore()
 
 <style>
 #app {
-  margin: 0;
-  padding: 0;
-  background-color: darkblue;
+  /* margin: 0; */
+  /* padding: 0; */
+  /* background-color: darkblue; */
   display: flex;
   /* justify-content: center;
   6 */
@@ -40,10 +40,11 @@ const ui = useUiStore()
 }
 
 body {
-  display: flex;
-  justify-content: center;
-    height: 100vh;
-  width: 100vw;
-  background-color: burlywood;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  /* background-color: var(--bg-3); */
 }
 </style>
