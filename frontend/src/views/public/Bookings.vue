@@ -21,7 +21,7 @@
     </div>
 
     <!-- Apartments Grid -->
-    <div class="apartments-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2%] w-[93%] h-auto">
+    <div class="apartments-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2%] md:gap-y-[5%] w-[93%] h-auto pt-10">
       <div
         v-for="(apartment, index) in apartments"
         :key="apartment.id"
@@ -43,22 +43,22 @@
             {{ formatPrice(apartment.pricePerNight) }} / Nuit
           </div>
         </div>
-        <div class="h-[45%] flex flex-col justify-around" style="padding: 4%;">
-          <h3 class="text-xl font-bold text-[var(--bg-1)]">{{ apartment.name }}</h3>
-          <div class="grid grid-cols-2 gap-[3%] text-sm text-gray-600 h-[40%]">
-            <div class="flex items-center gap-[5%]">
+        <div class="h-[45%] flex flex-col justify-around items-center text-center" style="padding: 4%;">
+          <h3 class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] text-[var(--bg-1)]">{{ apartment.name }}</h3>
+          <div class="grid grid-cols-2 gap-[3%] text-sm text-gray-600 h-[40%] w-full">
+            <div class="flex items-center pl-10 gap-[5%]">
               <span class="material-symbols-outlined text-[var(--second-orange)]">bed</span>
               <span>{{ apartment.beds }} Lit(s)</span>
             </div>
-            <div class="flex items-center gap-[5%]">
+            <div class="flex items-center pl-10 gap-[5%]">
               <span class="material-symbols-outlined text-[var(--second-orange)]">door_open</span>
               <span>{{ apartment.rooms }} Chambre(s)</span>
             </div>
-            <div class="flex items-center gap-[5%]">
+            <div class="flex items-center pl-10 gap-[5%]">
               <span class="material-symbols-outlined text-[var(--second-orange)]">kitchen</span>
               <span>{{ apartment.hasKitchen ? 'Cuisine' : 'Non' }}</span>
             </div>
-            <div class="flex items-center gap-[5%]">
+            <div class="flex items-center pl-10 gap-[5%]">
               <span class="material-symbols-outlined text-[var(--second-orange)]">local_parking</span>
               <span>{{ apartment.hasParking ? 'Parking' : 'Non' }}</span>
             </div>
@@ -108,7 +108,7 @@
                 <button
                   v-for="(image, index) in selectedApartment?.images"
                   :key="index"
-                  @click="currentImageIndex = index"
+                  @click="currentImageIndex = index; startSlideshow()"
                   :class="[
                     'w-[12px] h-[12px] rounded-full transition-all duration-300',
                     index === currentImageIndex
@@ -136,16 +136,16 @@
             <div class="modal-info-section h-auto w-full" style="padding: 4%;">
               <div class="flex flex-col md:flex-row md:justify-between md:items-start h-auto">
                 <div class="h-auto">
-                  <h2 class="text-2xl md:text-3xl font-bold text-[var(--bg-1)]">
+                  <h2 class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] font-bold text-[var(--bg-1)]">
                     {{ selectedApartment?.name }}
                   </h2>
                   <p class="text-gray-600">{{ selectedApartment?.location }}</p>
                 </div>
-                <div class="h-auto text-right">
-                  <div class="text-3xl font-bold text-[var(--second-orange)]">
+                <div class="h-auto text-right flex">
+                  <div class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] font-bold text-[var(--second-orange)]">
                     {{ formatPrice(selectedApartment?.pricePerNight) }}
                   </div>
-                  <div class="text-gray-500">par nuit</div>
+                  <div class="text-gray-500 text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pl-1"> par nuit</div>
                 </div>
               </div>
 
@@ -437,7 +437,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import imageA from '@/assets/pictures/A.jpg'
 import imageB from '@/assets/pictures/B.jpg'
 import imageC from '@/assets/pictures/C.jpg'
@@ -459,6 +459,39 @@ export default {
     const selectedApartment = ref(null)
     const currentImageIndex = ref(0)
     const isSubmitting = ref(false)
+    let slideshowInterval = null
+
+    // Auto slideshow for modal images
+    const startSlideshow = () => {
+      stopSlideshow()
+      slideshowInterval = setInterval(() => {
+        if (selectedApartment.value) {
+          currentImageIndex.value =
+            (currentImageIndex.value + 1) % selectedApartment.value.images.length
+        }
+      }, 3000) // Change image every 3 seconds
+    }
+
+    const stopSlideshow = () => {
+      if (slideshowInterval) {
+        clearInterval(slideshowInterval)
+        slideshowInterval = null
+      }
+    }
+
+    // Watch for modal open/close to start/stop slideshow
+    watch(showModal, (newValue) => {
+      if (newValue) {
+        startSlideshow()
+      } else {
+        stopSlideshow()
+      }
+    })
+
+    // Cleanup on unmount
+    onUnmounted(() => {
+      stopSlideshow()
+    })
 
     const bookingForm = ref({
       firstName: '',
@@ -475,7 +508,7 @@ export default {
     const apartments = ref([
       {
         id: 1,
-        name: 'Appartement Luxe - Cotonou Centre',
+        name: 'Appartement Luxe - Cotonou',
         location: 'Cotonou, Bénin',
         description:
           "Magnifique appartement de standing situé au cœur de Cotonou. Entièrement meublé avec des finitions haut de gamme, cet espace offre tout le confort nécessaire pour un séjour inoubliable. Vue panoramique sur la ville et accès à toutes les commodités.",
@@ -659,6 +692,8 @@ export default {
         currentImageIndex.value =
           (currentImageIndex.value - 1 + selectedApartment.value.images.length) %
           selectedApartment.value.images.length
+        // Reset slideshow timer when manually navigating
+        startSlideshow()
       }
     }
 
@@ -666,6 +701,8 @@ export default {
       if (selectedApartment.value) {
         currentImageIndex.value =
           (currentImageIndex.value + 1) % selectedApartment.value.images.length
+        // Reset slideshow timer when manually navigating
+        startSlideshow()
       }
     }
 
@@ -704,6 +741,7 @@ export default {
       prevImage,
       nextImage,
       submitBooking,
+      startSlideshow,
     }
   },
 }
@@ -732,6 +770,17 @@ export default {
 .modal-enter-from .relative,
 .modal-leave-to .relative {
   transform: scale(0.9);
+}
+
+.modal-info-section,
+.overflow-y-auto {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.modal-info-section::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar {
+  display: none;
 }
 
 /* Custom scrollbar for modals */

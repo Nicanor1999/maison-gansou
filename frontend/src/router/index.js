@@ -48,6 +48,7 @@ const routes = [
             { path:'/admin/blog', name:'admin-blog', component: Admin.BlogView },
             { path:'/admin/bookings', name:'admin-bookings', component: Admin.BookingsView },
             { path:'/admin/projects', name:'admin-projects', component: Admin.ProjectsView },
+            { path:'/admin/mailbox', name:'admin-mailbox', component: Admin.MailBoxView }
         ]
     },
     // {

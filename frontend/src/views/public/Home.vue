@@ -325,7 +325,7 @@ export default {
       ],
       services: [
         { title: 'Conception Architecturale' },
-        { title: "Architecture d'Intérieur" },
+        { title: "Décoration Textile" },
         { title: 'Conception et Construction' },
         { title: "Gestion d'Actifs Immobiliers" },
       ],

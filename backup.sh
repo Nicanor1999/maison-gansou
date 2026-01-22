@@ -4,8 +4,8 @@
 # CONFIGURATION – À MODIFIER SELON TON CAS
 # ────────────────────────────────────────────────
 PROJECT_DIR="/root/MaisonGANSOU"          # ← Mets le chemin ABSOLU exact de ton projet
-BRANCHE="master"                             # ou "master" selon ta branche principale
-GIT_REMOTE="origin"                        # normalement "origin"
+BRANCHE="master"                          # ou "master" selon ta branche principale
+GIT_REMOTE="origin"                       # normalement "origin"
 
 # ────────────────────────────────────────────────
 # NE PAS TOUCHER EN DESSOUS SAUF SI TU SAIS CE QUE TU FAIS
