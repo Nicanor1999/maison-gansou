@@ -1,3 +1,11 @@
 warning: in the working copy of 'frontend/src/views/admin/index.js', CRLF will be replaced by LF the next time Git touches it
 warning: in the working copy of 'frontend/src/views/public/Bookings.vue', CRLF will be replaced by LF the next time Git touches it
 warning: in the working copy of 'frontend/src/views/public/Home.vue', CRLF will be replaced by LF the next time Git touches it
+[master 78e48ed] Sauvegarde automatique 2026-01-22 00:00:01
+ 9 files changed, 82 insertions(+), 19 deletions(-)
+ create mode 100644 backup.log
+ create mode 100644 frontend/src/assets/pictures/C-1.jpg
+ create mode 100644 frontend/src/views/admin/MailBox.vue
+To github.com:Nicanor1999/maison-gansou.git
+   4bf40ba..78e48ed  master -> master
+Backup terminé à 2026-01-22 00:00:03
