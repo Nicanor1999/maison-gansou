@@ -1,0 +1,273 @@
+{
+  "/api/v1/projects": {
+    "post": {
+      "summary": "Create a new projects",
+      "tags": [
+        "Projects"
+      ],
+      "parameters": [],
+      "requestBody": {
+        "description": "Create Projects",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateProjectsPayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectsResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request"
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get list of projects",
+      "tags": [
+        "Projects"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "perPage",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the perPage of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the page of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "createdBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the createdBy of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "updatedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the updatedBy of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "deletedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the deletedBy of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Title",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Title of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Country",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Country of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Town",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Town of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Services",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Services of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Works_Type",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Works_Type of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Partners",
+          "schema": {
+            "type": "array"
+          },
+          "description": "the Partners of projects",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Section",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Section of projects",
+          "required": false
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "A list of projects",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectsPaginationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  },
+  "/api/v1/projects/{id}": {
+    "put": {
+      "summary": "Update a projects by ID",
+      "tags": [
+        "Projects"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "projects id",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "description": "Update Projects",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateProjectsPayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Updated successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectsResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "delete": {
+      "summary": "Delete a projects by ID",
+      "tags": [
+        "Projects"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "projects id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "Deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProjectsResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get one projects by ID",
+      "tags": [
+        "Projects"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "projects id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "One Projects",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindProjectsResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  }
+}

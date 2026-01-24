@@ -1,0 +1,86 @@
+/**
+ * @AuthMFAConfigResources 
+ */
+module.exports = class AuthMFAConfigResources {
+
+  constructor() {
+
+  }
+  /**
+   * @Default collection
+   */
+  static async collection(model, filter = {}) {
+    try {
+      if (!model) return null
+
+      const {} = filter
+
+      const schema = {
+        _id: model._id,
+        createdAt: model.createdAt,
+        updatedAt: model.updatedAt,
+        deletedAt: model.deletedAt,
+        method: model.method,
+        actorType: model.actorType,
+        actorId: model.actorId,
+        isEnabled: model.isEnabled,
+        phoneNumber: model.phoneNumber,
+        emailAddress: model.emailAddress,
+      }
+
+      return schema;
+    } catch (error) {
+      throw error;
+    }
+  }
+  /**
+   * @statistical collection
+   */
+  static async statistical(model, filter = {}) {
+    try {
+      if (!model) return null
+      const {} = filter
+      const schema = {
+        createdAt: model.createdAt,
+        updatedAt: model.updatedAt,
+        deletedAt: model.deletedAt,
+        method: model.method,
+        actorType: model.actorType,
+        actorId: model.actorId,
+        isEnabled: model.isEnabled,
+        phoneNumber: model.phoneNumber,
+        emailAddress: model.emailAddress,
+      }
+
+      return schema
+    } catch (error) {
+      throw error;
+    }
+  }
+  /**
+   * @ref collection
+   */
+  static ref(model, filter = {}) {
+    try {
+      if (!model) return null
+
+      const schema = {
+        _id: model._id,
+        createdAt: model.createdAt,
+        updatedAt: model.updatedAt,
+        deletedAt: model.deletedAt,
+        method: model.method,
+        actorType: model.actorType,
+        actorId: model.actorId,
+        isEnabled: model.isEnabled,
+        phoneNumber: model.phoneNumber,
+        emailAddress: model.emailAddress,
+      }
+
+      return schema;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+}

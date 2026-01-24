@@ -1,5 +1,5 @@
 <template>
-  <div class="bookings h-full w-full overflow-y-auto">
+  <div class="bookings h-full w-full overflow-y-auto flex flex-col gap-4">
     <!-- Tabs -->
     <div class="bg-white rounded-xl shadow-sm h-[8vh] min-h-[60px] mt-[2vh] mb-[3vh] border border-gray-100">
       <div class="flex h-full border-b">
@@ -21,15 +21,15 @@
     </div>
 
     <!-- Reservations Tab -->
-    <div v-if="activeTab === 'reservations'" class="space-y-[2vh]">
+    <div v-if="activeTab === 'reservations'" class="space-y-[2vh] flex flex-col gap-4">
       <!-- Filters -->
-      <div class="bg-white rounded-xl shadow-sm h-[8vh] min-h-[60px] border border-gray-100">
+      <div class="bg-white rounded-xl shadow-sm h-[15vh] min-h-[60px] border border-gray-100 flex justify-center">
         <div class="flex flex-wrap items-center h-full w-[95%] mx-auto gap-[2%]">
           <input
             type="text"
             v-model="searchQuery"
             placeholder="Rechercher un client..."
-            class="flex-1 min-w-[200px] h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+            class="flex-1 min-w-[200px] h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
           />
           <select
             v-model="statusFilter"
@@ -44,45 +44,45 @@
       </div>
 
       <!-- Reservations List -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table class="w-full">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+        <table class="w-full min-w-[800px]">
           <thead class="bg-gray-50 h-[6vh] min-h-[45px]">
             <tr>
-              <th class="w-[20%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-              <th class="w-[20%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-              <th class="w-[20%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Offre</th>
-              <th class="w-[15%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durée</th>
-              <th class="w-[10%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-              <th class="w-[15%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th class="w-[20%] pl-[1%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+              <th class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+              <th class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Offre</th>
+              <th class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Durée</th>
+              <th class="w-[10%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+              <th class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
             <tr v-for="reservation in filteredReservations" :key="reservation.id" class="h-[10vh] min-h-[80px] hover:bg-gray-50">
               <td class="w-[20%]">
-                <div class="flex items-center h-full ml-[5%]">
+                <div class="flex items-center h-full pl-[3%]">
                   <div class="w-[4vh] min-w-[35px] h-[4vh] min-h-[35px] bg-[var(--bg-1)] rounded-full flex items-center justify-center text-white font-bold text-sm">
                     {{ reservation.firstName.charAt(0) }}{{ reservation.lastName.charAt(0) }}
                   </div>
-                  <div class="ml-[10%]">
+                  <div class="pl-[5%]">
                     <p class="font-medium text-gray-800">{{ reservation.firstName }} {{ reservation.lastName }}</p>
                     <p class="text-sm text-gray-500">{{ reservation.country }}</p>
                   </div>
                 </div>
               </td>
-              <td class="w-[20%]">
+              <td class="w-[20%] text-center">
                 <p class="text-sm text-gray-800">{{ reservation.email }}</p>
                 <p class="text-sm text-gray-500">{{ reservation.phone }}</p>
               </td>
-              <td class="w-[20%]">
+              <td class="w-[20%] text-center">
                 <p class="text-sm font-medium text-gray-800">{{ reservation.offer }}</p>
               </td>
-              <td class="w-[15%]">
+              <td class="w-[15%] text-center">
                 <p class="text-sm text-gray-800">{{ reservation.duration }}</p>
               </td>
-              <td class="w-[10%]">
+              <td class="w-[20%] text-center">
                 <span
                   :class="[
-                    'text-xs font-medium rounded-full',
+                    'text-xs font-medium rounded-full p-[2%]',
                     reservation.status === 'confirmed' ? 'bg-green-100 text-green-600' : 
                     reservation.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : 'bg-red-100 text-red-600'
                   ]"
@@ -90,7 +90,7 @@
                   {{ getStatusLabel(reservation.status) }}
                 </span>
               </td>
-              <td class="w-[15%] text-right">
+              <td class="w-[15%] text-center">
                 <button
                   @click="viewReservation(reservation)"
                   class="text-blue-600 hover:text-blue-800 mr-[1vw]"
@@ -131,9 +131,9 @@
         <div
           v-for="offer in offers"
           :key="offer.id"
-          class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+          class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col items-center"
         >
-          <div class="h-[20vh] min-h-[150px] bg-gray-200 relative">
+          <div class="h-[20vh] min-h-[150px] w-full bg-gray-200 relative">
             <img
               v-if="offer.image"
               :src="offer.image"
@@ -184,7 +184,7 @@
       v-if="showReservationModal"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
-      <div class="bg-white rounded-xl w-[90%] max-w-lg h-auto max-h-[90vh] overflow-y-auto">
+      <div class="bg-white rounded-xl w-[90%] max-w-lg h-auto max-h-[90vh] overflow-y-auto flex flex-col items-center">
         <div class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto">
           <h2 class="text-xl font-semibold text-gray-800">Détails de la réservation</h2>
           <button @click="showReservationModal = false" class="text-gray-500 hover:text-gray-700">
@@ -246,7 +246,7 @@
       v-if="showOfferModal"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
-      <div class="bg-white rounded-xl w-[40vw] min-w-[400px] max-w-lg max-h-[90vh] overflow-y-auto">
+      <div class="bg-white rounded-xl w-[40vw] min-w-[370px] max-w-lg max-h-[90vh] overflow-y-auto flex flex-col items-center">
         <div class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto">
           <h2 class="text-xl font-semibold text-gray-800">
             {{ editingOffer ? 'Modifier l\'offre' : 'Nouvelle offre' }}
@@ -261,7 +261,7 @@
             <input
               type="text"
               v-model="offerForm.name"
-              class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
               placeholder="Ex: Appartement Luxe"
             />
           </div>
@@ -270,7 +270,7 @@
             <textarea
               v-model="offerForm.description"
               rows="3"
-              class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
               placeholder="Décrivez l'offre..."
             ></textarea>
           </div>
@@ -280,7 +280,7 @@
               <input
                 type="number"
                 v-model="offerForm.pricePerNight"
-                class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+                class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                 placeholder="50000"
               />
             </div>
@@ -288,7 +288,7 @@
               <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Disponibilité</label>
               <select
                 v-model="offerForm.available"
-                class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+                class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
               >
                 <option :value="true">Disponible</option>
                 <option :value="false">Indisponible</option>

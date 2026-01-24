@@ -1,0 +1,219 @@
+{
+  "/api/v1/tags": {
+    "post": {
+      "summary": "Create a new tags",
+      "tags": [
+        "Tags"
+      ],
+      "parameters": [],
+      "requestBody": {
+        "description": "Create Tags",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateTagsPayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTagsResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request"
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get list of tags",
+      "tags": [
+        "Tags"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "perPage",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the perPage of tags",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the page of tags",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "createdBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the createdBy of tags",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "updatedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the updatedBy of tags",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "deletedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the deletedBy of tags",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Tags",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Tags of tags",
+          "required": false
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "A list of tags",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsPaginationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  },
+  "/api/v1/tags/{id}": {
+    "put": {
+      "summary": "Update a tags by ID",
+      "tags": [
+        "Tags"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "tags id",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "description": "Update Tags",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateTagsPayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Updated successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTagsResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "delete": {
+      "summary": "Delete a tags by ID",
+      "tags": [
+        "Tags"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "tags id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "Deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteTagsResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get one tags by ID",
+      "tags": [
+        "Tags"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "tags id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "One Tags",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindTagsResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  }
+}

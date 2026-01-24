@@ -1,0 +1,231 @@
+{
+  "Article": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea093",
+        "description": "Unique identifier for the article"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2025-12-20T11:50:00.578Z",
+        "description": "Timestamp when the article was created"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2025-12-17T21:23:29.916Z",
+        "description": "Timestamp when the article was last updated"
+      },
+      "createdBy": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea094",
+        "description": "CreatedBy of Article"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea095",
+        "description": "UpdatedBy of Article"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea096",
+        "description": "DeletedBy of Article"
+      },
+      "Tags": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea097",
+        "description": "Tags of Article"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Sum vinco viduo dolor spero taceo saepe cito pecto.",
+        "description": "Title of Article"
+      },
+      "Section": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea098",
+        "description": "Section of Article"
+      },
+      "Statut": {
+        "type": "string",
+        "example": true,
+        "description": "Statut of Article"
+      }
+    },
+    "required": []
+  },
+  "CreateArticlePayload": {
+    "type": "object",
+    "properties": {
+      "Tags": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea09d",
+        "description": "Tags of Article"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Talio demulceo adhuc vorago sponte theatrum.",
+        "description": "Title of Article"
+      },
+      "Section": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea09e",
+        "description": "Section of Article"
+      },
+      "Statut": {
+        "type": "string",
+        "example": "",
+        "description": "Statut of Article"
+      }
+    },
+    "required": []
+  },
+  "UpdateArticlePayload": {
+    "type": "object",
+    "properties": {
+      "Tags": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea0a3",
+        "description": "Tags of Article"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Officia tersus catena audax acidus complectus tergo consectetur villa.",
+        "description": "Title of Article"
+      },
+      "Section": {
+        "type": "string",
+        "example": "6973838a80be02a88d8ea0a4",
+        "description": "Section of Article"
+      },
+      "Statut": {
+        "type": "string",
+        "example": "",
+        "description": "Statut of Article"
+      }
+    },
+    "required": []
+  },
+  "ArticlePaginationResponse": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": "integer",
+        "example": 10,
+        "description": "Total number of pages"
+      },
+      "totalItems": {
+        "type": "integer",
+        "example": 100,
+        "description": "Total number of items"
+      },
+      "perPage": {
+        "type": "integer",
+        "example": 10,
+        "description": "Items per page"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Article"
+        },
+        "description": "Array of results for the current page"
+      }
+    }
+  },
+  "CreateArticleResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Article"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the create operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Article created successfully",
+        "description": "Creation success message"
+      }
+    }
+  },
+  "UpdateArticleResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Article"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the update operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Article updated successfully",
+        "description": "Update success message"
+      }
+    }
+  },
+  "DeleteArticleResponse": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the delete operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Article deleted successfully",
+        "description": "Deletion success message"
+      }
+    }
+  },
+  "FindArticleResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Article"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the find operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Article retrieved successfully",
+        "description": "Retrieval success message"
+      }
+    }
+  },
+  "ArticleErrorResponse": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "An error occurred",
+        "description": "Error message"
+      },
+      "code": {
+        "type": "integer",
+        "example": 400,
+        "description": "HTTP status code"
+      },
+      "success": {
+        "type": "boolean",
+        "example": false,
+        "description": "Indicates if the operation was unsuccessful"
+      }
+    }
+  }
+}

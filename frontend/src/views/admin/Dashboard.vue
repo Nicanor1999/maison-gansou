@@ -1,392 +1,405 @@
 <template>
   <div class="dashboard h-full flex flex-col gap-6 w-[98%] overflow-y-auto">
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-[2%] w-full mt-[2vh] mb-[3vh]">
-      <!-- Chiffre d'Affaires Card -->
-      <div class="bg-white rounded-xl shadow-sm h-[20vh] min-h-[160px] w-full flex flex-col justify-center items-center border border-gray-100">
-        <div class="w-[80%] h-full  mx-auto flex flex-col justify-around">
-          <div class="flex items-center justify-between">
-            <div class="h-[5vh] min-h-[40px] w-[5vh] min-w-[40px] bg-green-100 rounded-lg flex items-center justify-center">
-            <span class="material-symbols-outlined text-green-600 text-2xl">payments</span>
-          </div>
-          <span
-            :class="[
-              'text-sm font-medium px-2 py-1 rounded-full',
-              caGrowth >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-            ]"
-          >
-            {{ caGrowth >= 0 ? '+' : '' }}{{ caGrowth }}%
-          </span>
-          </div>
-          <div class="h-[50%] flex flex-col justify-between text-center">
-            <h3 class="text-gray-500 text-xl font-medium">Chiffre d'Affaires</h3>
-            <p class="text-2xl font-bold text-gray-800">{{ formatCurrency(chiffreAffaires) }}</p>
-            <p class="text-xs text-gray-400">{{ formatDateRange(caDateRange) }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Articles Card -->
-      <div class="bg-white rounded-xl shadow-sm h-[20vh] min-h-[160px] w-full flex flex-col justify-center border border-gray-100">
-        <div class="w-[90%] h-full mx-auto flex flex-col justify-around">
-          <div class="flex items-center justify-between">
-            <div class="h-[5vh] min-h-[40px] w-[5vh] min-w-[40px] bg-blue-100 rounded-lg flex items-center justify-center">
-            <span class="material-symbols-outlined text-blue-600 text-2xl">article</span>
-          </div>
-          <span
-            :class="[
-              'text-sm font-medium px-2 py-1 rounded-full',
-              articlesGrowth >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-            ]"
-          >
-            {{ articlesGrowth >= 0 ? '+' : '' }}{{ articlesGrowth }}%
-          </span>
-          </div>
-          <div>
-            <h3 class="text-gray-500 text-sm font-medium">Articles Créés</h3>
-            <p class="text-2xl font-bold text-gray-800">{{ articlesCount }}</p>
-            <p class="text-xs text-gray-400">{{ formatDateRange(articlesDateRange) }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Projets Card -->
-      <div class="bg-white rounded-xl shadow-sm h-[20vh] min-h-[160px] w-full flex flex-col justify-center border border-gray-100">
-        <div class="w-[90%] h-full mx-auto flex flex-col justify-around">
-          <div class="flex items-center justify-between">
-            <div class="h-[5vh] min-h-[40px] w-[5vh] min-w-[40px] bg-purple-100 rounded-lg flex items-center justify-center">
-              <span class="material-symbols-outlined text-purple-600 text-2xl">architecture</span>
-            </div>
-            <span
-              :class="[
-                'text-sm font-medium px-2 py-1 rounded-full',
-                projetsGrowth >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-              ]"
-            >
-              {{ projetsGrowth >= 0 ? '+' : '' }}{{ projetsGrowth }}%
-            </span>
-          </div>
-          <div>
-            <h3 class="text-gray-500 text-sm font-medium">Projets Ajoutés</h3>
-            <p class="text-2xl font-bold text-gray-800">{{ projetsCount }}</p>
-            <p class="text-xs text-gray-400">{{ formatDateRange(projetsDateRange) }}</p>
-          </div>
-        </div>
-      </div>
+    <!-- Loading State -->
+    <div v-if="isLoading" class="flex items-center justify-center h-40">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--bg-1)]"></div>
     </div>
 
-    <!-- Date Range Selectors -->
-    <div class="bg-white rounded-xl shadow-sm w-full min-h-[25vh] mb-[3vh] border border-gray-100">
-      <div class="w-[95%] h-full mx-auto flex flex-col justify-around">
-        <h2 class="text-lg font-semibold text-gray-800 mt-[2vh]">Filtrer par période</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-[2%] my-[2vh]">
-        <!-- CA Date Range -->
-        <div class="h-auto">
-          <label class="block text-sm font-medium text-gray-600 mb-[1vh]">
-            Période Chiffre d'Affaires
-          </label>
-          <div class="flex gap-[2%] h-[5vh] min-h-[40px]">
-            <input
-              type="date"
-              v-model="caDateRange.start"
-              class="flex-1 h-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-            />
-            <input
-              type="date"
-              v-model="caDateRange.end"
-              class="flex-1 h-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        <!-- Articles Date Range -->
-        <div class="h-auto">
-          <label class="block text-sm font-medium text-gray-600 mb-[1vh]">
-            Période Articles
-          </label>
-          <div class="flex gap-[2%] h-[5vh] min-h-[40px]">
-            <input
-              type="date"
-              v-model="articlesDateRange.start"
-              class="flex-1 h-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-            />
-            <input
-              type="date"
-              v-model="articlesDateRange.end"
-              class="flex-1 h-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        <!-- Projets Date Range -->
-        <div class="h-auto">
-          <label class="block text-sm font-medium text-gray-600 mb-[1vh]">
-            Période Projets
-          </label>
-          <div class="flex gap-[2%] h-[5vh] min-h-[40px]">
-            <input
-              type="date"
-              v-model="projetsDateRange.start"
-              class="flex-1 h-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-            />
-            <input
-              type="date"
-              v-model="projetsDateRange.end"
-              class="flex-1 h-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-end mt-[2vh] mb-[2vh]">
-        <button
-          @click="applyFilters"
-          class="h-[5vh] min-h-[40px] w-[15%] min-w-[150px] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 transition-colors"
+    <template v-else>
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-4 mb-6">
+        <!-- Réservations Card -->
+        <div
+          class="bg-white rounded-xl shadow-sm h-40 w-full flex flex-col justify-center items-center border border-gray-100"
         >
-          Appliquer les filtres
-        </button>
-      </div>
-      </div>
-    </div>
+          <div class="w-4/5 h-full mx-auto flex flex-col justify-around py-4">
+            <div class="flex items-center justify-between">
+              <div
+                class="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined text-green-600 text-2xl">calendar_month</span>
+              </div>
+              <span
+                :class="[
+                  'text-sm font-medium px-2 py-1 rounded-full',
+                  reservationsGrowth >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600',
+                ]"
+              >
+                {{ reservationsGrowth >= 0 ? '+' : '' }}{{ reservationsGrowth }}%
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 text-center">
+              <h3 class="text-gray-500 text-lg font-bold">Réservations</h3>
+              <p class="text-2xl font-bold text-gray-800">{{ stats.reservations.total }}</p>
+              <p class="text-xs text-gray-400">{{ stats.reservations.pending }} en attente</p>
+            </div>
+          </div>
+        </div>
 
-    <!-- Recent Activity & Quick Actions -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-[2%] w-full">
-      <!-- Recent Bookings -->
-      <div class="bg-white rounded-xl shadow-sm min-h-[35vh] border border-gray-100">
-        <div class="w-[95%] h-full mx-auto flex flex-col">
-          <div class="flex items-center justify-between h-[6vh] min-h-[50px]">
-            <h2 class="text-lg font-semibold text-gray-800">Réservations Récentes</h2>
-            <router-link
-              to="/admin/bookings"
-              class="text-sm text-[var(--bg-1)] hover:underline"
-            >
+        <!-- Articles Card -->
+        <div
+          class="bg-white rounded-xl shadow-sm h-40 w-full flex flex-col justify-center items-center border border-gray-100"
+        >
+          <div class="w-4/5 h-full mx-auto flex flex-col justify-around py-4">
+            <div class="flex items-center justify-between">
+              <div
+                class="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined text-blue-600 text-2xl">article</span>
+              </div>
+              <span
+                :class="[
+                  'text-sm font-medium px-2 py-1 rounded-full',
+                  articlesGrowth >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600',
+                ]"
+              >
+                {{ articlesGrowth >= 0 ? '+' : '' }}{{ articlesGrowth }}%
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 text-center">
+              <h3 class="text-gray-500 text-lg font-bold">Articles</h3>
+              <p class="text-2xl font-bold text-gray-800">{{ stats.articles.total }}</p>
+              <p class="text-xs text-gray-400">{{ stats.articles.thisMonth }} ce mois</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projets Card -->
+        <div
+          class="bg-white rounded-xl shadow-sm h-40 w-full flex flex-col justify-center items-center border border-gray-100"
+        >
+          <div class="w-4/5 h-full mx-auto flex flex-col justify-around py-4">
+            <div class="flex items-center justify-between">
+              <div
+                class="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined text-purple-600 text-2xl">architecture</span>
+              </div>
+              <span
+                :class="[
+                  'text-sm font-medium px-2 py-1 rounded-full',
+                  projetsGrowth >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600',
+                ]"
+              >
+                {{ projetsGrowth >= 0 ? '+' : '' }}{{ projetsGrowth }}%
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 text-center">
+              <h3 class="text-gray-500 text-lg font-bold">Projets</h3>
+              <p class="text-2xl font-bold text-gray-800">{{ stats.projects.total }}</p>
+              <p class="text-xs text-gray-400">{{ stats.projects.thisMonth }} ce mois</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity & Quick Actions -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+        <!-- Recent Reservations -->
+        <div class="bg-white rounded-xl shadow-sm min-h-80 border border-gray-100 flex justify-center">
+          <div class="w-[95%] h-full mx-auto py-4">
+            <div class="flex items-center justify-between h-12">
+              <h2 class="text-base font-semibold text-gray-800">Réservations Récentes</h2>
+              <router-link to="/admin/bookings" class="text-sm text-[var(--bg-1)] hover:underline">
+                Voir tout
+              </router-link>
+            </div>
+            <div v-if="recentReservations.length === 0" class="flex items-center justify-center h-40 text-gray-400">
+              Aucune réservation
+            </div>
+            <div v-else class="flex flex-col gap-2 overflow-y-auto max-h-64">
+              <div
+                v-for="reservation in recentReservations"
+                :key="reservation._id" 
+                class="flex items-center justify-between h-16 bg-gray-50 rounded-lg px-3"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 bg-[var(--second-orange)] rounded-full flex items-center justify-center text-white font-bold"
+                  >
+                    {{ getInitials(reservation.Nom_Client, reservation.Prenom_Client) }}
+                  </div>
+                  <div>
+                    <p class="font-medium text-gray-800">{{ reservation.Prenom_Client }} {{ reservation.Nom_Client }}</p>
+                    <p class="text-sm text-gray-500">{{ reservation.Email }}</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-xs text-gray-500">{{ formatDate(reservation.createdAt) }}</p>
+                  <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
+                    {{ reservation.Person_Number || 1 }} pers.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Articles -->
+        <div class="bg-white rounded-xl shadow-sm min-h-80 border border-gray-100 flex justify-center">
+          <div class="w-[95%] h-full mx-auto py-4">
+            <div class="flex items-center justify-between h-12">
+              <h2 class="text-base font-semibold text-gray-800">Articles Récents</h2>
+              <router-link to="/admin/blog" class="text-sm text-[var(--bg-1)] hover:underline">
+                Voir tout
+              </router-link>
+            </div>
+            <div v-if="recentArticles.length === 0" class="flex items-center justify-center h-40 text-gray-400">
+              Aucun article
+            </div>
+            <div v-else class="flex flex-col gap-2 overflow-y-auto max-h-64">
+              <div
+                v-for="article in recentArticles"
+                :key="article._id"
+                class="flex items-center justify-between h-16 bg-gray-50 rounded-lg px-3"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-14 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center"
+                  >
+                    <img
+                      v-if="article.CoverImage"
+                      :src="article.CoverImage"
+                      :alt="article.Title"
+                      class="w-full h-full object-cover"
+                    />
+                    <span v-else class="material-symbols-outlined text-gray-400">image</span>
+                  </div>
+                  <div>
+                    <p class="font-medium text-gray-800 line-clamp-1">{{ article.Title }}</p>
+                    <p class="text-sm text-gray-500">{{ formatDate(article.createdAt) }}</p>
+                  </div>
+                </div>
+                <span
+                  v-if="article.Tags && article.Tags.length > 0"
+                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
+                >
+                  {{ article.Tags[0] }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Projects -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex justify-center">
+        <div class="w-[95%] h-full mx-auto py-4">
+          <div class="flex items-center justify-between h-12">
+            <h2 class="text-base font-semibold text-gray-800">Projets Récents</h2>
+            <router-link to="/admin/projects" class="text-sm text-[var(--bg-1)] hover:underline">
               Voir tout
             </router-link>
           </div>
-          <div class="flex-1 overflow-y-auto space-y-[1vh]">
-          <div
-            v-for="booking in recentBookings"
-            :key="booking.id"
-            class="flex items-center justify-between h-[8vh] min-h-[60px] bg-gray-50 rounded-lg"
-          >
-            <div class="flex items-center w-[70%] h-full ml-[3%]">
-              <div class="w-[5vh] min-w-[40px] h-[5vh] min-h-[40px] bg-[var(--second-orange)] rounded-full flex items-center justify-center text-white font-bold">
-                {{ booking.clientName.charAt(0) }}
+          <div v-if="recentProjects.length === 0" class="flex items-center justify-center h-40 text-gray-400">
+            Aucun projet
+          </div>
+          <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div
+              v-for="project in recentProjects"
+              :key="project._id"
+              class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors"
+            >
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <span class="material-symbols-outlined text-purple-600">home_work</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-medium text-gray-800 truncate">{{ project.Title }}</p>
+                  <p class="text-sm text-gray-500">{{ project.Town }}, {{ project.Country }}</p>
+                </div>
               </div>
-              <div class="ml-[5%]">
-                <p class="font-medium text-gray-800">{{ booking.clientName }}</p>
-                <p class="text-sm text-gray-500">{{ booking.offer }}</p>
+              <div class="flex items-center justify-between text-xs text-gray-400">
+                <span>{{ project.Services || 'Non défini' }}</span>
+                <span>{{ formatDate(project.createdAt) }}</span>
               </div>
             </div>
-            <span
-              :class="[
-                'text-xs font-medium h-[3vh] min-h-[24px] flex items-center rounded-full mr-[3%]',
-                booking.status === 'confirmed' ? 'bg-green-100 text-green-600' : 
-                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : 'bg-red-100 text-red-600'
-              ]"
-            >
-              {{ getStatusLabel(booking.status) }}
-            </span>
           </div>
         </div>
       </div>
-      </div>
 
-      <!-- Recent Articles -->
-      <div class="bg-white rounded-xl shadow-sm min-h-[35vh] border border-gray-100">
-        <div class="w-[95%] h-full mx-auto flex flex-col">
-          <div class="flex items-center justify-between h-[6vh] min-h-[50px]">
-            <h2 class="text-lg font-semibold text-gray-800">Articles Récents</h2>
+      <!-- Quick Actions -->
+      <div
+        class="mt-4 mb-6 bg-white rounded-xl shadow-sm h-44 border border-gray-100 flex justify-center"
+      >
+        <div class="w-[95%] h-full mx-auto flex flex-col justify-around py-4">
+          <h2 class="text-base font-semibold text-gray-800">Actions Rapides</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-24">
             <router-link
               to="/admin/blog"
-              class="text-sm text-[var(--bg-1)] hover:underline"
+              class="flex flex-col items-center justify-center h-full bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
             >
-              Voir tout
+              <span class="material-symbols-outlined text-blue-600 text-3xl mb-2">add_circle</span>
+              <span class="text-sm font-medium text-gray-700">Nouvel Article</span>
+            </router-link>
+            <router-link
+              to="/admin/projects"
+              class="flex flex-col items-center justify-center h-full bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors"
+            >
+              <span class="material-symbols-outlined text-purple-600 text-3xl mb-2">add_home</span>
+              <span class="text-sm font-medium text-gray-700">Nouveau Projet</span>
+            </router-link>
+            <router-link
+              to="/admin/bookings"
+              class="flex flex-col items-center justify-center h-full bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+            >
+              <span class="material-symbols-outlined text-green-600 text-3xl mb-2">event_available</span>
+              <span class="text-sm font-medium text-gray-700">Réservations</span>
+            </router-link>
+            <router-link
+              to="/admin/mailbox"
+              class="flex flex-col items-center justify-center h-full bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors"
+            >
+              <span class="material-symbols-outlined text-orange-600 text-3xl mb-2">mail</span>
+              <span class="text-sm font-medium text-gray-700">Messages</span>
             </router-link>
           </div>
-          <div class="flex-1 overflow-y-auto space-y-[1vh]">
-          <div
-            v-for="article in recentArticles"
-            :key="article.id"
-            class="flex items-center justify-between h-[8vh] min-h-[60px] bg-gray-50 rounded-lg"
-          >
-            <div class="flex items-center w-[70%] h-full ml-[3%]">
-              <div class="w-[8vh] min-w-[60px] h-[6vh] min-h-[45px] bg-gray-200 rounded overflow-hidden">
-                <img
-                  :src="article.thumbnail"
-                  :alt="article.title"
-                  class="w-full h-full object-cover"
-                  v-if="article.thumbnail"
-                />
-              </div>
-              <div class="ml-[5%]">
-                <p class="font-medium text-gray-800 line-clamp-1">{{ article.title }}</p>
-                <p class="text-sm text-gray-500">{{ formatDate(article.createdAt) }}</p>
-              </div>
-            </div>
-            <span
-              :class="[
-                'text-xs font-medium h-[3vh] min-h-[24px] flex items-center rounded-full mr-[3%]',
-                article.published ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
-              ]"
-            >
-              {{ article.published ? 'Publié' : 'Brouillon' }}
-            </span>
-          </div>
         </div>
       </div>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="mt-[3vh] mb-[3vh] bg-white rounded-xl shadow-sm min-h-[20vh] border border-gray-100">
-      <div class="w-[95%] h-full mx-auto flex flex-col justify-around">
-        <h2 class="text-lg font-semibold text-gray-800 mt-[2vh]">Actions Rapides</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-[2%] my-[2vh]">
-        <router-link
-          to="/admin/blog"
-          class="flex flex-col items-center justify-center h-[12vh] min-h-[100px] bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
-        >
-          <span class="material-symbols-outlined text-blue-600 text-3xl mb-[1vh]">add_circle</span>
-          <span class="text-sm font-medium text-gray-700">Nouvel Article</span>
-        </router-link>
-        <router-link
-          to="/admin/projects"
-          class="flex flex-col items-center justify-center h-[12vh] min-h-[100px] bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors"
-        >
-          <span class="material-symbols-outlined text-purple-600 text-3xl mb-[1vh]">add_home</span>
-          <span class="text-sm font-medium text-gray-700">Nouveau Projet</span>
-        </router-link>
-        <router-link
-          to="/admin/bookings"
-          class="flex flex-col items-center justify-center h-[12vh] min-h-[100px] bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
-        >
-          <span class="material-symbols-outlined text-green-600 text-3xl mb-[1vh]">event_available</span>
-          <span class="text-sm font-medium text-gray-700">Gérer Offres</span>
-        </router-link>
-        <router-link
-          to="/admin/mailbox"
-          class="flex flex-col items-center justify-center h-[12vh] min-h-[100px] bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors"
-        >
-          <span class="material-symbols-outlined text-orange-600 text-3xl mb-[1vh]">mail</span>
-          <span class="text-sm font-medium text-gray-700">Messages</span>
-        </router-link>
-        </div>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 
 export default {
   name: 'DashboardView',
   setup() {
+    const isLoading = ref(true)
+    const API_BASE = '/api/api/v1'
+
     // Stats Data
-    const chiffreAffaires = ref(125000)
-    const caGrowth = ref(12.5)
-    const articlesCount = ref(24)
-    const articlesGrowth = ref(8)
-    const projetsCount = ref(15)
-    const projetsGrowth = ref(-3)
-
-    // Date Ranges
-    const caDateRange = reactive({
-      start: getFirstDayOfMonth(),
-      end: getToday()
-    })
-    const articlesDateRange = reactive({
-      start: getFirstDayOfMonth(),
-      end: getToday()
-    })
-    const projetsDateRange = reactive({
-      start: getFirstDayOfMonth(),
-      end: getToday()
+    const stats = reactive({
+      reservations: { total: 0, pending: 0 },
+      articles: { total: 0, thisMonth: 0 },
+      projects: { total: 0, thisMonth: 0 }
     })
 
-    // Recent Data (Mock)
-    const recentBookings = ref([
-      { id: 1, clientName: 'Jean Dupont', offer: 'Appartement Luxe - 7 jours', status: 'confirmed' },
-      { id: 2, clientName: 'Marie Claire', offer: 'Studio Moderne - 3 jours', status: 'pending' },
-      { id: 3, clientName: 'Paul Martin', offer: 'Villa Premium - 14 jours', status: 'confirmed' },
-      { id: 4, clientName: 'Sophie Lefebvre', offer: 'Appartement Standard - 5 jours', status: 'cancelled' }
-    ])
+    // Growth percentages (calculated from data)
+    const reservationsGrowth = ref(0)
+    const articlesGrowth = ref(0)
+    const projetsGrowth = ref(0)
 
-    const recentArticles = ref([
-      { id: 1, title: 'Les tendances architecturales 2026', thumbnail: null, createdAt: '2026-01-20', published: true },
-      { id: 2, title: 'Comment choisir son architecte d\'intérieur', thumbnail: null, createdAt: '2026-01-18', published: true },
-      { id: 3, title: 'Rénovation écologique : les bonnes pratiques', thumbnail: null, createdAt: '2026-01-15', published: false }
-    ])
+    // Recent Data
+    const recentReservations = ref([])
+    const recentArticles = ref([])
+    const recentProjects = ref([])
+
+    // Fetch data from API
+    const fetchDashboardData = async () => {
+      isLoading.value = true
+      const token = localStorage.getItem('accessToken')
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      }
+
+      try {
+        // Fetch all data in parallel
+        const [reservationsRes, articlesRes, projectsRes] = await Promise.all([
+          fetch(`${API_BASE}/reservation?perPage=5&page=1`, { headers }),
+          fetch(`${API_BASE}/article?perPage=5&page=1`, { headers }),
+          fetch(`${API_BASE}/projects?perPage=3&page=1`, { headers })
+        ])
+
+        // Process Reservations
+        if (reservationsRes.ok) {
+          const data = await reservationsRes.json()
+          const reservations = data.data || data.docs || []
+          const pagination = data.pagination || data
+          
+          stats.reservations.total = pagination.totalDocs || reservations.length
+          stats.reservations.pending = reservations.filter(r => !r.confirmed).length
+          recentReservations.value = reservations.slice(0, 5)
+          
+          // Calculate growth (simplified - would need historical data)
+          reservationsGrowth.value = calculateMonthlyGrowth(reservations)
+        }
+
+        // Process Articles
+        if (articlesRes.ok) {
+          const data = await articlesRes.json()
+          const articles = data.data || data.docs || []
+          const pagination = data.pagination || data
+          
+          stats.articles.total = pagination.totalDocs || articles.length
+          stats.articles.thisMonth = countThisMonth(articles)
+          recentArticles.value = articles.slice(0, 5)
+          
+          articlesGrowth.value = calculateMonthlyGrowth(articles)
+        }
+
+        // Process Projects
+        if (projectsRes.ok) {
+          const data = await projectsRes.json()
+          const projects = data.data || data.docs || []
+          const pagination = data.pagination || data
+          
+          stats.projects.total = pagination.totalDocs || projects.length
+          stats.projects.thisMonth = countThisMonth(projects)
+          recentProjects.value = projects.slice(0, 3)
+          
+          projetsGrowth.value = calculateMonthlyGrowth(projects)
+        }
+
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error)
+      } finally {
+        isLoading.value = false
+      }
+    }
 
     // Helper Functions
-    function getToday() {
-      return new Date().toISOString().split('T')[0]
-    }
-
-    function getFirstDayOfMonth() {
+    function countThisMonth(items) {
       const now = new Date()
-      return new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0]
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+      return items.filter(item => {
+        const createdAt = new Date(item.createdAt)
+        return createdAt >= startOfMonth
+      }).length
     }
 
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('fr-FR', {
-        style: 'currency',
-        currency: 'XOF',
-        minimumFractionDigits: 0
-      }).format(amount)
+    function calculateMonthlyGrowth(items) {
+      // Simplified growth calculation
+      const thisMonth = countThisMonth(items)
+      const total = items.length
+      if (total === 0) return 0
+      return Math.round((thisMonth / Math.max(total, 1)) * 100)
+    }
+
+    function getInitials(nom, prenom) {
+      const n = nom ? nom.charAt(0).toUpperCase() : ''
+      const p = prenom ? prenom.charAt(0).toUpperCase() : ''
+      return p + n || '?'
     }
 
     function formatDate(dateString) {
+      if (!dateString) return ''
       return new Date(dateString).toLocaleDateString('fr-FR', {
         day: 'numeric',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
       })
     }
 
-    function formatDateRange(range) {
-      const start = new Date(range.start).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
-      const end = new Date(range.end).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
-      return `${start} - ${end}`
-    }
-
-    function getStatusLabel(status) {
-      const labels = {
-        confirmed: 'Confirmé',
-        pending: 'En attente',
-        cancelled: 'Annulé'
-      }
-      return labels[status] || status
-    }
-
-    function applyFilters() {
-      // TODO: Implement API call to fetch filtered data
-      console.log('Applying filters...', {
-        ca: caDateRange,
-        articles: articlesDateRange,
-        projets: projetsDateRange
-      })
-    }
+    onMounted(() => {
+      fetchDashboardData()
+    })
 
     return {
-      chiffreAffaires,
-      caGrowth,
-      articlesCount,
+      isLoading,
+      stats,
+      reservationsGrowth,
       articlesGrowth,
-      projetsCount,
       projetsGrowth,
-      caDateRange,
-      articlesDateRange,
-      projetsDateRange,
-      recentBookings,
+      recentReservations,
       recentArticles,
-      formatCurrency,
+      recentProjects,
+      getInitials,
       formatDate,
-      formatDateRange,
-      getStatusLabel,
-      applyFilters
     }
-  }
+  },
 }
 </script>
 

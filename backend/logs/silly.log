@@ -1,0 +1,96 @@
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-23T14:36:20.866Z"}
+{"level":"http","message":"::ffff:172.19.0.6 GET / 404 - 4.682 ms","timestamp":"2026-01-23T14:39:14.718Z"}
+{"level":"http","message":"::ffff:172.19.0.6 GET / 404 - 1.050 ms","timestamp":"2026-01-23T14:58:07.969Z"}
+{"level":"http","message":"::ffff:172.19.0.6 GET / 404 - 1.024 ms","timestamp":"2026-01-23T15:37:49.068Z"}
+{"level":"http","message":"::ffff:172.19.0.6 GET / 404 - 0.911 ms","timestamp":"2026-01-23T16:55:35.000Z"}
+{"level":"http","message":"::ffff:172.19.0.6 GET / 404 - 0.936 ms","timestamp":"2026-01-23T16:57:02.852Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-23T16:57:29.953Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-23T16:57:38.425Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"password\" is required\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T16:58:47.594Z"}
+{"level":"error","message":"Error: \"password\" is required\n    at create (/app/src/modules/admin/controllers/admin.controller.js:30:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at /app/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/app/node_modules/express/lib/router/index.js:346:12)\n    at next (/app/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/app/node_modules/express/lib/router/index.js:175:3)","timestamp":"2026-01-23T16:58:47.597Z"}
+{"level":"http","message":"172.19.0.1 POST /api/v1/admin 422 - 16.281 ms","timestamp":"2026-01-23T16:58:47.608Z"}
+{"level":"warn","message":"\n        Error occurred with status code medium:\n            Message: Schema Validation Error\n            Severity: `SUPER_ADMIN` is not a valid enum value for path `roles.0`. severity\n            Errors: \"Admin validation failed: roles.0: `SUPER_ADMIN` is not a valid enum value for path `roles.0`.\"\n         \n        ","timestamp":"2026-01-23T16:59:01.191Z"}
+{"level":"error","message":"Error: Schema Validation Error\n    at ErrorHandlerMiddlewareMiddlewares.handler (/app/src/shared/middlewares/error.handler.middlewares.js:81:25)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-01-23T16:59:01.191Z"}
+{"level":"http","message":"172.19.0.1 POST /api/v1/admin 500 - 299.153 ms","timestamp":"2026-01-23T16:59:01.196Z"}
+{"level":"http","message":"172.19.0.1 POST /api/v1/admin 200 - 15.170 ms","timestamp":"2026-01-23T16:59:18.628Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"roles\" is required\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T17:06:26.384Z"}
+{"level":"error","message":"Error: \"roles\" is required\n    at create (/app/src/modules/admin/controllers/admin.controller.js:30:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at /app/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/app/node_modules/express/lib/router/index.js:346:12)\n    at next (/app/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/app/node_modules/express/lib/router/index.js:175:3)","timestamp":"2026-01-23T17:06:26.386Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin 422 - 3.367 ms","timestamp":"2026-01-23T17:06:26.388Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"roles\" is required\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T17:06:34.097Z"}
+{"level":"error","message":"Error: \"roles\" is required\n    at create (/app/src/modules/admin/controllers/admin.controller.js:30:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at /app/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/app/node_modules/express/lib/router/index.js:346:12)\n    at next (/app/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/app/node_modules/express/lib/router/index.js:175:3)","timestamp":"2026-01-23T17:06:34.098Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin 422 - 2.723 ms","timestamp":"2026-01-23T17:06:34.100Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-23T17:07:55.646Z"}
+{"level":"http","message":"172.19.0.1 POST /api/v1/admin 200 - 330.927 ms","timestamp":"2026-01-23T17:11:12.082Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin/auth/login 404 - 3.588 ms","timestamp":"2026-01-23T17:16:20.909Z"}
+{"level":"warn","message":"\n        Error occurred with status code 400:\n            Message: This account is not active.\n            Severity: low severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T17:23:23.673Z"}
+{"level":"error","message":"Error: This account is not active.\n    at AdminAuthServices.signin (/app/src/modules/admin/services/auth.admin.services.js:95:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async signin (/app/src/modules/admin/controllers/auth.admin.controller.js:94:22)","timestamp":"2026-01-23T17:23:23.675Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin/auth/signin 400 - 12.180 ms","timestamp":"2026-01-23T17:23:23.677Z"}
+{"level":"http","message":"172.19.0.1 POST /api/v1/admin/auth/verify-account 200 - 113.810 ms","timestamp":"2026-01-23T17:25:39.050Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin/auth/signin 200 - 150.871 ms","timestamp":"2026-01-23T17:26:24.063Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin/auth/signin 200 - 132.346 ms","timestamp":"2026-01-23T17:26:55.008Z"}
+{"level":"http","message":"172.19.0.1 POST /api/v1/admin/auth/signin 200 - 119.479 ms","timestamp":"2026-01-23T17:28:05.826Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/admin/auth/signin 200 - 119.166 ms","timestamp":"2026-01-23T17:28:51.564Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 12.578 ms","timestamp":"2026-01-23T17:52:26.185Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 8.518 ms","timestamp":"2026-01-23T17:52:26.188Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 6.119 ms","timestamp":"2026-01-23T17:52:26.197Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 3.807 ms","timestamp":"2026-01-23T17:52:28.896Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 4.005 ms","timestamp":"2026-01-23T17:52:28.905Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 2.024 ms","timestamp":"2026-01-23T17:52:28.910Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 6.646 ms","timestamp":"2026-01-23T17:56:35.666Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 4.704 ms","timestamp":"2026-01-23T17:56:35.667Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 2.410 ms","timestamp":"2026-01-23T17:56:35.672Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 304 - 4.609 ms","timestamp":"2026-01-23T18:00:28.801Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 304 - 7.045 ms","timestamp":"2026-01-23T18:00:28.815Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 304 - 2.890 ms","timestamp":"2026-01-23T18:00:28.855Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article 200 - 11.711 ms","timestamp":"2026-01-23T18:04:09.746Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/tags 200 - 34.372 ms","timestamp":"2026-01-23T18:04:09.783Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 4.652 ms","timestamp":"2026-01-23T18:08:35.473Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 5.608 ms","timestamp":"2026-01-23T18:08:35.482Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 3.662 ms","timestamp":"2026-01-23T18:08:35.483Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"Tags\" must be a string\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T18:14:28.762Z"}
+{"level":"error","message":"Error: \"Tags\" must be a string\n    at create (/app/src/modules/admin/controllers/article.controllers.js:29:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at /app/src/modules/admin/middlewares/auth.admin.middlewares.js:79:18\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-01-23T18:14:28.764Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/article 422 - 22.766 ms","timestamp":"2026-01-23T18:14:28.766Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 5.548 ms","timestamp":"2026-01-23T18:15:35.205Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 6.384 ms","timestamp":"2026-01-23T18:15:35.213Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 4.015 ms","timestamp":"2026-01-23T18:15:35.215Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"Name\" is not allowed\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T18:15:50.044Z"}
+{"level":"error","message":"Error: \"Name\" is not allowed\n    at create (/app/src/modules/admin/controllers/tags.controllers.js:29:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at /app/src/modules/admin/middlewares/auth.admin.middlewares.js:79:18\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-01-23T18:15:50.045Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/tags 422 - 13.391 ms","timestamp":"2026-01-23T18:15:50.047Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-23T18:20:50.485Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article 304 - 15.778 ms","timestamp":"2026-01-23T18:21:17.895Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/tags 304 - 37.501 ms","timestamp":"2026-01-23T18:21:17.937Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-23T18:24:05.311Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article 304 - 21.400 ms","timestamp":"2026-01-23T18:24:31.503Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/tags 304 - 46.199 ms","timestamp":"2026-01-23T18:24:31.539Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"Name\" is not allowed\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T18:28:03.887Z"}
+{"level":"error","message":"Error: \"Name\" is not allowed\n    at create (/app/src/modules/admin/controllers/tags.controllers.js:29:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at /app/src/modules/admin/middlewares/auth.admin.middlewares.js:79:18\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-01-23T18:28:03.888Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/tags 422 - 21.589 ms","timestamp":"2026-01-23T18:28:03.891Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article 304 - 8.671 ms","timestamp":"2026-01-23T18:29:28.951Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/tags 304 - 32.637 ms","timestamp":"2026-01-23T18:29:28.980Z"}
+{"level":"error","message":"\n        Error occurred with status code 422:\n            Message: \"Name\" is not allowed\n            Severity: medium severity\n            Errors: []\n         \n        ","timestamp":"2026-01-23T18:30:58.523Z"}
+{"level":"error","message":"Error: \"Name\" is not allowed\n    at create (/app/src/modules/admin/controllers/tags.controllers.js:29:22)\n    at /app/src/routes/route.parent.js:10:58\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at next (/app/node_modules/express/lib/router/route.js:149:13)\n    at /app/src/modules/admin/middlewares/auth.admin.middlewares.js:79:18\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-01-23T18:30:58.524Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/tags 422 - 14.167 ms","timestamp":"2026-01-23T18:30:58.526Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article 304 - 8.917 ms","timestamp":"2026-01-23T18:32:38.724Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/tags 304 - 16.247 ms","timestamp":"2026-01-23T18:32:38.736Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article 304 - 3.224 ms","timestamp":"2026-01-23T18:33:00.578Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/tags 304 - 14.044 ms","timestamp":"2026-01-23T18:33:00.594Z"}
+{"level":"http","message":"137.255.24.30 POST /api/v1/tags 200 - 27.079 ms","timestamp":"2026-01-23T18:33:29.463Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 4.148 ms","timestamp":"2026-01-23T18:36:37.123Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 9.082 ms","timestamp":"2026-01-23T18:36:37.137Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 6.818 ms","timestamp":"2026-01-23T18:36:37.140Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 5.561 ms","timestamp":"2026-01-23T18:41:37.604Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 8.901 ms","timestamp":"2026-01-23T18:41:37.616Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 10.070 ms","timestamp":"2026-01-23T18:41:37.619Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/reservation?perPage=5&page=1 200 - 3.464 ms","timestamp":"2026-01-23T18:46:37.358Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/article?perPage=5&page=1 200 - 4.352 ms","timestamp":"2026-01-23T18:46:37.366Z"}
+{"level":"http","message":"137.255.24.30 GET /api/v1/projects?perPage=3&page=1 200 - 7.379 ms","timestamp":"2026-01-23T18:46:37.370Z"}
+{"level":"http","message":"112.213.124.22 GET / 404 - 2.807 ms","timestamp":"2026-01-23T19:11:47.262Z"}
+{"level":"http","message":"116.118.47.173 GET / 404 - 0.764 ms","timestamp":"2026-01-23T20:17:05.250Z"}
+{"level":"http","message":"137.255.160.105 GET /api/v1/article 304 - 8.027 ms","timestamp":"2026-01-23T21:53:19.322Z"}
+{"level":"http","message":"137.255.160.105 GET /api/v1/tags 200 - 15.357 ms","timestamp":"2026-01-23T21:53:19.334Z"}
+{"level":"http","message":"137.255.160.105 GET /api/v1/article 304 - 3.623 ms","timestamp":"2026-01-23T21:57:26.622Z"}
+{"level":"http","message":"137.255.160.105 GET /api/v1/tags 304 - 10.420 ms","timestamp":"2026-01-23T21:57:26.634Z"}
+{"level":"http","message":"137.255.160.105 GET /api/v1/article 304 - 12.175 ms","timestamp":"2026-01-23T22:06:36.009Z"}
+{"level":"http","message":"137.255.160.105 GET /api/v1/tags 304 - 23.344 ms","timestamp":"2026-01-23T22:06:36.026Z"}
+{"level":"http","message":"43.198.95.70 GET / 404 - 0.670 ms","timestamp":"2026-01-23T22:39:57.776Z"}
+{"level":"http","message":"14.128.53.198 GET / 404 - 0.735 ms","timestamp":"2026-01-23T22:56:20.278Z"}

@@ -1,0 +1,366 @@
+{
+  "Reservation": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c35",
+        "description": "Unique identifier for the reservation"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2025-01-28T03:06:27.633Z",
+        "description": "Timestamp when the reservation was created"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2025-02-24T03:58:23.802Z",
+        "description": "Timestamp when the reservation was last updated"
+      },
+      "createdBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c36",
+        "description": "CreatedBy of Reservation"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c37",
+        "description": "UpdatedBy of Reservation"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c38",
+        "description": "DeletedBy of Reservation"
+      },
+      "Nom_Client": {
+        "type": "string",
+        "example": "Comparo tripudio coerceo totus.",
+        "description": "Nom_Client of Reservation"
+      },
+      "Prenom_Client": {
+        "type": "string",
+        "example": "Aperiam utroque demens.",
+        "description": "Prenom_Client of Reservation"
+      },
+      "Email": {
+        "type": "string",
+        "example": "Amitto cervus officiis talio vinculum vomica correptius attero iste curso.",
+        "description": "Email of Reservation"
+      },
+      "Country": {
+        "type": "string",
+        "example": "Perspiciatis tepesco succedo tabula admitto defluo tredecim.",
+        "description": "Country of Reservation"
+      },
+      "Phone": {
+        "type": "string",
+        "example": "Odio quam concedo alias canonicus.",
+        "description": "Phone of Reservation"
+      },
+      "Arrival_Date": {
+        "type": "string",
+        "example": "Tui comptus vitiosus depopulo.",
+        "description": "Arrival_Date of Reservation"
+      },
+      "Start_Date": {
+        "type": "string",
+        "example": "Clam tamen defaeco tergeo assentator.",
+        "description": "Start_Date of Reservation"
+      },
+      "Person_Number": {
+        "type": "string",
+        "example": 7990271215864373,
+        "description": "Person_Number of Reservation"
+      },
+      "Client_Message": {
+        "type": "string",
+        "example": "Omnis celebrer credo defleo tendo.",
+        "description": "Client_Message of Reservation"
+      },
+      "Payment_Mode": {
+        "type": "string",
+        "example": "Creta bestia pecco subseco virga thymbra nostrum.",
+        "description": "Payment_Mode of Reservation"
+      },
+      "Offer": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c39",
+        "description": "Offer of Reservation"
+      }
+    },
+    "required": []
+  },
+  "CreateReservationPayload": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c3b",
+        "description": "CreatedBy of Reservation"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c3c",
+        "description": "UpdatedBy of Reservation"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c3d",
+        "description": "DeletedBy of Reservation"
+      },
+      "Nom_Client": {
+        "type": "string",
+        "example": "Comptus beatae desipio coma tempore audacia.",
+        "description": "Nom_Client of Reservation"
+      },
+      "Prenom_Client": {
+        "type": "string",
+        "example": "Aeternus numquam una nobis brevis tardus.",
+        "description": "Prenom_Client of Reservation"
+      },
+      "Email": {
+        "type": "string",
+        "example": "Apostolus pauci quod torqueo molestias.",
+        "description": "Email of Reservation"
+      },
+      "Country": {
+        "type": "string",
+        "example": "Averto tricesimus tener.",
+        "description": "Country of Reservation"
+      },
+      "Phone": {
+        "type": "string",
+        "example": "Vomica veniam territo cohibeo aspernatur charisma.",
+        "description": "Phone of Reservation"
+      },
+      "Arrival_Date": {
+        "type": "string",
+        "example": "Video timor verbera amplus curo deorsum causa utrimque.",
+        "description": "Arrival_Date of Reservation"
+      },
+      "Start_Date": {
+        "type": "string",
+        "example": "Tutis pauper tutis thorax commemoro vergo curia.",
+        "description": "Start_Date of Reservation"
+      },
+      "Person_Number": {
+        "type": "string",
+        "example": 6330354620503861,
+        "description": "Person_Number of Reservation"
+      },
+      "Client_Message": {
+        "type": "string",
+        "example": "Complectus claro arbor dignissimos tricesimus ventus defero.",
+        "description": "Client_Message of Reservation"
+      },
+      "Payment_Mode": {
+        "type": "string",
+        "example": "Carus tam cubo aggero suffragium.",
+        "description": "Payment_Mode of Reservation"
+      },
+      "Offer": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c3e",
+        "description": "Offer of Reservation"
+      }
+    },
+    "required": []
+  },
+  "UpdateReservationPayload": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c40",
+        "description": "CreatedBy of Reservation"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c41",
+        "description": "UpdatedBy of Reservation"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c42",
+        "description": "DeletedBy of Reservation"
+      },
+      "Nom_Client": {
+        "type": "string",
+        "example": "Coepi stultus vulgivagus sonitus aeger tamen sordeo officiis stultus.",
+        "description": "Nom_Client of Reservation"
+      },
+      "Prenom_Client": {
+        "type": "string",
+        "example": "Tutamen complectus pax.",
+        "description": "Prenom_Client of Reservation"
+      },
+      "Email": {
+        "type": "string",
+        "example": "Vis soluta absens cuius dicta audacia.",
+        "description": "Email of Reservation"
+      },
+      "Country": {
+        "type": "string",
+        "example": "Angelus arx antiquus utpote amo quasi caelestis asporto amplitudo.",
+        "description": "Country of Reservation"
+      },
+      "Phone": {
+        "type": "string",
+        "example": "Alius patruus animadverto defero.",
+        "description": "Phone of Reservation"
+      },
+      "Arrival_Date": {
+        "type": "string",
+        "example": "Dedecor bestia sursum.",
+        "description": "Arrival_Date of Reservation"
+      },
+      "Start_Date": {
+        "type": "string",
+        "example": "Caput tres sopor casso utilis sortitus advenio celer.",
+        "description": "Start_Date of Reservation"
+      },
+      "Person_Number": {
+        "type": "string",
+        "example": 4949540746254425,
+        "description": "Person_Number of Reservation"
+      },
+      "Client_Message": {
+        "type": "string",
+        "example": "Degusto curso ancilla curia.",
+        "description": "Client_Message of Reservation"
+      },
+      "Payment_Mode": {
+        "type": "string",
+        "example": "Cinis tendo verto temporibus dignissimos sodalitas caute utique vacuus.",
+        "description": "Payment_Mode of Reservation"
+      },
+      "Offer": {
+        "type": "string",
+        "example": "6973837280be02a88d8e8c43",
+        "description": "Offer of Reservation"
+      }
+    },
+    "required": []
+  },
+  "ReservationPaginationResponse": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": "integer",
+        "example": 10,
+        "description": "Total number of pages"
+      },
+      "totalItems": {
+        "type": "integer",
+        "example": 100,
+        "description": "Total number of items"
+      },
+      "perPage": {
+        "type": "integer",
+        "example": 10,
+        "description": "Items per page"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Reservation"
+        },
+        "description": "Array of results for the current page"
+      }
+    }
+  },
+  "CreateReservationResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Reservation"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the create operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Reservation created successfully",
+        "description": "Creation success message"
+      }
+    }
+  },
+  "UpdateReservationResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Reservation"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the update operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Reservation updated successfully",
+        "description": "Update success message"
+      }
+    }
+  },
+  "DeleteReservationResponse": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the delete operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Reservation deleted successfully",
+        "description": "Deletion success message"
+      }
+    }
+  },
+  "FindReservationResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Reservation"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the find operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Reservation retrieved successfully",
+        "description": "Retrieval success message"
+      }
+    }
+  },
+  "ReservationErrorResponse": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "An error occurred",
+        "description": "Error message"
+      },
+      "code": {
+        "type": "integer",
+        "example": 400,
+        "description": "HTTP status code"
+      },
+      "success": {
+        "type": "boolean",
+        "example": false,
+        "description": "Indicates if the operation was unsuccessful"
+      }
+    }
+  }
+}

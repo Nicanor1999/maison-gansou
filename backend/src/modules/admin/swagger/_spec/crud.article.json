@@ -1,0 +1,237 @@
+{
+  "/api/v1/article": {
+    "post": {
+      "summary": "Create a new article",
+      "tags": [
+        "Article"
+      ],
+      "parameters": [],
+      "requestBody": {
+        "description": "Create Article",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateArticlePayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateArticleResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request"
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get list of article",
+      "tags": [
+        "Article"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "perPage",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the perPage of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the page of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "createdBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the createdBy of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "updatedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the updatedBy of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "deletedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the deletedBy of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Tags",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Tags of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Title",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Title of article",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Section",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Section of article",
+          "required": false
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "A list of article",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArticlePaginationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  },
+  "/api/v1/article/{id}": {
+    "put": {
+      "summary": "Update a article by ID",
+      "tags": [
+        "Article"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "article id",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "description": "Update Article",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateArticlePayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Updated successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateArticleResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "delete": {
+      "summary": "Delete a article by ID",
+      "tags": [
+        "Article"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "article id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "Deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteArticleResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get one article by ID",
+      "tags": [
+        "Article"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "article id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "One Article",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindArticleResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  }
+}

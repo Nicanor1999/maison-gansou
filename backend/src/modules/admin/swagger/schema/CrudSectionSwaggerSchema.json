@@ -1,0 +1,216 @@
+{
+  "Section": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string",
+        "example": "6973838280be02a88d8e9993",
+        "description": "Unique identifier for the section"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2025-12-12T01:56:56.931Z",
+        "description": "Timestamp when the section was created"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2025-07-29T16:12:23.028Z",
+        "description": "Timestamp when the section was last updated"
+      },
+      "createdBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e9994",
+        "description": "CreatedBy of Section"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e9995",
+        "description": "UpdatedBy of Section"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e9996",
+        "description": "DeletedBy of Section"
+      },
+      "Type": {
+        "type": "string",
+        "example": "Creber laudantium somnus spes laborum sunt adulescens.",
+        "description": "Type of Section"
+      }
+    },
+    "required": []
+  },
+  "CreateSectionPayload": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e9998",
+        "description": "CreatedBy of Section"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e9999",
+        "description": "UpdatedBy of Section"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e999a",
+        "description": "DeletedBy of Section"
+      },
+      "Type": {
+        "type": "string",
+        "example": "Antiquus sumptus umerus subvenio desparatus amoveo facere creber.",
+        "description": "Type of Section"
+      }
+    },
+    "required": []
+  },
+  "UpdateSectionPayload": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e999c",
+        "description": "CreatedBy of Section"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e999d",
+        "description": "UpdatedBy of Section"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973838280be02a88d8e999e",
+        "description": "DeletedBy of Section"
+      },
+      "Type": {
+        "type": "string",
+        "example": "Conservo xiphias torqueo consequatur ascit cinis tergeo sodalitas deleo.",
+        "description": "Type of Section"
+      }
+    },
+    "required": []
+  },
+  "SectionPaginationResponse": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": "integer",
+        "example": 10,
+        "description": "Total number of pages"
+      },
+      "totalItems": {
+        "type": "integer",
+        "example": 100,
+        "description": "Total number of items"
+      },
+      "perPage": {
+        "type": "integer",
+        "example": 10,
+        "description": "Items per page"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Section"
+        },
+        "description": "Array of results for the current page"
+      }
+    }
+  },
+  "CreateSectionResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Section"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the create operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Section created successfully",
+        "description": "Creation success message"
+      }
+    }
+  },
+  "UpdateSectionResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Section"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the update operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Section updated successfully",
+        "description": "Update success message"
+      }
+    }
+  },
+  "DeleteSectionResponse": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the delete operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Section deleted successfully",
+        "description": "Deletion success message"
+      }
+    }
+  },
+  "FindSectionResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Section"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the find operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Section retrieved successfully",
+        "description": "Retrieval success message"
+      }
+    }
+  },
+  "SectionErrorResponse": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "An error occurred",
+        "description": "Error message"
+      },
+      "code": {
+        "type": "integer",
+        "example": 400,
+        "description": "HTTP status code"
+      },
+      "success": {
+        "type": "boolean",
+        "example": false,
+        "description": "Indicates if the operation was unsuccessful"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Dockerfile for development
+FROM node:20-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies (including devDependencies for nodemon)
+RUN npm install
+
+# Expose application port
+EXPOSE 3000
+
+# Command for development with hot-reload
+CMD ["npm", "run", "dev"]

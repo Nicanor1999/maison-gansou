@@ -12,6 +12,11 @@ const routes = [
         component: LoginView
     },
     {
+        path: '/admin/login',
+        name: 'admin-login',
+        component: Admin.LoginAdminView
+    },
+    {
       path: '/',
       name: 'public',
       component: Public.LayoutPublicView,
@@ -42,7 +47,7 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: Admin.LayoutAdminView,
-        // meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
         children: [
             { path:'/admin', name:'admin-dashboard', component: Admin.DashboardView },
             { path:'/admin/blog', name:'admin-blog', component: Admin.BlogView },
@@ -70,7 +75,7 @@ router.beforeEach((to, from, next) => {
     const accessToken = localStorage.getItem('accessToken')
     if (!accessToken) {
       ui.hideLoader()
-      return next({ name: 'home' })
+      return next({ name: 'admin-login' })
     }
   }
 

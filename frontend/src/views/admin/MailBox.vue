@@ -1,36 +1,36 @@
 <template>
-  <div class="mailbox">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-[2vw] h-[85vh]">
+  <div class="mailbox h-full w-full overflow-y-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 h-full">
       <!-- Messages List -->
       <div class="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
         <!-- Search -->
-        <div class="h-[8vh] min-h-[60px] flex items-center border-b w-[90%] mx-auto">
+        <div class="h-16 flex items-center border-b px-4 flex-shrink-0">
           <div class="relative w-full">
             <input
               type="text"
               v-model="searchQuery"
               placeholder="Rechercher un message..."
-              class="w-full h-[5vh] min-h-[40px] pl-[3vw] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full h-10 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
             />
-            <span class="material-symbols-outlined absolute left-[1vw] top-1/2 -translate-y-1/2 text-gray-400">search</span>
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
           </div>
         </div>
 
         <!-- Filters -->
-        <div class="h-[6vh] min-h-[48px] flex items-center border-b w-[90%] mx-auto gap-[0.5vw]">
+        <div class="h-12 flex items-center border-b px-4 gap-2 flex-shrink-0">
           <button
             v-for="filter in filters"
             :key="filter.id"
             @click="activeFilter = filter.id"
             :class="[
-              'h-[4vh] min-h-[32px] px-[1vw] text-sm rounded-full transition-colors',
+              'h-8 px-3 text-sm rounded-full transition-colors',
               activeFilter === filter.id
                 ? 'bg-[var(--bg-1)] text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             ]"
           >
             {{ filter.label }}
-            <span v-if="filter.count" class="ml-[0.3vw] text-xs opacity-75">({{ filter.count }})</span>
+            <span v-if="filter.count" class="ml-1 text-xs opacity-75">({{ filter.count }})</span>
           </button>
         </div>
 
@@ -41,22 +41,22 @@
             :key="message.id"
             @click="selectMessage(message)"
             :class="[
-              'h-[16vh] min-h-[130px] w-[95%] mx-auto border-b cursor-pointer transition-colors flex flex-col justify-center',
+              'p-4 border-b cursor-pointer transition-colors',
               selectedMessage?.id === message.id ? 'bg-blue-50' : 'hover:bg-gray-50',
               !message.read ? 'bg-blue-50/50' : ''
             ]"
           >
-            <div class="flex items-start justify-between mb-[0.5vh]">
+            <div class="flex items-start justify-between mb-2">
               <div class="flex items-center">
                 <div
                   :class="[
-                    'w-[5vh] min-w-[40px] h-[5vh] min-h-[40px] rounded-full flex items-center justify-center text-white font-bold text-sm',
+                    'w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm',
                     message.read ? 'bg-gray-400' : 'bg-[var(--bg-1)]'
                   ]"
                 >
                   {{ message.senderName.charAt(0) }}
                 </div>
-                <div class="ml-[1vw]">
+                <div class="ml-3">
                   <p :class="['font-medium', !message.read ? 'text-gray-800' : 'text-gray-600']">
                     {{ message.senderName }}
                   </p>
@@ -65,18 +65,18 @@
               </div>
               <span class="text-xs text-gray-400">{{ formatTime(message.createdAt) }}</span>
             </div>
-            <p :class="['text-sm mt-[0.5vh] line-clamp-1', !message.read ? 'font-medium text-gray-800' : 'text-gray-500']">
+            <p :class="['text-sm mt-1 line-clamp-1', !message.read ? 'font-medium text-gray-800' : 'text-gray-500']">
               {{ message.subject }}
             </p>
-            <p class="text-xs text-gray-400 mt-[0.5vh] line-clamp-1">{{ message.content }}</p>
-            <div class="flex gap-[0.5vw] mt-[0.5vh]">
+            <p class="text-xs text-gray-400 mt-1 line-clamp-1">{{ message.content }}</p>
+            <div class="flex gap-2 mt-2">
               <span
                 v-if="message.starred"
                 class="material-symbols-outlined text-yellow-500 text-sm"
               >star</span>
               <span
                 :class="[
-                  'text-xs rounded-full',
+                  'text-xs px-2 py-0.5 rounded-full',
                   message.category === 'contact' ? 'bg-blue-100 text-blue-600' :
                   message.category === 'booking' ? 'bg-green-100 text-green-600' :
                   message.category === 'recruitment' ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-600'
@@ -87,8 +87,8 @@
             </div>
           </div>
 
-          <div v-if="filteredMessages.length === 0" class="h-[25vh] min-h-[200px] flex flex-col items-center justify-center text-gray-400">
-            <span class="material-symbols-outlined text-4xl mb-[1vh]">inbox</span>
+          <div v-if="filteredMessages.length === 0" class="h-48 flex flex-col items-center justify-center text-gray-400">
+            <span class="material-symbols-outlined text-4xl mb-2">inbox</span>
             <p>Aucun message</p>
           </div>
         </div>
@@ -98,21 +98,21 @@
       <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
         <div v-if="selectedMessage" class="flex flex-col h-full">
           <!-- Header -->
-          <div class="border-b">
-            <div class="h-[10vh] min-h-[80px] flex items-center justify-between w-[95%] mx-auto">
+          <div class="border-b flex-shrink-0">
+            <div class="h-16 flex items-center justify-between px-6">
               <div class="flex items-center">
-                <div class="w-[6vh] min-w-[48px] h-[6vh] min-h-[48px] bg-[var(--bg-1)] rounded-full flex items-center justify-center text-white font-bold">
+                <div class="w-12 h-12 bg-[var(--bg-1)] rounded-full flex items-center justify-center text-white font-bold">
                   {{ selectedMessage.senderName.charAt(0) }}
                 </div>
-                <div class="ml-[1vw]">
+                <div class="ml-4">
                   <p class="font-semibold text-gray-800">{{ selectedMessage.senderName }}</p>
                   <p class="text-sm text-gray-500">{{ selectedMessage.senderEmail }}</p>
                 </div>
               </div>
-              <div class="flex items-center gap-[0.5vw]">
+              <div class="flex items-center gap-2">
                 <button
                   @click="toggleStar(selectedMessage)"
-                  class="h-[5vh] min-h-[40px] w-[5vh] min-w-[40px] flex items-center justify-center hover:bg-gray-100 rounded-lg"
+                  class="h-10 w-10 flex items-center justify-center hover:bg-gray-100 rounded-lg"
                   :title="selectedMessage.starred ? 'Retirer des favoris' : 'Ajouter aux favoris'"
                 >
                   <span
@@ -124,28 +124,28 @@
                 </button>
                 <button
                   @click="archiveMessage(selectedMessage)"
-                  class="h-[5vh] min-h-[40px] w-[5vh] min-w-[40px] flex items-center justify-center hover:bg-gray-100 rounded-lg text-gray-400"
+                  class="h-10 w-10 flex items-center justify-center hover:bg-gray-100 rounded-lg text-gray-400"
                   title="Archiver"
                 >
                   <span class="material-symbols-outlined">archive</span>
                 </button>
                 <button
                   @click="deleteMessage(selectedMessage)"
-                  class="h-[5vh] min-h-[40px] w-[5vh] min-w-[40px] flex items-center justify-center hover:bg-red-50 rounded-lg text-red-500"
+                  class="h-10 w-10 flex items-center justify-center hover:bg-red-50 rounded-lg text-red-500"
                   title="Supprimer"
                 >
                   <span class="material-symbols-outlined">delete</span>
                 </button>
               </div>
             </div>
-            <div class="h-[8vh] min-h-[64px] flex items-center justify-between w-[95%] mx-auto">
+            <div class="h-14 flex items-center justify-between px-6">
               <h2 class="text-xl font-semibold text-gray-800">{{ selectedMessage.subject }}</h2>
               <span class="text-sm text-gray-400">{{ formatDate(selectedMessage.createdAt) }}</span>
             </div>
-            <div class="h-[5vh] min-h-[40px] flex items-center gap-[0.5vw] w-[95%] mx-auto">
+            <div class="h-10 flex items-center gap-2 px-6">
               <span
                 :class="[
-                  'text-xs rounded-full',
+                  'text-xs px-2 py-0.5 rounded-full',
                   selectedMessage.category === 'contact' ? 'bg-blue-100 text-blue-600' :
                   selectedMessage.category === 'booking' ? 'bg-green-100 text-green-600' :
                   selectedMessage.category === 'recruitment' ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-600'
@@ -153,29 +153,29 @@
               >
                 {{ getCategoryLabel(selectedMessage.category) }}
               </span>
-              <span v-if="selectedMessage.phone" class="text-xs bg-gray-100 text-gray-600 rounded-full">
+              <span v-if="selectedMessage.phone" class="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">
                 {{ selectedMessage.phone }}
               </span>
             </div>
           </div>
 
           <!-- Content -->
-          <div class="flex-1 w-[95%] mx-auto py-[2vh] overflow-y-auto">
+          <div class="flex-1 p-6 overflow-y-auto">
             <div class="prose max-w-none">
               <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ selectedMessage.content }}</p>
             </div>
 
             <!-- Attachments -->
-            <div v-if="selectedMessage.attachments && selectedMessage.attachments.length > 0" class="mt-[3vh]">
-              <h4 class="text-sm font-medium text-gray-600 mb-[1vh]">Pièces jointes</h4>
-              <div class="flex flex-wrap gap-[0.5vw]">
+            <div v-if="selectedMessage.attachments && selectedMessage.attachments.length > 0" class="mt-6">
+              <h4 class="text-sm font-medium text-gray-600 mb-2">Pièces jointes</h4>
+              <div class="flex flex-wrap gap-2">
                 <a
                   v-for="attachment in selectedMessage.attachments"
                   :key="attachment.name"
                   :href="attachment.url"
-                  class="flex items-center h-[5vh] min-h-[40px] px-[1vw] bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                  class="flex items-center h-10 px-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
                 >
-                  <span class="material-symbols-outlined text-gray-500 mr-[0.5vw]">attach_file</span>
+                  <span class="material-symbols-outlined text-gray-500 mr-2">attach_file</span>
                   <span class="text-sm text-gray-700">{{ attachment.name }}</span>
                 </a>
               </div>
@@ -183,20 +183,20 @@
           </div>
 
           <!-- Reply Section -->
-          <div class="h-[10vh] min-h-[80px] border-t flex items-center w-[95%] mx-auto">
-            <div class="flex gap-[1vw] w-full">
+          <div class="h-16 border-t flex items-center px-6 flex-shrink-0">
+            <div class="flex gap-3 w-full">
               <button
                 @click="openReplyModal"
-                class="flex-1 h-[5vh] min-h-[40px] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 transition-colors flex items-center justify-center"
+                class="flex-1 h-10 bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 transition-colors flex items-center justify-center"
               >
-                <span class="material-symbols-outlined mr-[0.5vw]">reply</span>
+                <span class="material-symbols-outlined mr-2">reply</span>
                 Répondre
               </button>
               <button
                 @click="openForwardModal"
-                class="h-[5vh] min-h-[40px] w-[12%] min-w-[120px] border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
+                class="h-10 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
               >
-                <span class="material-symbols-outlined mr-[0.5vw]">forward</span>
+                <span class="material-symbols-outlined mr-2">forward</span>
                 Transférer
               </button>
             </div>
@@ -206,7 +206,7 @@
         <!-- No Message Selected -->
         <div v-else class="flex-1 flex items-center justify-center text-gray-400">
           <div class="text-center">
-            <span class="material-symbols-outlined text-6xl mb-[2vh]">mail</span>
+            <span class="material-symbols-outlined text-6xl mb-4">mail</span>
             <p class="text-lg">Sélectionnez un message pour le lire</p>
           </div>
         </div>
@@ -218,55 +218,55 @@
       v-if="showReplyModal"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
-      <div class="bg-white rounded-xl w-[50vw] min-w-[500px] max-w-2xl max-h-[90vh] overflow-hidden">
-        <div class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto">
-          <h2 class="text-lg font-semibold text-gray-800">
+      <div class="bg-white rounded-xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
+        <div class="h-16 border-b flex items-center justify-between px-6">
+          <h2 class="text-xl font-semibold text-gray-800">
             {{ isForwarding ? 'Transférer le message' : 'Répondre' }}
           </h2>
           <button @click="closeReplyModal" class="text-gray-500 hover:text-gray-700">
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
-        <div class="w-[90%] mx-auto py-[2vh] space-y-[2vh]">
+        <div class="p-6 space-y-5">
           <div v-if="isForwarding">
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">À</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">À</label>
             <input
               type="email"
               v-model="replyForm.to"
-              class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
               placeholder="email@exemple.com"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Sujet</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Sujet</label>
             <input
               type="text"
               v-model="replyForm.subject"
-              class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Message</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
             <textarea
               v-model="replyForm.content"
               rows="8"
-              class="w-full h-[25vh] min-h-[200px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full min-h-[200px] p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent resize-none"
               placeholder="Écrivez votre réponse..."
             ></textarea>
           </div>
         </div>
-        <div class="h-[8vh] min-h-[60px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto">
+        <div class="h-16 border-t flex items-center justify-end gap-3 px-6">
           <button
             @click="closeReplyModal"
-            class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
+            class="h-10 px-6 border border-gray-300 rounded-lg hover:bg-gray-50"
           >
             Annuler
           </button>
           <button
             @click="sendReply"
-            class="h-[5vh] min-h-[40px] w-[12%] min-w-[120px] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 flex items-center justify-center"
+            class="h-10 px-6 bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 flex items-center justify-center"
           >
-            <span class="material-symbols-outlined mr-[0.5vw]">send</span>
+            <span class="material-symbols-outlined mr-2">send</span>
             Envoyer
           </button>
         </div>

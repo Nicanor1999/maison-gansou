@@ -1,0 +1,186 @@
+{
+  "Tags": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string",
+        "example": "6973837e80be02a88d8e964e",
+        "description": "Unique identifier for the tags"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2025-10-22T19:42:27.222Z",
+        "description": "Timestamp when the tags was created"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2025-01-25T13:38:56.693Z",
+        "description": "Timestamp when the tags was last updated"
+      },
+      "createdBy": {
+        "type": "string",
+        "example": "6973837e80be02a88d8e964f",
+        "description": "CreatedBy of Tags"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973837e80be02a88d8e9650",
+        "description": "UpdatedBy of Tags"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973837e80be02a88d8e9651",
+        "description": "DeletedBy of Tags"
+      },
+      "Tags": {
+        "type": "string",
+        "example": "Aspicio tendo ulciscor addo succedo vero adversus convoco patria porro.",
+        "description": "Tags of Tags"
+      }
+    },
+    "required": []
+  },
+  "CreateTagsPayload": {
+    "type": "object",
+    "properties": {
+      "Tags": {
+        "type": "string",
+        "example": "Crudelis conqueror voro quidem aspernatur umquam depulso coadunatio deserunt optio.",
+        "description": "Tags of Tags"
+      }
+    },
+    "required": []
+  },
+  "UpdateTagsPayload": {
+    "type": "object",
+    "properties": {
+      "Tags": {
+        "type": "string",
+        "example": "Tamen acerbitas consectetur.",
+        "description": "Tags of Tags"
+      }
+    },
+    "required": []
+  },
+  "TagsPaginationResponse": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": "integer",
+        "example": 10,
+        "description": "Total number of pages"
+      },
+      "totalItems": {
+        "type": "integer",
+        "example": 100,
+        "description": "Total number of items"
+      },
+      "perPage": {
+        "type": "integer",
+        "example": 10,
+        "description": "Items per page"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tags"
+        },
+        "description": "Array of results for the current page"
+      }
+    }
+  },
+  "CreateTagsResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Tags"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the create operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Tags created successfully",
+        "description": "Creation success message"
+      }
+    }
+  },
+  "UpdateTagsResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Tags"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the update operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Tags updated successfully",
+        "description": "Update success message"
+      }
+    }
+  },
+  "DeleteTagsResponse": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the delete operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Tags deleted successfully",
+        "description": "Deletion success message"
+      }
+    }
+  },
+  "FindTagsResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Tags"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the find operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Tags retrieved successfully",
+        "description": "Retrieval success message"
+      }
+    }
+  },
+  "TagsErrorResponse": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "An error occurred",
+        "description": "Error message"
+      },
+      "code": {
+        "type": "integer",
+        "example": 400,
+        "description": "HTTP status code"
+      },
+      "success": {
+        "type": "boolean",
+        "example": false,
+        "description": "Indicates if the operation was unsuccessful"
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@
       <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
         <router-link to="/" class="flex items-center">
           <img :src="logo" alt="Logo" class="h-10 w-auto" />
-          <span class="ml-2 text-white font-bold text-lg">Admin</span>
+          <span class="pl-2 text-white font-bold text-lg">Admin</span>
         </router-link>
         <button @click="toggleSidebar" class="text-white hover:bg-gray-700 rounded-lg p-2">
           <span class="material-symbols-outlined">close</span>
@@ -33,7 +33,7 @@
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white'
               ]"
             >
-              <span class="material-symbols-outlined mr-3">{{ item.icon }}</span>
+              <span class="material-symbols-outlined pr-1">{{ item.icon }}</span>
               <span class="font-medium">{{ item.label }}</span>
             </router-link>
           </li>
@@ -46,7 +46,7 @@
           @click="logout"
           class="flex items-center w-full h-12 px-4 text-gray-300 hover:bg-red-600 hover:text-white rounded-lg transition-all duration-200"
         >
-          <span class="material-symbols-outlined mr-3">logout</span>
+          <span class="material-symbols-outlined pr-1">logout</span>
           <span class="font-medium">Déconnexion</span>
         </button>
       </div>
@@ -64,7 +64,7 @@
             >
               <span class="material-symbols-outlined">menu</span>
             </button>
-            <h1 class="text-xl font-semibold text-gray-800">
+            <h1 class="text-sm md:text-base font-semibold text-gray-800">
               {{ currentPageTitle }}
             </h1>
           </div>

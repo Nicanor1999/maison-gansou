@@ -1,0 +1,345 @@
+{
+  "/api/v1/reservation": {
+    "post": {
+      "summary": "Create a new reservation",
+      "tags": [
+        "Reservation"
+      ],
+      "parameters": [],
+      "requestBody": {
+        "description": "Create Reservation",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateReservationPayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReservationResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request"
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get list of reservation",
+      "tags": [
+        "Reservation"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "perPage",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the perPage of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the page of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "createdBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the createdBy of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "updatedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the updatedBy of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "deletedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the deletedBy of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Nom_Client",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Nom_Client of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Prenom_Client",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Prenom_Client of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Email",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Email of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Country",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Country of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Phone",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Phone of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Arrival_Date",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Arrival_Date of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Start_Date",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Start_Date of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Person_Number",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Person_Number of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Person_NumberLessThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Person_NumberLessThan of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Person_NumberLessThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Person_NumberLessThanOrEqualTo of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Person_NumberGreaterThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Person_NumberGreaterThanOrEqualTo of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Person_NumberGreaterThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Person_NumberGreaterThan of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Client_Message",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Client_Message of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Payment_Mode",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Payment_Mode of reservation",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Offer",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Offer of reservation",
+          "required": false
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "A list of reservation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReservationPaginationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  },
+  "/api/v1/reservation/{id}": {
+    "put": {
+      "summary": "Update a reservation by ID",
+      "tags": [
+        "Reservation"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "reservation id",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "description": "Update Reservation",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateReservationPayload"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Updated successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReservationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "delete": {
+      "summary": "Delete a reservation by ID",
+      "tags": [
+        "Reservation"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "reservation id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "Deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteReservationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get one reservation by ID",
+      "tags": [
+        "Reservation"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "reservation id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "One Reservation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindReservationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  }
+}

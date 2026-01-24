@@ -1,0 +1,381 @@
+{
+  "Offer": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string",
+        "example": "6973837780be02a88d8e918c",
+        "description": "Unique identifier for the offer"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2025-11-04T22:56:25.428Z",
+        "description": "Timestamp when the offer was created"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2025-11-26T04:56:48.811Z",
+        "description": "Timestamp when the offer was last updated"
+      },
+      "createdBy": {
+        "type": "string",
+        "example": "6973837780be02a88d8e918d",
+        "description": "CreatedBy of Offer"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973837780be02a88d8e918e",
+        "description": "UpdatedBy of Offer"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973837780be02a88d8e918f",
+        "description": "DeletedBy of Offer"
+      },
+      "Nightly_Price": {
+        "type": "string",
+        "example": 7030141550743915,
+        "description": "Nightly_Price of Offer"
+      },
+      "Pictures": {
+        "type": "string",
+        "example": ["Atqui despecto explicabo conventus."],
+        "description": "Pictures of Offer"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Turpis tego aperiam derelinquo.",
+        "description": "Title of Offer"
+      },
+      "Bio": {
+        "type": "string",
+        "example": "Omnis benigne clam sustineo tam.",
+        "description": "Bio of Offer"
+      },
+      "Bed_Number": {
+        "type": "string",
+        "example": 4340758143532569,
+        "description": "Bed_Number of Offer"
+      },
+      "Town": {
+        "type": "string",
+        "example": "Amplexus accedo recusandae culpa vesper.",
+        "description": "Town of Offer"
+      },
+      "Room_Number": {
+        "type": "string",
+        "example": 7878531532306819,
+        "description": "Room_Number of Offer"
+      },
+      "Availability": {
+        "type": "string",
+        "example": true,
+        "description": "Availability of Offer"
+      },
+      "Kitchen_Number": {
+        "type": "string",
+        "example": 4995596985002020,
+        "description": "Kitchen_Number of Offer"
+      },
+      "Parking": {
+        "type": "string",
+        "example": "",
+        "description": "Parking of Offer"
+      },
+      "Washing_Name": {
+        "type": "string",
+        "example": "",
+        "description": "Washing_Name of Offer"
+      },
+      "Wifi": {
+        "type": "string",
+        "example": true,
+        "description": "Wifi of Offer"
+      },
+      "AC": {
+        "type": "string",
+        "example": "",
+        "description": "AC of Offer"
+      },
+      "Security": {
+        "type": "string",
+        "example": "",
+        "description": "Security of Offer"
+      }
+    },
+    "required": []
+  },
+  "CreateOfferPayload": {
+    "type": "object",
+    "properties": {
+      "Nightly_Price": {
+        "type": "string",
+        "example": 6735482087862340,
+        "description": "Nightly_Price of Offer"
+      },
+      "Pictures": {
+        "type": "string",
+        "example": ["Validus ventus voro villa ambulo cuppedia crux ustilo valetudo damno."],
+        "description": "Pictures of Offer"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Vomica cuppedia possimus amo.",
+        "description": "Title of Offer"
+      },
+      "Bio": {
+        "type": "string",
+        "example": "Claudeo molestias ipsam casus cohors.",
+        "description": "Bio of Offer"
+      },
+      "Bed_Number": {
+        "type": "string",
+        "example": 2476384555441540,
+        "description": "Bed_Number of Offer"
+      },
+      "Town": {
+        "type": "string",
+        "example": "Bibo antepono strues.",
+        "description": "Town of Offer"
+      },
+      "Room_Number": {
+        "type": "string",
+        "example": 4127220233360424,
+        "description": "Room_Number of Offer"
+      },
+      "Availability": {
+        "type": "string",
+        "example": true,
+        "description": "Availability of Offer"
+      },
+      "Kitchen_Number": {
+        "type": "string",
+        "example": 6607394595182177,
+        "description": "Kitchen_Number of Offer"
+      },
+      "Parking": {
+        "type": "string",
+        "example": "",
+        "description": "Parking of Offer"
+      },
+      "Washing_Name": {
+        "type": "string",
+        "example": true,
+        "description": "Washing_Name of Offer"
+      },
+      "Wifi": {
+        "type": "string",
+        "example": "",
+        "description": "Wifi of Offer"
+      },
+      "AC": {
+        "type": "string",
+        "example": "",
+        "description": "AC of Offer"
+      },
+      "Security": {
+        "type": "string",
+        "example": "",
+        "description": "Security of Offer"
+      }
+    },
+    "required": []
+  },
+  "UpdateOfferPayload": {
+    "type": "object",
+    "properties": {
+      "Nightly_Price": {
+        "type": "string",
+        "example": 2179900660852779,
+        "description": "Nightly_Price of Offer"
+      },
+      "Pictures": {
+        "type": "string",
+        "example": ["Angelus textor dolores concido tero."],
+        "description": "Pictures of Offer"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Vacuus dolore totus tepidus turbo.",
+        "description": "Title of Offer"
+      },
+      "Bio": {
+        "type": "string",
+        "example": "Amo tripudio tergeo speculum paens.",
+        "description": "Bio of Offer"
+      },
+      "Bed_Number": {
+        "type": "string",
+        "example": 5045320400928439,
+        "description": "Bed_Number of Offer"
+      },
+      "Town": {
+        "type": "string",
+        "example": "Admiratio communis conitor virgo iusto nesciunt.",
+        "description": "Town of Offer"
+      },
+      "Room_Number": {
+        "type": "string",
+        "example": 7327506755135533,
+        "description": "Room_Number of Offer"
+      },
+      "Availability": {
+        "type": "string",
+        "example": "",
+        "description": "Availability of Offer"
+      },
+      "Kitchen_Number": {
+        "type": "string",
+        "example": 4947245321794002,
+        "description": "Kitchen_Number of Offer"
+      },
+      "Parking": {
+        "type": "string",
+        "example": true,
+        "description": "Parking of Offer"
+      },
+      "Washing_Name": {
+        "type": "string",
+        "example": true,
+        "description": "Washing_Name of Offer"
+      },
+      "Wifi": {
+        "type": "string",
+        "example": "",
+        "description": "Wifi of Offer"
+      },
+      "AC": {
+        "type": "string",
+        "example": "",
+        "description": "AC of Offer"
+      },
+      "Security": {
+        "type": "string",
+        "example": true,
+        "description": "Security of Offer"
+      }
+    },
+    "required": []
+  },
+  "OfferPaginationResponse": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": "integer",
+        "example": 10,
+        "description": "Total number of pages"
+      },
+      "totalItems": {
+        "type": "integer",
+        "example": 100,
+        "description": "Total number of items"
+      },
+      "perPage": {
+        "type": "integer",
+        "example": 10,
+        "description": "Items per page"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Offer"
+        },
+        "description": "Array of results for the current page"
+      }
+    }
+  },
+  "CreateOfferResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Offer"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the create operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Offer created successfully",
+        "description": "Creation success message"
+      }
+    }
+  },
+  "UpdateOfferResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Offer"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the update operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Offer updated successfully",
+        "description": "Update success message"
+      }
+    }
+  },
+  "DeleteOfferResponse": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the delete operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Offer deleted successfully",
+        "description": "Deletion success message"
+      }
+    }
+  },
+  "FindOfferResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Offer"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the find operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Offer retrieved successfully",
+        "description": "Retrieval success message"
+      }
+    }
+  },
+  "OfferErrorResponse": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "An error occurred",
+        "description": "Error message"
+      },
+      "code": {
+        "type": "integer",
+        "example": 400,
+        "description": "HTTP status code"
+      },
+      "success": {
+        "type": "boolean",
+        "example": false,
+        "description": "Indicates if the operation was unsuccessful"
+      }
+    }
+  }
+}

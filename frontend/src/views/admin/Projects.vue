@@ -110,336 +110,288 @@
     </div>
 
     <!-- Project Editor -->
-    <div v-if="showEditor" class="space-y-[2vh]">
-      <div class="h-[6vh] min-h-[50px] flex items-center justify-between">
-        <button
-          @click="closeEditor"
-          class="flex items-center text-gray-600 hover:text-gray-800"
-        >
-          <span class="material-symbols-outlined mr-[0.5vw]">arrow_back</span>
-          Retour aux projets
-        </button>
-        <div class="flex gap-[1vw]">
+    <div v-if="showEditor" class="h-full flex flex-col gap-8">
+      <!-- Editor Header -->
+      <div class="flex items-center justify-between h-[8vh] min-h-[60px] bg-white rounded-xl shadow-sm border border-gray-100 px-6 mb-4">
+        <div class="flex items-center gap-4">
           <button
-            @click="togglePreview"
-            :class="[
-              'h-[5vh] min-h-[40px] w-[10%] min-w-[100px] rounded-lg flex items-center justify-center transition-colors',
-              showPreview ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-600'
-            ]"
+            @click="closeEditor"
+            class="flex items-center text-gray-600 hover:text-gray-800"
           >
-            <span class="material-symbols-outlined mr-[0.5vw]">{{ showPreview ? 'edit' : 'visibility' }}</span>
-            {{ showPreview ? 'Éditer' : 'Aperçu' }}
+            <span class="material-symbols-outlined mr-1">arrow_back</span>
+            Retour
+          </button>
+          <span class="text-gray-300">|</span>
+          <h2 class="text-lg font-semibold text-gray-800">{{ editingProject ? 'Modifier le projet' : 'Nouveau projet' }}</h2>
+        </div>
+        <div class="flex gap-3">
+          <button
+            @click="showProjectInfoModal = true"
+            class="h-[5vh] min-h-[40px] px-4 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 flex items-center"
+          >
+            <span class="material-symbols-outlined mr-1">settings</span>
+            Infos projet
           </button>
           <button
             @click="saveProject(false)"
-            class="h-[5vh] min-h-[40px] w-[15%] min-w-[150px] bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+            class="h-[5vh] min-h-[40px] px-4 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
           >
-            Enregistrer brouillon
+            Brouillon
           </button>
           <button
             @click="saveProject(true)"
-            class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90"
+            class="h-[5vh] min-h-[40px] px-6 bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90"
           >
             Publier
           </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-[2vw]">
-        <!-- Editor Panel -->
-        <div v-show="!showPreview || isLargeScreen" class="space-y-[2vh]">
-          <!-- Project Info -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100">
-            <div class="h-[8vh] min-h-[60px] flex items-center border-b border-gray-100 w-[90%] mx-auto">
-              <h3 class="text-lg font-semibold">Informations du projet</h3>
-            </div>
-            <div class="w-[90%] mx-auto space-y-[2vh] py-[2vh]">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Titre du projet</label>
-                <input
-                  type="text"
-                  v-model="projectForm.title"
-                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-                  placeholder="Ex: Modern House, Porto-Novo"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Emplacement</label>
-                <input
-                  type="text"
-                  v-model="projectForm.location"
-                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-                  placeholder="Ex: Porto-Novo, Bénin"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Services</label>
-                <div class="flex flex-wrap gap-[0.5vw]">
-                  <button
-                    v-for="service in services"
-                    :key="service.id"
-                    @click="toggleService(service.id)"
-                    :class="[
-                      'h-[4vh] min-h-[32px] rounded-full text-sm transition-colors px-[1vw]',
-                      projectForm.services.includes(service.id)
-                        ? 'bg-[var(--bg-1)] text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    ]"
-                  >
-                    {{ service.name }}
-                  </button>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-[1vw]">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Type de travaux</label>
-                  <input
-                    type="text"
-                    v-model="projectForm.workType"
-                    class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-                    placeholder="Ex: Rénovation Complète"
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Partenaires</label>
-                  <input
-                    type="text"
-                    v-model="projectForm.partners"
-                    class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
-                    placeholder="Ex: G-Tech"
-                  />
-                </div>
+      <!-- Editor Content: Side by Side -->
+      <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden">
+        <!-- Left: Sections Builder -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
+          <div class="h-[7vh] min-h-[55px] flex items-center justify-between px-6 border-b border-gray-100 flex-shrink-0">
+            <h3 class="text-base font-semibold text-gray-800">Contenu du projet</h3>
+            <div class="relative">
+              <button
+                @click="showSectionMenu = !showSectionMenu"
+                class="h-[5vh] min-h-[40px] px-4 bg-[var(--second-orange)] text-[var(--bg-1)] rounded-lg flex items-center justify-center font-medium"
+              >
+                <span class="material-symbols-outlined mr-1">add</span>
+                Ajouter
+              </button>
+              <div
+                v-if="showSectionMenu"
+                class="absolute right-0 mt-2 w-[250px] bg-white rounded-lg shadow-lg border z-10 overflow-y-auto"
+              >
+                <button
+                  v-for="option in sectionOptions"
+                  :key="option.type"
+                  @click="addSection(option.type)"
+                  class="w-full py-3 px-4 text-left hover:bg-gray-50 flex items-center gap-2"
+                >
+                  <span class="material-symbols-outlined mr-3 text-gray-500">{{ option.icon }}</span>
+                  <div>
+                    <p class="font-medium text-gray-800">{{ option.label }}</p>
+                    <p class="text-xs text-gray-500">{{ option.description }}</p>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- Sections Builder -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100">
-            <div class="h-[8vh] min-h-[60px] flex items-center justify-between w-[90%] mx-auto border-b border-gray-100">
-              <h3 class="text-lg font-semibold">Contenu du projet</h3>
-              <div class="relative">
-                <button
-                  @click="showSectionMenu = !showSectionMenu"
-                  class="h-[5vh] min-h-[40px] w-[12vw] min-w-[150px] bg-[var(--second-orange)] text-[var(--bg-1)] rounded-lg flex items-center justify-center font-medium"
-                >
-                  <span class="material-symbols-outlined mr-[0.5vw]">add</span>
-                  Ajouter une section
-                </button>
-                <div
-                  v-if="showSectionMenu"
-                  class="absolute right-0 mt-[1vh] w-[16vw] min-w-[250px] bg-white rounded-lg shadow-lg border z-10"
-                >
+          <!-- Sections List -->
+          <div class="flex-1 h-full justify-center flex flex-col overflow-y-auto p-4 space-y-4">
+            <div
+              v-for="(section, index) in projectForm.sections"
+              :key="section.id"
+              class="border border-gray-200 rounded-lg"
+            >
+              <div class="h-12 flex items-center justify-between px-4 bg-gray-50 rounded-t-lg">
+                <span class="text-sm font-medium text-gray-600">{{ getSectionLabel(section.type) }}</span>
+                <div class="flex gap-1">
                   <button
-                    v-for="option in sectionOptions"
-                    :key="option.type"
-                    @click="addSection(option.type)"
-                    class="w-full h-[8vh] min-h-[60px] text-left hover:bg-gray-50 flex items-center px-[1vw]"
+                    v-if="index > 0"
+                    @click="moveSection(index, -1)"
+                    class="h-8 w-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded"
                   >
-                    <span class="material-symbols-outlined mr-[1vw] text-gray-500">{{ option.icon }}</span>
-                    <div>
-                      <p class="font-medium text-gray-800">{{ option.label }}</p>
-                      <p class="text-xs text-gray-500">{{ option.description }}</p>
-                    </div>
+                    <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                  </button>
+                  <button
+                    v-if="index < projectForm.sections.length - 1"
+                    @click="moveSection(index, 1)"
+                    class="h-8 w-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded"
+                  >
+                    <span class="material-symbols-outlined text-sm">arrow_downward</span>
+                  </button>
+                  <button
+                    @click="removeSection(index)"
+                    class="h-8 w-8 flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
+                  >
+                    <span class="material-symbols-outlined text-sm">delete</span>
                   </button>
                 </div>
               </div>
-            </div>
 
-            <!-- Sections List -->
-            <div class="w-[90%] mx-auto space-y-[2vh] py-[2vh]">
-              <div
-                v-for="(section, index) in projectForm.sections"
-                :key="section.id"
-                class="border border-gray-200 rounded-lg"
-              >
-                <div class="h-[6vh] min-h-[48px] flex items-center justify-between w-[95%] mx-auto">
-                  <span class="text-sm font-medium text-gray-500">{{ getSectionLabel(section.type) }}</span>
-                  <div class="flex gap-[0.5vw]">
-                    <button
-                      v-if="index > 0"
-                      @click="moveSection(index, -1)"
-                      class="h-[4vh] min-h-[32px] w-[4vh] min-w-[32px] flex items-center justify-center text-gray-400 hover:text-gray-600"
+              <!-- Main Page Section -->
+              <div v-if="section.type === 'main-page'" class="p-4 space-y-3">
+                <div>
+                  <label class="text-xs text-gray-500">Images de fond (carrousel)</label>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <div
+                      v-for="(img, imgIndex) in section.images"
+                      :key="imgIndex"
+                      class="relative w-20 h-16 bg-gray-100 rounded overflow-hidden"
                     >
-                      <span class="material-symbols-outlined text-sm">arrow_upward</span>
-                    </button>
-                    <button
-                      v-if="index < projectForm.sections.length - 1"
-                      @click="moveSection(index, 1)"
-                      class="h-[4vh] min-h-[32px] w-[4vh] min-w-[32px] flex items-center justify-center text-gray-400 hover:text-gray-600"
-                    >
-                      <span class="material-symbols-outlined text-sm">arrow_downward</span>
-                    </button>
-                    <button
-                      @click="removeSection(index)"
-                      class="h-[4vh] min-h-[32px] w-[4vh] min-w-[32px] flex items-center justify-center text-red-400 hover:text-red-600"
-                    >
-                      <span class="material-symbols-outlined text-sm">delete</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Main Page Section -->
-                <div v-if="section.type === 'main-page'" class="w-[95%] mx-auto pb-[2vh] space-y-[1vh]">
-                  <div>
-                    <label class="text-xs text-gray-500">Images de fond (carrousel)</label>
-                    <div class="flex flex-wrap gap-[0.5vw] mt-[0.5vh]">
-                      <div
-                        v-for="(img, imgIndex) in section.images"
-                        :key="imgIndex"
-                        class="relative w-[6vw] min-w-[80px] h-[8vh] min-h-[64px] bg-gray-100 rounded overflow-hidden"
+                      <img :src="img" class="w-full h-full object-cover" />
+                      <button
+                        @click="removeMainImage(section, imgIndex)"
+                        class="absolute top-0 right-0 bg-red-500 text-white rounded-bl"
                       >
-                        <img :src="img" class="w-full h-full object-cover" />
-                        <button
-                          @click="removeMainImage(section, imgIndex)"
-                          class="absolute top-0 right-0 bg-red-500 text-white rounded-bl"
-                        >
-                          <span class="material-symbols-outlined text-xs">close</span>
-                        </button>
-                      </div>
-                      <div class="w-[6vw] min-w-[80px] h-[8vh] min-h-[64px] border-2 border-dashed border-gray-300 rounded flex items-center justify-center">
-                        <input type="file" accept="image/*" class="hidden" :id="'main-images-' + section.id" @change="(e) => addMainImage(e, section)" />
-                        <label :for="'main-images-' + section.id" class="cursor-pointer">
-                          <span class="material-symbols-outlined text-gray-400">add</span>
-                        </label>
-                      </div>
+                        <span class="material-symbols-outlined text-xs">close</span>
+                      </button>
                     </div>
-                  </div>
-                  <input
-                    type="text"
-                    v-model="section.headline"
-                    class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg"
-                    placeholder="Titre principal (ex: Modern House, Porto-Novo)"
-                  />
-                  <input
-                    type="text"
-                    v-model="section.buttonText"
-                    class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg"
-                    placeholder="Texte du bouton (ex: Voir Plus)"
-                  />
-                </div>
-
-                <!-- Bio Section -->
-                <div v-if="section.type === 'bio'" class="w-[95%] mx-auto pb-[2vh] space-y-[1vh]">
-                  <textarea
-                    v-model="section.content"
-                    rows="4"
-                    class="w-full h-[15vh] min-h-[120px] border border-gray-300 rounded-lg"
-                    placeholder="Description du projet..."
-                  ></textarea>
-                  <div class="grid grid-cols-2 gap-[1vw]">
-                    <div>
-                      <label class="text-xs text-gray-500">Services</label>
-                      <textarea
-                        v-model="section.servicesList"
-                        rows="2"
-                        class="w-full h-[10vh] min-h-[80px] border border-gray-300 rounded-lg text-sm"
-                        placeholder="Un service par ligne"
-                      ></textarea>
-                    </div>
-                    <div>
-                      <label class="text-xs text-gray-500">Types de travaux</label>
-                      <textarea
-                        v-model="section.workTypesList"
-                        rows="2"
-                        class="w-full h-[10vh] min-h-[80px] border border-gray-300 rounded-lg text-sm"
-                        placeholder="Un type par ligne"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Full Image Section -->
-                <div v-if="section.type === 'full-image'" class="w-[95%] mx-auto pb-[2vh] space-y-[1vh]">
-                  <div class="border-2 border-dashed border-gray-300 rounded-lg h-[18vh] min-h-[140px] flex flex-col items-center justify-center">
-                    <input type="file" accept="image/*" class="hidden" :id="'section-image-' + section.id" @change="(e) => handleSectionImage(e, section)" />
-                    <label :for="'section-image-' + section.id" class="cursor-pointer text-center">
-                      <img v-if="section.image" :src="section.image" class="max-h-[15vh] mx-auto rounded" />
-                      <div v-else>
-                        <span class="material-symbols-outlined text-gray-400 text-3xl">image</span>
-                        <p class="text-sm text-gray-500">Télécharger une image</p>
-                      </div>
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    v-model="section.alt"
-                    class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg"
-                    placeholder="Description de l'image (alt)"
-                  />
-                </div>
-
-                <!-- Text-Image / Image-Text Section -->
-                <div v-if="section.type === 'text-image' || section.type === 'image-text'" class="w-[95%] mx-auto pb-[2vh] grid grid-cols-2 gap-[1vw]">
-                  <div :class="section.type === 'image-text' ? 'order-2' : ''">
-                    <input
-                      type="text"
-                      v-model="section.title"
-                      class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg mb-[1vh]"
-                      placeholder="Titre (optionnel)"
-                    />
-                    <textarea
-                      v-model="section.content"
-                      rows="4"
-                      class="w-full h-[15vh] min-h-[120px] border border-gray-300 rounded-lg"
-                      placeholder="Description..."
-                    ></textarea>
-                  </div>
-                  <div :class="section.type === 'image-text' ? 'order-1' : ''">
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg h-full min-h-[18vh] flex flex-col items-center justify-center">
-                      <input type="file" accept="image/*" class="hidden" :id="'section-image-' + section.id" @change="(e) => handleSectionImage(e, section)" />
-                      <label :for="'section-image-' + section.id" class="cursor-pointer text-center">
-                        <img v-if="section.image" :src="section.image" class="max-h-[12vh] mx-auto rounded" />
-                        <div v-else>
-                          <span class="material-symbols-outlined text-gray-400 text-2xl">image</span>
-                          <p class="text-xs text-gray-500">Image</p>
-                        </div>
+                    <div class="w-20 h-16 border-2 border-dashed border-gray-300 rounded flex items-center justify-center">
+                      <input type="file" accept="image/*" class="hidden" :id="'main-images-' + section.id" @change="(e) => addMainImage(e, section)" />
+                      <label :for="'main-images-' + section.id" class="cursor-pointer">
+                        <span class="material-symbols-outlined text-gray-400">add</span>
                       </label>
                     </div>
                   </div>
                 </div>
+                <input
+                  type="text"
+                  v-model="section.headline"
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg"
+                  placeholder="Titre principal (ex: Modern House, Porto-Novo)"
+                />
+                <input
+                  type="text"
+                  v-model="section.buttonText"
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg"
+                  placeholder="Texte du bouton (ex: Voir Plus)"
+                />
+              </div>
 
-                <!-- Double Image Section -->
-                <div v-if="section.type === 'double-image'" class="w-[95%] mx-auto pb-[2vh] grid grid-cols-2 gap-[1vw]">
-                  <div class="border-2 border-dashed border-gray-300 rounded-lg h-[15vh] min-h-[120px] flex flex-col items-center justify-center">
-                    <input type="file" accept="image/*" class="hidden" :id="'section-left-' + section.id" @change="(e) => handleSectionImage(e, section, 'leftImage')" />
-                    <label :for="'section-left-' + section.id" class="cursor-pointer text-center">
-                      <img v-if="section.leftImage" :src="section.leftImage" class="max-h-[10vh] mx-auto rounded" />
-                      <div v-else>
-                        <span class="material-symbols-outlined text-gray-400 text-2xl">image</span>
-                        <p class="text-xs text-gray-500">Image gauche</p>
-                      </div>
-                    </label>
+              <!-- Bio Section -->
+              <div v-if="section.type === 'bio'" class="p-4 space-y-3">
+                <textarea
+                  v-model="section.content"
+                  rows="4"
+                  class="w-full min-h-[100px] p-3 border border-gray-300 rounded-lg resize-none"
+                  placeholder="Description du projet..."
+                ></textarea>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-xs text-gray-500">Services</label>
+                    <textarea
+                      v-model="section.servicesList"
+                      rows="2"
+                      class="w-full min-h-[80px] p-3 border border-gray-300 rounded-lg text-sm resize-none"
+                      placeholder="Un service par ligne"
+                    ></textarea>
                   </div>
-                  <div class="border-2 border-dashed border-gray-300 rounded-lg h-[15vh] min-h-[120px] flex flex-col items-center justify-center">
-                    <input type="file" accept="image/*" class="hidden" :id="'section-right-' + section.id" @change="(e) => handleSectionImage(e, section, 'rightImage')" />
-                    <label :for="'section-right-' + section.id" class="cursor-pointer text-center">
-                      <img v-if="section.rightImage" :src="section.rightImage" class="max-h-[10vh] mx-auto rounded" />
+                  <div>
+                    <label class="text-xs text-gray-500">Types de travaux</label>
+                    <textarea
+                      v-model="section.workTypesList"
+                      rows="2"
+                      class="w-full min-h-[80px] p-3 border border-gray-300 rounded-lg text-sm resize-none"
+                      placeholder="Un type par ligne"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Full Text Section -->
+              <div v-if="section.type === 'full-text'" class="p-4 space-y-3">
+                <input
+                  type="text"
+                  v-model="section.title"
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg"
+                  placeholder="Titre (optionnel)"
+                />
+                <textarea
+                  v-model="section.content"
+                  rows="6"
+                  class="w-full min-h-[150px] p-3 border border-gray-300 rounded-lg resize-none"
+                  placeholder="Contenu du texte..."
+                ></textarea>
+              </div>
+
+              <!-- Full Image Section -->
+              <div v-if="section.type === 'full-image'" class="p-4 space-y-3">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg h-32 flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors">
+                  <input type="file" accept="image/*" class="hidden" :id="'section-image-' + section.id" @change="(e) => handleSectionImage(e, section)" />
+                  <label :for="'section-image-' + section.id" class="cursor-pointer text-center w-full h-full flex flex-col items-center justify-center">
+                    <img v-if="section.image" :src="section.image" class="max-h-24 mx-auto rounded" />
+                    <div v-else>
+                      <span class="material-symbols-outlined text-gray-400 text-2xl">image</span>
+                      <p class="text-sm text-gray-500">Télécharger une image</p>
+                    </div>
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  v-model="section.alt"
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg"
+                  placeholder="Description de l'image (alt)"
+                />
+              </div>
+
+              <!-- Text-Image / Image-Text Section -->
+              <div v-if="section.type === 'text-image' || section.type === 'image-text'" class="p-4 grid grid-cols-2 gap-3">
+                <div :class="section.type === 'image-text' ? 'order-2' : ''">
+                  <input
+                    type="text"
+                    v-model="section.title"
+                    class="w-full h-10 px-3 border border-gray-300 rounded-lg mb-2"
+                    placeholder="Titre (optionnel)"
+                  />
+                  <textarea
+                    v-model="section.content"
+                    rows="4"
+                    class="w-full min-h-[100px] p-3 border border-gray-300 rounded-lg resize-none"
+                    placeholder="Description..."
+                  ></textarea>
+                </div>
+                <div :class="section.type === 'image-text' ? 'order-1' : ''">
+                  <div class="border-2 border-dashed border-gray-300 rounded-lg h-full min-h-[140px] flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors">
+                    <input type="file" accept="image/*" class="hidden" :id="'section-image-' + section.id" @change="(e) => handleSectionImage(e, section)" />
+                    <label :for="'section-image-' + section.id" class="cursor-pointer text-center w-full h-full flex flex-col items-center justify-center">
+                      <img v-if="section.image" :src="section.image" class="max-h-24 mx-auto rounded" />
                       <div v-else>
-                        <span class="material-symbols-outlined text-gray-400 text-2xl">image</span>
-                        <p class="text-xs text-gray-500">Image droite</p>
+                        <span class="material-symbols-outlined text-gray-400 text-xl">image</span>
+                        <p class="text-xs text-gray-500">Image</p>
                       </div>
                     </label>
                   </div>
                 </div>
               </div>
 
-              <div v-if="projectForm.sections.length === 0" class="h-[20vh] min-h-[160px] flex flex-col items-center justify-center text-gray-400">
-                <span class="material-symbols-outlined text-4xl mb-[1vh]">architecture</span>
-                <p>Ajoutez des sections pour construire votre projet</p>
+              <!-- Double Image Section -->
+              <div v-if="section.type === 'double-image'" class="p-4 grid grid-cols-2 gap-3">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg h-28 flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors">
+                  <input type="file" accept="image/*" class="hidden" :id="'section-left-' + section.id" @change="(e) => handleSectionImage(e, section, 'leftImage')" />
+                  <label :for="'section-left-' + section.id" class="cursor-pointer text-center w-full h-full flex flex-col items-center justify-center">
+                    <img v-if="section.leftImage" :src="section.leftImage" class="max-h-20 mx-auto rounded" />
+                    <div v-else>
+                      <span class="material-symbols-outlined text-gray-400 text-xl">image</span>
+                      <p class="text-xs text-gray-500">Image gauche</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg h-28 flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors">
+                  <input type="file" accept="image/*" class="hidden" :id="'section-right-' + section.id" @change="(e) => handleSectionImage(e, section, 'rightImage')" />
+                  <label :for="'section-right-' + section.id" class="cursor-pointer text-center w-full h-full flex flex-col items-center justify-center">
+                    <img v-if="section.rightImage" :src="section.rightImage" class="max-h-20 mx-auto rounded" />
+                    <div v-else>
+                      <span class="material-symbols-outlined text-gray-400 text-xl">image</span>
+                      <p class="text-xs text-gray-500">Image droite</p>
+                    </div>
+                  </label>
+                </div>
               </div>
+            </div>
+
+            <div v-if="projectForm.sections.length === 0" class="h-48 flex flex-col items-center justify-center text-gray-400 text-center">
+              <span class="material-symbols-outlined text-4xl mb-2">architecture</span>
+              <p>Ajoutez des sections pour construire votre projet</p>
             </div>
           </div>
         </div>
 
-        <!-- Preview Panel -->
-        <div v-show="showPreview || isLargeScreen" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="h-[6vh] min-h-[48px] bg-gray-50 flex items-center border-b w-[90%] mx-auto">
-            <h3 class="font-semibold text-gray-700">Aperçu du projet</h3>
+        <!-- Right: Preview Panel -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
+          <div class="h-[7vh] min-h-[55px] flex items-center px-6 border-b border-gray-100 bg-gray-50 flex-shrink-0">
+            <span class="material-symbols-outlined mr-2 text-gray-500">visibility</span>
+            <h3 class="font-semibold text-gray-700">Aperçu</h3>
           </div>
-          <div class="overflow-y-auto max-h-[80vh]">
+          <div class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col gap-4">
             <!-- Main Page Preview -->
-            <div v-for="section in projectForm.sections" :key="section.id">
-              <div v-if="section.type === 'main-page'" class="relative h-[30vh] min-h-[240px] bg-gray-800">
+            <div v-for="section in projectForm.sections" :key="section.id" class="space-y-4">
+              <div v-if="section.type === 'main-page'" class="relative h-48 bg-gray-800 rounded-lg overflow-hidden">
                 <div
                   v-if="section.images && section.images.length > 0"
                   class="absolute inset-0 bg-cover bg-center"
@@ -448,8 +400,8 @@
                 <div class="absolute inset-0 bg-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-white text-center">
                   <div>
-                    <p class="text-2xl font-light italic mb-[2vh]">{{ section.headline || projectForm.title || 'Titre du projet' }}</p>
-                    <button class="h-[5vh] min-h-[40px] bg-[var(--second-orange)] text-[var(--bg-1)] rounded-lg text-sm px-[1.5vw]">
+                    <p class="text-xl font-light italic mb-4">{{ section.headline || projectForm.title || 'Titre du projet' }}</p>
+                    <button class="h-10 bg-[var(--second-orange)] text-[var(--bg-1)] rounded-lg text-sm px-4">
                       {{ section.buttonText || 'Voir Plus' }}
                     </button>
                   </div>
@@ -457,100 +409,178 @@
               </div>
 
               <!-- Bio Preview -->
-              <div v-if="section.type === 'bio'" class="w-[90%] mx-auto py-[2vh]">
-                <div class="grid grid-cols-2 gap-[2vw]">
+              <div v-if="section.type === 'bio'" class="grid grid-cols-2 gap-4">
+                <div>
+                  <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line">{{ section.content || 'Description du projet...' }}</p>
+                </div>
+                <div class="space-y-4 text-sm">
                   <div>
-                    <p class="text-gray-600 text-sm leading-relaxed">{{ section.content || 'Description du projet...' }}</p>
+                    <h4 class="font-semibold text-gray-800">SERVICE</h4>
+                    <ul class="text-gray-500">
+                      <li v-for="(service, i) in (section.servicesList || '').split('\n').filter(s => s.trim())" :key="i">{{ service }}</li>
+                    </ul>
                   </div>
-                  <div class="space-y-[2vh] text-sm">
-                    <div>
-                      <h4 class="font-semibold text-gray-800">SERVICE</h4>
-                      <ul class="text-gray-500">
-                        <li v-for="(service, i) in (section.servicesList || '').split('\n').filter(s => s.trim())" :key="i">{{ service }}</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-gray-800">TYPE DE TRAVAUX</h4>
-                      <ul class="text-gray-500">
-                        <li v-for="(work, i) in (section.workTypesList || '').split('\n').filter(s => s.trim())" :key="i">{{ work }}</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-gray-800">EMPLACEMENT</h4>
-                      <p class="text-gray-500">{{ projectForm.location || '-' }}</p>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-gray-800">PARTENAIRES</h4>
-                      <p class="text-gray-500">{{ projectForm.partners || '-' }}</p>
-                    </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">TYPE DE TRAVAUX</h4>
+                    <ul class="text-gray-500">
+                      <li v-for="(work, i) in (section.workTypesList || '').split('\n').filter(s => s.trim())" :key="i">{{ work }}</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">EMPLACEMENT</h4>
+                    <p class="text-gray-500">{{ projectForm.location || '-' }}</p>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">PARTENAIRES</h4>
+                    <p class="text-gray-500">{{ projectForm.partners || '-' }}</p>
                   </div>
                 </div>
               </div>
 
+              <!-- Full Text Preview -->
+              <div v-if="section.type === 'full-text'" class="space-y-2">
+                <h3 v-if="section.title" class="text-lg font-semibold text-gray-800">{{ section.title }}</h3>
+                <p class="text-gray-600 leading-relaxed whitespace-pre-line">{{ section.content || 'Contenu du texte...' }}</p>
+              </div>
+
               <!-- Full Image Preview -->
-              <div v-if="section.type === 'full-image'" class="w-[90%] mx-auto py-[1vh]">
+              <div v-if="section.type === 'full-image'" class="w-full">
                 <img v-if="section.image" :src="section.image" :alt="section.alt" class="w-full rounded-lg" />
-                <div v-else class="h-[20vh] min-h-[160px] bg-gray-100 rounded-lg flex items-center justify-center">
+                <div v-else class="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
                   <span class="text-gray-400">Image pleine largeur</span>
                 </div>
               </div>
 
               <!-- Text-Image Preview -->
-              <div v-if="section.type === 'text-image'" class="w-[90%] mx-auto py-[1vh]">
-                <div class="grid grid-cols-2 gap-[1vw]">
-                  <div>
-                    <h3 v-if="section.title" class="font-semibold mb-[1vh]">{{ section.title }}</h3>
-                    <p class="text-gray-600 text-sm">{{ section.content || 'Description...' }}</p>
-                  </div>
-                  <div>
-                    <img v-if="section.image" :src="section.image" class="w-full rounded-lg" />
-                    <div v-else class="h-[15vh] min-h-[120px] bg-gray-100 rounded-lg flex items-center justify-center">
-                      <span class="text-gray-400 text-sm">Image</span>
-                    </div>
+              <div v-if="section.type === 'text-image'" class="grid grid-cols-2 gap-4">
+                <div>
+                  <h3 v-if="section.title" class="font-semibold mb-2">{{ section.title }}</h3>
+                  <p class="text-gray-600 text-sm whitespace-pre-line">{{ section.content || 'Description...' }}</p>
+                </div>
+                <div>
+                  <img v-if="section.image" :src="section.image" class="w-full rounded-lg" />
+                  <div v-else class="h-28 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400 text-sm">Image</span>
                   </div>
                 </div>
               </div>
 
               <!-- Image-Text Preview -->
-              <div v-if="section.type === 'image-text'" class="w-[90%] mx-auto py-[1vh]">
-                <div class="grid grid-cols-2 gap-[1vw]">
-                  <div>
-                    <img v-if="section.image" :src="section.image" class="w-full rounded-lg" />
-                    <div v-else class="h-[15vh] min-h-[120px] bg-gray-100 rounded-lg flex items-center justify-center">
-                      <span class="text-gray-400 text-sm">Image</span>
-                    </div>
+              <div v-if="section.type === 'image-text'" class="grid grid-cols-2 gap-4">
+                <div>
+                  <img v-if="section.image" :src="section.image" class="w-full rounded-lg" />
+                  <div v-else class="h-28 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400 text-sm">Image</span>
                   </div>
-                  <div>
-                    <h3 v-if="section.title" class="font-semibold mb-[1vh]">{{ section.title }}</h3>
-                    <p class="text-gray-600 text-sm">{{ section.content || 'Description...' }}</p>
-                  </div>
+                </div>
+                <div>
+                  <h3 v-if="section.title" class="font-semibold mb-2">{{ section.title }}</h3>
+                  <p class="text-gray-600 text-sm whitespace-pre-line">{{ section.content || 'Description...' }}</p>
                 </div>
               </div>
 
               <!-- Double Image Preview -->
-              <div v-if="section.type === 'double-image'" class="w-[90%] mx-auto py-[1vh]">
-                <div class="grid grid-cols-2 gap-[1vw]">
-                  <div>
-                    <img v-if="section.leftImage" :src="section.leftImage" class="w-full rounded-lg" />
-                    <div v-else class="h-[15vh] min-h-[120px] bg-gray-100 rounded-lg flex items-center justify-center">
-                      <span class="text-gray-400 text-sm">Image gauche</span>
-                    </div>
+              <div v-if="section.type === 'double-image'" class="grid grid-cols-2 gap-4">
+                <div>
+                  <img v-if="section.leftImage" :src="section.leftImage" class="w-full rounded-lg" />
+                  <div v-else class="h-28 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400 text-sm">Image gauche</span>
                   </div>
-                  <div>
-                    <img v-if="section.rightImage" :src="section.rightImage" class="w-full rounded-lg" />
-                    <div v-else class="h-[15vh] min-h-[120px] bg-gray-100 rounded-lg flex items-center justify-center">
-                      <span class="text-gray-400 text-sm">Image droite</span>
-                    </div>
+                </div>
+                <div>
+                  <img v-if="section.rightImage" :src="section.rightImage" class="w-full rounded-lg" />
+                  <div v-else class="h-28 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400 text-sm">Image droite</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div v-if="projectForm.sections.length === 0" class="h-[20vh] min-h-[160px] flex flex-col items-center justify-center text-gray-400">
-              <span class="material-symbols-outlined text-4xl mb-[1vh]">preview</span>
-              <p>L'aperçu apparaîtra ici</p>
+            <div v-if="projectForm.sections.length === 0" class="text-center text-gray-400 py-8">
+              <p>L'aperçu s'affichera ici</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Info Modal -->
+    <div
+      v-if="showProjectInfoModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    >
+      <div class="bg-white rounded-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="h-16 border-b flex items-center justify-between px-6">
+          <h2 class="text-xl font-semibold text-gray-800">Informations du projet</h2>
+          <button @click="showProjectInfoModal = false" class="text-gray-500 hover:text-gray-700">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="p-6 space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Titre du projet</label>
+            <input
+              type="text"
+              v-model="projectForm.title"
+              class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              placeholder="Ex: Modern House, Porto-Novo"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Emplacement</label>
+            <input
+              type="text"
+              v-model="projectForm.location"
+              class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              placeholder="Ex: Porto-Novo, Bénin"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Services</label>
+            <div class="flex flex-wrap gap-2">
+              <button
+                v-for="service in services"
+                :key="service.id"
+                @click="toggleService(service.id)"
+                :class="[
+                  'h-10 px-4 rounded-full text-sm transition-colors',
+                  projectForm.services.includes(service.id)
+                    ? 'bg-[var(--bg-1)] text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ]"
+              >
+                {{ service.name }}
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Type de travaux</label>
+              <input
+                type="text"
+                v-model="projectForm.workType"
+                class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+                placeholder="Ex: Rénovation Complète"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Partenaires</label>
+              <input
+                type="text"
+                v-model="projectForm.partners"
+                class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+                placeholder="Ex: G-Tech"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="h-16 border-t flex items-center justify-end gap-3 px-6">
+          <button
+            @click="showProjectInfoModal = false"
+            class="h-10 px-6 bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90"
+          >
+            Confirmer
+          </button>
         </div>
       </div>
     </div>
@@ -566,6 +596,7 @@ export default {
     const showEditor = ref(false)
     const showPreview = ref(false)
     const showSectionMenu = ref(false)
+    const showProjectInfoModal = ref(false)
     const searchQuery = ref('')
     const serviceFilter = ref('')
     const statusFilter = ref('')
@@ -584,6 +615,7 @@ export default {
     const sectionOptions = [
       { type: 'main-page', label: 'Page Principale', description: 'Première section avec carrousel', icon: 'home' },
       { type: 'bio', label: 'Bio', description: 'Description et informations', icon: 'description' },
+      { type: 'full-text', label: 'Full Text', description: 'Bloc de texte complet', icon: 'notes' },
       { type: 'full-image', label: 'Full Image', description: 'Image pleine largeur', icon: 'panorama' },
       { type: 'text-image', label: 'Text-Image', description: 'Texte à gauche, image à droite', icon: 'view_agenda' },
       { type: 'image-text', label: 'Image-Text', description: 'Image à gauche, texte à droite', icon: 'view_agenda' },
@@ -699,6 +731,8 @@ export default {
       }
       showEditor.value = true
       showPreview.value = false
+      // Ouvrir la modal d'informations au début de la création/modification
+      showProjectInfoModal.value = true
     }
 
     function closeEditor() {
@@ -816,6 +850,7 @@ export default {
       showEditor,
       showPreview,
       showSectionMenu,
+      showProjectInfoModal,
       searchQuery,
       serviceFilter,
       statusFilter,

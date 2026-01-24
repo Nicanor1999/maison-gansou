@@ -1,0 +1,541 @@
+{
+  "/api/v1/offer": {
+    "post": {
+      "summary": "Create a new offer",
+      "tags": [
+        "Offer"
+      ],
+      "parameters": [],
+      "requestBody": {
+        "description": "Multipart form-data",
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Nightly_Price": {
+                  "type": "string",
+                  "description": "the Nightly_Price of offer"
+                },
+                "Pictures": {
+                  "type": "string",
+                  "format": "binary",
+                  "description": "Picturesto upload"
+                },
+                "Title": {
+                  "type": "string",
+                  "description": "the Title of offer"
+                },
+                "Bio": {
+                  "type": "string",
+                  "description": "the Bio of offer"
+                },
+                "Bed_Number": {
+                  "type": "string",
+                  "description": "the Bed_Number of offer"
+                },
+                "Town": {
+                  "type": "string",
+                  "description": "the Town of offer"
+                },
+                "Room_Number": {
+                  "type": "string",
+                  "description": "the Room_Number of offer"
+                },
+                "Availability": {
+                  "type": "string",
+                  "description": "the Availability of offer"
+                },
+                "Kitchen_Number": {
+                  "type": "string",
+                  "description": "the Kitchen_Number of offer"
+                },
+                "Parking": {
+                  "type": "string",
+                  "description": "the Parking of offer"
+                },
+                "Washing_Name": {
+                  "type": "string",
+                  "description": "the Washing_Name of offer"
+                },
+                "Wifi": {
+                  "type": "string",
+                  "description": "the Wifi of offer"
+                },
+                "AC": {
+                  "type": "string",
+                  "description": "the AC of offer"
+                },
+                "Security": {
+                  "type": "string",
+                  "description": "the Security of offer"
+                }
+              },
+              "required": [
+                "Pictures"
+              ]
+            }
+          }
+        },
+        "required": false
+      },
+      "responses": {
+        "201": {
+          "description": "Created successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOfferResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request"
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get list of offer",
+      "tags": [
+        "Offer"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "perPage",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the perPage of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the page of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "createdBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the createdBy of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "updatedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the updatedBy of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "deletedBy",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the deletedBy of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Nightly_Price",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Nightly_Price of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Nightly_PriceLessThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Nightly_PriceLessThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Nightly_PriceLessThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Nightly_PriceLessThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Nightly_PriceGreaterThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Nightly_PriceGreaterThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Nightly_PriceGreaterThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Nightly_PriceGreaterThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Title",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Title of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Bio",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Bio of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Bed_Number",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Bed_Number of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Bed_NumberLessThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Bed_NumberLessThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Bed_NumberLessThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Bed_NumberLessThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Bed_NumberGreaterThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Bed_NumberGreaterThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Bed_NumberGreaterThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Bed_NumberGreaterThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Town",
+          "schema": {
+            "type": "string"
+          },
+          "description": "the Town of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Room_Number",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Room_Number of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Room_NumberLessThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Room_NumberLessThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Room_NumberLessThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Room_NumberLessThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Room_NumberGreaterThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Room_NumberGreaterThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Room_NumberGreaterThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Room_NumberGreaterThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Kitchen_Number",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Kitchen_Number of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Kitchen_NumberLessThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Kitchen_NumberLessThan of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Kitchen_NumberLessThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Kitchen_NumberLessThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Kitchen_NumberGreaterThanOrEqualTo",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Kitchen_NumberGreaterThanOrEqualTo of offer",
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "Kitchen_NumberGreaterThan",
+          "schema": {
+            "type": "number"
+          },
+          "description": "the Kitchen_NumberGreaterThan of offer",
+          "required": false
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "A list of offer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferPaginationResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  },
+  "/api/v1/offer/{id}": {
+    "put": {
+      "summary": "Update a offer by ID",
+      "tags": [
+        "Offer"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "offer id",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "description": "Multipart form-data",
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Nightly_Price": {
+                  "type": "string",
+                  "description": "the Nightly_Price of offer"
+                },
+                "Pictures": {
+                  "type": "string",
+                  "format": "binary",
+                  "description": "Picturesto upload"
+                },
+                "Title": {
+                  "type": "string",
+                  "description": "the Title of offer"
+                },
+                "Bio": {
+                  "type": "string",
+                  "description": "the Bio of offer"
+                },
+                "Bed_Number": {
+                  "type": "string",
+                  "description": "the Bed_Number of offer"
+                },
+                "Town": {
+                  "type": "string",
+                  "description": "the Town of offer"
+                },
+                "Room_Number": {
+                  "type": "string",
+                  "description": "the Room_Number of offer"
+                },
+                "Availability": {
+                  "type": "string",
+                  "description": "the Availability of offer"
+                },
+                "Kitchen_Number": {
+                  "type": "string",
+                  "description": "the Kitchen_Number of offer"
+                },
+                "Parking": {
+                  "type": "string",
+                  "description": "the Parking of offer"
+                },
+                "Washing_Name": {
+                  "type": "string",
+                  "description": "the Washing_Name of offer"
+                },
+                "Wifi": {
+                  "type": "string",
+                  "description": "the Wifi of offer"
+                },
+                "AC": {
+                  "type": "string",
+                  "description": "the AC of offer"
+                },
+                "Security": {
+                  "type": "string",
+                  "description": "the Security of offer"
+                }
+              },
+              "required": [
+                "Pictures"
+              ]
+            }
+          }
+        },
+        "required": false
+      },
+      "responses": {
+        "200": {
+          "description": "Updated successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOfferResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "delete": {
+      "summary": "Delete a offer by ID",
+      "tags": [
+        "Offer"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "offer id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "Deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteOfferResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    },
+    "get": {
+      "summary": "Get one offer by ID",
+      "tags": [
+        "Offer"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "description": "offer id",
+          "required": true
+        }
+      ],
+      "requestBody": null,
+      "responses": {
+        "200": {
+          "description": "One Offer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindOfferResponse"
+              }
+            }
+          }
+        }
+      },
+      "description": ""
+    }
+  }
+}

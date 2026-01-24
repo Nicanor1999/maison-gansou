@@ -1,0 +1,321 @@
+{
+  "Projects": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4bb",
+        "description": "Unique identifier for the projects"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2025-09-30T10:06:14.316Z",
+        "description": "Timestamp when the projects was created"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2025-11-10T00:14:22.466Z",
+        "description": "Timestamp when the projects was last updated"
+      },
+      "createdBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4bc",
+        "description": "CreatedBy of Projects"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4bd",
+        "description": "UpdatedBy of Projects"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4be",
+        "description": "DeletedBy of Projects"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Cattus acervus adficio maiores volutabrum calculus.",
+        "description": "Title of Projects"
+      },
+      "Country": {
+        "type": "string",
+        "example": "Allatus cimentarius pecus antiquus esse antiquus thorax vae.",
+        "description": "Country of Projects"
+      },
+      "Town": {
+        "type": "string",
+        "example": "Cado maxime succurro conturbo.",
+        "description": "Town of Projects"
+      },
+      "Services": {
+        "type": "string",
+        "example": "Statua animus una demulceo fugit laudantium ulterius tardus.",
+        "description": "Services of Projects"
+      },
+      "Works_Type": {
+        "type": "string",
+        "example": "Solium at thesis.",
+        "description": "Works_Type of Projects"
+      },
+      "Partners": {
+        "type": "string",
+        "example": ["Asperiores stella acer celo."],
+        "description": "Partners of Projects"
+      },
+      "Section": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4bf",
+        "description": "Section of Projects"
+      },
+      "Status": {
+        "type": "string",
+        "example": "",
+        "description": "Status of Projects"
+      }
+    },
+    "required": []
+  },
+  "CreateProjectsPayload": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c1",
+        "description": "CreatedBy of Projects"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c2",
+        "description": "UpdatedBy of Projects"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c3",
+        "description": "DeletedBy of Projects"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Valde solus iste aggredior damnatio alioqui defessus campana est.",
+        "description": "Title of Projects"
+      },
+      "Country": {
+        "type": "string",
+        "example": "Veritatis defendo bonus careo earum trans vos.",
+        "description": "Country of Projects"
+      },
+      "Town": {
+        "type": "string",
+        "example": "Aqua solutio trans cogito porro trucido sordeo.",
+        "description": "Town of Projects"
+      },
+      "Services": {
+        "type": "string",
+        "example": "Conatus suscipio itaque varius caries vorax tabernus tutis.",
+        "description": "Services of Projects"
+      },
+      "Works_Type": {
+        "type": "string",
+        "example": "Deinde tredecim commodo administratio uterque virga ago cubitum comminor coadunatio.",
+        "description": "Works_Type of Projects"
+      },
+      "Partners": {
+        "type": "string",
+        "example": ["Stultus crustulum coma succedo."],
+        "description": "Partners of Projects"
+      },
+      "Section": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c4",
+        "description": "Section of Projects"
+      },
+      "Status": {
+        "type": "string",
+        "example": "",
+        "description": "Status of Projects"
+      }
+    },
+    "required": []
+  },
+  "UpdateProjectsPayload": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c6",
+        "description": "CreatedBy of Projects"
+      },
+      "updatedBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c7",
+        "description": "UpdatedBy of Projects"
+      },
+      "deletedBy": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c8",
+        "description": "DeletedBy of Projects"
+      },
+      "Title": {
+        "type": "string",
+        "example": "Laboriosam uter catena ago celo.",
+        "description": "Title of Projects"
+      },
+      "Country": {
+        "type": "string",
+        "example": "Veniam debilito adipiscor terminatio subvenio deduco caute celo terebro atavus.",
+        "description": "Country of Projects"
+      },
+      "Town": {
+        "type": "string",
+        "example": "Urbs solitudo curo ager vehemens aestus bos sono.",
+        "description": "Town of Projects"
+      },
+      "Services": {
+        "type": "string",
+        "example": "Strenuus dignissimos aliquid.",
+        "description": "Services of Projects"
+      },
+      "Works_Type": {
+        "type": "string",
+        "example": "Minima suscipit cattus curiositas abundans totidem acidus a.",
+        "description": "Works_Type of Projects"
+      },
+      "Partners": {
+        "type": "string",
+        "example": ["Similique angelus architecto certus quo aperiam attollo deripio."],
+        "description": "Partners of Projects"
+      },
+      "Section": {
+        "type": "string",
+        "example": "6973839080be02a88d8ea4c9",
+        "description": "Section of Projects"
+      },
+      "Status": {
+        "type": "string",
+        "example": "",
+        "description": "Status of Projects"
+      }
+    },
+    "required": []
+  },
+  "ProjectsPaginationResponse": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "description": "Current page number"
+      },
+      "totalPages": {
+        "type": "integer",
+        "example": 10,
+        "description": "Total number of pages"
+      },
+      "totalItems": {
+        "type": "integer",
+        "example": 100,
+        "description": "Total number of items"
+      },
+      "perPage": {
+        "type": "integer",
+        "example": 10,
+        "description": "Items per page"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Projects"
+        },
+        "description": "Array of results for the current page"
+      }
+    }
+  },
+  "CreateProjectsResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Projects"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the create operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Projects created successfully",
+        "description": "Creation success message"
+      }
+    }
+  },
+  "UpdateProjectsResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Projects"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the update operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Projects updated successfully",
+        "description": "Update success message"
+      }
+    }
+  },
+  "DeleteProjectsResponse": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the delete operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Projects deleted successfully",
+        "description": "Deletion success message"
+      }
+    }
+  },
+  "FindProjectsResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/components/schemas/Projects"
+      },
+      "success": {
+        "type": "boolean",
+        "example": true,
+        "description": "Indicates if the find operation was successful"
+      },
+      "message": {
+        "type": "string",
+        "example": "Projects retrieved successfully",
+        "description": "Retrieval success message"
+      }
+    }
+  },
+  "ProjectsErrorResponse": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "An error occurred",
+        "description": "Error message"
+      },
+      "code": {
+        "type": "integer",
+        "example": 400,
+        "description": "HTTP status code"
+      },
+      "success": {
+        "type": "boolean",
+        "example": false,
+        "description": "Indicates if the operation was unsuccessful"
+      }
+    }
+  }
+}
