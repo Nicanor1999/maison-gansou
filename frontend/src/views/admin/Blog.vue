@@ -577,7 +577,7 @@ import { ref, reactive, computed, onMounted } from 'vue'
 export default {
   name: 'BlogView',
   setup() {
-    const API_BASE = '/api/api/v1'
+    const API_BASE = '/api/v1'
     const activeView = ref('articles')
     const showEditor = ref(false)
     const showSectionMenu = ref(false)

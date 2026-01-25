@@ -1,7 +1,9 @@
 <template>
   <div class="bookings h-full w-full overflow-y-auto flex flex-col gap-4">
     <!-- Tabs -->
-    <div class="bg-white rounded-xl shadow-sm h-[8vh] min-h-[60px] mt-[2vh] mb-[3vh] border border-gray-100">
+    <div
+      class="bg-white rounded-xl shadow-sm h-[8vh] min-h-[60px] mt-[2vh] mb-[3vh] border border-gray-100"
+    >
       <div class="flex h-full border-b">
         <button
           v-for="tab in tabs"
@@ -11,7 +13,7 @@
             'flex-1 h-full flex items-center justify-center text-center font-medium transition-colors',
             activeTab === tab.id
               ? 'text-[var(--bg-1)] border-b-2 border-[var(--bg-1)]'
-              : 'text-gray-500 hover:text-gray-700'
+              : 'text-gray-500 hover:text-gray-700',
           ]"
         >
           <span class="material-symbols-outlined align-middle mr-[0.5vw]">{{ tab.icon }}</span>
@@ -23,7 +25,9 @@
     <!-- Reservations Tab -->
     <div v-if="activeTab === 'reservations'" class="space-y-[2vh] flex flex-col gap-4">
       <!-- Filters -->
-      <div class="bg-white rounded-xl shadow-sm h-[15vh] min-h-[60px] border border-gray-100 flex justify-center">
+      <div
+        class="bg-white rounded-xl shadow-sm h-[15vh] min-h-[60px] border border-gray-100 flex justify-center"
+      >
         <div class="flex flex-wrap items-center h-full w-[95%] mx-auto gap-[2%]">
           <input
             type="text"
@@ -48,23 +52,56 @@
         <table class="w-full min-w-[800px]">
           <thead class="bg-gray-50 h-[6vh] min-h-[45px]">
             <tr>
-              <th class="w-[20%] pl-[1%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-              <th class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-              <th class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Offre</th>
-              <th class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Durée</th>
-              <th class="w-[10%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-              <th class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th
+                class="w-[20%] pl-[1%] text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Client
+              </th>
+              <th
+                class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Contact
+              </th>
+              <th
+                class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Offre
+              </th>
+              <th
+                class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Durée
+              </th>
+              <th
+                class="w-[10%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Statut
+              </th>
+              <th
+                class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-            <tr v-for="reservation in filteredReservations" :key="reservation.id" class="h-[10vh] min-h-[80px] hover:bg-gray-50">
+            <tr
+              v-for="reservation in filteredReservations"
+              :key="reservation.id"
+              class="h-[10vh] min-h-[80px] hover:bg-gray-50"
+            >
               <td class="w-[20%]">
                 <div class="flex items-center h-full pl-[3%]">
-                  <div class="w-[4vh] min-w-[35px] h-[4vh] min-h-[35px] bg-[var(--bg-1)] rounded-full flex items-center justify-center text-white font-bold text-sm">
-                    {{ reservation.firstName.charAt(0) }}{{ reservation.lastName.charAt(0) }}
+                  <div
+                    class="w-[4vh] min-w-[35px] h-[4vh] min-h-[35px] bg-[var(--bg-1)] rounded-full flex items-center justify-center text-white font-bold text-sm"
+                  >
+                    {{ reservation.firstName?.charAt(0) || '?'
+                    }}{{ reservation.lastName?.charAt(0) || '?' }}
                   </div>
                   <div class="pl-[5%]">
-                    <p class="font-medium text-gray-800">{{ reservation.firstName }} {{ reservation.lastName }}</p>
+                    <p class="font-medium text-gray-800">
+                      {{ reservation.firstName }} {{ reservation.lastName }}
+                    </p>
                     <p class="text-sm text-gray-500">{{ reservation.country }}</p>
                   </div>
                 </div>
@@ -83,8 +120,11 @@
                 <span
                   :class="[
                     'text-xs font-medium rounded-full p-[2%]',
-                    reservation.status === 'confirmed' ? 'bg-green-100 text-green-600' : 
-                    reservation.status === 'pending' ? 'bg-yellow-100 text-yellow-600' : 'bg-red-100 text-red-600'
+                    reservation.status === 'confirmed'
+                      ? 'bg-green-100 text-green-600'
+                      : reservation.status === 'pending'
+                        ? 'bg-yellow-100 text-yellow-600'
+                        : 'bg-red-100 text-red-600',
                   ]"
                 >
                   {{ getStatusLabel(reservation.status) }}
@@ -127,52 +167,111 @@
       </div>
 
       <!-- Offers Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2%]">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2%] md:gap-y-[5%]">
         <div
           v-for="offer in offers"
           :key="offer.id"
-          class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col items-center"
+          class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-[55vh] md:h-[60vh] flex flex-col"
         >
-          <div class="h-[20vh] min-h-[150px] w-full bg-gray-200 relative">
-            <img
-              v-if="offer.image"
-              :src="offer.image"
-              :alt="offer.name"
-              class="w-full h-full object-cover"
-            />
-            <div v-else class="w-full h-full flex items-center justify-center">
-              <span class="material-symbols-outlined text-gray-400 text-4xl">apartment</span>
+          <!-- Image Section - 55% -->
+          <div class="relative h-[55%] overflow-hidden">
+            <!-- Image Carousel -->
+            <div
+              v-if="offer.raw.Pictures && offer.raw.Pictures.length"
+              class="relative w-full h-full"
+            >
+              <div
+                v-for="(img, idx) in offer.raw.Pictures"
+                :key="idx"
+                v-show="offer._carouselIndex === idx"
+                class="absolute inset-0 w-full h-full"
+              >
+                <img
+                  :src="img"
+                  :alt="offer.name"
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
+              <!-- Navigation Arrows -->
+              <button
+                v-if="offer.raw.Pictures.length > 1"
+                @click="prevImage(offer)"
+                class="absolute left-[2%] top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[35px] h-[35px] flex items-center justify-center transition-all duration-300"
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button
+                v-if="offer.raw.Pictures.length > 1"
+                @click="nextImage(offer)"
+                class="absolute right-[2%] top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[35px] h-[35px] flex items-center justify-center transition-all duration-300"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
             </div>
+            <!-- Placeholder if no images -->
+            <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
+              <span class="material-symbols-outlined text-gray-400 text-5xl">apartment</span>
+            </div>
+
+            <!-- Price Badge -->
+            <div
+              class="absolute top-[5%] right-[3%] bg-[var(--second-orange)] text-[var(--bg-1)] h-[12%] flex items-center justify-center rounded-full font-bold text-sm px-3"
+            >
+              {{ formatPrice(offer.pricePerNight) }} / Nuit
+            </div>
+
+            <!-- Availability Badge -->
             <span
               :class="[
-                'absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full',
-                offer.available ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                'absolute top-[5%] left-[3%] px-3 py-1 text-xs font-medium rounded-full',
+                offer.available ? 'bg-green-500 text-white' : 'bg-red-500 text-white',
               ]"
             >
               {{ offer.available ? 'Disponible' : 'Indisponible' }}
             </span>
           </div>
-          <div class="h-[15vh] min-h-[120px] w-[90%] mx-auto flex flex-col justify-around">
-            <h3 class="font-semibold text-lg text-gray-800">{{ offer.name }}</h3>
-            <p class="text-sm text-gray-600 line-clamp-2">{{ offer.description }}</p>
-            <div class="flex items-center justify-between">
-              <span class="text-lg font-bold text-[var(--bg-1)]">{{ formatPrice(offer.pricePerNight) }}/nuit</span>
-              <div class="flex gap-[0.5vw]">
-                <button
-                  @click="openOfferModal(offer)"
-                  class="h-[4vh] min-h-[32px] w-[4vh] min-w-[32px] flex items-center justify-center text-blue-600 hover:bg-blue-50 rounded-lg"
-                  title="Modifier"
-                >
-                  <span class="material-symbols-outlined">edit</span>
-                </button>
-                <button
-                  @click="deleteOffer(offer)"
-                  class="h-[4vh] min-h-[32px] w-[4vh] min-w-[32px] flex items-center justify-center text-red-600 hover:bg-red-50 rounded-lg"
-                  title="Supprimer"
-                >
-                  <span class="material-symbols-outlined">delete</span>
-                </button>
+
+          <!-- Info Section - 45% -->
+          <div class="h-[45%] flex flex-col justify-around items-center text-center" style="padding: 4%;">
+            <!-- Title -->
+            <h3 class="text-[15px] sm:text-[20px] md:text-[18px] text-[var(--bg-1)] font-semibold">{{ offer.name }}</h3>
+
+            <!-- Amenities Grid -->
+            <div class="grid grid-cols-2 gap-[3%] text-sm text-gray-600 h-[40%] w-full">
+              <div class="flex items-center pl-4 gap-[5%]">
+                <span class="material-symbols-outlined text-[var(--second-orange)]">bed</span>
+                <span>{{ offer.raw?.Bed_Number || 0 }} Lit(s)</span>
               </div>
+              <div class="flex items-center pl-4 gap-[5%]">
+                <span class="material-symbols-outlined text-[var(--second-orange)]">door_open</span>
+                <span>{{ offer.raw?.Room_Number || 0 }} Chambre(s)</span>
+              </div>
+              <div class="flex items-center pl-4 gap-[5%]">
+                <span class="material-symbols-outlined text-[var(--second-orange)]">kitchen</span>
+                <span>{{ offer.raw?.Kitchen_Number ? offer.raw.Kitchen_Number + ' Cuisine(s)' : 'Non' }}</span>
+              </div>
+              <div class="flex items-center pl-4 gap-[5%]">
+                <span class="material-symbols-outlined text-[var(--second-orange)]">local_parking</span>
+                <span>{{ offer.raw?.Parking ? 'Parking' : 'Non' }}</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="w-full flex gap-2">
+              <button
+                @click="openOfferModal(offer)"
+                class="flex-1 h-[20%] min-h-[40px] bg-white text-[var(--bg-1)] border-[2px] border-[var(--bg-1)] rounded-lg hover:bg-[var(--bg-1)] hover:text-white transition-all duration-300 font-semibold flex items-center justify-center gap-2"
+              >
+                <span class="material-symbols-outlined">edit</span>
+                Modifier
+              </button>
+              <button
+                @click="deleteOffer(offer)"
+                class="h-[20%] min-h-[40px] w-[40px] bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center justify-center"
+                title="Supprimer"
+              >
+                <span class="material-symbols-outlined">delete</span>
+              </button>
             </div>
           </div>
         </div>
@@ -184,8 +283,12 @@
       v-if="showReservationModal"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
-      <div class="bg-white rounded-xl w-[90%] max-w-lg h-auto max-h-[90vh] overflow-y-auto flex flex-col items-center">
-        <div class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto">
+      <div
+        class="bg-white rounded-xl w-[90%] max-w-lg h-auto max-h-[90vh] overflow-y-auto flex flex-col items-center"
+      >
+        <div
+          class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto"
+        >
           <h2 class="text-xl font-semibold text-gray-800">Détails de la réservation</h2>
           <button @click="showReservationModal = false" class="text-gray-500 hover:text-gray-700">
             <span class="material-symbols-outlined">close</span>
@@ -223,7 +326,9 @@
             </div>
           </div>
         </div>
-        <div class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto">
+        <div
+          class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto"
+        >
           <button
             @click="showReservationModal = false"
             class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -242,50 +347,178 @@
     </div>
 
     <!-- Offer Modal -->
-    <div
-      v-if="showOfferModal"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-    >
-      <div class="bg-white rounded-xl w-[40vw] min-w-[370px] max-w-lg max-h-[90vh] overflow-y-auto flex flex-col items-center">
-        <div class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto">
-          <h2 class="text-xl font-semibold text-gray-800">
-            {{ editingOffer ? 'Modifier l\'offre' : 'Nouvelle offre' }}
+    <div v-if="showOfferModal" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div
+        class="relative bg-white rounded-2xl w-[95%] md:w-[70%] lg:w-[50%] max-h-[90vh] overflow-y-auto z-10 shadow-2xl"
+      >
+        <!-- Close Button -->
+        <button
+          @click="showOfferModal = false"
+          class="absolute top-[2%] right-[2%] z-20 bg-gray-100 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[40px] h-[40px] flex items-center justify-center transition-all duration-300"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <!-- Header -->
+        <div class="h-auto w-full px-[5%] pt-[5%] pb-[2%]">
+          <h2 class="text-2xl md:text-3xl font-bold text-[var(--bg-1)] text-center">
+            {{ editingOffer ? "Modifier l'offre" : 'Nouvelle offre' }}
           </h2>
-          <button @click="showOfferModal = false" class="text-gray-500 hover:text-gray-700">
-            <span class="material-symbols-outlined">close</span>
-          </button>
         </div>
-        <div class="w-[90%] mx-auto py-[2vh] space-y-[2vh]">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Nom de l'offre</label>
-            <input
-              type="text"
-              v-model="offerForm.name"
-              class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
-              placeholder="Ex: Appartement Luxe"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Description</label>
-            <textarea
-              v-model="offerForm.description"
-              rows="3"
-              class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
-              placeholder="Décrivez l'offre..."
-            ></textarea>
-          </div>
-          <div class="grid grid-cols-2 gap-[1vw]">
+        <div class="w-full px-[5%] py-[2vh] space-y-5 flex flex-col gap-4">
+          <!-- Informations de base -->
+          <div class="space-y-[1.5vh] flex flex-col gap-4">
+            <h3 class="text-sm font-semibold text-gray-800 border-b pb-1">Informations de base</h3>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Prix par nuit (XOF)</label>
+              <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
+                >Nom de l'offre *</label
+              >
               <input
-                type="number"
-                v-model="offerForm.pricePerNight"
+                type="text"
+                v-model="offerForm.name"
                 class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
-                placeholder="50000"
+                placeholder="Ex: Appartement Luxe"
+                required
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Disponibilité</label>
+              <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
+                >Description *</label
+              >
+              <textarea
+                v-model="offerForm.description"
+                rows="3"
+                class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4 py-2"
+                placeholder="Décrivez l'offre..."
+                required
+              ></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-[1vw]">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Ville *</label>
+                <input
+                  type="text"
+                  v-model="offerForm.town"
+                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
+                  placeholder="Ex: Dakar,Sénégal"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
+                  >Prix/nuit (XOF) *</label
+                >
+                <input
+                  type="number"
+                  v-model="offerForm.pricePerNight"
+                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
+                  placeholder="50000"
+                  min="0"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Caractéristiques -->
+          <div class="space-y-[1.5vh] flex flex-col gap-4">
+            <h3 class="text-sm font-semibold text-gray-800 border-b pb-1">Caractéristiques</h3>
+            <div class="grid grid-cols-3 gap-[1vw]">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Chambres</label>
+                <input
+                  type="number"
+                  v-model="offerForm.roomNumber"
+                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
+                  placeholder="0"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Lits</label>
+                <input
+                  type="number"
+                  v-model="offerForm.bedNumber"
+                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
+                  placeholder="0"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Cuisines</label>
+                <input
+                  type="number"
+                  v-model="offerForm.kitchenNumber"
+                  class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
+                  placeholder="0"
+                  min="0"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Équipements -->
+          <div class="space-y-[1.5vh] flex flex-col gap-4">
+            <h3 class="text-sm font-semibold text-gray-800 border-b pb-1">Équipements</h3>
+            <div class="grid grid-cols-2 gap-x-[1vw] gap-y-2">
+              <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                <input
+                  type="checkbox"
+                  v-model="offerForm.wifi"
+                  class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
+                />
+                <span class="material-symbols-outlined text-gray-600 text-xl">wifi</span>
+                <span class="text-sm text-gray-700">WiFi</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                <input
+                  type="checkbox"
+                  v-model="offerForm.ac"
+                  class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
+                />
+                <span class="material-symbols-outlined text-gray-600 text-xl">ac_unit</span>
+                <span class="text-sm text-gray-700">Climatisation</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                <input
+                  type="checkbox"
+                  v-model="offerForm.parking"
+                  class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
+                />
+                <span class="material-symbols-outlined text-gray-600 text-xl">local_parking</span>
+                <span class="text-sm text-gray-700">Parking</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                <input
+                  type="checkbox"
+                  v-model="offerForm.washingMachine"
+                  class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
+                />
+                <span class="material-symbols-outlined text-gray-600 text-xl"
+                  >local_laundry_service</span
+                >
+                <span class="text-sm text-gray-700">Machine à laver</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                <input
+                  type="checkbox"
+                  v-model="offerForm.security"
+                  class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
+                />
+                <span class="material-symbols-outlined text-gray-600 text-xl">security</span>
+                <span class="text-sm text-gray-700">Sécurité</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Disponibilité -->
+          <div class="space-y-[1.5vh] flex flex-col gap-4">
+            <h3 class="text-sm font-semibold text-gray-800 border-b pb-1">Statut</h3>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
+                >Disponibilité</label
+              >
               <select
                 v-model="offerForm.available"
                 class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
@@ -295,29 +528,77 @@
               </select>
             </div>
           </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Image</label>
-            <div class="border-2 border-dashed border-gray-300 rounded-lg h-[15vh] min-h-[120px] flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors">
-              <input type="file" accept="image/*" class="hidden" id="offer-image" @change="handleOfferImage" />
-              <label for="offer-image" class="cursor-pointer text-center">
-                <span class="material-symbols-outlined text-gray-400 text-4xl mb-[1vh]">cloud_upload</span>
-                <p class="text-sm text-gray-500">Cliquez pour télécharger une image</p>
-              </label>
+
+          <!-- Images -->
+          <div class="space-y-[1.5vh] flex flex-col gap-4">
+            <h3 class="text-sm font-semibold text-gray-800 border-b pb-1">Images</h3>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
+                >Images (jusqu'à 4)</label
+              >
+              <!-- Image Upload Section -->
+              <div
+                class="border-2 border-dashed border-gray-300 rounded-lg h-[12vh] min-h-[100px] flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors cursor-pointer"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  class="hidden"
+                  id="offer-image"
+                  @change="handleOfferImage"
+                />
+                <label
+                  for="offer-image"
+                  class="cursor-pointer text-center w-full h-full flex flex-col items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-gray-400 text-4xl mb-[1vh]"
+                    >cloud_upload</span
+                  >
+                  <p class="text-sm text-gray-500">Cliquez pour sélectionner des images</p>
+                  <p class="text-xs text-gray-400 mt-1">
+                    {{ offerForm.pictures.length }} image(s) sélectionnée(s)
+                  </p>
+                </label>
+              </div>
+              <!-- Image Preview Section -->
+              <div v-if="offerForm.pictures.length" class="mt-[2vh]">
+                <label class="block text-sm font-medium text-gray-700 mb-[1vh]"
+                  >Aperçu des images</label
+                >
+                <div class="flex gap-2 flex-wrap">
+                  <div v-for="(pic, idx) in offerForm.pictures" :key="idx" class="relative">
+                    <img
+                      :src="getImagePreview(pic)"
+                      class="h-20 w-20 object-cover rounded border-2 border-gray-200"
+                    />
+                    <button
+                      @click="removeImage(idx)"
+                      type="button"
+                      class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 shadow-md"
+                    >
+                      <span class="material-symbols-outlined text-sm">close</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto">
-          <button
-            @click="showOfferModal = false"
-            class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
-          >
-            Annuler
-          </button>
+        <div
+          class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto"
+        >
           <button
             @click="saveOffer"
             class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90"
           >
             {{ editingOffer ? 'Enregistrer' : 'Créer' }}
+          </button>
+          <button
+            @click="showOfferModal = false"
+            class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
+          >
+            Annuler
           </button>
         </div>
       </div>
@@ -334,10 +615,13 @@
         </div>
         <div class="w-[90%] mx-auto py-[2vh]">
           <p class="text-gray-600 mb-[2vh]">
-            Êtes-vous sûr de vouloir annuler cette réservation ? Un email sera envoyé au client pour l'informer.
+            Êtes-vous sûr de vouloir annuler cette réservation ? Un email sera envoyé au client pour
+            l'informer.
           </p>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Message personnalisé (optionnel)</label>
+            <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
+              >Message personnalisé (optionnel)</label
+            >
             <textarea
               v-model="cancelMessage"
               rows="3"
@@ -346,7 +630,9 @@
             ></textarea>
           </div>
         </div>
-        <div class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto">
+        <div
+          class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto"
+        >
           <button
             @click="showCancelModal = false"
             class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -366,7 +652,7 @@
 </template>
 
 <script>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, onMounted, toRaw } from 'vue'
 
 export default {
   name: 'BookingsView',
@@ -383,95 +669,108 @@ export default {
 
     const tabs = [
       { id: 'reservations', label: 'Réservations', icon: 'calendar_month' },
-      { id: 'offers', label: 'Offres', icon: 'apartment' }
+      { id: 'offers', label: 'Offres', icon: 'apartment' },
     ]
 
-    // Mock Data
-    const reservations = ref([
-      {
-        id: 1,
-        firstName: 'Jean',
-        lastName: 'Dupont',
-        email: 'jean.dupont@email.com',
-        phone: '+229 97 12 34 56',
-        country: 'Bénin',
-        offer: 'Appartement Luxe',
-        duration: '7 jours (15-22 Jan)',
-        status: 'confirmed'
-      },
-      {
-        id: 2,
-        firstName: 'Marie',
-        lastName: 'Claire',
-        email: 'marie.claire@email.com',
-        phone: '+33 6 12 34 56 78',
-        country: 'France',
-        offer: 'Studio Moderne',
-        duration: '3 jours (18-21 Jan)',
-        status: 'pending'
-      },
-      {
-        id: 3,
-        firstName: 'Paul',
-        lastName: 'Martin',
-        email: 'paul.martin@email.com',
-        phone: '+1 555 123 4567',
-        country: 'États-Unis',
-        offer: 'Villa Premium',
-        duration: '14 jours (20 Jan - 3 Fév)',
-        status: 'confirmed'
-      },
-      {
-        id: 4,
-        firstName: 'Sophie',
-        lastName: 'Lefebvre',
-        email: 'sophie.l@email.com',
-        phone: '+229 91 23 45 67',
-        country: 'Bénin',
-        offer: 'Appartement Standard',
-        duration: '5 jours (10-15 Jan)',
-        status: 'cancelled'
-      }
-    ])
+    // Réservations depuis l'API
+    const reservations = ref([])
 
-    const offers = ref([
-      {
-        id: 1,
-        name: 'Appartement Luxe',
-        description: 'Appartement haut de gamme avec vue panoramique, 3 chambres, cuisine équipée et terrasse.',
-        pricePerNight: 75000,
-        available: true,
-        image: null
-      },
-      {
-        id: 2,
-        name: 'Studio Moderne',
-        description: 'Studio élégant et fonctionnel, parfait pour les courts séjours.',
-        pricePerNight: 35000,
-        available: true,
-        image: null
-      },
-      {
-        id: 3,
-        name: 'Villa Premium',
-        description: 'Villa spacieuse avec piscine privée, jardin et 5 chambres de luxe.',
-        pricePerNight: 150000,
-        available: false,
-        image: null
+    async function fetchReservations() {
+      try {
+        const token = localStorage.getItem('accessToken')
+        const res = await fetch('/api/v1/reservation', {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : undefined,
+          },
+        })
+        const data = await res.json()
+        // Adapter la structure pour l'affichage
+        reservations.value = (data.data?.docs || data.data || []).map((r) => ({
+          id: r._id,
+          firstName: r.Prenom_Client || '',
+          lastName: r.Nom_Client || '',
+          email: r.Email || '',
+          phone: r.Phone || '',
+          country: r.Country || '',
+          offer: r.Offer || '',
+          duration: r.Start_Date && r.Arrival_Date ? `${r.Start_Date} - ${r.Arrival_Date}` : '',
+          status: r.Status ? r.Status.toLowerCase() : 'pending',
+          raw: r,
+        }))
+      } catch (e) {
+        console.error('Erreur lors du chargement des réservations', e)
       }
-    ])
+    }
+
+    // Offres depuis l'API
+    const offers = ref([])
+
+    async function fetchOffers() {
+      try {
+        const token = localStorage.getItem('accessToken')
+        const res = await fetch('/api/v1/offer', {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : undefined,
+          },
+        })
+        console.log('Fetch offers response:', res)
+        const data = await res.json()
+        offers.value = (data.data?.docs || data.data || []).map((o) => {
+          // Fix image URLs to use relative paths instead of localhost
+          const fixImageUrl = (url) => {
+            if (!url) return null
+            // Remove http://localhost:3000 or http://backend:3000 from URLs
+            return url.replace(/^https?:\/\/(localhost|backend):3000/, '')
+          }
+
+          const fixedPictures = o.Pictures ? o.Pictures.map(fixImageUrl) : []
+
+          return reactive({
+            id: o._id,
+            name: o.Title || '',
+            description: o.Bio || '',
+            pricePerNight: o.Nightly_Price || 0,
+            available: o.Availability === 'Disponible' || o.Availability === true,
+            image: fixedPictures.length > 0 ? fixedPictures[0] : null,
+            _carouselIndex: 0,
+            raw: {
+              ...o,
+              Pictures: fixedPictures,
+            },
+          })
+        })
+      } catch (e) {
+        console.error('Erreur lors du chargement des offres', e)
+      }
+    }
+
+    // Charger les réservations et offres au montage
+    onMounted(() => {
+      fetchReservations()
+      fetchOffers()
+    })
 
     const offerForm = reactive({
       name: '',
       description: '',
       pricePerNight: '',
+      town: '',
+      bedNumber: '',
+      roomNumber: '',
+      kitchenNumber: '',
       available: true,
-      image: null
+      parking: false,
+      washingMachine: false,
+      wifi: false,
+      ac: false,
+      security: false,
+      pictures: [],
     })
 
     const filteredReservations = computed(() => {
-      return reservations.value.filter(r => {
-        const matchesSearch = searchQuery.value === '' ||
+      return reservations.value.filter((r) => {
+        const matchesSearch =
+          searchQuery.value === '' ||
           `${r.firstName} ${r.lastName}`.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
           r.email.toLowerCase().includes(searchQuery.value.toLowerCase())
         const matchesStatus = statusFilter.value === '' || r.status === statusFilter.value
@@ -499,11 +798,22 @@ export default {
       showReservationModal.value = false
     }
 
-    function confirmCancellation() {
+    async function confirmCancellation() {
       if (selectedReservation.value) {
-        selectedReservation.value.status = 'cancelled'
-        // TODO: Send cancellation email via API
-        console.log('Cancellation email sent with message:', cancelMessage.value)
+        try {
+          const token = localStorage.getItem('accessToken')
+          await fetch(`/api/v1/reservation/${selectedReservation.value.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: token ? `Bearer ${token}` : undefined,
+            },
+            body: JSON.stringify({ Status: 'cancelled', Cancel_Message: cancelMessage.value }),
+          })
+          await fetchReservations()
+        } catch (e) {
+          console.error("Erreur lors de l'annulation", e)
+        }
       }
       showCancelModal.value = false
       cancelMessage.value = ''
@@ -512,36 +822,162 @@ export default {
     function openOfferModal(offer = null) {
       editingOffer.value = offer
       if (offer) {
-        Object.assign(offerForm, offer)
+        // Populate form with existing offer data
+        offerForm.name = offer.name || ''
+        offerForm.description = offer.description || ''
+        offerForm.pricePerNight = offer.pricePerNight || ''
+        offerForm.town = offer.raw?.Town || ''
+        offerForm.bedNumber = offer.raw?.Bed_Number || ''
+        offerForm.roomNumber = offer.raw?.Room_Number || ''
+        offerForm.kitchenNumber = offer.raw?.Kitchen_Number || ''
+        offerForm.available = offer.available !== undefined ? offer.available : true
+        offerForm.parking = offer.raw?.Parking || false
+        offerForm.washingMachine = offer.raw?.Washing_Name || false
+        offerForm.wifi = offer.raw?.Wifi || false
+        offerForm.ac = offer.raw?.AC || false
+        offerForm.security = offer.raw?.Security || false
+        offerForm.pictures = [] // reset images when editing
       } else {
-        Object.assign(offerForm, { name: '', description: '', pricePerNight: '', available: true, image: null })
+        // Reset form for new offer
+        offerForm.name = ''
+        offerForm.description = ''
+        offerForm.pricePerNight = ''
+        offerForm.town = ''
+        offerForm.bedNumber = ''
+        offerForm.roomNumber = ''
+        offerForm.kitchenNumber = ''
+        offerForm.available = true
+        offerForm.parking = false
+        offerForm.washingMachine = false
+        offerForm.wifi = false
+        offerForm.ac = false
+        offerForm.security = false
+        offerForm.pictures = []
       }
       showOfferModal.value = true
     }
 
     function handleOfferImage(event) {
-      const file = event.target.files[0]
-      if (file) {
-        offerForm.image = URL.createObjectURL(file)
+      const files = event.target.files
+      if (files && files.length > 0) {
+        // Add new files to existing pictures, up to a maximum of 4
+        const newFiles = Array.from(files)
+        const currentCount = offerForm.pictures.length
+        const availableSlots = 4 - currentCount
+
+        if (availableSlots > 0) {
+          offerForm.pictures.push(...newFiles.slice(0, availableSlots))
+        }
+
+        // Reset the input so the same file can be selected again if needed
+        event.target.value = ''
       }
     }
 
-    function saveOffer() {
-      if (editingOffer.value) {
-        Object.assign(editingOffer.value, offerForm)
-      } else {
-        offers.value.push({
-          id: Date.now(),
-          ...offerForm,
-          pricePerNight: Number(offerForm.pricePerNight)
-        })
+    function removeImage(index) {
+      offerForm.pictures.splice(index, 1)
+    }
+
+    function getImagePreview(file) {
+      return URL.createObjectURL(file)
+    }
+
+    function prevImage(offer) {
+      if (!offer.raw.Pictures || offer.raw.Pictures.length === 0) return
+      offer._carouselIndex =
+        (offer._carouselIndex - 1 + offer.raw.Pictures.length) % offer.raw.Pictures.length
+    }
+
+    function nextImage(offer) {
+      if (!offer.raw.Pictures || offer.raw.Pictures.length === 0) return
+      offer._carouselIndex = (offer._carouselIndex + 1) % offer.raw.Pictures.length
+    }
+
+    async function saveOffer() {
+      // Validation
+      if (
+        !offerForm.name ||
+        !offerForm.description ||
+        !offerForm.pricePerNight ||
+        !offerForm.town
+      ) {
+        alert('Veuillez remplir tous les champs obligatoires (*)')
+        return
+      }
+
+      const token = localStorage.getItem('accessToken')
+      try {
+        const formData = new FormData()
+
+        // Basic information
+        formData.append('Title', offerForm.name)
+        formData.append('Bio', offerForm.description)
+        formData.append('Nightly_Price', offerForm.pricePerNight)
+        formData.append('Town', offerForm.town)
+
+        // Property characteristics
+        if (offerForm.bedNumber) formData.append('Bed_Number', offerForm.bedNumber)
+        if (offerForm.roomNumber) formData.append('Room_Number', offerForm.roomNumber)
+        if (offerForm.kitchenNumber) formData.append('Kitchen_Number', offerForm.kitchenNumber)
+
+        // Amenities
+        formData.append('Parking', offerForm.parking)
+        formData.append('Washing_Name', offerForm.washingMachine)
+        formData.append('Wifi', offerForm.wifi)
+        formData.append('AC', offerForm.ac)
+        formData.append('Security', offerForm.security)
+
+        // Availability
+        formData.append('Availability', offerForm.available)
+
+        // Add images if any
+        if (offerForm.pictures && offerForm.pictures.length > 0) {
+          offerForm.pictures.forEach((pic) => {
+            formData.append('Pictures', pic)
+          })
+        }
+
+        const headers = {}
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`
+        }
+
+        if (editingOffer.value) {
+          // Modification
+          await fetch(`/api/v1/offer/${editingOffer.value.id}`, {
+            method: 'PUT',
+            headers: headers,
+            body: formData,
+          })
+        } else {
+          // Création
+          await fetch('/api/v1/offer', {
+            method: 'POST',
+            headers: headers,
+            body: formData,
+          })
+        }
+        await fetchOffers()
+      } catch (e) {
+        console.error("Erreur lors de la sauvegarde de l'offre", e)
       }
       showOfferModal.value = false
     }
 
-    function deleteOffer(offer) {
+    async function deleteOffer(offer) {
       if (confirm('Êtes-vous sûr de vouloir supprimer cette offre ?')) {
-        offers.value = offers.value.filter(o => o.id !== offer.id)
+        const token = localStorage.getItem('accessToken')
+        try {
+          await fetch(`/api/v1/offer/${offer.id}`, {
+            method: 'DELETE',
+            headers: {
+              Authorization: token ? `Bearer ${token}` : undefined,
+            },
+          })
+          await fetchOffers()
+        } catch (e) {
+          console.error("Erreur lors de la suppression de l'offre", e)
+        }
       }
     }
 
@@ -567,10 +1003,14 @@ export default {
       confirmCancellation,
       openOfferModal,
       handleOfferImage,
+      removeImage,
+      getImagePreview,
+      prevImage,
+      nextImage,
       saveOffer,
-      deleteOffer
+      deleteOffer,
     }
-  }
+  },
 }
 </script>
 
@@ -578,6 +1018,7 @@ export default {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

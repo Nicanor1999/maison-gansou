@@ -85,7 +85,6 @@ module.exports = class OfferRoutes extends ParentRoute {
       .addResponse(200, 'A list of offer', '#/components/schemas/OfferPaginationResponse');
 
     router.route("/").get(
-      adminauthmiddlewares.authorizeAdmin('*'),
       this.use(offercontroller.findAll));
 
     // Route: Update Offer

@@ -154,7 +154,7 @@ export default {
       errorMessage.value = ''
 
       try {
-        const response = await fetch('/api/api/v1/admin/auth/signin', {
+        const response = await fetch('/api/v1/admin/auth/signin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

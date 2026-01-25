@@ -20,8 +20,25 @@
       </div>
     </div>
 
+    <!-- Loading State -->
+    <div v-if="isLoading" class="w-[93%] h-[40vh] flex items-center justify-center">
+      <div class="flex flex-col items-center gap-4">
+        <span class="material-symbols-outlined text-[var(--second-orange)] text-5xl animate-spin">progress_activity</span>
+        <p class="text-gray-600 text-lg">Chargement des appartements...</p>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div v-else-if="apartments.length === 0" class="w-[93%] h-[40vh] flex items-center justify-center">
+      <div class="flex flex-col items-center gap-4 text-center">
+        <span class="material-symbols-outlined text-gray-400 text-6xl">apartment</span>
+        <p class="text-gray-600 text-lg">Aucun appartement disponible pour le moment.</p>
+        <p class="text-gray-500">Revenez bientôt pour découvrir nos nouvelles offres !</p>
+      </div>
+    </div>
+
     <!-- Apartments Grid -->
-    <div class="apartments-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2%] md:gap-y-[5%] w-[93%] h-auto pt-10">
+    <div v-else class="apartments-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2%] md:gap-y-[5%] w-[93%] h-auto pt-10">
       <div
         v-for="(apartment, index) in apartments"
         :key="apartment.id"
@@ -31,11 +48,16 @@
         :data-aos-delay="index * 100"
       >
         <div class="relative h-[55%] overflow-hidden">
+          <!-- Image or Placeholder -->
           <img
+            v-if="apartment.images && apartment.images.length > 0"
             :src="apartment.images[0]"
             :alt="apartment.name"
             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
           />
+          <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
+            <span class="material-symbols-outlined text-gray-400 text-6xl">apartment</span>
+          </div>
           <div
             class="absolute top-[5%] right-[3%] bg-[var(--second-orange)] text-[var(--bg-1)] h-[12%] flex items-center justify-center rounded-full font-bold text-sm"
             style="padding: 0 3%;"
@@ -98,38 +120,47 @@
 
             <!-- Image Gallery -->
             <div class="relative h-[35vh] md:h-[45vh] overflow-hidden">
-              <img
-                :src="selectedApartment?.images[currentImageIndex]"
-                :alt="selectedApartment?.name"
-                class="w-full h-full object-cover"
-              />
-              <!-- Image Navigation -->
-              <div class="absolute bottom-[5%] left-1/2 transform -translate-x-1/2 flex gap-[0.5vw]">
+              <!-- Show images if available -->
+              <template v-if="selectedApartment?.images && selectedApartment.images.length > 0">
+                <img
+                  :src="selectedApartment.images[currentImageIndex]"
+                  :alt="selectedApartment?.name"
+                  class="w-full h-full object-cover"
+                />
+                <!-- Image Navigation Dots -->
+                <div v-if="selectedApartment.images.length > 1" class="absolute bottom-[5%] left-1/2 transform -translate-x-1/2 flex gap-[0.5vw]">
+                  <button
+                    v-for="(image, index) in selectedApartment.images"
+                    :key="index"
+                    @click="currentImageIndex = index; startSlideshow()"
+                    :class="[
+                      'w-[12px] h-[12px] rounded-full transition-all duration-300',
+                      index === currentImageIndex
+                        ? 'bg-[var(--second-orange)] scale-125'
+                        : 'bg-white/70 hover:bg-white',
+                    ]"
+                  ></button>
+                </div>
+                <!-- Arrow Navigation -->
                 <button
-                  v-for="(image, index) in selectedApartment?.images"
-                  :key="index"
-                  @click="currentImageIndex = index; startSlideshow()"
-                  :class="[
-                    'w-[12px] h-[12px] rounded-full transition-all duration-300',
-                    index === currentImageIndex
-                      ? 'bg-[var(--second-orange)] scale-125'
-                      : 'bg-white/70 hover:bg-white',
-                  ]"
-                ></button>
+                  v-if="selectedApartment.images.length > 1"
+                  @click="prevImage"
+                  class="absolute left-[2%] top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[40px] h-[40px] flex items-center justify-center transition-all duration-300"
+                >
+                  <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button
+                  v-if="selectedApartment.images.length > 1"
+                  @click="nextImage"
+                  class="absolute right-[2%] top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[40px] h-[40px] flex items-center justify-center transition-all duration-300"
+                >
+                  <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+              </template>
+              <!-- Placeholder if no images -->
+              <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span class="material-symbols-outlined text-gray-400 text-8xl">apartment</span>
               </div>
-              <!-- Arrow Navigation -->
-              <button
-                @click="prevImage"
-                class="absolute left-[2%] top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[40px] h-[40px] flex items-center justify-center transition-all duration-300"
-              >
-                <span class="material-symbols-outlined">chevron_left</span>
-              </button>
-              <button
-                @click="nextImage"
-                class="absolute right-[2%] top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-[var(--second-orange)] text-[var(--bg-1)] rounded-full w-[40px] h-[40px] flex items-center justify-center transition-all duration-300"
-              >
-                <span class="material-symbols-outlined">chevron_right</span>
-              </button>
             </div>
 
             <!-- Apartment Info -->
@@ -438,17 +469,6 @@
 
 <script>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import imageA from '@/assets/pictures/A.jpg'
-import imageB from '@/assets/pictures/B.jpg'
-import imageC from '@/assets/pictures/C.jpg'
-import imageD from '@/assets/pictures/D.jpg'
-import imageE from '@/assets/pictures/E.jpg'
-import imageF from '@/assets/pictures/F.jpg'
-import imageG from '@/assets/pictures/G.jpg'
-import imageH from '@/assets/pictures/H.jpg'
-import imageI from '@/assets/pictures/I.jpg'
-import imageJ from '@/assets/pictures/J.jpg'
-import imageK from '@/assets/pictures/K.jpg'
 
 export default {
   name: 'BookingsPublicView',
@@ -459,13 +479,63 @@ export default {
     const selectedApartment = ref(null)
     const currentImageIndex = ref(0)
     const isSubmitting = ref(false)
+    const isLoading = ref(true)
     let slideshowInterval = null
+
+    // Apartments from API
+    const apartments = ref([])
+
+    // Fix image URLs from backend
+    const fixImageUrl = (url) => {
+      if (!url) return null
+      // Remove http://localhost:3000 or http://backend:3000 from URLs
+      return url.replace(/^https?:\/\/(localhost|backend):3000/, '')
+    }
+
+    // Fetch apartments from backend
+    const fetchApartments = async () => {
+      isLoading.value = true
+      try {
+        const res = await fetch('/api/v1/offer')
+        const data = await res.json()
+        const offers = data.data?.docs || data.data || []
+
+        // Map backend data to frontend format
+        apartments.value = offers
+          .filter(o => o.Availability === true) // Only show available offers
+          .map(o => ({
+            id: o._id,
+            name: o.Title || 'Sans titre',
+            location: o.Town || 'Cotonou, Bénin',
+            description: o.Bio || '',
+            pricePerNight: o.Nightly_Price || 0,
+            beds: o.Bed_Number || 0,
+            rooms: o.Room_Number || 0,
+            hasKitchen: o.Kitchen_Number > 0,
+            hasParking: o.Parking || false,
+            hasWashingMachine: o.Washing_Name || false,
+            hasWifi: o.Wifi || false,
+            hasAC: o.AC || false,
+            hasSecurity: o.Security || false,
+            images: o.Pictures ? o.Pictures.map(fixImageUrl).filter(Boolean) : [],
+          }))
+      } catch (e) {
+        console.error('Erreur lors du chargement des offres', e)
+      } finally {
+        isLoading.value = false
+      }
+    }
+
+    // Load apartments on mount
+    onMounted(() => {
+      fetchApartments()
+    })
 
     // Auto slideshow for modal images
     const startSlideshow = () => {
       stopSlideshow()
       slideshowInterval = setInterval(() => {
-        if (selectedApartment.value) {
+        if (selectedApartment.value && selectedApartment.value.images.length > 0) {
           currentImageIndex.value =
             (currentImageIndex.value + 1) % selectedApartment.value.images.length
         }
@@ -504,111 +574,6 @@ export default {
       guests: 1,
       specialRequests: '',
     })
-
-    const apartments = ref([
-      {
-        id: 1,
-        name: 'Appartement Luxe - Cotonou',
-        location: 'Cotonou, Bénin',
-        description:
-          "Magnifique appartement de standing situé au cœur de Cotonou. Entièrement meublé avec des finitions haut de gamme, cet espace offre tout le confort nécessaire pour un séjour inoubliable. Vue panoramique sur la ville et accès à toutes les commodités.",
-        pricePerNight: 75000,
-        beds: 2,
-        rooms: 3,
-        hasKitchen: true,
-        hasParking: true,
-        hasWashingMachine: true,
-        hasWifi: true,
-        hasAC: true,
-        hasSecurity: true,
-        images: [imageA, imageB, imageC, imageD],
-      },
-      {
-        id: 2,
-        name: 'Studio Moderne - Fidjrossè',
-        location: 'Fidjrossè, Cotonou',
-        description:
-          "Studio moderne et fonctionnel idéal pour les voyageurs d'affaires ou les courts séjours. Proche de la plage et des restaurants, ce studio offre un cadre de vie agréable avec toutes les commodités essentielles.",
-        pricePerNight: 45000,
-        beds: 1,
-        rooms: 1,
-        hasKitchen: true,
-        hasParking: false,
-        hasWashingMachine: false,
-        hasWifi: true,
-        hasAC: true,
-        hasSecurity: true,
-        images: [imageE, imageF, imageG],
-      },
-      {
-        id: 3,
-        name: 'Villa Premium - Akpakpa',
-        location: 'Akpakpa, Cotonou',
-        description:
-          "Villa spacieuse avec jardin privatif, parfaite pour les familles ou les groupes. Espace de vie généreux, cuisine équipée et ambiance chaleureuse pour un séjour en toute tranquillité.",
-        pricePerNight: 120000,
-        beds: 4,
-        rooms: 5,
-        hasKitchen: true,
-        hasParking: true,
-        hasWashingMachine: true,
-        hasWifi: true,
-        hasAC: true,
-        hasSecurity: true,
-        images: [imageH, imageI, imageJ, imageK],
-      },
-      {
-        id: 4,
-        name: 'Appartement Cosy - Ganhi',
-        location: 'Ganhi, Cotonou',
-        description:
-          "Charmant appartement au style contemporain, idéalement situé dans le quartier animé de Ganhi. Parfait pour découvrir la vie locale tout en bénéficiant d'un espace confortable.",
-        pricePerNight: 55000,
-        beds: 1,
-        rooms: 2,
-        hasKitchen: true,
-        hasParking: true,
-        hasWashingMachine: false,
-        hasWifi: true,
-        hasAC: true,
-        hasSecurity: false,
-        images: [imageB, imageD, imageF],
-      },
-      {
-        id: 5,
-        name: 'Penthouse Vue Mer',
-        location: 'Haie Vive, Cotonou',
-        description:
-          "Penthouse exceptionnel avec vue imprenable sur l'océan. Décoration raffinée, terrasse privée et prestations haut de gamme pour une expérience unique à Cotonou.",
-        pricePerNight: 150000,
-        beds: 3,
-        rooms: 4,
-        hasKitchen: true,
-        hasParking: true,
-        hasWashingMachine: true,
-        hasWifi: true,
-        hasAC: true,
-        hasSecurity: true,
-        images: [imageA, imageC, imageE, imageG],
-      },
-      {
-        id: 6,
-        name: 'Studio Économique - Cadjèhoun',
-        location: 'Cadjèhoun, Cotonou',
-        description:
-          "Studio fonctionnel à prix accessible, idéal pour les étudiants ou les voyageurs au budget limité. Propre, sécurisé et bien situé près des transports.",
-        pricePerNight: 25000,
-        beds: 1,
-        rooms: 1,
-        hasKitchen: false,
-        hasParking: false,
-        hasWashingMachine: false,
-        hasWifi: true,
-        hasAC: true,
-        hasSecurity: true,
-        images: [imageI, imageJ, imageK],
-      },
-    ])
 
     const minDate = computed(() => {
       const today = new Date()
@@ -711,12 +676,41 @@ export default {
 
       isSubmitting.value = true
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      try {
+        // Send reservation to backend
+        const reservationData = {
+          Prenom_Client: bookingForm.value.firstName,
+          Nom_Client: bookingForm.value.lastName,
+          Email: bookingForm.value.email,
+          Country: bookingForm.value.country,
+          Phone: bookingForm.value.phone,
+          Start_Date: bookingForm.value.checkIn,
+          Arrival_Date: bookingForm.value.checkOut,
+          Person_Number: bookingForm.value.guests,
+          Client_Message: bookingForm.value.specialRequests,
+          Offer: selectedApartment.value?.id,
+        }
 
-      isSubmitting.value = false
-      showBookingForm.value = false
-      showSuccessModal.value = true
+        const res = await fetch('/api/v1/reservation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(reservationData),
+        })
+
+        if (!res.ok) {
+          throw new Error('Erreur lors de la réservation')
+        }
+
+        showBookingForm.value = false
+        showSuccessModal.value = true
+      } catch (e) {
+        console.error('Erreur lors de la réservation', e)
+        alert('Une erreur est survenue lors de la réservation. Veuillez réessayer.')
+      } finally {
+        isSubmitting.value = false
+      }
     }
 
     return {
@@ -732,6 +726,7 @@ export default {
       totalPrice,
       isFormValid,
       isSubmitting,
+      isLoading,
       formatPrice,
       openApartmentDetails,
       closeModal,

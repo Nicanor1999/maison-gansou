@@ -84,17 +84,14 @@ module.exports = class OfferController extends CoreServices {
       ...req.body
     }
 
-    if (req.files) {
-      const PicturesFields = req.files ? req.files : []
+    // Only update pictures if new files were uploaded
+    if (req.files && req.files.length > 0) {
       const PicturesPaths = []
-      for (const field of PicturesFields) {
+      for (const field of req.files) {
         PicturesPaths.push(field.path);
       }
-
       payload.Pictures = PicturesPaths;
     }
-
-
 
     const offer = await this.OfferServices.update(query, payload, profile);
 

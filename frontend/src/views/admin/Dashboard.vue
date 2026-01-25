@@ -29,7 +29,7 @@
               </span>
             </div>
             <div class="flex flex-col gap-1 text-center">
-              <h3 class="text-gray-500 text-lg font-bold">Réservations</h3>
+              <h3 class="text-gray-500 text-lg font-bold" style="font-family: 'Inter', sans-serif;">Réservations</h3>
               <p class="text-2xl font-bold text-gray-800">{{ stats.reservations.total }}</p>
               <p class="text-xs text-gray-400">{{ stats.reservations.pending }} en attente</p>
             </div>
@@ -57,7 +57,7 @@
               </span>
             </div>
             <div class="flex flex-col gap-1 text-center">
-              <h3 class="text-gray-500 text-lg font-bold">Articles</h3>
+              <h3 class="text-gray-500 text-lg font-bold" style="font-family: 'Inter', sans-serif;">Articles</h3>
               <p class="text-2xl font-bold text-gray-800">{{ stats.articles.total }}</p>
               <p class="text-xs text-gray-400">{{ stats.articles.thisMonth }} ce mois</p>
             </div>
@@ -85,7 +85,7 @@
               </span>
             </div>
             <div class="flex flex-col gap-1 text-center">
-              <h3 class="text-gray-500 text-lg font-bold">Projets</h3>
+              <h3 class="text-gray-500 text-lg font-bold" style="font-family: 'Inter', sans-serif;">Projets</h3>
               <p class="text-2xl font-bold text-gray-800">{{ stats.projects.total }}</p>
               <p class="text-xs text-gray-400">{{ stats.projects.thisMonth }} ce mois</p>
             </div>
@@ -99,7 +99,7 @@
         <div class="bg-white rounded-xl shadow-sm min-h-80 border border-gray-100 flex justify-center">
           <div class="w-[95%] h-full mx-auto py-4">
             <div class="flex items-center justify-between h-12">
-              <h2 class="text-base font-semibold text-gray-800">Réservations Récentes</h2>
+              <h3 class="text-base font-semibold text-gray-800">Réservations Récentes</h3>
               <router-link to="/admin/bookings" class="text-sm text-[var(--bg-1)] hover:underline">
                 Voir tout
               </router-link>
@@ -139,7 +139,7 @@
         <div class="bg-white rounded-xl shadow-sm min-h-80 border border-gray-100 flex justify-center">
           <div class="w-[95%] h-full mx-auto py-4">
             <div class="flex items-center justify-between h-12">
-              <h2 class="text-base font-semibold text-gray-800">Articles Récents</h2>
+              <h3 class="text-base font-semibold text-gray-800">Articles Récents</h3>
               <router-link to="/admin/blog" class="text-sm text-[var(--bg-1)] hover:underline">
                 Voir tout
               </router-link>
@@ -186,7 +186,7 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex justify-center">
         <div class="w-[95%] h-full mx-auto py-4">
           <div class="flex items-center justify-between h-12">
-            <h2 class="text-base font-semibold text-gray-800">Projets Récents</h2>
+            <h3 class="text-base font-semibold text-gray-800">Projets Récents</h3>
             <router-link to="/admin/projects" class="text-sm text-[var(--bg-1)] hover:underline">
               Voir tout
             </router-link>
@@ -223,7 +223,7 @@
         class="mt-4 mb-6 bg-white rounded-xl shadow-sm h-44 border border-gray-100 flex justify-center"
       >
         <div class="w-[95%] h-full mx-auto flex flex-col justify-around py-4">
-          <h2 class="text-base font-semibold text-gray-800">Actions Rapides</h2>
+          <h3 class="text-base font-semibold text-gray-800">Actions Rapides</h3>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-24">
             <router-link
               to="/admin/blog"
@@ -267,7 +267,7 @@ export default {
   name: 'DashboardView',
   setup() {
     const isLoading = ref(true)
-    const API_BASE = '/api/api/v1'
+    const API_BASE = '/api/v1'
 
     // Stats Data
     const stats = reactive({

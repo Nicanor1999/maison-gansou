@@ -11,7 +11,7 @@
     >
       <!-- Logo -->
       <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
-        <router-link to="/" class="flex items-center">
+        <router-link to="/admin" class="flex items-center">
           <img :src="logo" alt="Logo" class="h-10 w-auto" />
           <span class="pl-2 text-white font-bold text-lg">Admin</span>
         </router-link>
@@ -178,7 +178,7 @@ export default {
 
     const logout = () => {
       localStorage.removeItem('accessToken')
-      router.push('/login')
+      router.push('/admin/login')
     }
 
     const handleClickOutside = (event) => {
