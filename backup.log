@@ -219,3 +219,28 @@ warning: in the working copy of 'frontend/src/views/admin/index.js', CRLF will b
 To github.com:Nicanor1999/maison-gansou.git
    b0e60ab..bb5d582  master -> master
 Backup terminé à 2026-01-24 00:00:03
+warning: in the working copy of 'frontend/src/views/admin/Bookings.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/admin/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Bookings.vue', CRLF will be replaced by LF the next time Git touches it
+[master dd2865b] Sauvegarde automatique 2026-01-25 00:00:02
+ 37 files changed, 2807 insertions(+), 379 deletions(-)
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T11-24-19.193Z686-Pictures-Home Automation Made Easy__Turn your home into a smart home with our innovative automation solutions_ Convenience at your fingertips!__#HomeAutomation #SmartLiving #Innovation #TechForHome.jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T11-24-19.194Z234-Pictures-IMG-20250405-WA0003.jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T11-36-53.353Z222-Pictures-WhatsApp Image 2026-01-21 at 8.21.29 AM.jpeg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T11-36-53.354Z131-Pictures-WhatsApp Image 2026-01-21 at 8.21.29 AM.jpeg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T11-36-53.356Z229-Pictures-pexels-qui-nguyen-7862521-6070968 (2).jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T11-36-53.361Z337-Pictures-WhatsApp Image 2026-01-04 at 10.15.02 PM.jpeg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T12-07-45.992Z294-Pictures-Home Automation Made Easy__Turn your home into a smart home with our innovative automation solutions_ Convenience at your fingertips!__#HomeAutomation #SmartLiving #Innovation #TechForHome.jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T12-07-45.994Z591-Pictures-Nano Banana-2025-11-28-14_23_12.png
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T12-33-19.223Z360-Pictures-pexels-qui-nguyen-7862521-6070968.jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T12-33-19.223Z71-Pictures-photo_2024-06-24_19-03-44-removebg-preview.png
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T13-16-23.402Z409-Pictures-WhatsApp Image 2026-01-21 at 8.21.29 AM.jpeg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T13-16-23.404Z575-Pictures-pexels-fotoaibe-1643383.jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T13-16-25.462Z462-Pictures-WhatsApp Image 2026-01-21 at 8.21.29 AM.jpeg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T13-16-25.463Z461-Pictures-pexels-fotoaibe-1643383.jpg
+ create mode 100644 "backend/public/uploads/default/Pictures/2026-01-24T19-40-59.150Z246-Pictures-NextSpace \303\242\302\200\302\224 Interior Design Portfolio.jpg"
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T23-08-10.623Z373-Pictures-IMG-20250405-WA0003.jpg
+ create mode 100644 backend/public/uploads/default/Pictures/2026-01-24T23-08-10.631Z495-Pictures-IMG-20250620-WA0048(1).jpg
+To github.com:Nicanor1999/maison-gansou.git
+   bb5d582..dd2865b  master -> master
+Backup terminé à 2026-01-25 00:00:04
