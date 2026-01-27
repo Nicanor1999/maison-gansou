@@ -32,15 +32,15 @@
         "example": "6973837280be02a88d8e8c38",
         "description": "DeletedBy of Reservation"
       },
-      "Nom_Client": {
+      "lastNameClient": {
         "type": "string",
         "example": "Comparo tripudio coerceo totus.",
-        "description": "Nom_Client of Reservation"
+        "description": "lastNameClient of Reservation"
       },
-      "Prenom_Client": {
+      "firstNameClient": {
         "type": "string",
         "example": "Aperiam utroque demens.",
-        "description": "Prenom_Client of Reservation"
+        "description": "firstNameClient of Reservation"
       },
       "Email": {
         "type": "string",
@@ -108,15 +108,15 @@
         "example": "6973837280be02a88d8e8c3d",
         "description": "DeletedBy of Reservation"
       },
-      "Nom_Client": {
+      "lastNameClient": {
         "type": "string",
         "example": "Comptus beatae desipio coma tempore audacia.",
-        "description": "Nom_Client of Reservation"
+        "description": "lastNameClient of Reservation"
       },
-      "Prenom_Client": {
+      "firstNameClient": {
         "type": "string",
         "example": "Aeternus numquam una nobis brevis tardus.",
-        "description": "Prenom_Client of Reservation"
+        "description": "firstNameClient of Reservation"
       },
       "Email": {
         "type": "string",
@@ -184,15 +184,15 @@
         "example": "6973837280be02a88d8e8c42",
         "description": "DeletedBy of Reservation"
       },
-      "Nom_Client": {
+      "lastNameClient": {
         "type": "string",
         "example": "Coepi stultus vulgivagus sonitus aeger tamen sordeo officiis stultus.",
-        "description": "Nom_Client of Reservation"
+        "description": "lastNameClient of Reservation"
       },
-      "Prenom_Client": {
+      "firstNameClient": {
         "type": "string",
         "example": "Tutamen complectus pax.",
-        "description": "Prenom_Client of Reservation"
+        "description": "firstNameClient of Reservation"
       },
       "Email": {
         "type": "string",

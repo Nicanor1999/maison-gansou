@@ -19,14 +19,14 @@ module.exports = class ProjectsResources {
         createdBy: model.createdBy,
         updatedBy: model.updatedBy,
         deletedBy: model.deletedBy,
-        Title: model.Title,
-        Country: model.Country,
-        Town: model.Town,
-        Services: model.Services,
-        Works_Type: model.Works_Type,
-        Partners: model.Partners,
-        Section: model.Section,
-        Status: model.Status,
+        title: model.title,
+        country: model.country,
+        town: model.town,
+        services: model.services,
+        worksType: model.worksType,
+        partners: model.partners,
+        section: model.section,
+        status: model.status,
       }
 
       return schema
@@ -44,13 +44,13 @@ module.exports = class ProjectsResources {
 
       const schema = {
         _id: model._id,
-        Title: model.Title,
-        Country: model.Country,
-        Town: model.Town,
-        Services: model.Services,
-        Works_Type: model.Works_Type,
-        Partners: model.Partners,
-        Status: model.Status,
+        title: model.title,
+        country: model.country,
+        town: model.town,
+        services: model.services,
+        worksType: model.worksType,
+        partners: model.partners,
+        status: model.status,
       }
 
       return schema

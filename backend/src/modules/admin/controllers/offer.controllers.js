@@ -36,13 +36,12 @@ module.exports = class OfferController extends CoreServices {
     }
 
     if (req.files) {
-      const PicturesFields = req.files ? req.files : []
-      const PicturesPaths = []
-      for (const field of PicturesFields) {
-        PicturesPaths.push(field.path);
+      const picturesFields = req.files ? req.files : []
+      const picturesPaths = []
+      for (const field of picturesFields) {
+        picturesPaths.push(field.path);
       }
-
-      payload.Pictures = PicturesPaths;
+      payload.pictures = picturesPaths;
     }
 
 
@@ -86,11 +85,11 @@ module.exports = class OfferController extends CoreServices {
 
     // Only update pictures if new files were uploaded
     if (req.files && req.files.length > 0) {
-      const PicturesPaths = []
+      const picturesPaths = []
       for (const field of req.files) {
-        PicturesPaths.push(field.path);
+        picturesPaths.push(field.path);
       }
-      payload.Pictures = PicturesPaths;
+      payload.pictures = picturesPaths;
     }
 
     const offer = await this.OfferServices.update(query, payload, profile);
@@ -174,220 +173,102 @@ module.exports = class OfferController extends CoreServices {
         ["deletedBy._id"]: this.HelperMethods.generateObjectId(query.deletedBy)
       })
     }
-    if (query.Nightly_Price) {
-      querySchema.push({
-        Nightly_Price: Number(query.Nightly_Price)
-      })
+    if (query.nightlyPrice) {
+      querySchema.push({ nightlyPrice: Number(query.nightlyPrice) })
     }
-    if (query.Nightly_PriceLessThanOrEqualTo) {
-      querySchema.push({
-        Nightly_Price: {
-          $lte: Number(query.Nightly_PriceLessThanOrEqualTo)
-        }
-      })
-
-    } else if (query.Nightly_PriceLessThan) {
-      querySchema.push({
-        Nightly_Price: {
-          $lt: Number(query.Nightly_PriceLessThan)
-        }
-      })
+    if (query.nightlyPriceLessThanOrEqualTo) {
+      querySchema.push({ nightlyPrice: { $lte: Number(query.nightlyPriceLessThanOrEqualTo) } })
+    } else if (query.nightlyPriceLessThan) {
+      querySchema.push({ nightlyPrice: { $lt: Number(query.nightlyPriceLessThan) } })
     }
-    if (query.Nightly_PriceGreaterThanOrEqualTo) {
-      querySchema.push({
-        Nightly_Price: {
-          $gte: Number(query.Nightly_PriceGreaterThanOrEqualTo)
-        }
-      })
-    } else if (query.Nightly_PriceGreaterThan) {
-      querySchema.push({
-        Nightly_Price: {
-          $gt: Number(query.Nightly_PriceGreaterThan)
-        }
-      })
+    if (query.nightlyPriceGreaterThanOrEqualTo) {
+      querySchema.push({ nightlyPrice: { $gte: Number(query.nightlyPriceGreaterThanOrEqualTo) } })
+    } else if (query.nightlyPriceGreaterThan) {
+      querySchema.push({ nightlyPrice: { $gt: Number(query.nightlyPriceGreaterThan) } })
     }
-    if (query.Title) {
-      querySchema.push({
-        Title: {
-          $regex: ".*" + query.Title + ".*",
-          $options: "i",
-        }
-      })
-
+    if (query.title) {
+      querySchema.push({ title: { $regex: ".*" + query.title + ".*", $options: "i" } })
     }
-    if (query.Bio) {
-      querySchema.push({
-        Bio: {
-          $regex: ".*" + query.Bio + ".*",
-          $options: "i",
-        }
-      })
-
+    if (query.bio) {
+      querySchema.push({ bio: { $regex: ".*" + query.bio + ".*", $options: "i" } })
     }
-    if (query.Bed_Number) {
-      querySchema.push({
-        Bed_Number: Number(query.Bed_Number)
-      })
+    if (query.bedNumber) {
+      querySchema.push({ bedNumber: Number(query.bedNumber) })
     }
-    if (query.Bed_NumberLessThanOrEqualTo) {
-      querySchema.push({
-        Bed_Number: {
-          $lte: Number(query.Bed_NumberLessThanOrEqualTo)
-        }
-      })
-
-    } else if (query.Bed_NumberLessThan) {
-      querySchema.push({
-        Bed_Number: {
-          $lt: Number(query.Bed_NumberLessThan)
-        }
-      })
+    if (query.bedNumberLessThanOrEqualTo) {
+      querySchema.push({ bedNumber: { $lte: Number(query.bedNumberLessThanOrEqualTo) } })
+    } else if (query.bedNumberLessThan) {
+      querySchema.push({ bedNumber: { $lt: Number(query.bedNumberLessThan) } })
     }
-    if (query.Bed_NumberGreaterThanOrEqualTo) {
-      querySchema.push({
-        Bed_Number: {
-          $gte: Number(query.Bed_NumberGreaterThanOrEqualTo)
-        }
-      })
-    } else if (query.Bed_NumberGreaterThan) {
-      querySchema.push({
-        Bed_Number: {
-          $gt: Number(query.Bed_NumberGreaterThan)
-        }
-      })
+    if (query.bedNumberGreaterThanOrEqualTo) {
+      querySchema.push({ bedNumber: { $gte: Number(query.bedNumberGreaterThanOrEqualTo) } })
+    } else if (query.bedNumberGreaterThan) {
+      querySchema.push({ bedNumber: { $gt: Number(query.bedNumberGreaterThan) } })
     }
-    if (query.Town) {
-      querySchema.push({
-        Town: {
-          $regex: ".*" + query.Town + ".*",
-          $options: "i",
-        }
-      })
-
+    if (query.town) {
+      querySchema.push({ town: { $regex: ".*" + query.town + ".*", $options: "i" } })
     }
-    if (query.Room_Number) {
-      querySchema.push({
-        Room_Number: Number(query.Room_Number)
-      })
+    if (query.roomNumber) {
+      querySchema.push({ roomNumber: Number(query.roomNumber) })
     }
-    if (query.Room_NumberLessThanOrEqualTo) {
-      querySchema.push({
-        Room_Number: {
-          $lte: Number(query.Room_NumberLessThanOrEqualTo)
-        }
-      })
-
-    } else if (query.Room_NumberLessThan) {
-      querySchema.push({
-        Room_Number: {
-          $lt: Number(query.Room_NumberLessThan)
-        }
-      })
+    if (query.roomNumberLessThanOrEqualTo) {
+      querySchema.push({ roomNumber: { $lte: Number(query.roomNumberLessThanOrEqualTo) } })
+    } else if (query.roomNumberLessThan) {
+      querySchema.push({ roomNumber: { $lt: Number(query.roomNumberLessThan) } })
     }
-    if (query.Room_NumberGreaterThanOrEqualTo) {
-      querySchema.push({
-        Room_Number: {
-          $gte: Number(query.Room_NumberGreaterThanOrEqualTo)
-        }
-      })
-    } else if (query.Room_NumberGreaterThan) {
-      querySchema.push({
-        Room_Number: {
-          $gt: Number(query.Room_NumberGreaterThan)
-        }
-      })
+    if (query.roomNumberGreaterThanOrEqualTo) {
+      querySchema.push({ roomNumber: { $gte: Number(query.roomNumberGreaterThanOrEqualTo) } })
+    } else if (query.roomNumberGreaterThan) {
+      querySchema.push({ roomNumber: { $gt: Number(query.roomNumberGreaterThan) } })
     }
-    if (query.Availability == 'true') {
-      querySchema.push({
-        Availability: true
-      })
+    if (query.availability == 'true') {
+      querySchema.push({ availability: true })
     }
-    if (query.Availability == 'false') {
-      querySchema.push({
-        Availability: false
-      })
+    if (query.availability == 'false') {
+      querySchema.push({ availability: false })
     }
-    if (query.Kitchen_Number) {
-      querySchema.push({
-        Kitchen_Number: Number(query.Kitchen_Number)
-      })
+    if (query.kitchenNumber) {
+      querySchema.push({ kitchenNumber: Number(query.kitchenNumber) })
     }
-    if (query.Kitchen_NumberLessThanOrEqualTo) {
-      querySchema.push({
-        Kitchen_Number: {
-          $lte: Number(query.Kitchen_NumberLessThanOrEqualTo)
-        }
-      })
-
-    } else if (query.Kitchen_NumberLessThan) {
-      querySchema.push({
-        Kitchen_Number: {
-          $lt: Number(query.Kitchen_NumberLessThan)
-        }
-      })
+    if (query.kitchenNumberLessThanOrEqualTo) {
+      querySchema.push({ kitchenNumber: { $lte: Number(query.kitchenNumberLessThanOrEqualTo) } })
+    } else if (query.kitchenNumberLessThan) {
+      querySchema.push({ kitchenNumber: { $lt: Number(query.kitchenNumberLessThan) } })
     }
-    if (query.Kitchen_NumberGreaterThanOrEqualTo) {
-      querySchema.push({
-        Kitchen_Number: {
-          $gte: Number(query.Kitchen_NumberGreaterThanOrEqualTo)
-        }
-      })
-    } else if (query.Kitchen_NumberGreaterThan) {
-      querySchema.push({
-        Kitchen_Number: {
-          $gt: Number(query.Kitchen_NumberGreaterThan)
-        }
-      })
+    if (query.kitchenNumberGreaterThanOrEqualTo) {
+      querySchema.push({ kitchenNumber: { $gte: Number(query.kitchenNumberGreaterThanOrEqualTo) } })
+    } else if (query.kitchenNumberGreaterThan) {
+      querySchema.push({ kitchenNumber: { $gt: Number(query.kitchenNumberGreaterThan) } })
     }
-    if (query.Parking == 'true') {
-      querySchema.push({
-        Parking: true
-      })
+    if (query.parking == 'true') {
+      querySchema.push({ parking: true })
     }
-    if (query.Parking == 'false') {
-      querySchema.push({
-        Parking: false
-      })
+    if (query.parking == 'false') {
+      querySchema.push({ parking: false })
     }
-    if (query.Washing_Name == 'true') {
-      querySchema.push({
-        Washing_Name: true
-      })
+    if (query.washingName == 'true') {
+      querySchema.push({ washingName: true })
     }
-    if (query.Washing_Name == 'false') {
-      querySchema.push({
-        Washing_Name: false
-      })
+    if (query.washingName == 'false') {
+      querySchema.push({ washingName: false })
     }
-    if (query.Wifi == 'true') {
-      querySchema.push({
-        Wifi: true
-      })
+    if (query.wifi == 'true') {
+      querySchema.push({ wifi: true })
     }
-    if (query.Wifi == 'false') {
-      querySchema.push({
-        Wifi: false
-      })
+    if (query.wifi == 'false') {
+      querySchema.push({ wifi: false })
     }
-    if (query.AC == 'true') {
-      querySchema.push({
-        AC: true
-      })
+    if (query.ac == 'true') {
+      querySchema.push({ ac: true })
     }
-    if (query.AC == 'false') {
-      querySchema.push({
-        AC: false
-      })
+    if (query.ac == 'false') {
+      querySchema.push({ ac: false })
     }
-    if (query.Security == 'true') {
-      querySchema.push({
-        Security: true
-      })
+    if (query.security == 'true') {
+      querySchema.push({ security: true })
     }
-    if (query.Security == 'false') {
-      querySchema.push({
-        Security: false
-      })
+    if (query.security == 'false') {
+      querySchema.push({ security: false })
     }
 
 

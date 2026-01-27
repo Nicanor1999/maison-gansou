@@ -22,43 +22,43 @@ const Schema = new mongoose.Schema({
     required: false,
   },
 
-  Title: {
+  title: {
     type: String,
     required: false,
   },
 
-  Country: {
+  country: {
     type: String,
     required: false,
   },
 
-  Town: {
+  town: {
     type: String,
     required: false,
   },
 
-  Services: {
+  services: {
     type: String,
     required: false,
   },
 
-  Works_Type: {
+  worksType: {
     type: String,
     required: false,
   },
 
-  Partners: {
+  partners: {
     type: Array,
     required: false,
   },
 
-  Section: {
+  section: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
     ref: "Section"
   },
 
-  Status: {
+  status: {
     type: Boolean,
     required: false,
   },

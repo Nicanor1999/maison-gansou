@@ -376,7 +376,7 @@
               >
               <input
                 type="text"
-                v-model="offerForm.name"
+                v-model="offerForm.Title"
                 class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                 placeholder="Ex: Appartement Luxe"
                 required
@@ -387,7 +387,7 @@
                 >Description *</label
               >
               <textarea
-                v-model="offerForm.description"
+                v-model="offerForm.Bio"
                 rows="3"
                 class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4 py-2"
                 placeholder="Décrivez l'offre..."
@@ -399,7 +399,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Ville *</label>
                 <input
                   type="text"
-                  v-model="offerForm.town"
+                  v-model="offerForm.Town"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="Ex: Dakar,Sénégal"
                   required
@@ -411,7 +411,7 @@
                 >
                 <input
                   type="number"
-                  v-model="offerForm.pricePerNight"
+                  v-model="offerForm.nightlyPrice"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="50000"
                   min="0"
@@ -429,7 +429,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Chambres</label>
                 <input
                   type="number"
-                  v-model="offerForm.roomNumber"
+                  v-model="offerForm.Room_Number"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="0"
                   min="0"
@@ -439,7 +439,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Lits</label>
                 <input
                   type="number"
-                  v-model="offerForm.bedNumber"
+                  v-model="offerForm.Bed_Number"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="0"
                   min="0"
@@ -449,7 +449,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Cuisines</label>
                 <input
                   type="number"
-                  v-model="offerForm.kitchenNumber"
+                  v-model="offerForm.Kitchen_Number"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="0"
                   min="0"
@@ -465,7 +465,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.wifi"
+                  v-model="offerForm.Wifi"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">wifi</span>
@@ -474,7 +474,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.ac"
+                  v-model="offerForm.AC"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">ac_unit</span>
@@ -483,7 +483,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.parking"
+                  v-model="offerForm.Parking"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">local_parking</span>
@@ -492,7 +492,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.washingMachine"
+                  v-model="offerForm.Washing_Name"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl"
@@ -503,7 +503,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.security"
+                  v-model="offerForm.Security"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">security</span>
@@ -520,11 +520,11 @@
                 >Disponibilité</label
               >
               <select
-                v-model="offerForm.available"
+                v-model="offerForm.Availability"
                 class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
               >
-                <option :value="true">Disponible</option>
-                <option :value="false">Indisponible</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Indisponible">Indisponible</option>
               </select>
             </div>
           </div>
@@ -557,17 +557,17 @@
                   >
                   <p class="text-sm text-gray-500">Cliquez pour sélectionner des images</p>
                   <p class="text-xs text-gray-400 mt-1">
-                    {{ offerForm.pictures.length }} image(s) sélectionnée(s)
+                    {{ offerForm.Pictures.length }} image(s) sélectionnée(s)
                   </p>
                 </label>
               </div>
               <!-- Image Preview Section -->
-              <div v-if="offerForm.pictures.length" class="mt-[2vh]">
+              <div v-if="offerForm.Pictures.length" class="mt-[2vh]">
                 <label class="block text-sm font-medium text-gray-700 mb-[1vh]"
                   >Aperçu des images</label
                 >
                 <div class="flex gap-2 flex-wrap">
-                  <div v-for="(pic, idx) in offerForm.pictures" :key="idx" class="relative">
+                  <div v-for="(pic, idx) in offerForm.Pictures" :key="idx" class="relative">
                     <img
                       :src="getImagePreview(pic)"
                       class="h-20 w-20 object-cover rounded border-2 border-gray-200"
@@ -652,7 +652,7 @@
 </template>
 
 <script>
-import { ref, computed, reactive, onMounted, toRaw } from 'vue'
+import { ref, computed, reactive, onMounted } from 'vue'
 
 export default {
   name: 'BookingsView',
@@ -687,14 +687,14 @@ export default {
         // Adapter la structure pour l'affichage
         reservations.value = (data.data?.docs || data.data || []).map((r) => ({
           id: r._id,
-          firstName: r.Prenom_Client || '',
-          lastName: r.Nom_Client || '',
-          email: r.Email || '',
-          phone: r.Phone || '',
-          country: r.Country || '',
-          offer: r.Offer || '',
-          duration: r.Start_Date && r.Arrival_Date ? `${r.Start_Date} - ${r.Arrival_Date}` : '',
-          status: r.Status ? r.Status.toLowerCase() : 'pending',
+          firstName: r.firstNameClient || '',
+          lastName: r.lastNameClient || '',
+          email: r.email || '',
+          phone: r.phone || '',
+          country: r.country || '',
+          offer: r.offer || '',
+          duration: r.startDate && r.arrivalDate ? `${r.startDate} - ${r.arrivalDate}` : '',
+          status: r.status ? r.status.toLowerCase() : 'pending',
           raw: r,
         }))
       } catch (e) {
@@ -716,20 +716,16 @@ export default {
         console.log('Fetch offers response:', res)
         const data = await res.json()
         offers.value = (data.data?.docs || data.data || []).map((o) => {
-          // Fix image URLs to use relative paths instead of localhost
           const fixImageUrl = (url) => {
             if (!url) return null
-            // Remove http://localhost:3000 or http://backend:3000 from URLs
             return url.replace(/^https?:\/\/(localhost|backend):3000/, '')
           }
-
           const fixedPictures = o.Pictures ? o.Pictures.map(fixImageUrl) : []
-
           return reactive({
             id: o._id,
             name: o.Title || '',
             description: o.Bio || '',
-            pricePerNight: o.Nightly_Price || 0,
+            pricePerNight: o.nightlyPrice || 0,
             available: o.Availability === 'Disponible' || o.Availability === true,
             image: fixedPictures.length > 0 ? fixedPictures[0] : null,
             _carouselIndex: 0,
@@ -750,21 +746,22 @@ export default {
       fetchOffers()
     })
 
+    // Formulaire avec les noms de champs correspondant au backend
     const offerForm = reactive({
-      name: '',
-      description: '',
-      pricePerNight: '',
-      town: '',
-      bedNumber: '',
-      roomNumber: '',
-      kitchenNumber: '',
-      available: true,
-      parking: false,
-      washingMachine: false,
-      wifi: false,
-      ac: false,
-      security: false,
-      pictures: [],
+      Title: '',
+      Bio: '',
+      nightlyPrice: '',
+      Town: '',
+      Bed_Number: '',
+      Room_Number: '',
+      Kitchen_Number: '',
+      Availability: 'Disponible',
+      Parking: false,
+      Washing_Name: false,
+      Wifi: false,
+      AC: false,
+      Security: false,
+      Pictures: [],
     })
 
     const filteredReservations = computed(() => {
@@ -808,7 +805,7 @@ export default {
               'Content-Type': 'application/json',
               Authorization: token ? `Bearer ${token}` : undefined,
             },
-            body: JSON.stringify({ Status: 'cancelled', Cancel_Message: cancelMessage.value }),
+            body: JSON.stringify({ status: 'cancelled', cancelMessage: cancelMessage.value }),
           })
           await fetchReservations()
         } catch (e) {
@@ -822,37 +819,37 @@ export default {
     function openOfferModal(offer = null) {
       editingOffer.value = offer
       if (offer) {
-        // Populate form with existing offer data
-        offerForm.name = offer.name || ''
-        offerForm.description = offer.description || ''
-        offerForm.pricePerNight = offer.pricePerNight || ''
-        offerForm.town = offer.raw?.Town || ''
-        offerForm.bedNumber = offer.raw?.Bed_Number || ''
-        offerForm.roomNumber = offer.raw?.Room_Number || ''
-        offerForm.kitchenNumber = offer.raw?.Kitchen_Number || ''
-        offerForm.available = offer.available !== undefined ? offer.available : true
-        offerForm.parking = offer.raw?.Parking || false
-        offerForm.washingMachine = offer.raw?.Washing_Name || false
-        offerForm.wifi = offer.raw?.Wifi || false
-        offerForm.ac = offer.raw?.AC || false
-        offerForm.security = offer.raw?.Security || false
-        offerForm.pictures = [] // reset images when editing
+        // Mode édition - remplir le formulaire avec les données existantes
+        offerForm.Title = offer.name || ''
+        offerForm.Bio = offer.description || ''
+        offerForm.nightlyPrice = offer.pricePerNight || ''
+        offerForm.Town = offer.raw?.Town || ''
+        offerForm.Bed_Number = offer.raw?.Bed_Number || ''
+        offerForm.Room_Number = offer.raw?.Room_Number || ''
+        offerForm.Kitchen_Number = offer.raw?.Kitchen_Number || ''
+        offerForm.Availability = offer.available ? 'Disponible' : 'Indisponible'
+        offerForm.Parking = offer.raw?.Parking || false
+        offerForm.Washing_Name = offer.raw?.Washing_Name || false
+        offerForm.Wifi = offer.raw?.Wifi || false
+        offerForm.AC = offer.raw?.AC || false
+        offerForm.Security = offer.raw?.Security || false
+        offerForm.Pictures = []
       } else {
-        // Reset form for new offer
-        offerForm.name = ''
-        offerForm.description = ''
-        offerForm.pricePerNight = ''
-        offerForm.town = ''
-        offerForm.bedNumber = ''
-        offerForm.roomNumber = ''
-        offerForm.kitchenNumber = ''
-        offerForm.available = true
-        offerForm.parking = false
-        offerForm.washingMachine = false
-        offerForm.wifi = false
-        offerForm.ac = false
-        offerForm.security = false
-        offerForm.pictures = []
+        // Mode création - réinitialiser le formulaire
+        offerForm.Title = ''
+        offerForm.Bio = ''
+        offerForm.nightlyPrice = ''
+        offerForm.Town = ''
+        offerForm.Bed_Number = ''
+        offerForm.Room_Number = ''
+        offerForm.Kitchen_Number = ''
+        offerForm.Availability = 'Disponible'
+        offerForm.Parking = false
+        offerForm.Washing_Name = false
+        offerForm.Wifi = false
+        offerForm.AC = false
+        offerForm.Security = false
+        offerForm.Pictures = []
       }
       showOfferModal.value = true
     }
@@ -860,22 +857,22 @@ export default {
     function handleOfferImage(event) {
       const files = event.target.files
       if (files && files.length > 0) {
-        // Add new files to existing pictures, up to a maximum of 4
+        // Ajouter les nouvelles images, maximum 4
         const newFiles = Array.from(files)
-        const currentCount = offerForm.pictures.length
+        const currentCount = offerForm.Pictures.length
         const availableSlots = 4 - currentCount
 
         if (availableSlots > 0) {
-          offerForm.pictures.push(...newFiles.slice(0, availableSlots))
+          offerForm.Pictures.push(...newFiles.slice(0, availableSlots))
         }
 
-        // Reset the input so the same file can be selected again if needed
+        // Réinitialiser l'input
         event.target.value = ''
       }
     }
 
     function removeImage(index) {
-      offerForm.pictures.splice(index, 1)
+      offerForm.Pictures.splice(index, 1)
     }
 
     function getImagePreview(file) {
@@ -896,10 +893,10 @@ export default {
     async function saveOffer() {
       // Validation
       if (
-        !offerForm.name ||
-        !offerForm.description ||
-        !offerForm.pricePerNight ||
-        !offerForm.town
+        !offerForm.Title ||
+        !offerForm.Bio ||
+        !offerForm.nightlyPrice ||
+        !offerForm.Town
       ) {
         alert('Veuillez remplir tous les champs obligatoires (*)')
         return
@@ -909,30 +906,26 @@ export default {
       try {
         const formData = new FormData()
 
-        // Basic information
-        formData.append('Title', offerForm.name)
-        formData.append('Bio', offerForm.description)
-        formData.append('Nightly_Price', offerForm.pricePerNight)
-        formData.append('Town', offerForm.town)
-
-        // Property characteristics
-        if (offerForm.bedNumber) formData.append('Bed_Number', offerForm.bedNumber)
-        if (offerForm.roomNumber) formData.append('Room_Number', offerForm.roomNumber)
-        if (offerForm.kitchenNumber) formData.append('Kitchen_Number', offerForm.kitchenNumber)
-
-        // Amenities
-        formData.append('Parking', offerForm.parking)
-        formData.append('Washing_Name', offerForm.washingMachine)
-        formData.append('Wifi', offerForm.wifi)
-        formData.append('AC', offerForm.ac)
-        formData.append('Security', offerForm.security)
-
-        // Availability
-        formData.append('Availability', offerForm.available)
-
-        // Add images if any
-        if (offerForm.pictures && offerForm.pictures.length > 0) {
-          offerForm.pictures.forEach((pic) => {
+        // Champs avec les noms correspondant au backend
+        formData.append('Title', offerForm.Title)
+        formData.append('Bio', offerForm.Bio)
+        formData.append('nightlyPrice', offerForm.nightlyPrice)
+        formData.append('Town', offerForm.Town)
+        
+        if (offerForm.Bed_Number) formData.append('Bed_Number', offerForm.Bed_Number)
+        if (offerForm.Room_Number) formData.append('Room_Number', offerForm.Room_Number)
+        if (offerForm.Kitchen_Number) formData.append('Kitchen_Number', offerForm.Kitchen_Number)
+        
+        formData.append('Parking', offerForm.Parking)
+        formData.append('Washing_Name', offerForm.Washing_Name)
+        formData.append('Wifi', offerForm.Wifi)
+        formData.append('AC', offerForm.AC)
+        formData.append('Security', offerForm.Security)
+        formData.append('Availability', offerForm.Availability)
+        
+        // Images avec le nom de champ "Pictures" (majuscule)
+        if (offerForm.Pictures && offerForm.Pictures.length > 0) {
+          offerForm.Pictures.forEach((pic) => {
             formData.append('Pictures', pic)
           })
         }

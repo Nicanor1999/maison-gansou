@@ -13,19 +13,19 @@ module.exports = class OfferValidations {
    */
   static CreateValidation(data) {
     const validationSchema = {
-      Nightly_Price: Joi.string().allow('').allow(null),
-      Title: Joi.string().allow('').allow(null),
-      Bio: Joi.string().allow('').allow(null),
-      Bed_Number: Joi.string().allow('').allow(null),
-      Town: Joi.string().allow('').allow(null),
-      Room_Number: Joi.string().allow('').allow(null),
-      Availability: Joi.boolean().allow('').allow(null),
-      Kitchen_Number: Joi.string().allow('').allow(null),
-      Parking: Joi.boolean().allow('').allow(null),
-      Washing_Name: Joi.boolean().allow('').allow(null),
-      Wifi: Joi.boolean().allow('').allow(null),
-      AC: Joi.boolean().allow('').allow(null),
-      Security: Joi.boolean().allow('').allow(null),
+      nightlyPrice: Joi.string().allow('').allow(null),
+      title: Joi.string().allow('').allow(null),
+      bio: Joi.string().allow('').allow(null),
+      bedNumber: Joi.string().allow('').allow(null),
+      town: Joi.string().allow('').allow(null),
+      roomNumber: Joi.string().allow('').allow(null),
+      availability: Joi.boolean().allow('').allow(null),
+      kitchenNumber: Joi.string().allow('').allow(null),
+      parking: Joi.boolean().allow('').allow(null),
+      washingName: Joi.boolean().allow('').allow(null),
+      wifi: Joi.boolean().allow('').allow(null),
+      ac: Joi.boolean().allow('').allow(null),
+      security: Joi.boolean().allow('').allow(null),
     }
 
 
@@ -38,19 +38,19 @@ module.exports = class OfferValidations {
    */
   static UpdateValidation(data) {
     const validationSchema = {
-      Nightly_Price: Joi.string().allow('').allow(null),
-      Title: Joi.string().allow('').allow(null),
-      Bio: Joi.string().allow('').allow(null),
-      Bed_Number: Joi.string().allow('').allow(null),
-      Town: Joi.string().allow('').allow(null),
-      Room_Number: Joi.string().allow('').allow(null),
-      Availability: Joi.boolean().allow('').allow(null),
-      Kitchen_Number: Joi.string().allow('').allow(null),
-      Parking: Joi.boolean().allow('').allow(null),
-      Washing_Name: Joi.boolean().allow('').allow(null),
-      Wifi: Joi.boolean().allow('').allow(null),
-      AC: Joi.boolean().allow('').allow(null),
-      Security: Joi.boolean().allow('').allow(null),
+      nightlyPrice: Joi.string().allow('').allow(null),
+      title: Joi.string().allow('').allow(null),
+      bio: Joi.string().allow('').allow(null),
+      bedNumber: Joi.string().allow('').allow(null),
+      town: Joi.string().allow('').allow(null),
+      roomNumber: Joi.string().allow('').allow(null),
+      availability: Joi.boolean().allow('').allow(null),
+      kitchenNumber: Joi.string().allow('').allow(null),
+      parking: Joi.boolean().allow('').allow(null),
+      washingName: Joi.boolean().allow('').allow(null),
+      wifi: Joi.boolean().allow('').allow(null),
+      ac: Joi.boolean().allow('').allow(null),
+      security: Joi.boolean().allow('').allow(null),
     }
 
 

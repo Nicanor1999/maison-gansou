@@ -500,24 +500,26 @@ export default {
         const data = await res.json()
         const offers = data.data?.docs || data.data || []
 
+        console.log('Fetched offers:', offers)
+
         // Map backend data to frontend format
         apartments.value = offers
-          .filter(o => o.Availability === true) // Only show available offers
+          .filter(o => o.availability === true)
           .map(o => ({
             id: o._id,
-            name: o.Title || 'Sans titre',
-            location: o.Town || 'Cotonou, Bénin',
-            description: o.Bio || '',
-            pricePerNight: o.Nightly_Price || 0,
-            beds: o.Bed_Number || 0,
-            rooms: o.Room_Number || 0,
-            hasKitchen: o.Kitchen_Number > 0,
-            hasParking: o.Parking || false,
-            hasWashingMachine: o.Washing_Name || false,
-            hasWifi: o.Wifi || false,
-            hasAC: o.AC || false,
-            hasSecurity: o.Security || false,
-            images: o.Pictures ? o.Pictures.map(fixImageUrl).filter(Boolean) : [],
+            name: o.title || 'Sans titre',
+            location: o.town || 'Cotonou, Bénin',
+            description: o.bio || '',
+            pricePerNight: o.nightlyPrice || 0,
+            beds: o.bedNumber || 0,
+            rooms: o.roomNumber || 0,
+            hasKitchen: o.kitchenNumber > 0,
+            hasParking: o.parking || false,
+            hasWashingMachine: o.washingName || false,
+            hasWifi: o.wifi || false,
+            hasAC: o.ac || false,
+            hasSecurity: o.security || false,
+            images: o.pictures ? o.pictures.map(fixImageUrl).filter(Boolean) : [],
           }))
       } catch (e) {
         console.error('Erreur lors du chargement des offres', e)
@@ -679,16 +681,16 @@ export default {
       try {
         // Send reservation to backend
         const reservationData = {
-          Prenom_Client: bookingForm.value.firstName,
-          Nom_Client: bookingForm.value.lastName,
-          Email: bookingForm.value.email,
-          Country: bookingForm.value.country,
-          Phone: bookingForm.value.phone,
-          Start_Date: bookingForm.value.checkIn,
-          Arrival_Date: bookingForm.value.checkOut,
-          Person_Number: bookingForm.value.guests,
-          Client_Message: bookingForm.value.specialRequests,
-          Offer: selectedApartment.value?.id,
+          firstNameClient: bookingForm.value.firstName,
+          lastNameClient: bookingForm.value.lastName,
+          email: bookingForm.value.email,
+          country: bookingForm.value.country,
+          phone: bookingForm.value.phone,
+          startDate: bookingForm.value.checkIn,
+          arrivalDate: bookingForm.value.checkOut,
+          personNumber: bookingForm.value.guests,
+          clientMessage: bookingForm.value.specialRequests,
+          offer: selectedApartment.value?.id,
         }
 
         const res = await fetch('/api/v1/reservation', {

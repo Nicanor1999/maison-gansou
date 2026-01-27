@@ -643,3 +643,70 @@
 {"level":"http","message":"14.128.53.139 GET /api/ 404 - 0.356 ms","timestamp":"2026-01-25T23:39:29.406Z"}
 {"level":"http","message":"147.92.45.210 GET /api/ 404 - 0.824 ms","timestamp":"2026-01-25T23:52:11.329Z"}
 {"level":"http","message":"103.96.151.96 GET /api/ 404 - 0.335 ms","timestamp":"2026-01-25T23:53:10.309Z"}
+{"level":"http","message":"103.42.180.41 GET /api/ 404 - 1.492 ms","timestamp":"2026-01-26T00:12:02.166Z"}
+{"level":"http","message":"103.75.13.242 GET /api/ 404 - 0.645 ms","timestamp":"2026-01-26T00:17:39.070Z"}
+{"level":"http","message":"103.254.149.34 GET /api/ 404 - 0.308 ms","timestamp":"2026-01-26T00:22:04.600Z"}
+{"level":"http","message":"8.148.207.73 GET /api/ 404 - 0.650 ms","timestamp":"2026-01-26T00:33:39.854Z"}
+{"level":"http","message":"47.84.116.110 GET /api/ 404 - 0.722 ms","timestamp":"2026-01-26T00:36:00.080Z"}
+{"level":"http","message":"8.210.131.142 GET /api/ 404 - 0.742 ms","timestamp":"2026-01-26T01:06:19.681Z"}
+{"level":"http","message":"34.92.6.133 GET /api/ 404 - 0.759 ms","timestamp":"2026-01-26T01:10:21.767Z"}
+{"level":"http","message":"103.42.183.153 GET /api/ 404 - 0.892 ms","timestamp":"2026-01-26T01:16:45.476Z"}
+{"level":"http","message":"82.208.21.184 GET /api/ 404 - 0.552 ms","timestamp":"2026-01-26T01:25:17.908Z"}
+{"level":"http","message":"47.237.4.175 GET /api/ 404 - 0.292 ms","timestamp":"2026-01-26T01:31:40.097Z"}
+{"level":"http","message":"43.128.7.240 GET /api/ 404 - 0.695 ms","timestamp":"2026-01-26T01:58:00.855Z"}
+{"level":"http","message":"47.236.238.255 GET /api/ 404 - 0.616 ms","timestamp":"2026-01-26T02:04:05.123Z"}
+{"level":"http","message":"210.56.48.84 GET /api/ 404 - 0.663 ms","timestamp":"2026-01-26T02:10:21.724Z"}
+{"level":"http","message":"83.229.124.185 GET /api/ 404 - 0.861 ms","timestamp":"2026-01-26T02:31:02.967Z"}
+{"level":"http","message":"103.42.180.7 GET /api/ 404 - 0.643 ms","timestamp":"2026-01-26T02:39:36.990Z"}
+{"level":"http","message":"103.42.180.176 GET /api/ 404 - 0.601 ms","timestamp":"2026-01-26T02:52:53.988Z"}
+{"level":"http","message":"108.187.43.49 GET /api/ 404 - 0.540 ms","timestamp":"2026-01-26T02:59:39.273Z"}
+{"level":"http","message":"45.207.194.110 GET /api/ 404 - 0.354 ms","timestamp":"2026-01-26T02:59:40.267Z"}
+{"level":"http","message":"103.90.227.42 GET /api/ 404 - 0.630 ms","timestamp":"2026-01-26T03:38:53.986Z"}
+{"level":"http","message":"173.212.219.125 GET /api/ 404 - 0.553 ms","timestamp":"2026-01-26T04:00:50.581Z"}
+{"level":"http","message":"165.154.2.199 GET /api/ 404 - 0.342 ms","timestamp":"2026-01-26T04:05:37.488Z"}
+{"level":"http","message":"103.42.180.172 GET /api/ 404 - 0.720 ms","timestamp":"2026-01-26T04:12:10.064Z"}
+{"level":"http","message":"103.42.180.162 GET /api/ 404 - 0.277 ms","timestamp":"2026-01-26T04:12:10.114Z"}
+{"level":"http","message":"103.42.180.84 GET /api/ 404 - 0.390 ms","timestamp":"2026-01-26T04:12:10.417Z"}
+{"level":"http","message":"103.42.180.156 GET /api/ 404 - 0.313 ms","timestamp":"2026-01-26T04:12:10.631Z"}
+{"level":"http","message":"167.99.174.138 GET /api/ 404 - 0.420 ms","timestamp":"2026-01-26T04:24:14.401Z"}
+{"level":"http","message":"118.107.16.145 GET /api/ 404 - 0.414 ms","timestamp":"2026-01-26T04:26:16.948Z"}
+{"level":"http","message":"8.219.134.231 GET /api/ 404 - 0.565 ms","timestamp":"2026-01-26T04:29:33.475Z"}
+{"level":"http","message":"103.171.34.27 GET /api/ 404 - 0.359 ms","timestamp":"2026-01-26T04:35:25.549Z"}
+{"level":"http","message":"95.40.10.163 GET /api/ 404 - 0.353 ms","timestamp":"2026-01-26T04:36:58.129Z"}
+{"level":"http","message":"216.126.227.99 GET /api/ 404 - 0.348 ms","timestamp":"2026-01-26T04:37:07.153Z"}
+{"level":"http","message":"103.42.183.153 GET /api/ 404 - 0.303 ms","timestamp":"2026-01-26T04:37:54.621Z"}
+{"level":"http","message":"103.234.98.228 GET /api/ 404 - 0.667 ms","timestamp":"2026-01-26T04:59:30.574Z"}
+{"level":"http","message":"176.97.117.58 GET /api/ 404 - 0.389 ms","timestamp":"2026-01-26T05:02:28.254Z"}
+{"level":"http","message":"137.175.95.64 GET /api/ 404 - 0.657 ms","timestamp":"2026-01-26T05:46:36.673Z"}
+{"level":"http","message":"143.92.37.176 GET /api/ 404 - 0.609 ms","timestamp":"2026-01-26T05:47:53.724Z"}
+{"level":"http","message":"8.210.131.142 GET /api/ 404 - 0.654 ms","timestamp":"2026-01-26T06:16:52.827Z"}
+{"level":"http","message":"103.42.183.7 GET /api/ 404 - 0.630 ms","timestamp":"2026-01-26T06:42:37.346Z"}
+{"level":"http","message":"103.42.183.7 GET /api/ 404 - 0.338 ms","timestamp":"2026-01-26T06:42:37.431Z"}
+{"level":"http","message":"103.42.183.129 GET /api/ 404 - 0.261 ms","timestamp":"2026-01-26T06:42:39.160Z"}
+{"level":"http","message":"103.42.183.129 GET /api/ 404 - 0.233 ms","timestamp":"2026-01-26T06:42:39.166Z"}
+{"level":"http","message":"220.128.127.199 GET /api/ 404 - 0.729 ms","timestamp":"2026-01-26T07:09:27.643Z"}
+{"level":"http","message":"202.79.175.31 GET /api/ 404 - 0.406 ms","timestamp":"2026-01-26T07:24:02.303Z"}
+{"level":"http","message":"137.255.144.111 GET /api/v1/reservation 304 - 6.735 ms","timestamp":"2026-01-26T07:35:43.683Z"}
+{"level":"http","message":"137.255.144.111 GET /api/v1/offer 304 - 5.239 ms","timestamp":"2026-01-26T07:35:43.685Z"}
+{"level":"http","message":"38.145.220.158 GET /api/ 404 - 0.556 ms","timestamp":"2026-01-26T07:36:16.472Z"}
+{"level":"http","message":"61.245.11.87 GET /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 - 1.155 ms","timestamp":"2026-01-26T07:58:35.667Z"}
+{"level":"http","message":"61.245.11.87 GET /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php 404 - 0.390 ms","timestamp":"2026-01-26T07:58:40.361Z"}
+{"level":"http","message":"61.245.11.87 GET /public/index.php?s=/index/\\think\\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello 404 - 0.297 ms","timestamp":"2026-01-26T07:58:41.332Z"}
+{"level":"http","message":"137.255.144.111 GET /api/v1/reservation 304 - 6.999 ms","timestamp":"2026-01-26T08:01:26.785Z"}
+{"level":"http","message":"137.255.144.111 GET /api/v1/offer 304 - 5.162 ms","timestamp":"2026-01-26T08:01:26.789Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:01:40.118Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:02:12.531Z"}
+{"level":"http","message":"47.237.9.124 GET /api/ 404 - 4.333 ms","timestamp":"2026-01-26T08:06:56.771Z"}
+{"level":"http","message":"47.84.116.110 GET /api/ 404 - 1.399 ms","timestamp":"2026-01-26T08:06:57.568Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:07:03.552Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:07:28.890Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:07:43.587Z"}
+{"level":"http","message":"103.112.99.37 GET /api/ 404 - 3.491 ms","timestamp":"2026-01-26T08:08:05.702Z"}
+{"level":"http","message":"103.42.183.220 GET /api/ 404 - 0.837 ms","timestamp":"2026-01-26T08:09:07.498Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:09:32.251Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:09:40.770Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:09:53.231Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:10:02.539Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:11:50.988Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:12:03.700Z"}
+{"level":"info","message":"Scheduled job: AuthSessionCleanupJob with schedule 0 * * * *","timestamp":"2026-01-26T08:13:50.486Z"}

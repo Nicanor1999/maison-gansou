@@ -146,19 +146,19 @@ module.exports = class ReservationController extends CoreServices {
         ["deletedBy._id"]: this.HelperMethods.generateObjectId(query.deletedBy)
       })
     }
-    if (query.Nom_Client) {
+    if (query.lastNameClient) {
       querySchema.push({
-        Nom_Client: {
-          $regex: ".*" + query.Nom_Client + ".*",
+        lastNameClient: {
+          $regex: ".*" + query.lastNameClient + ".*",
           $options: "i",
         }
       })
 
     }
-    if (query.Prenom_Client) {
+    if (query.firstNameClient) {
       querySchema.push({
-        Prenom_Client: {
-          $regex: ".*" + query.Prenom_Client + ".*",
+        firstNameClient: {
+          $regex: ".*" + query.firstNameClient + ".*",
           $options: "i",
         }
       })
@@ -191,73 +191,68 @@ module.exports = class ReservationController extends CoreServices {
       })
 
     }
-    if (query.Arrival_Date) {
+    if (query.arrivalDate) {
       querySchema.push({
-        Arrival_Date: {
-          $regex: ".*" + query.Arrival_Date + ".*",
+        arrivalDate: {
+          $regex: ".*" + query.arrivalDate + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Start_Date) {
+    if (query.startDate) {
       querySchema.push({
-        Start_Date: {
-          $regex: ".*" + query.Start_Date + ".*",
+        startDate: {
+          $regex: ".*" + query.startDate + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Person_Number) {
+    if (query.personNumber) {
       querySchema.push({
-        Person_Number: Number(query.Person_Number)
-      })
-    }
-    if (query.Person_NumberLessThanOrEqualTo) {
-      querySchema.push({
-        Person_Number: {
-          $lte: Number(query.Person_NumberLessThanOrEqualTo)
-        }
-      })
-
-    } else if (query.Person_NumberLessThan) {
-      querySchema.push({
-        Person_Number: {
-          $lt: Number(query.Person_NumberLessThan)
-        }
+        personNumber: Number(query.personNumber)
       })
     }
-    if (query.Person_NumberGreaterThanOrEqualTo) {
+    if (query.personNumberLessThanOrEqualTo) {
       querySchema.push({
-        Person_Number: {
-          $gte: Number(query.Person_NumberGreaterThanOrEqualTo)
+        personNumber: {
+          $lte: Number(query.personNumberLessThanOrEqualTo)
         }
       })
-    } else if (query.Person_NumberGreaterThan) {
+    } else if (query.personNumberLessThan) {
       querySchema.push({
-        Person_Number: {
-          $gt: Number(query.Person_NumberGreaterThan)
+        personNumber: {
+          $lt: Number(query.personNumberLessThan)
         }
       })
     }
-    if (query.Client_Message) {
+    if (query.personNumberGreaterThanOrEqualTo) {
       querySchema.push({
-        Client_Message: {
-          $regex: ".*" + query.Client_Message + ".*",
+        personNumber: {
+          $gte: Number(query.personNumberGreaterThanOrEqualTo)
+        }
+      })
+    } else if (query.personNumberGreaterThan) {
+      querySchema.push({
+        personNumber: {
+          $gt: Number(query.personNumberGreaterThan)
+        }
+      })
+    }
+    if (query.clientMessage) {
+      querySchema.push({
+        clientMessage: {
+          $regex: ".*" + query.clientMessage + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Payment_Mode) {
+    if (query.paymentMode) {
       querySchema.push({
-        Payment_Mode: {
-          $regex: ".*" + query.Payment_Mode + ".*",
+        paymentMode: {
+          $regex: ".*" + query.paymentMode + ".*",
           $options: "i",
         }
       })
-
     }
     if (query.Offer) {
       querySchema.push({

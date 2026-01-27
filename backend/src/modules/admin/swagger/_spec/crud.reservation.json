@@ -87,137 +87,137 @@
         },
         {
           "in": "query",
-          "name": "Nom_Client",
+          "name": "lastNameClient",
           "schema": {
             "type": "string"
           },
-          "description": "the Nom_Client of reservation",
+          "description": "the lastNameClient of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Prenom_Client",
+          "name": "firstNameClient",
           "schema": {
             "type": "string"
           },
-          "description": "the Prenom_Client of reservation",
+          "description": "the firstNameClient of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Email",
+          "name": "email",
           "schema": {
             "type": "string"
           },
-          "description": "the Email of reservation",
+          "description": "the email of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Country",
+          "name": "country",
           "schema": {
             "type": "string"
           },
-          "description": "the Country of reservation",
+          "description": "the country of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Phone",
+          "name": "phone",
           "schema": {
             "type": "string"
           },
-          "description": "the Phone of reservation",
+          "description": "the phone of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Arrival_Date",
+          "name": "arrivalDate",
           "schema": {
             "type": "string"
           },
-          "description": "the Arrival_Date of reservation",
+          "description": "the arrivalDate of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Start_Date",
+          "name": "startDate",
           "schema": {
             "type": "string"
           },
-          "description": "the Start_Date of reservation",
+          "description": "the startDate of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Person_Number",
+          "name": "personNumber",
           "schema": {
             "type": "number"
           },
-          "description": "the Person_Number of reservation",
+          "description": "the personNumber of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Person_NumberLessThan",
+          "name": "personNumberLessThan",
           "schema": {
             "type": "number"
           },
-          "description": "the Person_NumberLessThan of reservation",
+          "description": "the personNumberLessThan of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Person_NumberLessThanOrEqualTo",
+          "name": "personNumberLessThanOrEqualTo",
           "schema": {
             "type": "number"
           },
-          "description": "the Person_NumberLessThanOrEqualTo of reservation",
+          "description": "the personNumberLessThanOrEqualTo of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Person_NumberGreaterThanOrEqualTo",
+          "name": "personNumberGreaterThanOrEqualTo",
           "schema": {
             "type": "number"
           },
-          "description": "the Person_NumberGreaterThanOrEqualTo of reservation",
+          "description": "the personNumberGreaterThanOrEqualTo of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Person_NumberGreaterThan",
+          "name": "personNumberGreaterThan",
           "schema": {
             "type": "number"
           },
-          "description": "the Person_NumberGreaterThan of reservation",
+          "description": "the personNumberGreaterThan of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Client_Message",
+          "name": "clientMessage",
           "schema": {
             "type": "string"
           },
-          "description": "the Client_Message of reservation",
+          "description": "the clientMessage of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Payment_Mode",
+          "name": "paymentMode",
           "schema": {
             "type": "string"
           },
-          "description": "the Payment_Mode of reservation",
+          "description": "the paymentMode of reservation",
           "required": false
         },
         {
           "in": "query",
-          "name": "Offer",
+          "name": "offer",
           "schema": {
             "type": "string"
           },
-          "description": "the Offer of reservation",
+          "description": "the offer of reservation",
           "required": false
         }
       ],

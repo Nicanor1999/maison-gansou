@@ -69,39 +69,32 @@ module.exports = class ProjectsServices extends CoreServices {
         schema.deletedBy = this.HelperMethods.getValidTrimData(payload.deletedBy);
       }
 
-      if (this.HelperMethods.issetData(payload.Title)) {
-        schema.Title = this.HelperMethods.getValidTrimData(payload.Title);
+
+      if (this.HelperMethods.issetData(payload.title)) {
+        schema.title = this.HelperMethods.getValidTrimData(payload.title);
       }
-      if (this.HelperMethods.issetData(payload.Country)) {
-        schema.Country = this.HelperMethods.getValidTrimData(payload.Country);
+      if (this.HelperMethods.issetData(payload.country)) {
+        schema.country = this.HelperMethods.getValidTrimData(payload.country);
       }
-      if (this.HelperMethods.issetData(payload.Town)) {
-        schema.Town = this.HelperMethods.getValidTrimData(payload.Town);
+      if (this.HelperMethods.issetData(payload.town)) {
+        schema.town = this.HelperMethods.getValidTrimData(payload.town);
       }
-      if (this.HelperMethods.issetData(payload.Services)) {
-        schema.Services = this.HelperMethods.getValidTrimData(payload.Services);
+      if (this.HelperMethods.issetData(payload.services)) {
+        schema.services = this.HelperMethods.getValidTrimData(payload.services);
       }
-      if (this.HelperMethods.issetData(payload.Works_Type)) {
-        schema.Works_Type = this.HelperMethods.getValidTrimData(payload.Works_Type);
+      if (this.HelperMethods.issetData(payload.worksType)) {
+        schema.worksType = this.HelperMethods.getValidTrimData(payload.worksType);
       }
-      if (this.HelperMethods.issetData(payload.Partners)) {
-
-        schema.Partners = this.HelperMethods.getValidTrimData(payload.Partners);
-
-
+      if (this.HelperMethods.issetData(payload.partners)) {
+        schema.partners = this.HelperMethods.getValidTrimData(payload.partners);
       }
-      if (this.HelperMethods.issetData(payload.Section)) {
-        const Section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.Section), session)
-        if (!Section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
-
-        schema.Section = this.HelperMethods.getValidTrimData(payload.Section);
+      if (this.HelperMethods.issetData(payload.section)) {
+        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
+        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
+        schema.section = this.HelperMethods.getValidTrimData(payload.section);
       }
-
-      if (this.HelperMethods.issetData(payload.Status)) {
-
-        schema.Status = this.HelperMethods.getValidTrimData(payload.Status);
-
-
+      if (this.HelperMethods.issetData(payload.status)) {
+        schema.status = this.HelperMethods.getValidTrimData(payload.status);
       }
 
 
@@ -143,39 +136,32 @@ module.exports = class ProjectsServices extends CoreServices {
         schema.deletedBy = this.HelperMethods.getValidTrimData(payload.deletedBy);
       }
 
-      if (this.HelperMethods.issetData(payload.Title)) {
-        schema.Title = this.HelperMethods.getValidTrimData(payload.Title);
+
+      if (this.HelperMethods.issetData(payload.title)) {
+        schema.title = this.HelperMethods.getValidTrimData(payload.title);
       }
-      if (this.HelperMethods.issetData(payload.Country)) {
-        schema.Country = this.HelperMethods.getValidTrimData(payload.Country);
+      if (this.HelperMethods.issetData(payload.country)) {
+        schema.country = this.HelperMethods.getValidTrimData(payload.country);
       }
-      if (this.HelperMethods.issetData(payload.Town)) {
-        schema.Town = this.HelperMethods.getValidTrimData(payload.Town);
+      if (this.HelperMethods.issetData(payload.town)) {
+        schema.town = this.HelperMethods.getValidTrimData(payload.town);
       }
-      if (this.HelperMethods.issetData(payload.Services)) {
-        schema.Services = this.HelperMethods.getValidTrimData(payload.Services);
+      if (this.HelperMethods.issetData(payload.services)) {
+        schema.services = this.HelperMethods.getValidTrimData(payload.services);
       }
-      if (this.HelperMethods.issetData(payload.Works_Type)) {
-        schema.Works_Type = this.HelperMethods.getValidTrimData(payload.Works_Type);
+      if (this.HelperMethods.issetData(payload.worksType)) {
+        schema.worksType = this.HelperMethods.getValidTrimData(payload.worksType);
       }
-      if (this.HelperMethods.issetData(payload.Partners)) {
-
-        schema.Partners = this.HelperMethods.getValidTrimData(payload.Partners);
-
-
+      if (this.HelperMethods.issetData(payload.partners)) {
+        schema.partners = this.HelperMethods.getValidTrimData(payload.partners);
       }
-      if (this.HelperMethods.issetData(payload.Section)) {
-        const Section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.Section), session)
-        if (!Section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
-
-        schema.Section = this.HelperMethods.getValidTrimData(payload.Section);
+      if (this.HelperMethods.issetData(payload.section)) {
+        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
+        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
+        schema.section = this.HelperMethods.getValidTrimData(payload.section);
       }
-
-      if (this.HelperMethods.issetData(payload.Status)) {
-
-        schema.Status = this.HelperMethods.getValidTrimData(payload.Status);
-
-
+      if (this.HelperMethods.issetData(payload.status)) {
+        schema.status = this.HelperMethods.getValidTrimData(payload.status);
       }
 
 

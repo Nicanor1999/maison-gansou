@@ -22,57 +22,57 @@ const Schema = new mongoose.Schema({
     required: false,
   },
 
-  Nom_Client: {
+  lastNameClient: {
     type: String,
     required: false,
   },
 
-  Prenom_Client: {
+  firstNameClient: {
     type: String,
     required: false,
   },
 
-  Email: {
+  email: {
     type: String,
     required: false,
   },
 
-  Country: {
+  country: {
     type: String,
     required: false,
   },
 
-  Phone: {
+  phone: {
     type: String,
     required: false,
   },
 
-  Arrival_Date: {
+  arrivalDate: {
     type: String,
     required: false,
   },
 
-  Start_Date: {
+  startDate: {
     type: String,
     required: false,
   },
 
-  Person_Number: {
+  personNumber: {
     type: Number,
     required: false,
   },
 
-  Client_Message: {
+  clientMessage: {
     type: String,
     required: false,
   },
 
-  Payment_Mode: {
+  paymentMode: {
     type: String,
     required: false,
   },
 
-  Offer: {
+  offer: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Offer"

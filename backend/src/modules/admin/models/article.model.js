@@ -25,24 +25,24 @@ const Schema = new mongoose.Schema({
     ref: "Admin"
   },
 
-  Tags: {
+  tags: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
     ref: "Tags"
   },
 
-  Title: {
+  title: {
     type: String,
     required: false,
   },
 
-  Section: {
+  section: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
     ref: "Section"
   },
 
-  Statut: {
+  statut: {
     type: Boolean,
     required: false,
   },

@@ -25,73 +25,73 @@ const Schema = new mongoose.Schema({
     ref: "Admin"
   },
 
-  Nightly_Price: {
+  nightlyPrice: {
     type: Number,
     required: false,
   },
 
-  Pictures: {
+  pictures: {
     type: Array,
     required: false,
     _isFileReference: true,
   },
 
-  Title: {
+  title: {
     type: String,
     required: false,
   },
 
-  Bio: {
+  bio: {
     type: String,
     required: false,
   },
 
-  Bed_Number: {
+  bedNumber: {
     type: Number,
     required: false,
   },
 
-  Town: {
+  town: {
     type: String,
     required: false,
   },
 
-  Room_Number: {
+  roomNumber: {
     type: Number,
     required: false,
   },
 
-  Availability: {
+  availability: {
     type: Boolean,
     required: false,
   },
 
-  Kitchen_Number: {
+  kitchenNumber: {
     type: Number,
     required: false,
   },
 
-  Parking: {
+  parking: {
     type: Boolean,
     required: false,
   },
 
-  Washing_Name: {
+  washingName: {
     type: Boolean,
     required: false,
   },
 
-  Wifi: {
+  wifi: {
     type: Boolean,
     required: false,
   },
 
-  AC: {
+  ac: {
     type: Boolean,
     required: false,
   },
 
-  Security: {
+  security: {
     type: Boolean,
     required: false,
   },

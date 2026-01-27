@@ -146,69 +146,64 @@ module.exports = class ProjectsController extends CoreServices {
         ["deletedBy._id"]: this.HelperMethods.generateObjectId(query.deletedBy)
       })
     }
-    if (query.Title) {
+    if (query.title) {
       querySchema.push({
-        Title: {
-          $regex: ".*" + query.Title + ".*",
+        title: {
+          $regex: ".*" + query.title + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Country) {
+    if (query.country) {
       querySchema.push({
-        Country: {
-          $regex: ".*" + query.Country + ".*",
+        country: {
+          $regex: ".*" + query.country + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Town) {
+    if (query.town) {
       querySchema.push({
-        Town: {
-          $regex: ".*" + query.Town + ".*",
+        town: {
+          $regex: ".*" + query.town + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Services) {
+    if (query.services) {
       querySchema.push({
-        Services: {
-          $regex: ".*" + query.Services + ".*",
+        services: {
+          $regex: ".*" + query.services + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Works_Type) {
+    if (query.worksType) {
       querySchema.push({
-        Works_Type: {
-          $regex: ".*" + query.Works_Type + ".*",
+        worksType: {
+          $regex: ".*" + query.worksType + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Partners) {
+    if (query.partners) {
       querySchema.push({
-        Partners: query.Partners
+        partners: query.partners
       })
     }
-    if (query.Section) {
+    if (query.section) {
       querySchema.push({
-        ["Section._id"]: this.HelperMethods.generateObjectId(query.Section)
+        ["section._id"]: this.HelperMethods.generateObjectId(query.section)
       })
     }
-    if (query.Status == 'true') {
+    if (query.status == 'true') {
       querySchema.push({
-        Status: true
+        status: true
       })
     }
-    if (query.Status == 'false') {
+    if (query.status == 'false') {
       querySchema.push({
-        Status: false
+        status: false
       })
     }
 

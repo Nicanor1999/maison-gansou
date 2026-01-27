@@ -32,10 +32,10 @@
         "example": "6973837780be02a88d8e918f",
         "description": "DeletedBy of Offer"
       },
-      "Nightly_Price": {
+      "nightlyPrice": {
         "type": "string",
         "example": 7030141550743915,
-        "description": "Nightly_Price of Offer"
+        "description": "nightlyPrice of Offer"
       },
       "Pictures": {
         "type": "string",
@@ -108,10 +108,10 @@
   "CreateOfferPayload": {
     "type": "object",
     "properties": {
-      "Nightly_Price": {
+      "nightlyPrice": {
         "type": "string",
         "example": 6735482087862340,
-        "description": "Nightly_Price of Offer"
+        "description": "nightlyPrice of Offer"
       },
       "Pictures": {
         "type": "string",
@@ -184,10 +184,10 @@
   "UpdateOfferPayload": {
     "type": "object",
     "properties": {
-      "Nightly_Price": {
+      "nightlyPrice": {
         "type": "string",
         "example": 2179900660852779,
-        "description": "Nightly_Price of Offer"
+        "description": "nightlyPrice of Offer"
       },
       "Pictures": {
         "type": "string",

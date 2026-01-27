@@ -117,10 +117,10 @@
                   <div
                     class="w-10 h-10 bg-[var(--second-orange)] rounded-full flex items-center justify-center text-white font-bold"
                   >
-                    {{ getInitials(reservation.Nom_Client, reservation.Prenom_Client) }}
+                    {{ getInitials(reservation.lastNameClient, reservation.firstNameClient) }}
                   </div>
                   <div>
-                    <p class="font-medium text-gray-800">{{ reservation.Prenom_Client }} {{ reservation.Nom_Client }}</p>
+                    <p class="font-medium text-gray-800">{{ reservation.firstNameClient }} {{ reservation.lastNameClient }}</p>
                     <p class="text-sm text-gray-500">{{ reservation.Email }}</p>
                   </div>
                 </div>

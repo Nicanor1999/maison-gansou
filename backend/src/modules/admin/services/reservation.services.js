@@ -69,44 +69,40 @@ module.exports = class ReservationServices extends CoreServices {
         schema.deletedBy = this.HelperMethods.getValidTrimData(payload.deletedBy);
       }
 
-      if (this.HelperMethods.issetData(payload.Nom_Client)) {
-        schema.Nom_Client = this.HelperMethods.getValidTrimData(payload.Nom_Client);
+      if (this.HelperMethods.issetData(payload.lastNameClient)) {
+        schema.lastNameClient = this.HelperMethods.getValidTrimData(payload.lastNameClient);
       }
-      if (this.HelperMethods.issetData(payload.Prenom_Client)) {
-        schema.Prenom_Client = this.HelperMethods.getValidTrimData(payload.Prenom_Client);
+      if (this.HelperMethods.issetData(payload.firstNameClient)) {
+        schema.firstNameClient = this.HelperMethods.getValidTrimData(payload.firstNameClient);
       }
-      if (this.HelperMethods.issetData(payload.Email)) {
-        schema.Email = this.HelperMethods.getValidTrimData(payload.Email);
+      if (this.HelperMethods.issetData(payload.email)) {
+        schema.email = this.HelperMethods.getValidTrimData(payload.email);
       }
-      if (this.HelperMethods.issetData(payload.Country)) {
-        schema.Country = this.HelperMethods.getValidTrimData(payload.Country);
+      if (this.HelperMethods.issetData(payload.country)) {
+        schema.country = this.HelperMethods.getValidTrimData(payload.country);
       }
-      if (this.HelperMethods.issetData(payload.Phone)) {
-        schema.Phone = this.HelperMethods.getValidTrimData(payload.Phone);
+      if (this.HelperMethods.issetData(payload.phone)) {
+        schema.phone = this.HelperMethods.getValidTrimData(payload.phone);
       }
-      if (this.HelperMethods.issetData(payload.Arrival_Date)) {
-        schema.Arrival_Date = this.HelperMethods.getValidTrimData(payload.Arrival_Date);
+      if (this.HelperMethods.issetData(payload.arrivalDate)) {
+        schema.arrivalDate = this.HelperMethods.getValidTrimData(payload.arrivalDate);
       }
-      if (this.HelperMethods.issetData(payload.Start_Date)) {
-        schema.Start_Date = this.HelperMethods.getValidTrimData(payload.Start_Date);
+      if (this.HelperMethods.issetData(payload.startDate)) {
+        schema.startDate = this.HelperMethods.getValidTrimData(payload.startDate);
       }
-      if (this.HelperMethods.issetData(payload.Person_Number)) {
-
-        schema.Person_Number = this.HelperMethods.getValidTrimData(payload.Person_Number);
-
-
+      if (this.HelperMethods.issetData(payload.personNumber)) {
+        schema.personNumber = this.HelperMethods.getValidTrimData(payload.personNumber);
       }
-      if (this.HelperMethods.issetData(payload.Client_Message)) {
-        schema.Client_Message = this.HelperMethods.getValidTrimData(payload.Client_Message);
+      if (this.HelperMethods.issetData(payload.clientMessage)) {
+        schema.clientMessage = this.HelperMethods.getValidTrimData(payload.clientMessage);
       }
-      if (this.HelperMethods.issetData(payload.Payment_Mode)) {
-        schema.Payment_Mode = this.HelperMethods.getValidTrimData(payload.Payment_Mode);
+      if (this.HelperMethods.issetData(payload.paymentMode)) {
+        schema.paymentMode = this.HelperMethods.getValidTrimData(payload.paymentMode);
       }
-      if (this.HelperMethods.issetData(payload.Offer)) {
-        const Offer = await this.SharedAdminServices.findOfferById(this.HelperMethods.getValidTrimData(payload.Offer), session)
-        if (!Offer) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Offer"));
-
-        schema.Offer = this.HelperMethods.getValidTrimData(payload.Offer);
+      if (this.HelperMethods.issetData(payload.offer)) {
+        const offer = await this.SharedAdminServices.findOfferById(this.HelperMethods.getValidTrimData(payload.offer), session)
+        if (!offer) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this offer"));
+        schema.offer = this.HelperMethods.getValidTrimData(payload.offer);
       }
 
 
@@ -149,44 +145,40 @@ module.exports = class ReservationServices extends CoreServices {
         schema.deletedBy = this.HelperMethods.getValidTrimData(payload.deletedBy);
       }
 
-      if (this.HelperMethods.issetData(payload.Nom_Client)) {
-        schema.Nom_Client = this.HelperMethods.getValidTrimData(payload.Nom_Client);
+      if (this.HelperMethods.issetData(payload.lastNameClient)) {
+        schema.lastNameClient = this.HelperMethods.getValidTrimData(payload.lastNameClient);
       }
-      if (this.HelperMethods.issetData(payload.Prenom_Client)) {
-        schema.Prenom_Client = this.HelperMethods.getValidTrimData(payload.Prenom_Client);
+      if (this.HelperMethods.issetData(payload.firstNameClient)) {
+        schema.firstNameClient = this.HelperMethods.getValidTrimData(payload.firstNameClient);
       }
-      if (this.HelperMethods.issetData(payload.Email)) {
-        schema.Email = this.HelperMethods.getValidTrimData(payload.Email);
+      if (this.HelperMethods.issetData(payload.email)) {
+        schema.email = this.HelperMethods.getValidTrimData(payload.email);
       }
-      if (this.HelperMethods.issetData(payload.Country)) {
-        schema.Country = this.HelperMethods.getValidTrimData(payload.Country);
+      if (this.HelperMethods.issetData(payload.country)) {
+        schema.country = this.HelperMethods.getValidTrimData(payload.country);
       }
-      if (this.HelperMethods.issetData(payload.Phone)) {
-        schema.Phone = this.HelperMethods.getValidTrimData(payload.Phone);
+      if (this.HelperMethods.issetData(payload.phone)) {
+        schema.phone = this.HelperMethods.getValidTrimData(payload.phone);
       }
-      if (this.HelperMethods.issetData(payload.Arrival_Date)) {
-        schema.Arrival_Date = this.HelperMethods.getValidTrimData(payload.Arrival_Date);
+      if (this.HelperMethods.issetData(payload.arrivalDate)) {
+        schema.arrivalDate = this.HelperMethods.getValidTrimData(payload.arrivalDate);
       }
-      if (this.HelperMethods.issetData(payload.Start_Date)) {
-        schema.Start_Date = this.HelperMethods.getValidTrimData(payload.Start_Date);
+      if (this.HelperMethods.issetData(payload.startDate)) {
+        schema.startDate = this.HelperMethods.getValidTrimData(payload.startDate);
       }
-      if (this.HelperMethods.issetData(payload.Person_Number)) {
-
-        schema.Person_Number = this.HelperMethods.getValidTrimData(payload.Person_Number);
-
-
+      if (this.HelperMethods.issetData(payload.personNumber)) {
+        schema.personNumber = this.HelperMethods.getValidTrimData(payload.personNumber);
       }
-      if (this.HelperMethods.issetData(payload.Client_Message)) {
-        schema.Client_Message = this.HelperMethods.getValidTrimData(payload.Client_Message);
+      if (this.HelperMethods.issetData(payload.clientMessage)) {
+        schema.clientMessage = this.HelperMethods.getValidTrimData(payload.clientMessage);
       }
-      if (this.HelperMethods.issetData(payload.Payment_Mode)) {
-        schema.Payment_Mode = this.HelperMethods.getValidTrimData(payload.Payment_Mode);
+      if (this.HelperMethods.issetData(payload.paymentMode)) {
+        schema.paymentMode = this.HelperMethods.getValidTrimData(payload.paymentMode);
       }
-      if (this.HelperMethods.issetData(payload.Offer)) {
-        const Offer = await this.SharedAdminServices.findOfferById(this.HelperMethods.getValidTrimData(payload.Offer), session)
-        if (!Offer) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Offer"));
-
-        schema.Offer = this.HelperMethods.getValidTrimData(payload.Offer);
+      if (this.HelperMethods.issetData(payload.offer)) {
+        const offer = await this.SharedAdminServices.findOfferById(this.HelperMethods.getValidTrimData(payload.offer), session)
+        if (!offer) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this offer"));
+        schema.offer = this.HelperMethods.getValidTrimData(payload.offer);
       }
 
 

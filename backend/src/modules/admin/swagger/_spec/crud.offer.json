@@ -13,9 +13,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "Nightly_Price": {
+                "nightlyPrice": {
                   "type": "string",
-                  "description": "the Nightly_Price of offer"
+                  "description": "the nightlyPrice of offer"
                 },
                 "Pictures": {
                   "type": "string",
@@ -149,47 +149,47 @@
         },
         {
           "in": "query",
-          "name": "Nightly_Price",
+          "name": "nightlyPrice",
           "schema": {
             "type": "number"
           },
-          "description": "the Nightly_Price of offer",
+          "description": "the nightlyPrice of offer",
           "required": false
         },
         {
           "in": "query",
-          "name": "Nightly_PriceLessThan",
+          "name": "nightlyPriceLessThan",
           "schema": {
             "type": "number"
           },
-          "description": "the Nightly_PriceLessThan of offer",
+          "description": "the nightlyPriceLessThan of offer",
           "required": false
         },
         {
           "in": "query",
-          "name": "Nightly_PriceLessThanOrEqualTo",
+          "name": "nightlyPriceLessThanOrEqualTo",
           "schema": {
             "type": "number"
           },
-          "description": "the Nightly_PriceLessThanOrEqualTo of offer",
+          "description": "the nightlyPriceLessThanOrEqualTo of offer",
           "required": false
         },
         {
           "in": "query",
-          "name": "Nightly_PriceGreaterThanOrEqualTo",
+          "name": "nightlyPriceGreaterThanOrEqualTo",
           "schema": {
             "type": "number"
           },
-          "description": "the Nightly_PriceGreaterThanOrEqualTo of offer",
+          "description": "the nightlyPriceGreaterThanOrEqualTo of offer",
           "required": false
         },
         {
           "in": "query",
-          "name": "Nightly_PriceGreaterThan",
+          "name": "nightlyPriceGreaterThan",
           "schema": {
             "type": "number"
           },
-          "description": "the Nightly_PriceGreaterThan of offer",
+          "description": "the nightlyPriceGreaterThan of offer",
           "required": false
         },
         {
@@ -395,9 +395,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "Nightly_Price": {
+                "nightlyPrice": {
                   "type": "string",
-                  "description": "the Nightly_Price of offer"
+                  "description": "the nightlyPrice of offer"
                 },
                 "Pictures": {
                   "type": "string",

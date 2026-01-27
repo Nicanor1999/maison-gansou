@@ -74,22 +74,22 @@ module.exports = class ArticleServices extends CoreServices {
         schema.Section = this.HelperMethods.getValidTrimData(payload.Section);
       }
 
-      if (this.HelperMethods.issetData(payload.Statut)) {
-
-        schema.Statut = this.HelperMethods.getValidTrimData(payload.Statut);
-
-
+      if (this.HelperMethods.issetData(payload.tags)) {
+        const tags = await this.SharedAdminServices.findTagsById(this.HelperMethods.getValidTrimData(payload.tags), session)
+        if (!tags) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this tags"));
+        schema.tags = this.HelperMethods.getValidTrimData(payload.tags);
       }
-
-      schema.createdBy = profile._id;
-      schema.updatedBy = profile._id;
-
-      const article = new this.Article(schema);
-      const save = await article.save(options);
-
-      return save
-
-
+      if (this.HelperMethods.issetData(payload.title)) {
+        schema.title = this.HelperMethods.getValidTrimData(payload.title);
+      }
+      if (this.HelperMethods.issetData(payload.section)) {
+        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
+        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this section"));
+        schema.section = this.HelperMethods.getValidTrimData(payload.section);
+      }
+      if (this.HelperMethods.issetData(payload.statut)) {
+        schema.statut = this.HelperMethods.getValidTrimData(payload.statut);
+      }
     } catch (error) {
       throw error;
     }
@@ -127,22 +127,22 @@ module.exports = class ArticleServices extends CoreServices {
         schema.Section = this.HelperMethods.getValidTrimData(payload.Section);
       }
 
-      if (this.HelperMethods.issetData(payload.Statut)) {
-
-        schema.Statut = this.HelperMethods.getValidTrimData(payload.Statut);
-
-
+      if (this.HelperMethods.issetData(payload.tags)) {
+        const tags = await this.SharedAdminServices.findTagsById(this.HelperMethods.getValidTrimData(payload.tags), session)
+        if (!tags) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this tags"));
+        schema.tags = this.HelperMethods.getValidTrimData(payload.tags);
       }
-
-      schema.updatedBy = profile._id;
-
-      const data = await this.Article.findOneAndUpdate({
-          _id: article._id
-        },
-        schema, options
-      );
-
-
+      if (this.HelperMethods.issetData(payload.title)) {
+        schema.title = this.HelperMethods.getValidTrimData(payload.title);
+      }
+      if (this.HelperMethods.issetData(payload.section)) {
+        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
+        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this section"));
+        schema.section = this.HelperMethods.getValidTrimData(payload.section);
+      }
+      if (this.HelperMethods.issetData(payload.statut)) {
+        schema.statut = this.HelperMethods.getValidTrimData(payload.statut);
+      }
 
 
 

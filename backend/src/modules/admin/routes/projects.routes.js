@@ -42,13 +42,13 @@ module.exports = class ProjectsRoutes extends ParentRoute {
       .addQueryParam('createdBy', 'string', 'the createdBy of projects', false)
       .addQueryParam('updatedBy', 'string', 'the updatedBy of projects', false)
       .addQueryParam('deletedBy', 'string', 'the deletedBy of projects', false)
-      .addQueryParam('Title', 'string', 'the Title of projects', false)
-      .addQueryParam('Country', 'string', 'the Country of projects', false)
-      .addQueryParam('Town', 'string', 'the Town of projects', false)
-      .addQueryParam('Services', 'string', 'the Services of projects', false)
-      .addQueryParam('Works_Type', 'string', 'the Works_Type of projects', false)
-      .addQueryParam('Partners', 'array', 'the Partners of projects', false)
-      .addQueryParam('Section', 'string', 'the Section of projects', false)
+      .addQueryParam('title', 'string', 'the title of projects', false)
+      .addQueryParam('country', 'string', 'the country of projects', false)
+      .addQueryParam('town', 'string', 'the town of projects', false)
+      .addQueryParam('services', 'string', 'the services of projects', false)
+      .addQueryParam('worksType', 'string', 'the worksType of projects', false)
+      .addQueryParam('partners', 'array', 'the partners of projects', false)
+      .addQueryParam('section', 'string', 'the section of projects', false)
       .addResponse(200, 'A list of projects', '#/components/schemas/ProjectsPaginationResponse');
 
     router.route("/").get(
