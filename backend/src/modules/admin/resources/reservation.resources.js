@@ -14,6 +14,17 @@ module.exports = class ReservationResources {
       if (!model) return null
       const {} = filter
 
+      // Calculate total price based on nights and nightly price
+      let price = null
+      if (model.startDate && model.arrivalDate && model.offerData?.nightlyPrice) {
+        const start = new Date(model.startDate)
+        const end = new Date(model.arrivalDate)
+        const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+        if (nights > 0) {
+          price = nights * model.offerData.nightlyPrice
+        }
+      }
+
       const schema = {
         _id: model._id,
         createdBy: model.createdBy,
@@ -29,7 +40,10 @@ module.exports = class ReservationResources {
         personNumber: model.personNumber,
         clientMessage: model.clientMessage,
         paymentMode: model.paymentMode,
-        offer: model.offer,
+        offer: model.offerData?.title || model.offer,
+        offerId: model.offer,
+        nightlyPrice: model.offerData?.nightlyPrice || null,
+        price: price,
       }
 
       return schema

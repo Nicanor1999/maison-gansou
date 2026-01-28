@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="h-[45%] flex flex-col justify-around items-center text-center" style="padding: 4%;">
-          <h3 class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] text-[var(--bg-1)]">{{ apartment.name }}</h3>
+          <h3 class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] text-[var(--bg-1)] font-semibold">{{ apartment.name }}</h3>
           <div class="grid grid-cols-2 gap-[3%] text-sm text-gray-600 h-[40%] w-full">
             <div class="flex items-center pl-10 gap-[5%]">
               <span class="material-symbols-outlined text-[var(--second-orange)]">bed</span>
@@ -188,53 +188,47 @@
               <div class="grid grid-cols-2 md:grid-cols-4 gap-[2%] h-auto" style="margin-bottom: 3vh;">
                 <div class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]">
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">bed</span>
-                  <span class="font-semibold">{{ selectedApartment?.beds }} Lit(s)</span>
+                  <span class="font-semibold">{{ selectedApartment?.beds || 0 }} Lit(s)</span>
                 </div>
                 <div class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]">
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">door_open</span>
-                  <span class="font-semibold">{{ selectedApartment?.rooms }} Chambre(s)</span>
+                  <span class="font-semibold">{{ selectedApartment?.rooms || 0 }} Chambre(s)</span>
                 </div>
                 <div
-                  v-if="selectedApartment?.hasKitchen"
-                  class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]"
+                  :class="['amenity-item flex flex-col items-center justify-center rounded-lg h-[10vh]', selectedApartment?.hasKitchen ? 'bg-gray-50' : 'bg-gray-100 opacity-60']"
                 >
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">kitchen</span>
-                  <span class="font-semibold">Cuisine</span>
+                  <span class="font-semibold">Cuisine {{ selectedApartment?.hasKitchen ? '' : '(Non)' }}</span>
                 </div>
                 <div
-                  v-if="selectedApartment?.hasParking"
-                  class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]"
+                  :class="['amenity-item flex flex-col items-center justify-center rounded-lg h-[10vh]', selectedApartment?.hasParking ? 'bg-gray-50' : 'bg-gray-100 opacity-60']"
                 >
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">local_parking</span>
-                  <span class="font-semibold">Parking</span>
+                  <span class="font-semibold">Parking {{ selectedApartment?.hasParking ? '' : '(Non)' }}</span>
                 </div>
                 <div
-                  v-if="selectedApartment?.hasWashingMachine"
-                  class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]"
+                  :class="['amenity-item flex flex-col items-center justify-center rounded-lg h-[10vh]', selectedApartment?.hasWashingMachine ? 'bg-gray-50' : 'bg-gray-100 opacity-60']"
                 >
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">local_laundry_service</span>
-                  <span class="font-semibold">Machine à laver</span>
+                  <span class="font-semibold">Machine à laver {{ selectedApartment?.hasWashingMachine ? '' : '(Non)' }}</span>
                 </div>
                 <div
-                  v-if="selectedApartment?.hasWifi"
-                  class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]"
+                  :class="['amenity-item flex flex-col items-center justify-center rounded-lg h-[10vh]', selectedApartment?.hasWifi ? 'bg-gray-50' : 'bg-gray-100 opacity-60']"
                 >
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">wifi</span>
-                  <span class="font-semibold">WiFi</span>
+                  <span class="font-semibold">WiFi {{ selectedApartment?.hasWifi ? '' : '(Non)' }}</span>
                 </div>
                 <div
-                  v-if="selectedApartment?.hasAC"
-                  class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]"
+                  :class="['amenity-item flex flex-col items-center justify-center rounded-lg h-[10vh]', selectedApartment?.hasAC ? 'bg-gray-50' : 'bg-gray-100 opacity-60']"
                 >
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">ac_unit</span>
-                  <span class="font-semibold">Climatisation</span>
+                  <span class="font-semibold">Climatisation {{ selectedApartment?.hasAC ? '' : '(Non)' }}</span>
                 </div>
                 <div
-                  v-if="selectedApartment?.hasSecurity"
-                  class="amenity-item flex flex-col items-center justify-center bg-gray-50 rounded-lg h-[10vh]"
+                  :class="['amenity-item flex flex-col items-center justify-center rounded-lg h-[10vh]', selectedApartment?.hasSecurity ? 'bg-gray-50' : 'bg-gray-100 opacity-60']"
                 >
                   <span class="material-symbols-outlined text-[var(--bg-1)] text-3xl">security</span>
-                  <span class="font-semibold">Sécurité 24h</span>
+                  <span class="font-semibold">Sécurité 24h {{ selectedApartment?.hasSecurity ? '' : '(Non)' }}</span>
                 </div>
               </div>
 
@@ -272,12 +266,12 @@
             </button>
 
             <div class="form-container h-auto w-full" style="padding: 5%;">
-              <h2 class="text-2xl md:text-3xl font-bold text-[var(--bg-1)] mb-2 text-center">
+              <h2 class="text-xl md:text-2xl font-bold text-[var(--bg-1)] mb-2 text-center">
                 Formulaire de Réservation
               </h2>
               <p class="text-gray-600 text-center mb-6">{{ selectedApartment?.name }}</p>
 
-              <form @submit.prevent="submitBooking" class="space-y-5">
+              <form @submit.prevent="submitBooking" class="flex flex-col gap-4">
                 <!-- Name Fields -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>

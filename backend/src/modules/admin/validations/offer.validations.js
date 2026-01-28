@@ -12,6 +12,7 @@ module.exports = class OfferValidations {
    * CreateValidation 
    */
   static CreateValidation(data) {
+    const booleanSchema = Joi.boolean().truthy('true').falsy('false').allow('').allow(null);
     const validationSchema = {
       nightlyPrice: Joi.string().allow('').allow(null),
       title: Joi.string().allow('').allow(null),
@@ -19,13 +20,13 @@ module.exports = class OfferValidations {
       bedNumber: Joi.string().allow('').allow(null),
       town: Joi.string().allow('').allow(null),
       roomNumber: Joi.string().allow('').allow(null),
-      availability: Joi.boolean().allow('').allow(null),
+      availability: booleanSchema,
       kitchenNumber: Joi.string().allow('').allow(null),
-      parking: Joi.boolean().allow('').allow(null),
-      washingName: Joi.boolean().allow('').allow(null),
-      wifi: Joi.boolean().allow('').allow(null),
-      ac: Joi.boolean().allow('').allow(null),
-      security: Joi.boolean().allow('').allow(null),
+      parking: booleanSchema,
+      washingName: booleanSchema,
+      wifi: booleanSchema,
+      ac: booleanSchema,
+      security: booleanSchema,
     }
 
 
@@ -37,6 +38,7 @@ module.exports = class OfferValidations {
    * UpdateValidation 
    */
   static UpdateValidation(data) {
+    const booleanSchema = Joi.boolean().truthy('true').falsy('false').allow('').allow(null);
     const validationSchema = {
       nightlyPrice: Joi.string().allow('').allow(null),
       title: Joi.string().allow('').allow(null),
@@ -44,13 +46,13 @@ module.exports = class OfferValidations {
       bedNumber: Joi.string().allow('').allow(null),
       town: Joi.string().allow('').allow(null),
       roomNumber: Joi.string().allow('').allow(null),
-      availability: Joi.boolean().allow('').allow(null),
+      availability: booleanSchema,
       kitchenNumber: Joi.string().allow('').allow(null),
-      parking: Joi.boolean().allow('').allow(null),
-      washingName: Joi.boolean().allow('').allow(null),
-      wifi: Joi.boolean().allow('').allow(null),
-      ac: Joi.boolean().allow('').allow(null),
-      security: Joi.boolean().allow('').allow(null),
+      parking: booleanSchema,
+      washingName: booleanSchema,
+      wifi: booleanSchema,
+      ac: booleanSchema,
+      security: booleanSchema,
     }
 
 

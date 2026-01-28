@@ -23,7 +23,11 @@
     </div>
 
     <!-- Reservations Tab -->
-    <div v-if="activeTab === 'reservations'" class="space-y-[2vh] flex flex-col gap-4">
+    <div
+      v-if="activeTab === 'reservations'"
+      @click="fetchReservations"
+      class="space-y-[2vh] flex flex-col gap-4"
+    >
       <!-- Filters -->
       <div
         class="bg-white rounded-xl shadow-sm h-[15vh] min-h-[60px] border border-gray-100 flex justify-center"
@@ -60,7 +64,7 @@
               <th
                 class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Contact
+                Prix Total
               </th>
               <th
                 class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -107,11 +111,12 @@
                 </div>
               </td>
               <td class="w-[20%] text-center">
-                <p class="text-sm text-gray-800">{{ reservation.email }}</p>
-                <p class="text-sm text-gray-500">{{ reservation.phone }}</p>
+                <p class="text-lg font-bold text-[var(--bg-1)]">
+                  {{ reservation.price ? formatPrice(reservation.price) : '-' }}
+                </p>
               </td>
               <td class="w-[20%] text-center">
-                <p class="text-sm font-medium text-gray-800">{{ reservation.offer }}</p>
+                <p class="text-sm font-bold text-[var(--bg-1)]">{{ reservation.offer }}</p>
               </td>
               <td class="w-[15%] text-center">
                 <p class="text-sm text-gray-800">{{ reservation.duration }}</p>
@@ -154,7 +159,7 @@
     </div>
 
     <!-- Offers Tab -->
-    <div v-if="activeTab === 'offers'" class="space-y-[2vh]">
+    <div v-if="activeTab === 'offers'" @click="fetchOffers" class="space-y-[2vh]">
       <!-- Add Offer Button -->
       <div class="flex justify-end h-[6vh] min-h-[45px] items-center">
         <button
@@ -232,9 +237,14 @@
           </div>
 
           <!-- Info Section - 45% -->
-          <div class="h-[45%] flex flex-col justify-around items-center text-center" style="padding: 4%;">
+          <div
+            class="h-[45%] flex flex-col justify-around items-center text-center"
+            style="padding: 4%"
+          >
             <!-- Title -->
-            <h3 class="text-[15px] sm:text-[20px] md:text-[18px] text-[var(--bg-1)] font-semibold">{{ offer.name }}</h3>
+            <h3 class="text-[15px] sm:text-[20px] md:text-[18px] text-[var(--bg-1)] font-semibold">
+              {{ offer.name }}
+            </h3>
 
             <!-- Amenities Grid -->
             <div class="grid grid-cols-2 gap-[3%] text-sm text-gray-600 h-[40%] w-full">
@@ -248,10 +258,14 @@
               </div>
               <div class="flex items-center pl-4 gap-[5%]">
                 <span class="material-symbols-outlined text-[var(--second-orange)]">kitchen</span>
-                <span>{{ offer.raw?.Kitchen_Number ? offer.raw.Kitchen_Number + ' Cuisine(s)' : 'Non' }}</span>
+                <span>{{
+                  offer.raw?.Kitchen_Number ? offer.raw.Kitchen_Number + ' Cuisine(s)' : 'Non'
+                }}</span>
               </div>
               <div class="flex items-center pl-4 gap-[5%]">
-                <span class="material-symbols-outlined text-[var(--second-orange)]">local_parking</span>
+                <span class="material-symbols-outlined text-[var(--second-orange)]"
+                  >local_parking</span
+                >
                 <span>{{ offer.raw?.Parking ? 'Parking' : 'Non' }}</span>
               </div>
             </div>
@@ -284,7 +298,7 @@
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
       <div
-        class="bg-white rounded-xl w-[90%] max-w-lg h-auto max-h-[90vh] overflow-y-auto flex flex-col items-center"
+        class="bg-white rounded-xl w-[90%] max-w-xl h-auto max-h-[90vh] overflow-y-auto flex flex-col items-center"
       >
         <div
           class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto"
@@ -295,7 +309,7 @@
           </button>
         </div>
         <div class="w-[90%] mx-auto space-y-[2vh] my-[2vh]" v-if="selectedReservation">
-          <div class="grid grid-cols-2 gap-[3%]">
+          <div class="grid grid-cols-2 md:h-[50vh] gap-[3%]">
             <div>
               <label class="text-sm text-gray-500">Prénom</label>
               <p class="font-medium">{{ selectedReservation.firstName }}</p>
@@ -330,17 +344,17 @@
           class="h-[10vh] min-h-[80px] border-t flex items-center justify-end gap-[1vw] w-[90%] mx-auto"
         >
           <button
-            @click="showReservationModal = false"
-            class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
-          >
-            Fermer
-          </button>
-          <button
             v-if="selectedReservation && selectedReservation.status !== 'cancelled'"
             @click="cancelReservation(selectedReservation)"
             class="h-[5vh] min-h-[40px] w-[18%] min-w-[180px] bg-red-600 text-white rounded-lg hover:bg-red-700"
           >
             Annuler la réservation
+          </button>
+          <button
+            @click="showReservationModal = false"
+            class="h-[5vh] min-h-[40px] w-[10%] min-w-[100px] border border-gray-300 rounded-lg hover:bg-gray-50"
+          >
+            Fermer
           </button>
         </div>
       </div>
@@ -348,7 +362,10 @@
 
     <!-- Offer Modal -->
     <div v-if="showOfferModal" class="fixed inset-0 z-50 flex items-center justify-center">
-      <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div
+        class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        @click="showOfferModal = false"
+      ></div>
       <div
         class="relative bg-white rounded-2xl w-[95%] md:w-[70%] lg:w-[50%] max-h-[90vh] overflow-y-auto z-10 shadow-2xl"
       >
@@ -376,7 +393,7 @@
               >
               <input
                 type="text"
-                v-model="offerForm.Title"
+                v-model="offerForm.title"
                 class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                 placeholder="Ex: Appartement Luxe"
                 required
@@ -387,7 +404,7 @@
                 >Description *</label
               >
               <textarea
-                v-model="offerForm.Bio"
+                v-model="offerForm.bio"
                 rows="3"
                 class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4 py-2"
                 placeholder="Décrivez l'offre..."
@@ -399,7 +416,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Ville *</label>
                 <input
                   type="text"
-                  v-model="offerForm.Town"
+                  v-model="offerForm.town"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="Ex: Dakar,Sénégal"
                   required
@@ -429,7 +446,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Chambres</label>
                 <input
                   type="number"
-                  v-model="offerForm.Room_Number"
+                  v-model="offerForm.roomNumber"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="0"
                   min="0"
@@ -439,7 +456,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Lits</label>
                 <input
                   type="number"
-                  v-model="offerForm.Bed_Number"
+                  v-model="offerForm.bedNumber"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="0"
                   min="0"
@@ -449,7 +466,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]">Cuisines</label>
                 <input
                   type="number"
-                  v-model="offerForm.Kitchen_Number"
+                  v-model="offerForm.kitchenNumber"
                   class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
                   placeholder="0"
                   min="0"
@@ -465,7 +482,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.Wifi"
+                  v-model="offerForm.wifi"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">wifi</span>
@@ -474,7 +491,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.AC"
+                  v-model="offerForm.ac"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">ac_unit</span>
@@ -483,7 +500,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.Parking"
+                  v-model="offerForm.parking"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">local_parking</span>
@@ -492,7 +509,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.Washing_Name"
+                  v-model="offerForm.washingName"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl"
@@ -503,7 +520,7 @@
               <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
                 <input
                   type="checkbox"
-                  v-model="offerForm.Security"
+                  v-model="offerForm.security"
                   class="w-4 h-4 text-[var(--bg-1)] border-gray-300 rounded focus:ring-[var(--bg-1)]"
                 />
                 <span class="material-symbols-outlined text-gray-600 text-xl">security</span>
@@ -520,7 +537,7 @@
                 >Disponibilité</label
               >
               <select
-                v-model="offerForm.Availability"
+                v-model="offerForm.availability"
                 class="w-full h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
               >
                 <option value="Disponible">Disponible</option>
@@ -557,17 +574,17 @@
                   >
                   <p class="text-sm text-gray-500">Cliquez pour sélectionner des images</p>
                   <p class="text-xs text-gray-400 mt-1">
-                    {{ offerForm.Pictures.length }} image(s) sélectionnée(s)
+                    {{ offerForm.pictures.length }} image(s) sélectionnée(s)
                   </p>
                 </label>
               </div>
               <!-- Image Preview Section -->
-              <div v-if="offerForm.Pictures.length" class="mt-[2vh]">
+              <div v-if="offerForm.pictures.length" class="mt-[2vh]">
                 <label class="block text-sm font-medium text-gray-700 mb-[1vh]"
                   >Aperçu des images</label
                 >
                 <div class="flex gap-2 flex-wrap">
-                  <div v-for="(pic, idx) in offerForm.Pictures" :key="idx" class="relative">
+                  <div v-for="(pic, idx) in offerForm.pictures" :key="idx" class="relative">
                     <img
                       :src="getImagePreview(pic)"
                       class="h-20 w-20 object-cover rounded border-2 border-gray-200"
@@ -609,23 +626,23 @@
       v-if="showCancelModal"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
-      <div class="bg-white rounded-xl w-[35vw] min-w-[350px] max-w-md">
+      <div class="bg-white rounded-xl w-[35vw] min-w-[350px] max-w-md flex flex-col items-center">
         <div class="h-[8vh] min-h-[60px] border-b flex items-center w-[90%] mx-auto">
           <h2 class="text-xl font-semibold text-gray-800">Confirmer l'annulation</h2>
         </div>
-        <div class="w-[90%] mx-auto py-[2vh]">
+        <div class="w-[90%] mx-auto py-[2vh] flex flex-col gap-4">
           <p class="text-gray-600 mb-[2vh]">
             Êtes-vous sûr de vouloir annuler cette réservation ? Un email sera envoyé au client pour
             l'informer.
           </p>
-          <div>
+          <div class="flex flex-col gap-2">
             <label class="block text-sm font-medium text-gray-700 mb-[0.5vh]"
               >Message personnalisé (optionnel)</label
             >
             <textarea
               v-model="cancelMessage"
               rows="3"
-              class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+              class="w-full h-[12vh] min-h-[100px] border border-gray-300 rounded-lg focus:ring-1 focus:ring-[var(--bg-1)] focus:border-transparent px-2"
               placeholder="Raison de l'annulation..."
             ></textarea>
           </div>
@@ -685,6 +702,7 @@ export default {
         })
         const data = await res.json()
         // Adapter la structure pour l'affichage
+        console.log('Fetch reservations data:', data)
         reservations.value = (data.data?.docs || data.data || []).map((r) => ({
           id: r._id,
           firstName: r.firstNameClient || '',
@@ -693,8 +711,12 @@ export default {
           phone: r.phone || '',
           country: r.country || '',
           offer: r.offer || '',
-          duration: r.startDate && r.arrivalDate ? `${r.startDate} - ${r.arrivalDate}` : '',
+          duration:
+            r.startDate && r.arrivalDate
+              ? `${formatDate(r.startDate)} - ${formatDate(r.arrivalDate)}`
+              : '',
           status: r.status ? r.status.toLowerCase() : 'pending',
+          price: r.price || null,
           raw: r,
         }))
       } catch (e) {
@@ -720,18 +742,37 @@ export default {
             if (!url) return null
             return url.replace(/^https?:\/\/(localhost|backend):3000/, '')
           }
-          const fixedPictures = o.Pictures ? o.Pictures.map(fixImageUrl) : []
+          // Support both lowercase (new) and uppercase (old) field names
+          const pictures = o.pictures || o.Pictures || []
+          const fixedPictures = pictures.map(fixImageUrl)
           return reactive({
             id: o._id,
-            name: o.Title || '',
-            description: o.Bio || '',
+            name: o.title || o.Title || '',
+            description: o.bio || o.Bio || '',
             pricePerNight: o.nightlyPrice || 0,
-            available: o.Availability === 'Disponible' || o.Availability === true,
+            available:
+              o.availability === true || o.Availability === 'Disponible' || o.Availability === true,
             image: fixedPictures.length > 0 ? fixedPictures[0] : null,
             _carouselIndex: 0,
             raw: {
               ...o,
               Pictures: fixedPictures,
+              // Map fields for backwards compatibility
+              bedNumber: o.bedNumber || o.Bed_Number,
+              roomNumber: o.roomNumber || o.Room_Number,
+              kitchenNumber: o.kitchenNumber || o.Kitchen_Number,
+              parking: o.parking ?? o.Parking ?? false,
+              town: o.town || o.Town,
+              wifi: o.wifi ?? o.Wifi ?? false,
+              ac: o.ac ?? o.AC ?? false,
+              security: o.security ?? o.Security ?? false,
+              washingName: o.washingName ?? o.Washing_Name ?? false,
+              // Keep uppercase for template display
+              Bed_Number: o.bedNumber || o.Bed_Number,
+              Room_Number: o.roomNumber || o.Room_Number,
+              Kitchen_Number: o.kitchenNumber || o.Kitchen_Number,
+              Parking: o.parking ?? o.Parking ?? false,
+              Town: o.town || o.Town,
             },
           })
         })
@@ -748,20 +789,20 @@ export default {
 
     // Formulaire avec les noms de champs correspondant au backend
     const offerForm = reactive({
-      Title: '',
-      Bio: '',
+      title: '',
+      bio: '',
       nightlyPrice: '',
-      Town: '',
-      Bed_Number: '',
-      Room_Number: '',
-      Kitchen_Number: '',
-      Availability: 'Disponible',
-      Parking: false,
-      Washing_Name: false,
-      Wifi: false,
-      AC: false,
-      Security: false,
-      Pictures: [],
+      town: '',
+      bedNumber: '',
+      roomNumber: '',
+      kitchenNumber: '',
+      availability: 'Disponible',
+      parking: false,
+      washingName: false,
+      wifi: false,
+      ac: false,
+      security: false,
+      pictures: [],
     })
 
     const filteredReservations = computed(() => {
@@ -782,6 +823,17 @@ export default {
 
     function formatPrice(price) {
       return new Intl.NumberFormat('fr-FR').format(price) + ' XOF'
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return ''
+      const date = new Date(dateString)
+      if (isNaN(date.getTime())) return dateString
+      return date.toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
     }
 
     function viewReservation(reservation) {
@@ -820,36 +872,37 @@ export default {
       editingOffer.value = offer
       if (offer) {
         // Mode édition - remplir le formulaire avec les données existantes
-        offerForm.Title = offer.name || ''
-        offerForm.Bio = offer.description || ''
-        offerForm.nightlyPrice = offer.pricePerNight || ''
-        offerForm.Town = offer.raw?.Town || ''
-        offerForm.Bed_Number = offer.raw?.Bed_Number || ''
-        offerForm.Room_Number = offer.raw?.Room_Number || ''
-        offerForm.Kitchen_Number = offer.raw?.Kitchen_Number || ''
-        offerForm.Availability = offer.available ? 'Disponible' : 'Indisponible'
-        offerForm.Parking = offer.raw?.Parking || false
-        offerForm.Washing_Name = offer.raw?.Washing_Name || false
-        offerForm.Wifi = offer.raw?.Wifi || false
-        offerForm.AC = offer.raw?.AC || false
-        offerForm.Security = offer.raw?.Security || false
-        offerForm.Pictures = []
+        // Support both lowercase (new) and uppercase (old) field names
+        offerForm.title = offer.name || offer.raw?.title || ''
+        offerForm.bio = offer.description || offer.raw?.bio || ''
+        offerForm.nightlyPrice = offer.pricePerNight || offer.raw?.nightlyPrice || ''
+        offerForm.town = offer.raw?.town || offer.raw?.Town || ''
+        offerForm.bedNumber = offer.raw?.bedNumber || offer.raw?.Bed_Number || ''
+        offerForm.roomNumber = offer.raw?.roomNumber || offer.raw?.Room_Number || ''
+        offerForm.kitchenNumber = offer.raw?.kitchenNumber || offer.raw?.Kitchen_Number || ''
+        offerForm.availability = offer.available ? 'Disponible' : 'Indisponible'
+        offerForm.parking = offer.raw?.parking ?? offer.raw?.Parking ?? false
+        offerForm.washingName = offer.raw?.washingName ?? offer.raw?.Washing_Name ?? false
+        offerForm.wifi = offer.raw?.wifi ?? offer.raw?.Wifi ?? false
+        offerForm.ac = offer.raw?.ac ?? offer.raw?.AC ?? false
+        offerForm.security = offer.raw?.security ?? offer.raw?.Security ?? false
+        offerForm.pictures = []
       } else {
         // Mode création - réinitialiser le formulaire
-        offerForm.Title = ''
-        offerForm.Bio = ''
+        offerForm.title = ''
+        offerForm.bio = ''
         offerForm.nightlyPrice = ''
-        offerForm.Town = ''
-        offerForm.Bed_Number = ''
-        offerForm.Room_Number = ''
-        offerForm.Kitchen_Number = ''
-        offerForm.Availability = 'Disponible'
-        offerForm.Parking = false
-        offerForm.Washing_Name = false
-        offerForm.Wifi = false
-        offerForm.AC = false
-        offerForm.Security = false
-        offerForm.Pictures = []
+        offerForm.town = ''
+        offerForm.bedNumber = ''
+        offerForm.roomNumber = ''
+        offerForm.kitchenNumber = ''
+        offerForm.availability = 'Disponible'
+        offerForm.parking = false
+        offerForm.washingName = false
+        offerForm.wifi = false
+        offerForm.ac = false
+        offerForm.security = false
+        offerForm.pictures = []
       }
       showOfferModal.value = true
     }
@@ -859,11 +912,11 @@ export default {
       if (files && files.length > 0) {
         // Ajouter les nouvelles images, maximum 4
         const newFiles = Array.from(files)
-        const currentCount = offerForm.Pictures.length
+        const currentCount = offerForm.pictures.length
         const availableSlots = 4 - currentCount
 
         if (availableSlots > 0) {
-          offerForm.Pictures.push(...newFiles.slice(0, availableSlots))
+          offerForm.pictures.push(...newFiles.slice(0, availableSlots))
         }
 
         // Réinitialiser l'input
@@ -872,7 +925,7 @@ export default {
     }
 
     function removeImage(index) {
-      offerForm.Pictures.splice(index, 1)
+      offerForm.pictures.splice(index, 1)
     }
 
     function getImagePreview(file) {
@@ -880,24 +933,89 @@ export default {
     }
 
     function prevImage(offer) {
-      if (!offer.raw.Pictures || offer.raw.Pictures.length === 0) return
+      if (!offer.raw.pictures || offer.raw.pictures.length === 0) return
       offer._carouselIndex =
-        (offer._carouselIndex - 1 + offer.raw.Pictures.length) % offer.raw.Pictures.length
+        (offer._carouselIndex - 1 + offer.raw.pictures.length) % offer.raw.pictures.length
     }
 
     function nextImage(offer) {
-      if (!offer.raw.Pictures || offer.raw.Pictures.length === 0) return
-      offer._carouselIndex = (offer._carouselIndex + 1) % offer.raw.Pictures.length
+      if (!offer.raw.pictures || offer.raw.pictures.length === 0) return
+      offer._carouselIndex = (offer._carouselIndex + 1) % offer.raw.pictures.length
     }
+
+    // async function saveOffer() {
+    //   // Validation
+    //   if (
+    //     !offerForm.Title ||
+    //     !offerForm.Bio ||
+    //     !offerForm.nightlyPrice ||
+    //     !offerForm.Town
+    //   ) {
+    //     alert('Veuillez remplir tous les champs obligatoires (*)')
+    //     return
+    //   }
+
+    //   const token = localStorage.getItem('accessToken')
+    //   try {
+    //     const formData = new FormData()
+
+    //     // Champs avec les noms correspondant au backend
+    //     formData.append('title', offerForm.title)
+    //     formData.append('bio', offerForm.bio)
+    //     formData.append('nightlyPrice', offerForm.nightlyPrice)
+    //     formData.append('town', offerForm.town)
+
+    //     if (offerForm.bedNumber) formData.append('bedNumber', offerForm.bedNumber)
+    //     if (offerForm.roomNumber) formData.append('roomNumber', offerForm.roomNumber)
+    //     if (offerForm.kitchenNumber) formData.append('kitchenNumber', offerForm.kitchenNumber)
+
+    //     formData.append('parking', offerForm.parking)
+    //     formData.append('washingName', offerForm.washingName)
+    //     formData.append('wifi', offerForm.wifi)
+    //     formData.append('ac', offerForm.ac)
+    //     formData.append('security', offerForm.security)
+    //     formData.append('availability', offerForm.availability)
+
+    //     // Images avec le nom de champ "Pictures" (majuscule)
+    //     if (offerForm.pictures && offerForm.pictures.length > 0) {
+    //       offerForm.pictures.forEach((pic) => {
+    //         formData.append('Pictures', pic)
+    //       })
+    //     }
+
+    //     const headers = {}
+    //     if (token) {
+    //       headers['Authorization'] = `Bearer ${token}`
+    //     }
+
+    //     if (editingOffer.value) {
+    //       // Modification
+    //       await fetch(`/api/v1/offer/${editingOffer.value.id}`, {
+    //         method: 'PUT',
+    //         headers: headers,
+    //         body: formData,
+    //       })
+    //     } else {
+    //       // Création
+    //       await fetch('/api/v1/offer', {
+    //         method: 'POST',
+    //         headers: headers,
+    //         body: formData,
+    //       })
+    //     }
+    //     await fetchOffers()
+    //   } catch (e) {
+    //     console.error("Erreur lors de la sauvegarde de l'offre", e)
+    //   }
+    //   showOfferModal.value = false
+    // }
+
+    // Dans la fonction saveOffer(), remplacez tout le contenu par ceci:
 
     async function saveOffer() {
       // Validation
-      if (
-        !offerForm.Title ||
-        !offerForm.Bio ||
-        !offerForm.nightlyPrice ||
-        !offerForm.Town
-      ) {
+      if (!offerForm.title || !offerForm.bio || !offerForm.nightlyPrice || !offerForm.town) {
+        console.log('Validation failed:', offerForm)
         alert('Veuillez remplir tous les champs obligatoires (*)')
         return
       }
@@ -906,27 +1024,28 @@ export default {
       try {
         const formData = new FormData()
 
-        // Champs avec les noms correspondant au backend
-        formData.append('Title', offerForm.Title)
-        formData.append('Bio', offerForm.Bio)
+        // Champs avec les noms correspondant au backend (MINUSCULES)
+        formData.append('title', offerForm.title)
+        formData.append('bio', offerForm.bio)
         formData.append('nightlyPrice', offerForm.nightlyPrice)
-        formData.append('Town', offerForm.Town)
-        
-        if (offerForm.Bed_Number) formData.append('Bed_Number', offerForm.Bed_Number)
-        if (offerForm.Room_Number) formData.append('Room_Number', offerForm.Room_Number)
-        if (offerForm.Kitchen_Number) formData.append('Kitchen_Number', offerForm.Kitchen_Number)
-        
-        formData.append('Parking', offerForm.Parking)
-        formData.append('Washing_Name', offerForm.Washing_Name)
-        formData.append('Wifi', offerForm.Wifi)
-        formData.append('AC', offerForm.AC)
-        formData.append('Security', offerForm.Security)
-        formData.append('Availability', offerForm.Availability)
-        
-        // Images avec le nom de champ "Pictures" (majuscule)
-        if (offerForm.Pictures && offerForm.Pictures.length > 0) {
-          offerForm.Pictures.forEach((pic) => {
-            formData.append('Pictures', pic)
+        formData.append('town', offerForm.town)
+
+        if (offerForm.bedNumber) formData.append('bedNumber', offerForm.bedNumber)
+        if (offerForm.roomNumber) formData.append('roomNumber', offerForm.roomNumber)
+        if (offerForm.kitchenNumber) formData.append('kitchenNumber', offerForm.kitchenNumber)
+
+        formData.append('parking', offerForm.parking)
+        formData.append('washingName', offerForm.washingName)
+        formData.append('wifi', offerForm.wifi)
+        formData.append('ac', offerForm.ac)
+        formData.append('security', offerForm.security)
+        formData.append('availability', offerForm.availability === 'Disponible')
+
+        // IMPORTANT: Les fichiers doivent être envoyés avec le nom "Pictures" (MAJUSCULE)
+        // car c'est ce que Multer attend dans la route: .array("Pictures")
+        if (offerForm.pictures && offerForm.pictures.length > 0) {
+          offerForm.pictures.forEach((pic) => {
+            formData.append('Pictures', pic) // <-- MAJUSCULE ici !
           })
         }
 

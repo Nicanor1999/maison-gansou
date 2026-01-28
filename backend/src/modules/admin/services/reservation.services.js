@@ -304,24 +304,24 @@ module.exports = class ReservationServices extends CoreServices {
       const servicePipeline = [{
           $lookup: {
             from: "offers",
-            localField: "Offer",
+            localField: "offer",
             foreignField: "_id",
-            as: "Offer"
+            as: "offerData"
           }
         },
 
         {
           $addFields: {
-            Offer: {
+            offerData: {
               $ifNull: [{
-                $arrayElemAt: ['$Offer', 0]
+                $arrayElemAt: ['$offerData', 0]
               }, null]
             }
           }
         },
         {
           $unwind: {
-            path: '$Offer',
+            path: '$offerData',
             preserveNullAndEmptyArrays: true
           }
         },

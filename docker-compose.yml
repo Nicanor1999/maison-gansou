@@ -44,6 +44,8 @@ services:
     environment:
       - NODE_ENV=development
       - MONGO_URI=mongodb://${MONGO_ROOT_USER:-admin}:${MONGO_ROOT_PASSWORD:-admin123}@mongodb:27017/gansou_db?authSource=admin
+    volumes:
+      - backend_uploads:/app/public/uploads
     depends_on:
       - mongodb
     networks:
@@ -78,6 +80,7 @@ services:
 
 volumes:
   mongodb_data:
+  backend_uploads:
 
 networks:
   maison-network:

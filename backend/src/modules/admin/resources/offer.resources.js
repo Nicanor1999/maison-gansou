@@ -14,13 +14,20 @@ module.exports = class OfferResources {
       if (!model) return null
       const {} = filter
 
+      // Encode picture paths to handle special characters like # and spaces
+      const encodePicturePath = (path) => {
+        const basePath = path.substring(0, path.lastIndexOf('/') + 1)
+        const filename = path.substring(path.lastIndexOf('/') + 1)
+        return (process.env.BASE_URL || '') + basePath + encodeURIComponent(filename)
+      }
+
       const schema = {
         _id: model._id,
         createdBy: model.createdBy,
         updatedBy: model.updatedBy,
         deletedBy: model.deletedBy,
         nightlyPrice: model.nightlyPrice,
-        pictures: model.pictures ? model.pictures.map(path => process.env.BASE_URL + path) : [],
+        pictures: model.pictures ? model.pictures.map(encodePicturePath) : [],
         title: model.title,
         bio: model.bio,
         bedNumber: model.bedNumber,
@@ -48,10 +55,17 @@ module.exports = class OfferResources {
     try {
       if (!model) return null
 
+      // Encode picture paths to handle special characters like # and spaces
+      const encodePicturePath = (path) => {
+        const basePath = path.substring(0, path.lastIndexOf('/') + 1)
+        const filename = path.substring(path.lastIndexOf('/') + 1)
+        return (process.env.BASE_URL || '') + basePath + encodeURIComponent(filename)
+      }
+
       const schema = {
         _id: model._id,
         nightlyPrice: model.nightlyPrice,
-        pictures: model.pictures ? model.pictures.map(path => process.env.BASE_URL + path) : [],
+        pictures: model.pictures ? model.pictures.map(encodePicturePath) : [],
         title: model.title,
         bio: model.bio,
         bedNumber: model.bedNumber,

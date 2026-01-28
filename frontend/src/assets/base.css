@@ -1,3 +1,21 @@
+input:focus {
+  outline: none;
+  border: 1px solid var(--bg-1);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+textarea:focus {
+  outline: none;
+  border: 1px solid var(--bg-1);
+}
+
+select:focus {
+  outline: none;
+  border: 1px solid var(--bg-1);
+}
 /* Creato Display Font */
 @font-face {
   font-family: 'Creato Display';
