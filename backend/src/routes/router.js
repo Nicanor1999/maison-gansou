@@ -8,6 +8,7 @@ const tagsRoutes = require('../modules/admin/routes/tags.routes.js');
 const sectionRoutes = require('../modules/admin/routes/section.routes.js');
 const articleRoutes = require('../modules/admin/routes/article.routes.js');
 const projectsRoutes = require('../modules/admin/routes/projects.routes.js');
+const paymentRoutes = require('../modules/admin/routes/payment.routes.js');
 
 module.exports = (app) => {
   app.use(versionOne('auth'), new authRoutes());
@@ -19,4 +20,5 @@ module.exports = (app) => {
   app.use(versionOne('section'), new sectionRoutes());
   app.use(versionOne('article'), new articleRoutes());
   app.use(versionOne('projects'), new projectsRoutes());
+  app.use(versionOne('payment'), new paymentRoutes());
 };

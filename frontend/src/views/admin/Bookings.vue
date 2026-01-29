@@ -30,24 +30,50 @@
     >
       <!-- Filters -->
       <div
-        class="bg-white rounded-xl shadow-sm h-[15vh] min-h-[60px] border border-gray-100 flex justify-center"
+        class="bg-white rounded-xl shadow-sm min-h-[80px] border border-gray-100 flex justify-center py-4"
       >
-        <div class="flex flex-wrap items-center h-full w-[95%] mx-auto gap-[2%]">
+        <div class="flex flex-wrap items-center w-[95%] mx-auto gap-3">
           <input
             type="text"
             v-model="searchQuery"
             placeholder="Rechercher un client..."
-            class="flex-1 min-w-[200px] h-[5vh] min-h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
+            class="flex-1 min-w-[180px] h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-4"
           />
           <select
             v-model="statusFilter"
-            class="h-[5vh] min-h-[40px] w-[15%] min-w-[150px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
+            class="h-[40px] w-[180px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-2"
           >
             <option value="">Tous les statuts</option>
+            <option value="not_initiated">Non initié</option>
             <option value="pending">En attente</option>
-            <option value="confirmed">Confirmé</option>
-            <option value="cancelled">Annulé</option>
+            <option value="completed">Payé</option>
+            <option value="failed">Échoué</option>
+            <option value="refunded">Remboursé</option>
           </select>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">Du:</label>
+            <input
+              type="date"
+              v-model="dateFrom"
+              class="h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-3"
+            />
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">Au:</label>
+            <input
+              type="date"
+              v-model="dateTo"
+              class="h-[40px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-3"
+            />
+          </div>
+          <button
+            v-if="dateFrom || dateTo"
+            @click="clearDateFilters"
+            class="h-[40px] px-3 text-gray-500 hover:text-red-500 flex items-center"
+            title="Effacer les filtres de date"
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
         </div>
       </div>
 
@@ -69,7 +95,7 @@
               <th
                 class="w-[20%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Offre
+                Date de paiement
               </th>
               <th
                 class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -79,10 +105,10 @@
               <th
                 class="w-[10%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Statut
+                Paiement
               </th>
               <th
-                class="w-[15%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="w-[10%] text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Actions
               </th>
@@ -90,7 +116,7 @@
           </thead>
           <tbody class="divide-y divide-gray-200">
             <tr
-              v-for="reservation in filteredReservations"
+              v-for="reservation in paginatedReservations"
               :key="reservation.id"
               class="h-[10vh] min-h-[80px] hover:bg-gray-50"
             >
@@ -116,29 +142,33 @@
                 </p>
               </td>
               <td class="w-[20%] text-center">
-                <p class="text-sm font-bold text-[var(--bg-1)]">{{ reservation.offer }}</p>
+                <p class="text-sm text-gray-800">
+                  {{ reservation.paymentCompletedAt ? formatDate(reservation.paymentCompletedAt) : '-' }}
+                </p>
               </td>
               <td class="w-[15%] text-center">
                 <p class="text-sm text-gray-800">{{ reservation.duration }}</p>
               </td>
-              <td class="w-[20%] text-center">
+              <td class="w-[10%] text-center">
                 <span
                   :class="[
-                    'text-xs font-medium rounded-full p-[2%]',
-                    reservation.status === 'confirmed'
+                    'text-xs font-medium rounded-full px-2 py-1',
+                    reservation.paymentStatus === 'completed'
                       ? 'bg-green-100 text-green-600'
-                      : reservation.status === 'pending'
+                      : reservation.paymentStatus === 'pending'
                         ? 'bg-yellow-100 text-yellow-600'
-                        : 'bg-red-100 text-red-600',
+                        : reservation.paymentStatus === 'failed'
+                          ? 'bg-red-100 text-red-600'
+                          : 'bg-gray-100 text-gray-600',
                   ]"
                 >
-                  {{ getStatusLabel(reservation.status) }}
+                  {{ getPaymentStatusLabel(reservation.paymentStatus) }}
                 </span>
               </td>
-              <td class="w-[15%] text-center">
+              <td class="w-[10%] text-center">
                 <button
                   @click="viewReservation(reservation)"
-                  class="text-blue-600 hover:text-blue-800 mr-[1vw]"
+                  class="text-blue-600 hover:text-blue-800 mr-[0.5vw]"
                   title="Voir détails"
                 >
                   <span class="material-symbols-outlined">visibility</span>
@@ -156,10 +186,70 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Pagination -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-gray-600">Page {{ currentPage }} sur {{ totalPages }}</span>
+          <span class="text-sm text-gray-400">({{ filteredReservations.length }} résultats)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            @click="currentPage = 1"
+            :disabled="currentPage === 1"
+            class="h-[36px] w-[36px] flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-sm">first_page</span>
+          </button>
+          <button
+            @click="currentPage--"
+            :disabled="currentPage === 1"
+            class="h-[36px] w-[36px] flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-sm">chevron_left</span>
+          </button>
+          <span class="px-3 text-sm font-medium text-gray-700">{{ currentPage }}</span>
+          <button
+            @click="currentPage++"
+            :disabled="currentPage === totalPages"
+            class="h-[36px] w-[36px] flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+          </button>
+          <button
+            @click="currentPage = totalPages"
+            :disabled="currentPage === totalPages"
+            class="h-[36px] w-[36px] flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="material-symbols-outlined text-sm">last_page</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Total des réservations payées -->
+      <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl shadow-sm border border-green-200 p-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-[50px] h-[50px] bg-green-500 rounded-full flex items-center justify-center">
+              <span class="material-symbols-outlined text-white text-2xl">payments</span>
+            </div>
+            <div>
+              <p class="text-sm text-green-700 font-medium">Total des réservations payées</p>
+              <p class="text-xs text-green-600">
+                {{ dateFrom || dateTo ? 'Période sélectionnée' : 'Toutes les réservations' }}
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-2xl font-bold text-green-700">{{ formatPrice(totalPaidAmount) }}</p>
+            <p class="text-sm text-green-600">{{ paidReservationsCount }} réservation(s) payée(s)</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Offers Tab -->
-    <div v-if="activeTab === 'offers'" @click="fetchOffers" class="space-y-[2vh]">
+    <div v-if="activeTab === 'offers'" @click="fetchOffers" class="flex flex-col gap-4">
       <!-- Add Offer Button -->
       <div class="flex justify-end h-[6vh] min-h-[45px] items-center">
         <button
@@ -298,7 +388,7 @@
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     >
       <div
-        class="bg-white rounded-xl w-[90%] max-w-xl h-auto max-h-[90vh] overflow-y-auto flex flex-col items-center"
+        class="bg-white rounded-xl w-[90%] max-w-xl h-auto md:h-[80vh] 2xl:h-[55vh] overflow-y-auto flex flex-col items-center justify-between"
       >
         <div
           class="h-[8vh] min-h-[60px] border-b flex items-center justify-between w-[90%] mx-auto"
@@ -309,7 +399,7 @@
           </button>
         </div>
         <div class="w-[90%] mx-auto space-y-[2vh] my-[2vh]" v-if="selectedReservation">
-          <div class="grid grid-cols-2 md:h-[50vh] gap-[3%]">
+          <div class="grid grid-cols-2 gap-[3%]">
             <div>
               <label class="text-sm text-gray-500">Prénom</label>
               <p class="font-medium">{{ selectedReservation.firstName }}</p>
@@ -337,6 +427,42 @@
             <div class="col-span-2">
               <label class="text-sm text-gray-500">Offre</label>
               <p class="font-medium">{{ selectedReservation.offer }}</p>
+            </div>
+            <div>
+              <label class="text-sm text-gray-500">Prix Total</label>
+              <p class="font-medium text-[var(--bg-1)]">{{ selectedReservation.price ? formatPrice(selectedReservation.price) : '-' }}</p>
+            </div>
+            <div>
+              <label class="text-sm text-gray-500">Statut Paiement</label>
+              <span
+                :class="[
+                  'text-xs font-medium rounded-full px-2 py-1',
+                  selectedReservation.paymentStatus === 'completed'
+                    ? 'bg-green-100 text-green-600'
+                    : selectedReservation.paymentStatus === 'pending'
+                      ? 'bg-yellow-100 text-yellow-600'
+                      : selectedReservation.paymentStatus === 'failed'
+                        ? 'bg-red-100 text-red-600'
+                        : 'bg-gray-100 text-gray-600',
+                ]"
+              >
+                {{ getPaymentStatusLabel(selectedReservation.paymentStatus) }}
+              </span>
+            </div>
+            <div v-if="selectedReservation.paymentCompletedAt">
+              <label class="text-sm text-gray-500">Date de Paiement</label>
+              <p class="font-medium text-green-600">{{ formatDate(selectedReservation.paymentCompletedAt) }}</p>
+            </div>
+            <!-- Payment URL if pending -->
+            <div v-if="selectedReservation.paymentUrl" class="col-span-2">
+              <label class="text-sm text-gray-500">Lien de Paiement</label>
+              <a
+                :href="selectedReservation.paymentUrl"
+                target="_blank"
+                class="text-blue-600 hover:text-blue-800 underline text-sm break-all"
+              >
+                {{ selectedReservation.paymentUrl }}
+              </a>
             </div>
           </div>
         </div>
@@ -669,7 +795,7 @@
 </template>
 
 <script>
-import { ref, computed, reactive, onMounted } from 'vue'
+import { ref, computed, reactive, onMounted, watch } from 'vue'
 
 export default {
   name: 'BookingsView',
@@ -677,6 +803,10 @@ export default {
     const activeTab = ref('reservations')
     const searchQuery = ref('')
     const statusFilter = ref('')
+    const dateFrom = ref('')
+    const dateTo = ref('')
+    const currentPage = ref(1)
+    const itemsPerPage = 10
     const showReservationModal = ref(false)
     const showOfferModal = ref(false)
     const showCancelModal = ref(false)
@@ -715,8 +845,15 @@ export default {
             r.startDate && r.arrivalDate
               ? `${formatDate(r.startDate)} - ${formatDate(r.arrivalDate)}`
               : '',
+          startDate: r.startDate,
+          arrivalDate: r.arrivalDate,
           status: r.status ? r.status.toLowerCase() : 'pending',
           price: r.price || null,
+          paymentStatus: r.paymentStatus || 'not_initiated',
+          paymentTransactionId: r.paymentTransactionId || null,
+          paymentAmount: r.paymentAmount || null,
+          paymentCompletedAt: r.paymentCompletedAt || null,
+          paymentUrl: null,
           raw: r,
         }))
       } catch (e) {
@@ -806,19 +943,153 @@ export default {
     })
 
     const filteredReservations = computed(() => {
+      // Reset to page 1 when filters change
       return reservations.value.filter((r) => {
         const matchesSearch =
           searchQuery.value === '' ||
           `${r.firstName} ${r.lastName}`.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
           r.email.toLowerCase().includes(searchQuery.value.toLowerCase())
-        const matchesStatus = statusFilter.value === '' || r.status === statusFilter.value
-        return matchesSearch && matchesStatus
+        const matchesStatus = statusFilter.value === '' || r.paymentStatus === statusFilter.value
+
+        // Date filtering based on paymentCompletedAt
+        let matchesDateFrom = true
+        let matchesDateTo = true
+
+        if (dateFrom.value) {
+          const fromDate = new Date(dateFrom.value)
+          fromDate.setHours(0, 0, 0, 0)
+          if (r.paymentCompletedAt) {
+            const paymentDate = new Date(r.paymentCompletedAt)
+            matchesDateFrom = paymentDate >= fromDate
+          } else {
+            matchesDateFrom = false // Exclude unpaid if filtering by date
+          }
+        }
+
+        if (dateTo.value) {
+          const toDate = new Date(dateTo.value)
+          toDate.setHours(23, 59, 59, 999)
+          if (r.paymentCompletedAt) {
+            const paymentDate = new Date(r.paymentCompletedAt)
+            matchesDateTo = paymentDate <= toDate
+          } else {
+            matchesDateTo = false // Exclude unpaid if filtering by date
+          }
+        }
+
+        return matchesSearch && matchesStatus && matchesDateFrom && matchesDateTo
       })
+    })
+
+    // Reset page when filters change
+    const resetPage = () => {
+      currentPage.value = 1
+    }
+
+    // Watch for filter changes to reset page
+    const totalPages = computed(() => {
+      return Math.max(1, Math.ceil(filteredReservations.value.length / itemsPerPage))
+    })
+
+    const paginatedReservations = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage
+      const end = start + itemsPerPage
+      return filteredReservations.value.slice(start, end)
+    })
+
+    // Total of paid reservations (filtered)
+    const paidReservationsFiltered = computed(() => {
+      return filteredReservations.value.filter(r => r.paymentStatus === 'completed')
+    })
+
+    const totalPaidAmount = computed(() => {
+      return paidReservationsFiltered.value.reduce((sum, r) => sum + (r.price || r.paymentAmount || 0), 0)
+    })
+
+    const paidReservationsCount = computed(() => {
+      return paidReservationsFiltered.value.length
+    })
+
+    function clearDateFilters() {
+      dateFrom.value = ''
+      dateTo.value = ''
+      currentPage.value = 1
+    }
+
+    // Watch filters to reset page
+    watch([searchQuery, statusFilter, dateFrom, dateTo], () => {
+      currentPage.value = 1
     })
 
     function getStatusLabel(status) {
       const labels = { confirmed: 'Confirmé', pending: 'En attente', cancelled: 'Annulé' }
       return labels[status] || status
+    }
+
+    function getPaymentStatusLabel(status) {
+      const labels = {
+        not_initiated: 'Non initié',
+        pending: 'En attente',
+        completed: 'Payé',
+        failed: 'Échoué',
+        refunded: 'Remboursé',
+      }
+      return labels[status] || status || 'Non initié'
+    }
+
+    async function initiatePayment(reservation) {
+      try {
+        const token = localStorage.getItem('accessToken')
+        const res = await fetch('/api/v1/payment/initiate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : undefined,
+          },
+          body: JSON.stringify({
+            reservationId: reservation.id,
+            email: reservation.email,
+            phone: reservation.phone,
+          }),
+        })
+
+        if (!res.ok) {
+          throw new Error('Erreur lors de l\'initiation du paiement')
+        }
+
+        const data = await res.json()
+        if (data.data?.paymentUrl) {
+          // Update the reservation with payment URL
+          reservation.paymentUrl = data.data.paymentUrl
+          reservation.paymentStatus = 'pending'
+
+          // Open payment URL in new tab
+          window.open(data.data.paymentUrl, '_blank')
+
+          // Refresh reservations
+          await fetchReservations()
+        }
+      } catch (e) {
+        console.error('Erreur lors de l\'initiation du paiement', e)
+        alert('Erreur lors de l\'initiation du paiement: ' + e.message)
+      }
+    }
+
+    async function getPaymentStatus(reservationId) {
+      try {
+        const token = localStorage.getItem('accessToken')
+        const res = await fetch(`/api/v1/payment/status/${reservationId}`, {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : undefined,
+          },
+        })
+        if (res.ok) {
+          return await res.json()
+        }
+      } catch (e) {
+        console.error('Erreur lors de la récupération du statut de paiement', e)
+      }
+      return null
     }
 
     function formatPrice(price) {
@@ -1098,8 +1369,15 @@ export default {
       tabs,
       searchQuery,
       statusFilter,
+      dateFrom,
+      dateTo,
+      currentPage,
+      totalPages,
       reservations,
       filteredReservations,
+      paginatedReservations,
+      totalPaidAmount,
+      paidReservationsCount,
       offers,
       offerForm,
       showReservationModal,
@@ -1109,7 +1387,9 @@ export default {
       editingOffer,
       cancelMessage,
       getStatusLabel,
+      getPaymentStatusLabel,
       formatPrice,
+      formatDate,
       viewReservation,
       cancelReservation,
       confirmCancellation,
@@ -1121,6 +1401,10 @@ export default {
       nextImage,
       saveOffer,
       deleteOffer,
+      initiatePayment,
+      getPaymentStatus,
+      fetchReservations,
+      clearDateFilters,
     }
   },
 }

@@ -44,6 +44,11 @@ module.exports = class ReservationResources {
         offerId: model.offer,
         nightlyPrice: model.offerData?.nightlyPrice || null,
         price: price,
+        // Payment fields
+        paymentStatus: model.paymentStatus || 'not_initiated',
+        paymentTransactionId: model.paymentTransactionId || null,
+        paymentAmount: model.paymentAmount || null,
+        paymentCompletedAt: model.paymentCompletedAt || null,
       }
 
       return schema

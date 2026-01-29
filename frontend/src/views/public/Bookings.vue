@@ -271,7 +271,7 @@
               </h2>
               <p class="text-gray-600 text-center mb-6">{{ selectedApartment?.name }}</p>
 
-              <form @submit.prevent="submitBooking" class="flex flex-col gap-4">
+              <form @submit.prevent="submitBooking" class="flex flex-col gap-4 pt-4">
                 <!-- Name Fields -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -318,16 +318,13 @@
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--second-orange)] focus:border-transparent transition-all duration-300"
                     >
                       <option value="">Sélectionnez un pays</option>
-                      <option value="BJ">Bénin</option>
-                      <option value="FR">France</option>
-                      <option value="CI">Côte d'Ivoire</option>
-                      <option value="SN">Sénégal</option>
-                      <option value="TG">Togo</option>
-                      <option value="CM">Cameroun</option>
-                      <option value="GA">Gabon</option>
-                      <option value="US">États-Unis</option>
-                      <option value="CA">Canada</option>
-                      <option value="OTHER">Autre</option>
+                      <option
+                        v-for="country in countriesList"
+                        :key="country.code"
+                        :value="country.code"
+                      >
+                        {{ country.flag }} {{ country.name }}
+                      </option>
                     </select>
                   </div>
                   <div>
@@ -457,19 +454,88 @@
           </div>
         </div>
       </Transition>
+
+      <!-- Payment Result Modal -->
+      <Transition name="modal">
+        <div
+          v-if="showPaymentModal"
+          class="fixed inset-0 z-[10001] flex items-center justify-center"
+        >
+          <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="closePaymentModal"></div>
+          <div
+            class="relative bg-white rounded-2xl w-[90%] md:w-[50%] lg:w-[30%] h-auto z-10 shadow-2xl text-center flex flex-col items-center justify-around"
+            style="padding: 5%;"
+          >
+            <!-- Success -->
+            <template v-if="paymentStatus === 'success'">
+              <div class="w-[80px] h-[80px] bg-green-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-green-500 text-5xl">check_circle</span>
+              </div>
+              <h2 class="text-2xl font-bold text-[var(--bg-1)]" style="margin: 2vh 0;">Paiement Réussi!</h2>
+              <p class="text-gray-600" style="margin-bottom: 3vh;">
+                Votre paiement a été effectué avec succès. Votre réservation est maintenant confirmée.
+                Vous recevrez un email de confirmation sous peu.
+              </p>
+            </template>
+            <!-- Failed -->
+            <template v-else-if="paymentStatus === 'failed'">
+              <div class="w-[80px] h-[80px] bg-red-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-red-500 text-5xl">cancel</span>
+              </div>
+              <h2 class="text-2xl font-bold text-red-600" style="margin: 2vh 0;">Paiement Échoué</h2>
+              <p class="text-gray-600" style="margin-bottom: 3vh;">
+                Le paiement n'a pas pu être effectué. Veuillez réessayer ou utiliser un autre mode de paiement.
+              </p>
+            </template>
+            <!-- Pending -->
+            <template v-else-if="paymentStatus === 'pending'">
+              <div class="w-[80px] h-[80px] bg-yellow-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-yellow-500 text-5xl">schedule</span>
+              </div>
+              <h2 class="text-2xl font-bold text-yellow-600" style="margin: 2vh 0;">Paiement en Attente</h2>
+              <p class="text-gray-600" style="margin-bottom: 3vh;">
+                Votre paiement est en cours de traitement. Vous recevrez une confirmation une fois le paiement validé.
+              </p>
+            </template>
+            <!-- Error -->
+            <template v-else>
+              <div class="w-[80px] h-[80px] bg-gray-100 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-gray-500 text-5xl">error</span>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-600" style="margin: 2vh 0;">Erreur</h2>
+              <p class="text-gray-600" style="margin-bottom: 3vh;">
+                Une erreur s'est produite lors du traitement de votre paiement. Veuillez contacter notre support.
+              </p>
+            </template>
+            <button
+              @click="closePaymentModal"
+              class="w-full h-[6vh] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--second-orange)] hover:text-[var(--bg-1)] transition-all duration-300 font-semibold"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </Transition>
     </Teleport>
   </div>
 </template>
 
 <script>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import countries from '@/data/countries.json'
 
 export default {
   name: 'BookingsPublicView',
   setup() {
+    const route = useRoute()
+    const router = useRouter()
+    const countriesList = ref(countries)
     const showModal = ref(false)
     const showBookingForm = ref(false)
     const showSuccessModal = ref(false)
+    const showPaymentModal = ref(false)
+    const paymentStatus = ref('')
     const selectedApartment = ref(null)
     const currentImageIndex = ref(0)
     const isSubmitting = ref(false)
@@ -522,9 +588,18 @@ export default {
       }
     }
 
-    // Load apartments on mount
+    // Load apartments on mount and check for payment status
     onMounted(() => {
       fetchApartments()
+
+      // Check for payment callback result
+      const payment = route.query.payment
+      if (payment) {
+        paymentStatus.value = payment
+        showPaymentModal.value = true
+        // Clear the query parameter from URL
+        router.replace({ query: {} })
+      }
     })
 
     // Auto slideshow for modal images
@@ -699,6 +774,35 @@ export default {
           throw new Error('Erreur lors de la réservation')
         }
 
+        const reservationResult = await res.json()
+        const reservationId = reservationResult.data?._id || reservationResult.data?.id
+
+        if (reservationId) {
+          // Initiate payment with FedaPay
+          const paymentRes = await fetch('/api/v1/payment/initiate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              reservationId: reservationId,
+              email: bookingForm.value.email,
+              phone: bookingForm.value.phone,
+              phoneCountry: bookingForm.value.country.toLowerCase(),
+            }),
+          })
+
+          if (paymentRes.ok) {
+            const paymentData = await paymentRes.json()
+            if (paymentData.data?.paymentUrl) {
+              // Redirect to FedaPay payment page
+              window.location.href = paymentData.data.paymentUrl
+              return
+            }
+          }
+        }
+
+        // Fallback: show success modal if payment initiation fails
         showBookingForm.value = false
         showSuccessModal.value = true
       } catch (e) {
@@ -709,11 +813,19 @@ export default {
       }
     }
 
+    // Close payment modal
+    const closePaymentModal = () => {
+      showPaymentModal.value = false
+      paymentStatus.value = ''
+    }
+
     return {
       apartments,
       showModal,
       showBookingForm,
       showSuccessModal,
+      showPaymentModal,
+      paymentStatus,
       selectedApartment,
       currentImageIndex,
       bookingForm,
@@ -723,12 +835,14 @@ export default {
       isFormValid,
       isSubmitting,
       isLoading,
+      countriesList,
       formatPrice,
       openApartmentDetails,
       closeModal,
       openBookingForm,
       closeBookingForm,
       closeSuccessModal,
+      closePaymentModal,
       prevImage,
       nextImage,
       submitBooking,

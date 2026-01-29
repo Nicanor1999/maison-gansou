@@ -77,6 +77,28 @@ const Schema = new mongoose.Schema({
     required: true,
     ref: "Offer"
   },
+
+  // Payment fields for FedaPay integration
+  paymentStatus: {
+    type: String,
+    enum: ['not_initiated', 'pending', 'completed', 'failed', 'refunded'],
+    default: 'not_initiated'
+  },
+
+  paymentTransactionId: {
+    type: Number,
+    required: false
+  },
+
+  paymentAmount: {
+    type: Number,
+    required: false
+  },
+
+  paymentCompletedAt: {
+    type: Date,
+    required: false
+  },
 }, {
   timestamps: true
 });

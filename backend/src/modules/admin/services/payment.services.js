@@ -3,6 +3,7 @@
  * FedaPay Payment Integration Service
  */
 
+require('dotenv').config();
 const CoreServices = require("../../../shared/services/core.services")
 const axios = require('axios')
 
@@ -59,13 +60,19 @@ module.exports = class PaymentServices extends CoreServices {
         throw new this.ValidationError('Invalid amount for transaction');
       }
 
+      // Clean phone number (remove spaces and special characters except +)
+      const cleanPhone = (phone) => {
+        if (!phone) return '';
+        return phone.replace(/[\s\-\(\)]/g, '');
+      };
+
       // Create customer data
       const customerData = {
         firstname: reservation.firstNameClient || 'Client',
         lastname: reservation.lastNameClient || 'Client',
         email: reservation.email || paymentData.email,
         phone_number: {
-          number: reservation.phone || paymentData.phone,
+          number: cleanPhone(reservation.phone || paymentData.phone),
           country: paymentData.phoneCountry || 'bj'
         }
       };
@@ -87,7 +94,8 @@ module.exports = class PaymentServices extends CoreServices {
         { headers: this.getFedaPayHeaders() }
       );
 
-      const transaction = response.data.v1.transaction;
+      // FedaPay returns 'v1/transaction' with a slash
+      const transaction = response.data['v1/transaction'];
 
       // Update reservation with transaction info
       await this.Reservation.findByIdAndUpdate(reservationId, {
@@ -100,13 +108,20 @@ module.exports = class PaymentServices extends CoreServices {
         transactionId: transaction.id,
         amount: amount,
         status: transaction.status,
+        paymentUrl: transaction.payment_url,
+        paymentToken: transaction.payment_token,
         transaction: transaction
       };
 
     } catch (error) {
       if (error.response) {
-        this.Logger.error('FedaPay API Error:', error.response.data);
-        throw new this.ApiError(error.response.data.message || 'Payment service error');
+        this.Logger.error('FedaPay API Error - Status:', error.response.status);
+        this.Logger.error('FedaPay API Error - Data:', JSON.stringify(error.response.data, null, 2));
+        const errorMessage = error.response.data?.message ||
+                            error.response.data?.error?.message ||
+                            JSON.stringify(error.response.data) ||
+                            'Payment service error';
+        throw new this.ApiError(errorMessage);
       }
       throw error;
     }
@@ -150,18 +165,15 @@ module.exports = class PaymentServices extends CoreServices {
    */
   initiatePayment = async (reservationId, paymentData) => {
     try {
-      // Create the transaction
+      // Create the transaction - FedaPay returns payment_url directly
       const transactionResult = await this.createTransaction(reservationId, paymentData);
-
-      // Generate the payment token/URL
-      const tokenResult = await this.generatePaymentToken(transactionResult.transactionId);
 
       return {
         transactionId: transactionResult.transactionId,
         amount: transactionResult.amount,
         status: transactionResult.status,
-        paymentUrl: tokenResult.paymentUrl,
-        token: tokenResult.token
+        paymentUrl: transactionResult.paymentUrl,
+        token: transactionResult.paymentToken
       };
 
     } catch (error) {
@@ -180,7 +192,8 @@ module.exports = class PaymentServices extends CoreServices {
         { headers: this.getFedaPayHeaders() }
       );
 
-      return response.data.v1.transaction;
+      // FedaPay returns 'v1/transaction' with a slash
+      return response.data['v1/transaction'];
 
     } catch (error) {
       if (error.response) {

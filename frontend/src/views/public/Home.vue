@@ -154,7 +154,7 @@
             class="flex flex-col justify-between items-center h-full w-full"
           >
             <p
-              class="md:w-[60%] text-center text-[15px] md:text-[18px] lg:text-[18px] flex-grow flex items-center"
+              class="md:w-[90%] text-center text-[15px] md:text-[18px] lg:text-[18px] flex-grow flex items-center"
             >
               <span
                 ><strong class="text-[var(--bg-1)]">MG</strong>

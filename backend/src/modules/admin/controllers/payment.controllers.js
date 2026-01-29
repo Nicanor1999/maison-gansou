@@ -43,7 +43,7 @@ module.exports = class PaymentController extends CoreServices {
   };
 
   /**
-   * Payment Callback
+   * Payment Callback (POST - Webhook)
    * ******************
    * @name callback
    * @route POST /payment/callback
@@ -51,7 +51,7 @@ module.exports = class PaymentController extends CoreServices {
    * ******************
    */
   callback = async (req, res) => {
-    this.Logger.info('FedaPay Callback received:', JSON.stringify(req.body));
+    this.Logger.info('FedaPay Callback POST received:', JSON.stringify(req.body));
 
     const result = await this.PaymentServices.handleCallback(req.body);
 
@@ -59,6 +59,40 @@ module.exports = class PaymentController extends CoreServices {
       success: result.success,
       message: result.message || 'Callback processed'
     });
+  };
+
+  /**
+   * Payment Callback Redirect (GET - User redirect)
+   * ******************
+   * @name callbackRedirect
+   * @route GET /payment/callback
+   * @description Handle FedaPay user redirect after payment
+   * ******************
+   */
+  callbackRedirect = async (req, res) => {
+    const { status, id } = req.query;
+    const frontendUrl = process.env.FRONT_URL || 'https://maisongansou.com/';
+
+    this.Logger.info('FedaPay Callback GET received:', { status, id });
+
+    try {
+      if (id) {
+        // Process the callback with transaction ID
+        await this.PaymentServices.handleCallback({ id: parseInt(id), status });
+      }
+
+      // Redirect to frontend with payment result
+      if (status === 'approved') {
+        res.redirect(`${frontendUrl}bookings?payment=success`);
+      } else if (status === 'declined' || status === 'canceled') {
+        res.redirect(`${frontendUrl}bookings?payment=failed`);
+      } else {
+        res.redirect(`${frontendUrl}bookings?payment=pending`);
+      }
+    } catch (error) {
+      this.Logger.error('Callback redirect error:', error);
+      res.redirect(`${frontendUrl}bookings?payment=error`);
+    }
   };
 
   /**

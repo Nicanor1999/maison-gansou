@@ -1,7 +1,9 @@
 <template>
-    <div> Services Layout works </div>
-        <router-view></router-view>
+    <div class="bg-white"> 
+        <div></div>
+                <router-view></router-view>
 
+        </div>
 </template>
 <script>
 
