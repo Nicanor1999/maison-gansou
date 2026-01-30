@@ -1,37 +1,9 @@
 <template>
   <div class="blog-page min-h-screen w-full bg-white flex flex-col items-center">
     <!-- Header Section -->
-    <div class="h-[35vh] md:h-[45vh] w-[93%] flex flex-col justify-end">
-      <!-- Tags Filter -->
-      <div class="h-[40%] w-full flex flex-col justify-center items-center">
-        <div class="tags-container flex flex-wrap justify-center gap-[2%] w-full md:w-[80%]">
-          <button
-            v-for="tag in allTags"
-            :key="tag.id"
-            @click="toggleTag(tag.id)"
-            :class="[
-              'tag-btn h-[5vh] rounded-full flex items-center justify-center text-[12px] md:text-[14px] transition-all duration-300 hover:scale-105',
-              selectedTags.includes(tag.id)
-                ? 'bg-[var(--bg-1)] text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-[var(--second-orange)] hover:text-[var(--bg-1)]',
-            ]"
-            style="padding: 0 4%;"
-          >
-            {{ tag.name }}
-          </button>
-          <button
-            v-if="selectedTags.length > 0"
-            @click="clearTags"
-            class="tag-btn h-[5vh] rounded-full flex items-center justify-center text-[12px] md:text-[14px] bg-red-100 text-red-600 hover:bg-red-200 transition-all duration-300"
-            style="padding: 0 4%;"
-          >
-            <span class="material-symbols-outlined text-[16px]">close</span>
-            Effacer
-          </button>
-        </div>
-      </div>
+    <div class="h-[35vh] md:h-[55vh] w-[93%] flex flex-col justify-end">
       <!-- Title -->
-      <div class="h-[50%] w-full flex flex-col justify-center items-center">
+      <div class="h-[50%] w-full flex flex-col justify-end items-center">
         <h2
           class="font-bold text-[var(--bg-1)] tracking-[5px] md:tracking-[7px] text-[22px] md:text-[40px] text-center"
           data-aos="fade-up"
@@ -47,17 +19,43 @@
           et l'immobilier.
         </p>
       </div>
+      <!-- Tags Filter -->
+      <div class="h-[40%] w-full flex flex-col justify-center items-center">
+        <div class="tags-container flex flex-wrap justify-center gap-[2%] w-full md:w-[90%]">
+          <button
+            v-for="tag in allTags"
+            :key="tag.id"
+            @click="toggleTag(tag.id)"
+            :class="[
+              'tag-btn  h-[5vh] rounded-full flex items-center justify-center text-[12px] md:text-[14px] transition-all duration-300 hover:scale-105',
+              selectedTags.includes(tag.id)
+                ? 'bg-[var(--bg-1)] text-white font-bold'
+                : 'bg-gray-100 text-gray-600 hover:bg-[var(--second-orange)] hover:text-[var(--bg-1)]',
+            ]"
+            style="padding: 0 2%"
+          >
+            {{ tag.name }}
+          </button>
+          <button
+            v-if="selectedTags.length > 0"
+            @click="clearTags"
+            class="tag-btn h-[5vh] rounded-full flex items-center justify-center text-[12px] md:text-[14px] bg-red-100 text-red-600 hover:bg-red-200 transition-all duration-300"
+            style="padding: 0 4%"
+          >
+            <span class="material-symbols-outlined text-[16px]">close</span>
+            Effacer
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Results Count -->
     <div class="h-[5vh] w-[93%] flex items-center justify-between">
-      <p class="text-gray-500 text-[14px]">
-        {{ filteredArticles.length }} article(s) trouvé(s)
-      </p>
+      <p class="text-gray-500 text-[14px]">{{ filteredArticles.length }} article(s) trouvé(s)</p>
     </div>
 
     <!-- Blog Grid -->
-    <div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[3%] w-[93%] h-auto">
+    <div class="blog-grid grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-[3%] w-[93%] h-auto">
       <article
         v-for="(article, index) in filteredArticles"
         :key="article.id"
@@ -79,32 +77,38 @@
           <!-- Date Badge -->
           <div
             class="absolute top-[5%] left-[3%] bg-white/90 text-[var(--bg-1)] h-[15%] flex items-center justify-center rounded-lg text-[12px] font-semibold"
-            style="padding: 0 3%;"
+            style="padding: 0 3%"
           >
-            <span class="material-symbols-outlined text-[16px]" style="margin-right: 5px;">calendar_month</span>
+            <span class="material-symbols-outlined text-[16px]" style="margin-right: 5px"
+              >calendar_month</span
+            >
             {{ formatDate(article.createdAt) }}
           </div>
         </div>
         <!-- Content -->
-        <div class="h-[40%] flex flex-col justify-around" style="padding: 3% 0;">
+        <div class="h-[40%] flex flex-col justify-around" style="padding: 3% 0">
           <!-- Tags -->
           <div class="flex flex-wrap gap-[2%] h-[25%] items-center">
             <span
               v-for="tagId in article.tags"
               :key="tagId"
-              class="text-[11px] md:text-[12px] bg-[var(--second-orange)]/20 text-[var(--bg-1)] rounded-full flex items-center justify-center h-[70%]"
-              style="padding: 0 3%;"
+              class="text-[11px] md:text-[12px] bg-gray-100 text-[var(--bg-1)] rounded-full flex items-center justify-center h-[70%]"
+              style="padding: 0 3%"
             >
               {{ getTagName(tagId) }}
             </span>
           </div>
           <!-- Title -->
-          <h3 class="article-title text-[16px] md:text-[18px] lg:text-[20px] font-bold text-[var(--bg-1)] leading-tight h-[45%] flex items-center">
+          <h3
+            class="article-title text-[16px] md:text-[18px] lg:text-[20px] font-bold text-[var(--bg-1)] leading-tight h-[45%] flex items-center"
+          >
             {{ article.title }}
           </h3>
           <!-- Read More -->
           <div class="h-[25%] flex items-center">
-            <span class="text-[var(--second-orange)] text-[14px] font-semibold flex items-center gap-[5px] read-more-link">
+            <span
+              class="read text-gray-400 text-[14px] font-semibold flex items-center gap-[5px] read-more-link"
+            >
               Lire l'article
               <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
             </span>
@@ -119,11 +123,13 @@
       class="h-[40vh] w-[93%] flex flex-col justify-center items-center"
     >
       <span class="material-symbols-outlined text-[80px] text-gray-300">article</span>
-      <p class="text-gray-500 text-[18px]" style="margin-top: 2vh;">Aucun article trouvé pour ces filtres.</p>
+      <p class="text-gray-500 text-[18px]" style="margin-top: 2vh">
+        Aucun article trouvé pour ces filtres.
+      </p>
       <button
         @click="clearTags"
         class="h-[6vh] bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--second-orange)] hover:text-[var(--bg-1)] transition-all duration-300 font-semibold"
-        style="margin-top: 2vh; padding: 0 5%;"
+        style="margin-top: 2vh; padding: 0 5%"
       >
         Voir tous les articles
       </button>
@@ -136,7 +142,7 @@
     >
       <button
         class="h-[6vh] border-2 border-[var(--bg-1)] text-[var(--bg-1)] rounded-lg hover:bg-[var(--bg-1)] hover:text-white transition-all duration-300 font-semibold tracking-[3px] text-[14px]"
-        style="padding: 0 5%;"
+        style="padding: 0 5%"
       >
         VOIR PLUS D'ARTICLES
       </button>
@@ -210,7 +216,7 @@ export default {
     const articles = ref([
       {
         id: 1,
-        title: "Les tendances architecturales de 2026 : vers un design plus durable",
+        title: 'Les tendances architecturales de 2026 : vers un design plus durable',
         image: imageA,
         tags: [1, 5],
         createdAt: '2026-01-15',
@@ -231,21 +237,21 @@ export default {
       },
       {
         id: 4,
-        title: "Rénovation énergétique : par où commencer ?",
+        title: 'Rénovation énergétique : par où commencer ?',
         image: imageD,
         tags: [6, 4, 8],
         createdAt: '2025-12-28',
       },
       {
         id: 5,
-        title: "Les couleurs tendances pour votre intérieur en 2026",
+        title: 'Les couleurs tendances pour votre intérieur en 2026',
         image: imageE,
         tags: [7, 5, 2],
         createdAt: '2025-12-20',
       },
       {
         id: 6,
-        title: "Architecture moderne : intégrer le verre dans votre maison",
+        title: 'Architecture moderne : intégrer le verre dans votre maison',
         image: imageF,
         tags: [1, 8],
         createdAt: '2025-12-15',
@@ -259,14 +265,14 @@ export default {
       },
       {
         id: 8,
-        title: "Construire sa maison au Bénin : les étapes clés",
+        title: 'Construire sa maison au Bénin : les étapes clés',
         image: imageH,
         tags: [8, 3, 4],
         createdAt: '2025-12-05',
       },
       {
         id: 9,
-        title: "Décoration : mélanger tradition et modernité",
+        title: 'Décoration : mélanger tradition et modernité',
         image: imageI,
         tags: [7, 2],
         createdAt: '2025-11-28',
@@ -279,7 +285,7 @@ export default {
         return articles.value
       }
       return articles.value.filter((article) =>
-        article.tags.some((tagId) => selectedTags.value.includes(tagId))
+        article.tags.some((tagId) => selectedTags.value.includes(tagId)),
       )
     })
 
@@ -378,6 +384,13 @@ export default {
   color: var(--second-orange);
 }
 
+.blog-card:hover .read {
+  color: var(--second-orange);
+}
+
+
+
+
 .read-more-link {
   transition: all 0.3s ease;
 }
@@ -420,11 +433,10 @@ export default {
   .tags-container {
     gap: 2vw;
   }
-  
+
   .tag-btn {
     height: 4vh;
     font-size: 11px;
   }
 }
 </style>
-

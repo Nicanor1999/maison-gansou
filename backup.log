@@ -265,3 +265,16 @@ warning: in the working copy of 'frontend/src/views/public/Bookings.vue', CRLF w
 To github.com:Nicanor1999/maison-gansou.git
    f262bc6..cac876f  master -> master
 Backup terminé à 2026-01-28 00:00:03
+warning: in the working copy of 'frontend/src/components/views/public/HiddenComponent.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/admin/Bookings.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Bookings.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Home.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+[master 5b12edc] Sauvegarde automatique 2026-01-29 00:00:01
+ 16 files changed, 911 insertions(+), 62 deletions(-)
+ create mode 100644 backend/src/modules/admin/routes/payment.routes.js
+ create mode 100644 backend/src/modules/admin/validations/payment.validations.js
+ create mode 100644 frontend/src/data/countries.json
+To github.com:Nicanor1999/maison-gansou.git
+   cac876f..5b12edc  master -> master
+Backup terminé à 2026-01-29 00:00:03

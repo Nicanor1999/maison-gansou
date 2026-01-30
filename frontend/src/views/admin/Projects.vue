@@ -14,9 +14,9 @@
     </div>
 
     <!-- Projects List View -->
-    <div v-if="!showEditor" class="space-y-[2vh]">
+    <div v-if="!showEditor" class="flex flex-col gap-4">
       <!-- Search & Filters -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex justify-center">
         <div class="h-[8vh] min-h-[60px] flex flex-wrap gap-[1vw] items-center w-[95%] mx-auto">
           <input
             type="text"
@@ -47,9 +47,9 @@
         <div
           v-for="project in filteredProjects"
           :key="project.id"
-          class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group"
+          class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group flex flex-col items-center"
         >
-          <div class="h-[22vh] min-h-[180px] bg-gray-200 relative overflow-hidden">
+          <div class="h-[22vh] min-h-[180px] w-full bg-gray-200 relative overflow-hidden">
             <img
               v-if="project.coverImage"
               :src="project.coverImage"
@@ -61,7 +61,7 @@
             </div>
             <span
               :class="[
-                'absolute top-[1vh] right-[1vw] text-xs font-medium rounded-full',
+                'absolute top-[1vh] right-[1vw] text-xs font-medium rounded-full p-1',
                 project.published ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
               ]"
             >
@@ -73,7 +73,7 @@
               <span
                 v-for="serviceId in project.services"
                 :key="serviceId"
-                class="text-xs bg-purple-100 text-purple-600 rounded-full"
+                class="text-xs bg-purple-100 text-purple-600 rounded-full p-1"
               >
                 {{ getServiceName(serviceId) }}
               </span>
@@ -110,7 +110,7 @@
     </div>
 
     <!-- Project Editor -->
-    <div v-if="showEditor" class="h-full flex flex-col gap-8">
+    <div v-if="showEditor" class="h-[90vh] flex flex-col gap-8">
       <!-- Editor Header -->
       <div class="flex items-center justify-between h-[8vh] min-h-[60px] bg-white rounded-xl shadow-sm border border-gray-100 px-6 mb-4">
         <div class="flex items-center gap-4">
@@ -156,14 +156,14 @@
             <div class="relative">
               <button
                 @click="showSectionMenu = !showSectionMenu"
-                class="h-[5vh] min-h-[40px] px-4 bg-[var(--second-orange)] text-[var(--bg-1)] rounded-lg flex items-center justify-center font-medium"
+                class="h-[5vh] min-h-[40px] px-4 bg-[var(--second-orange)] hover:bg-[var(--second-orange)]/90 text-[var(--bg-1)] rounded-lg flex items-center justify-center font-medium"
               >
                 <span class="material-symbols-outlined mr-1">add</span>
                 Ajouter
               </button>
               <div
                 v-if="showSectionMenu"
-                class="absolute right-0 mt-2 w-[250px] bg-white rounded-lg shadow-lg border z-10 overflow-y-auto"
+                class="absolute h-[30vh] right-0 top-[8vh] w-[250px] bg-white rounded-lg shadow-lg border z-10 overflow-y-auto"
               >
                 <button
                   v-for="option in sectionOptions"
@@ -388,9 +388,9 @@
             <span class="material-symbols-outlined mr-2 text-gray-500">visibility</span>
             <h3 class="font-semibold text-gray-700">Aperçu</h3>
           </div>
-          <div class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col gap-4">
+          <div class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col items-center gap-4 w-full h-auto">
             <!-- Main Page Preview -->
-            <div v-for="section in projectForm.sections" :key="section.id" class="space-y-4">
+            <div v-for="section in projectForm.sections" :key="section.id" class="space-y-4 w-full">
               <div v-if="section.type === 'main-page'" class="relative h-48 bg-gray-800 rounded-lg overflow-hidden">
                 <div
                   v-if="section.images && section.images.length > 0"
@@ -409,11 +409,11 @@
               </div>
 
               <!-- Bio Preview -->
-              <div v-if="section.type === 'bio'" class="grid grid-cols-2 gap-4">
-                <div>
-                  <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line">{{ section.content || 'Description du projet...' }}</p>
+              <div v-if="section.type === 'bio'" class="gap-8 flex flex-col md:flex-row items-center md:items-start md:justify-center w-full h-auto">
+                <div class="h-auto md:w-[50%]">
+                  <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line w-full">{{ section.content || 'Description du projet...' }}</p>
                 </div>
-                <div class="space-y-4 text-sm">
+                <div class="space-y-4 text-sm h-auto w-full md:w-[30%]">
                   <div>
                     <h4 class="font-semibold text-gray-800">SERVICE</h4>
                     <ul class="text-gray-500">
@@ -516,7 +516,7 @@
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
-        <div class="p-6 space-y-5">
+        <div class="p-6 flex flex-col gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Titre du projet</label>
             <input
@@ -545,7 +545,7 @@
                 :class="[
                   'h-10 px-4 rounded-full text-sm transition-colors',
                   projectForm.services.includes(service.id)
-                    ? 'bg-[var(--bg-1)] text-white'
+                    ? 'font-bold bg-gray-200 text-[var(--bg-1)]'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 ]"
               >
