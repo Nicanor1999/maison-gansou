@@ -402,14 +402,5 @@ export default {
   opacity: 1;
 }
 
-@media (min-width: 768px) {
-  .icon-size {
-    font-size: 22px;
-  }
-}
-@media (min-width: 1536px) {
-  .icon-size {
-    font-size: 25px;
-  }
-}
+
 </style>

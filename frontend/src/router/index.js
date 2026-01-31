@@ -37,7 +37,8 @@ const routes = [
     name: 'services',
     component: Services.LayoutServicesView,
     children:[
-      {path:'/services/architecture-design', name:'archi-design', component: Services.ArchiDesignView},
+      {path:'/services', name:'services-home', component: Services.HomeServicesView},
+      {path:'/services/architectural-design', name:'archi-design', component: Services.ArchiDesignView},
       {path:'/services/design-build', name:'design-build', component: Services.DesignBuildView},
       {path:'/services/immo-gest', name:'immo-gest', component: Services.ImmoGestView},
       {path:'/services/interior-design', name:'interior-design', component: Services.InteriorDesignView},

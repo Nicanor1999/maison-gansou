@@ -278,3 +278,9 @@ warning: in the working copy of 'frontend/src/views/services/Layout.vue', CRLF w
 To github.com:Nicanor1999/maison-gansou.git
    cac876f..5b12edc  master -> master
 Backup terminé à 2026-01-29 00:00:03
+warning: in the working copy of 'frontend/src/views/public/Blog.vue', CRLF will be replaced by LF the next time Git touches it
+[master 70daa1d] Sauvegarde automatique 2026-01-30 00:00:01
+ 3 files changed, 88 insertions(+), 63 deletions(-)
+To github.com:Nicanor1999/maison-gansou.git
+   5b12edc..70daa1d  master -> master
+Backup terminé à 2026-01-30 00:00:03

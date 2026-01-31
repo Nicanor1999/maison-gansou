@@ -6,7 +6,7 @@
         class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-sm z-100"
       ></div>
     </transition>
-    <router-link class="fixed left-[2vw] top-[1vh] md:top-[1vh] z-150" to="/">
+    <router-link class="fixed left-[3vw] top-[1vh] md:top-[1vh] z-150" to="/">
       <transition name="logo-fade" mode="out-in">
         <img
           :key="currentLogo"

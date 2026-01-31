@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-page min-h-screen w-full bg-white flex flex-col items-center">
+  <div class="blog-page h-auto w-full bg-white flex flex-col items-center">
     <!-- Header Section -->
     <div class="h-[35vh] md:h-[55vh] w-[93%] flex flex-col justify-end">
       <!-- Title -->
@@ -55,7 +55,7 @@
     </div>
 
     <!-- Blog Grid -->
-    <div class="blog-grid grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-[3%] w-[93%] h-auto">
+    <div class="blog-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-[1%] md:gap-[3%] w-[93%] h-auto bg-red-300">
       <article
         v-for="(article, index) in filteredArticles"
         :key="article.id"
@@ -138,7 +138,7 @@
     <!-- Load More -->
     <div
       v-if="filteredArticles.length > 0"
-      class="h-[20vh] md:h-[25vh] w-[93%] flex items-center justify-center"
+      class="h-[20vh] md:h-[25vh] w-[93%] flex items-end justify-center"
     >
       <button
         class="h-[6vh] border-2 border-[var(--bg-1)] text-[var(--bg-1)] rounded-lg hover:bg-[var(--bg-1)] hover:text-white transition-all duration-300 font-semibold tracking-[3px] text-[14px]"
