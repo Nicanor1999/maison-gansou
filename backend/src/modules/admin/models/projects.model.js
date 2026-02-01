@@ -52,10 +52,28 @@ const Schema = new mongoose.Schema({
     required: false,
   },
 
-  section: {
-    type: mongoose.Schema.Types.ObjectId,
+  sections: [{
+    type: { type: String, enum: ['main-page', 'bio', 'full-text', 'full-image', 'text-image', 'image-text', 'double-image'] },
+    order: { type: Number },
+    title: { type: String },
+    content: { type: String },
+    image: { type: String },
+    alt: { type: String },
+    leftImage: { type: String },
+    rightImage: { type: String },
+    leftAlt: { type: String },
+    rightAlt: { type: String },
+    images: [{ type: String }],
+    headline: { type: String },
+    buttonText: { type: String },
+    servicesList: { type: String },
+    workTypesList: { type: String },
+  }],
+
+  projectType: {
+    type: String,
+    enum: ['Commercial', 'Residential'],
     required: false,
-    ref: "Section"
   },
 
   status: {

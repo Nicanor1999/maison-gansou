@@ -25,7 +25,8 @@ module.exports = class ProjectsResources {
         services: model.services,
         worksType: model.worksType,
         partners: model.partners,
-        section: model.section,
+        sections: model.sections,
+        projectType: model.projectType,
         status: model.status,
       }
 
@@ -36,7 +37,7 @@ module.exports = class ProjectsResources {
     }
   }
   /**
-   * @ref 
+   * @ref
    */
   static async ref(model, filter = {}) {
     try {
@@ -50,6 +51,7 @@ module.exports = class ProjectsResources {
         services: model.services,
         worksType: model.worksType,
         partners: model.partners,
+        projectType: model.projectType,
         status: model.status,
       }
 

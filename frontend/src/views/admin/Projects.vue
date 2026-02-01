@@ -29,7 +29,7 @@
             class="h-[5vh] min-h-[40px] w-[12vw] min-w-[150px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
           >
             <option value="">Tous les services</option>
-            <option v-for="service in services" :key="service.id" :value="service.id">{{ service.name }}</option>
+            <option v-for="service in services" :key="service.id" :value="service.name">{{ service.name }}</option>
           </select>
           <select
             v-model="statusFilter"
@@ -541,15 +541,33 @@
               <button
                 v-for="service in services"
                 :key="service.id"
-                @click="toggleService(service.id)"
+                @click="toggleService(service.name)"
                 :class="[
                   'h-10 px-4 rounded-full text-sm transition-colors',
-                  projectForm.services.includes(service.id)
+                  projectForm.services.includes(service.name)
                     ? 'font-bold bg-gray-200 text-[var(--bg-1)]'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 ]"
               >
                 {{ service.name }}
+              </button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Type de projet</label>
+            <div class="flex gap-2">
+              <button
+                v-for="pType in projectTypes"
+                :key="pType"
+                @click="projectForm.projectType = pType"
+                :class="[
+                  'h-10 px-4 rounded-full text-sm transition-colors',
+                  projectForm.projectType === pType
+                    ? 'font-bold bg-gray-200 text-[var(--bg-1)]'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ]"
+              >
+                {{ pType }}
               </button>
             </div>
           </div>
@@ -602,6 +620,15 @@ export default {
     const statusFilter = ref('')
     const editingProject = ref(null)
     const isLargeScreen = ref(window.innerWidth >= 1024)
+    const API_BASE = '/api/v1'
+
+    const getHeaders = () => {
+      const token = localStorage.getItem('accessToken')
+      return {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      }
+    }
 
     // Services list
     const services = ref([
@@ -610,6 +637,8 @@ export default {
       { id: 3, name: 'Conception et Construction' },
       { id: 4, name: 'Gestion d\'Actifs Immobiliers' }
     ])
+
+    const projectTypes = ['Commercial', 'Residential']
 
     // Section options
     const sectionOptions = [
@@ -622,51 +651,55 @@ export default {
       { type: 'double-image', label: 'Double Image', description: 'Deux images côte à côte', icon: 'view_column' }
     ]
 
-    // Mock projects
-    const projects = ref([
-      {
-        id: 1,
-        title: 'Modern House, Porto-Novo',
-        location: 'Porto-Novo, Bénin',
-        services: [1, 2],
-        workType: 'Rénovation Complète',
-        partners: 'G-Tech',
-        coverImage: null,
-        published: true,
-        createdAt: '2026-01-15',
-        sections: []
-      },
-      {
-        id: 2,
-        title: 'Villa Contemporaine, Cotonou',
-        location: 'Cotonou, Bénin',
-        services: [3],
-        workType: 'Construction Neuve',
-        partners: 'BTP Solutions',
-        coverImage: null,
-        published: true,
-        createdAt: '2026-01-10',
-        sections: []
-      },
-      {
-        id: 3,
-        title: 'Appartement Luxe, Parakou',
-        location: 'Parakou, Bénin',
-        services: [2, 4],
-        workType: 'Aménagement Intérieur',
-        partners: '',
-        coverImage: null,
-        published: false,
-        createdAt: '2026-01-05',
-        sections: []
+    const projects = ref([])
+
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/projects`, { headers: getHeaders() })
+        if (res.ok) {
+          const json = await res.json()
+          const items = json.data || json
+          projects.value = (Array.isArray(items) ? items : []).map(p => ({
+            id: p._id,
+            title: p.title || '',
+            location: p.town ? `${p.town}, ${p.country || ''}` : (p.country || ''),
+            country: p.country || '',
+            town: p.town || '',
+            services: p.services ? p.services.split(',').map(s => s.trim()).filter(Boolean) : [],
+            projectType: p.projectType || '',
+            workType: p.worksType || '',
+            partners: Array.isArray(p.partners) ? p.partners.join(', ') : (p.partners || ''),
+            coverImage: p.sections && p.sections.length > 0 && p.sections[0].type === 'main-page' && p.sections[0].images && p.sections[0].images.length > 0 ? p.sections[0].images[0] : null,
+            published: p.status || false,
+            createdAt: p.createdAt || '',
+            sections: (p.sections || []).map((s, i) => ({
+              id: s._id || Date.now() + i,
+              type: s.type || '',
+              content: s.content || '',
+              title: s.title || '',
+              image: s.image || null,
+              alt: s.alt || '',
+              leftImage: s.leftImage || null,
+              rightImage: s.rightImage || null,
+              images: s.images || [],
+              headline: s.headline || '',
+              buttonText: s.buttonText || '',
+              servicesList: s.servicesList || '',
+              workTypesList: s.workTypesList || '',
+            }))
+          }))
+        }
+      } catch (err) {
+        console.error('Error fetching projects:', err)
       }
-    ])
+    }
 
     const projectForm = reactive({
       id: null,
       title: '',
       location: '',
       services: [],
+      projectType: '',
       workType: '',
       partners: '',
       coverImage: null,
@@ -678,7 +711,7 @@ export default {
         const matchesSearch = searchQuery.value === '' ||
           p.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
           p.location.toLowerCase().includes(searchQuery.value.toLowerCase())
-        const matchesService = serviceFilter.value === '' || p.services.includes(Number(serviceFilter.value))
+        const matchesService = serviceFilter.value === '' || p.services.includes(serviceFilter.value)
         const matchesStatus = statusFilter.value === '' ||
           (statusFilter.value === 'published' && p.published) ||
           (statusFilter.value === 'draft' && !p.published)
@@ -686,9 +719,8 @@ export default {
       })
     })
 
-    function getServiceName(serviceId) {
-      const service = services.value.find(s => s.id === serviceId)
-      return service ? service.name : ''
+    function getServiceName(serviceName) {
+      return serviceName || ''
     }
 
     function formatDate(dateString) {
@@ -712,6 +744,7 @@ export default {
           title: project.title,
           location: project.location,
           services: [...project.services],
+          projectType: project.projectType,
           workType: project.workType,
           partners: project.partners,
           coverImage: project.coverImage,
@@ -723,6 +756,7 @@ export default {
           title: '',
           location: '',
           services: [],
+          projectType: '',
           workType: '',
           partners: '',
           coverImage: null,
@@ -783,10 +817,15 @@ export default {
       ;[sections[index], sections[newIndex]] = [sections[newIndex], sections[index]]
     }
 
+    // Map blobURL -> File object for upload
+    const pendingFiles = new Map()
+
     function handleSectionImage(event, section, field = 'image') {
       const file = event.target.files[0]
       if (file) {
-        section[field] = URL.createObjectURL(file)
+        const blobUrl = URL.createObjectURL(file)
+        pendingFiles.set(blobUrl, file)
+        section[field] = blobUrl
       }
     }
 
@@ -794,43 +833,120 @@ export default {
       const file = event.target.files[0]
       if (file) {
         if (!section.images) section.images = []
-        section.images.push(URL.createObjectURL(file))
+        const blobUrl = URL.createObjectURL(file)
+        pendingFiles.set(blobUrl, file)
+        section.images.push(blobUrl)
       }
     }
 
     function removeMainImage(section, index) {
+      const url = section.images[index]
+      if (url) pendingFiles.delete(url)
       section.images.splice(index, 1)
     }
 
-    function saveProject(publish) {
-      const projectData = {
-        ...projectForm,
-        published: publish,
-        createdAt: projectForm.id ? editingProject.value.createdAt : new Date().toISOString().split('T')[0]
-      }
+    async function saveProject(publish) {
+      const formData = new FormData()
+      const fileMapping = []
 
-      // Set cover image from first main-page section if available
-      const mainSection = projectForm.sections.find(s => s.type === 'main-page')
-      if (mainSection && mainSection.images && mainSection.images.length > 0) {
-        projectData.coverImage = mainSection.images[0]
-      }
-
-      if (projectForm.id) {
-        const index = projects.value.findIndex(p => p.id === projectForm.id)
-        if (index !== -1) {
-          projects.value[index] = projectData
+      // Build sections data, replacing blob URLs with placeholders for new files
+      // and keeping server paths for existing images
+      const sectionsData = projectForm.sections.map((s, sectionIndex) => {
+        const section = {
+          type: s.type,
+          order: sectionIndex,
+          title: s.title || '',
+          content: s.content || '',
+          alt: s.alt || '',
+          headline: s.headline || '',
+          buttonText: s.buttonText || '',
+          servicesList: s.servicesList || '',
+          workTypesList: s.workTypesList || '',
+          image: '',
+          leftImage: '',
+          rightImage: '',
+          images: [],
         }
-      } else {
-        projectData.id = Date.now()
-        projects.value.unshift(projectData)
-      }
 
-      closeEditor()
+        // Handle single image fields (image, leftImage, rightImage)
+        for (const field of ['image', 'leftImage', 'rightImage']) {
+          const val = s[field]
+          if (!val) continue
+          if (pendingFiles.has(val)) {
+            formData.append('Pictures', pendingFiles.get(val))
+            fileMapping.push({ sectionIndex, field })
+          } else {
+            section[field] = val // existing server path
+          }
+        }
+
+        // Handle images array (main-page carousel)
+        if (s.images && s.images.length > 0) {
+          for (const imgUrl of s.images) {
+            if (pendingFiles.has(imgUrl)) {
+              formData.append('Pictures', pendingFiles.get(imgUrl))
+              fileMapping.push({ sectionIndex, field: 'images' })
+            } else {
+              section.images.push(imgUrl) // existing server path
+            }
+          }
+        }
+
+        return section
+      })
+
+      formData.append('title', projectForm.title || '')
+      formData.append('country', projectForm.location ? projectForm.location.split(',').slice(1).join(',').trim() : '')
+      formData.append('town', projectForm.location ? projectForm.location.split(',')[0].trim() : '')
+      formData.append('services', projectForm.services.join(', '))
+      formData.append('projectType', projectForm.projectType || '')
+      formData.append('worksType', projectForm.workType || '')
+      formData.append('partners', JSON.stringify(projectForm.partners ? projectForm.partners.split(',').map(p => p.trim()) : []))
+      formData.append('status', publish)
+      formData.append('sections', JSON.stringify(sectionsData))
+      formData.append('fileMapping', JSON.stringify(fileMapping))
+
+      try {
+        const url = projectForm.id
+          ? `${API_BASE}/projects/${projectForm.id}`
+          : `${API_BASE}/projects`
+        const method = projectForm.id ? 'PUT' : 'POST'
+
+        const token = localStorage.getItem('accessToken')
+        const res = await fetch(url, {
+          method,
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+          body: formData
+        })
+
+        if (res.ok) {
+          pendingFiles.clear()
+          await fetchProjects()
+          closeEditor()
+        } else {
+          const errText = await res.text()
+          console.error('Error saving project:', errText)
+          alert('Erreur lors de la sauvegarde: ' + errText)
+        }
+      } catch (err) {
+        console.error('Error saving project:', err)
+        alert('Erreur réseau: ' + err.message)
+      }
     }
 
-    function deleteProject(project) {
+    async function deleteProject(project) {
       if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
-        projects.value = projects.value.filter(p => p.id !== project.id)
+        try {
+          const res = await fetch(`${API_BASE}/projects/${project.id}`, {
+            method: 'DELETE',
+            headers: getHeaders()
+          })
+          if (res.ok) {
+            await fetchProjects()
+          }
+        } catch (err) {
+          console.error('Error deleting project:', err)
+        }
       }
     }
 
@@ -840,6 +956,7 @@ export default {
 
     onMounted(() => {
       window.addEventListener('resize', handleResize)
+      fetchProjects()
     })
 
     onUnmounted(() => {
@@ -856,6 +973,7 @@ export default {
       statusFilter,
       isLargeScreen,
       services,
+      projectTypes,
       sectionOptions,
       projects,
       filteredProjects,
@@ -874,7 +992,8 @@ export default {
       addMainImage,
       removeMainImage,
       saveProject,
-      deleteProject
+      deleteProject,
+      editingProject
     }
   }
 }

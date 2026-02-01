@@ -27,7 +27,7 @@ const routes = [
         {path:'/bookings', name:'bookings', component: Public.BookingsPublicView},
         {path:'/contacts', name:'contacts', component: Public.ContactsPublicView},
         {path:'/projects', name:'projects', component: Public.ProjectsPublicView},
-        {path:'/projects/projects-selected', name:'projects-selected', component: Public.ProjectsSelected},
+        {path:'/projects/:id', name:'projects-selected', component: Public.ProjectsSelected},
         {path:'/recruitment', name:'recruitment', component: Public.RecruitmentPublicView},
         {path:'/testimonials', name:'testimonials', component: Public.TestimonialsPublicView}
       ]

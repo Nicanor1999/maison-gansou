@@ -1,118 +1,65 @@
 <template>
   <div class="relative w-full h-auto flex flex-col items-center gap-20">
-    <div class="firstPart relative h-screen w-screen overflow-hidden bg-[var(--bg-hidden)]">
-      <div
-        v-for="(image, index) in images"
-        :key="index"
-        class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
-        :class="{
-          'opacity-100 z-10': index === currentImageIndex,
-          'opacity-0 z-0': index !== currentImageIndex,
-        }"
-        :style="{ backgroundImage: `url(${image})` }"
-      ></div>
-      <div class="absolute inset-0 bg-black/30 z-20"></div>
-      <div class="absolute inset-0 z-30 flex items-center justify-center px-4 md:px-8 lg:px-12">
-        <div
-          class="max-w-6xl h-[25%] md:h-[25%] lg:h-[25%] xl:h-[40%] 2xl:h-[35%] w-full text-center text-white flex flex-col justify-around"
-        >
-          <p
-            class="text-[1.5rem] md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-light italic mb-6 md:mb-4 lg:mb-5 drop-shadow-lg text-gray-100"
-          >
-            Modern House, Porto-Novo
-          </p>
-          <div class="mt-6 md:mt-10 lg:mt-12" data-aos="flip-up" data-aos-duration="3000">
-            <button
-              @click="scrollToSecondPart"
-              class="inline-block text-[var(--bg-1)] bg-[var(--second-orange)] px-2 py-1 md:px-6 md:py-2 lg:px-6 lg:py-3 xl:px-4 xl:py-2 rounded-lg text-[12px] md:text-lg lg:text-xl xl:text-[15px] hover:bg-yellow-400 hover:text-white hover:font-bold transition-all duration-300 transform hover:scale-105 shadow-xl cursor-pointer"
-            >
-              Voir Plus
-            </button>
-          </div>
-        </div>
+    <template v-if="loading">
+      <div class="h-screen w-screen flex items-center justify-center">
+        <p class="text-gray-500">Chargement...</p>
       </div>
-    </div>
-    <div
-      class="secondPart relative h-auto w-[93%] overflow-hidden flex flex-col md:flex-row md:justify-around"
-    >
-      <div class="h-auto md:w-[50%]"
-      data-aos="fade-right"
-      >
-        <p class="pt-6 text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
-          A detached Victorian villa with a basement office, wine cellar, utility room;
-          kitchen-diner leading to the garden, sitting room and WC on the ground floor, with five
-          bedrooms (two en-suite), family bathroom and a reading room on the upper levels.
-        </p>
-        <p class="pt-6 text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
-          The designer and property developer owners of this London abode, wanted to create a home
-          that maximised space and light, with a separate office space for their business in the
-          basement.
-        </p>
+    </template>
+    <template v-else-if="project">
+      <template v-for="(section, index) in project.sections" :key="index">
+        <MainPageComponent
+          v-if="section.type === 'main-page'"
+          :images="section.images || []"
+          :headline="section.headline || project.title"
+          :buttonText="section.buttonText"
+          @scrollDown="scrollToSecondPart"
+        />
+        <BioComponent
+          v-else-if="section.type === 'bio'"
+          :content="section.content"
+          :servicesList="section.servicesList"
+          :workTypesList="section.workTypesList"
+          :location="project.town ? `${project.town}, ${project.country}` : ''"
+          :partners="project.partners"
+        />
+        <TextComponent
+          v-else-if="section.type === 'full-text'"
+          :title="section.title"
+          :text="section.content"
+        />
+        <FullPictureComponent
+          v-else-if="section.type === 'full-image'"
+          :image="section.image"
+          :alt="section.alt"
+        />
+        <PictureTextComponent
+          v-else-if="section.type === 'image-text'"
+          :image="section.image"
+          :title="section.title"
+          :text="section.content"
+          :alt="section.alt"
+        />
+        <TextPictureComponent
+          v-else-if="section.type === 'text-image'"
+          :image="section.image"
+          :title="section.title"
+          :text="section.content"
+          :alt="section.alt"
+        />
+        <DoublePicturesComponent
+          v-else-if="section.type === 'double-image'"
+          :leftImage="section.leftImage"
+          :rightImage="section.rightImage"
+          :leftAlt="section.leftAlt"
+          :rightAlt="section.rightAlt"
+        />
+      </template>
+    </template>
+    <template v-else>
+      <div class="h-screen w-screen flex items-center justify-center">
+        <p class="text-gray-500">Projet introuvable</p>
       </div>
-      <div
-        class="h-[60vh] w-full md:h-[80vh] md:w-[30%] pt-8 pb-8 md:p-0 flex flex-col justify-around"
-      >
-        <div class="h-auto w-full"
-        data-aos="flip-up"
-        >
-          <h2>SERVICE</h2>
-          <ul class="text-[var(--vt-c-text-dark-2)]">
-            <li>Conception Architecturale</li>
-            <li>Architecture d'Intérieur</li>
-            <li>Conception et Construction</li>
-            <li>Gestion d'Actifs Immobiliers</li>
-          </ul>
-        </div>
-        <div class="h-auto w-full"
-        data-aos="flip-up"
-        >
-          <h2>TYPE DE TRAVAUX</h2>
-          <ul class="text-[var(--vt-c-text-dark-2)]">
-            <li>Rénovation Complète</li>
-            <li>Aménagement Intérieur</li>
-            <li>Construction Neuve</li>
-          </ul>
-        </div>
-        <div class="h-auto w-full"
-        data-aos="flip-up"
-        >
-          <h2>EMPLACEMENT</h2>
-          <!-- <ul>
-            <li>Rénovation Complète</li>
-            <li>Aménagement Intérieur</li>
-            <li>Construction Neuve</li>
-          </ul> -->
-        </div>
-        <div class="h-auto w-full"
-        data-aos="flip-up"
-        >
-          <h2>PARTENAIRES</h2>
-          <ul class="text-[var(--vt-c-text-dark-2)]">
-            <li>G-Tech</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <FullPictureComponent :image="imageK" alt="Project Image" />
-    <PictureTextComponent
-      :image="imageK"
-      title="Un design qui inspire"
-      text="Chaque espace de cette maison a été conçu pour maximiser la lumière naturelle et créer une atmosphère accueillante. Les matériaux modernes et les lignes épurées se combinent pour offrir un design élégant et fonctionnel."
-      alt="Design Intérieur"
-    />
-    <TextComponent
-      text="Ce projet de maison moderne à Porto-Novo incarne l'harmonie entre esthétique contemporaine et fonctionnalité. Conçue pour répondre aux besoins d'une vie moderne, cette résidence offre des espaces ouverts, une intégration fluide avec l'environnement extérieur, et des finitions de haute qualité. Chaque détail a été soigneusement pensé pour créer un cadre de vie confortable et inspirant."
-    />
-    <FullPictureComponent :image="imageK" alt="Project Image" />
-    <DoublePicturesComponent
-      :leftImage="imageK"
-      :rightImage="imageK"
-      leftAlt="Vue Extérieure"
-      rightAlt="Espace de Vie"
-    />
-    <TextComponent
-      text="Si ce projet résidentiel vous plaît et que vous souhaitez en savoir plus sur la manière dont nous pouvons vous aider, contactez-nous !"
-    />
+    </template>
     <div class="bg-[var(--bg-3)] h-[40vh] md:h-screen w-screen flex justify-center">
       <div class="h-full w-[93%] flex items-center">
         <ProjectsComponent />
@@ -126,12 +73,13 @@
   </div>
 </template>
 <script>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import imageJ from '@/assets/pictures/J.jpg'
-import imageK from '@/assets/pictures/K.jpg'
+import MainPageComponent from '@/components/ui/MainPageComponent.vue'
+import BioComponent from '@/components/ui/BioComponent.vue'
 import FullPictureComponent from '@/components/ui/FullPictureComponent.vue'
 import PictureTextComponent from '@/components/ui/PictureTextComponent.vue'
+import TextPictureComponent from '@/components/ui/TextPictureComponent.vue'
 import TextComponent from '@/components/ui/TextComponent.vue'
 import DoublePicturesComponent from '@/components/ui/DoublePicturesComponent.vue'
 import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
@@ -140,8 +88,11 @@ import FooterComponent from '@/components/views/public/FooterComponent.vue'
 export default {
   name: 'ProjectsSelected',
   components: {
+    MainPageComponent,
+    BioComponent,
     FullPictureComponent,
     PictureTextComponent,
+    TextPictureComponent,
     TextComponent,
     DoublePicturesComponent,
     ProjectsComponent,
@@ -149,47 +100,39 @@ export default {
   },
   setup() {
     const route = useRoute()
-    const currentImageIndex = ref(0)
+    const project = ref(null)
+    const loading = ref(true)
+    const API_BASE = '/api/v1'
 
-    // Exemple d'images - à remplacer par vos vraies images
-    const images = ref([imageJ, imageJ, imageJ])
-
-    // Exemple de services - à adapter selon vos besoins
-    const services = ref([
-      { title: 'Projet Moderne' },
-      { title: 'Design Élégant' },
-      { title: 'Architecture Unique' },
-    ])
-
-    let intervalId = null
-
-    onMounted(() => {
-      // Rotation automatique des images toutes les 5 secondes
-      intervalId = setInterval(() => {
-        currentImageIndex.value = (currentImageIndex.value + 1) % images.value.length
-      }, 5000)
-    })
-
-    onUnmounted(() => {
-      if (intervalId) {
-        clearInterval(intervalId)
-      }
-    })
-
-    const scrollToSecondPart = () => {
-      const element = document.getElementById('secondPart')
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const fetchProject = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/projects/${route.params.id}`)
+        if (res.ok) {
+          const data = await res.json()
+          project.value = data.data || data
+        }
+      } catch (err) {
+        console.error('Error fetching project:', err)
+      } finally {
+        loading.value = false
       }
     }
 
+    const scrollToSecondPart = () => {
+      const sections = document.querySelectorAll('.secondPart')
+      if (sections.length) {
+        sections[0].scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+
+    onMounted(() => {
+      fetchProject()
+    })
+
     return {
-      images,
-      currentImageIndex,
-      services,
-      projectId: route.params.id,
+      project,
+      loading,
       scrollToSecondPart,
-      imageK,
     }
   },
 }

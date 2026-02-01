@@ -21,19 +21,55 @@ module.exports = class ProjectsController extends CoreServices {
    * ******************
    * 
    */
-  create = async (req, res) => {
-    // Validate data
-    const {
-      error
-    } = this.ProjectsValidations.CreateValidation(req.body);
-    if (error) throw new this.ValidationError(error.details[0].message);
+  /**
+   * Parse FormData body: sections, fileMapping and partners are JSON strings
+   * Distribute uploaded files into sections based on fileMapping
+   */
+  _parseBodyAndFiles = (req) => {
+    const body = { ...req.body }
 
-
-    const payload = {
-      ...req.body
+    if (typeof body.sections === 'string') {
+      try { body.sections = JSON.parse(body.sections) } catch (e) { body.sections = [] }
+    }
+    let fileMapping = []
+    if (typeof body.fileMapping === 'string') {
+      try { fileMapping = JSON.parse(body.fileMapping) } catch (e) { fileMapping = [] }
+      delete body.fileMapping
+    }
+    if (typeof body.partners === 'string') {
+      try { body.partners = JSON.parse(body.partners) } catch (e) { body.partners = [] }
+    }
+    // Convert status from string to boolean (FormData sends strings)
+    if (typeof body.status === 'string') {
+      body.status = body.status === 'true'
     }
 
-    const save = await this.ProjectsServices.create(payload);
+    if (req.files && req.files.length > 0 && body.sections) {
+      for (let i = 0; i < req.files.length; i++) {
+        const mapping = fileMapping[i]
+        if (mapping && body.sections[mapping.sectionIndex] !== undefined) {
+          const section = body.sections[mapping.sectionIndex]
+          const filePath = req.files[i].path
+          if (mapping.field === 'images') {
+            if (!Array.isArray(section.images)) section.images = []
+            section.images.push(filePath)
+          } else {
+            section[mapping.field] = filePath
+          }
+        }
+      }
+    }
+
+    return body
+  };
+
+  create = async (req, res) => {
+    const body = this._parseBodyAndFiles(req)
+
+    const { error } = this.ProjectsValidations.CreateValidation(body);
+    if (error) throw new this.ValidationError(error.details[0].message);
+
+    const save = await this.ProjectsServices.create(body);
 
     res.json({
       data: save,
@@ -52,21 +88,15 @@ module.exports = class ProjectsController extends CoreServices {
    * 
    */
   update = async (req, res) => {
-    // Validate data
-    const {
-      error
-    } = this.ProjectsValidations.UpdateValidation(req.body);
+    const body = this._parseBodyAndFiles(req)
+
+    const { error } = this.ProjectsValidations.UpdateValidation(body);
     if (error) throw new this.ValidationError(error.details[0].message);
     const query = {
       _id: req.params.id,
-
     }
 
-
-    const payload = {
-      ...req.body
-    }
-
+    const payload = { ...body }
 
     const projects = await this.ProjectsServices.update(query, payload);
 

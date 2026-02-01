@@ -284,3 +284,14 @@ warning: in the working copy of 'frontend/src/views/public/Blog.vue', CRLF will 
 To github.com:Nicanor1999/maison-gansou.git
    5b12edc..70daa1d  master -> master
 Backup terminé à 2026-01-30 00:00:03
+warning: in the working copy of 'frontend/src/views/public/Blog.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Projects.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/index.js', CRLF will be replaced by LF the next time Git touches it
+[master 28019bf] Sauvegarde automatique 2026-01-31 00:00:01
+ 8 files changed, 292 insertions(+), 23 deletions(-)
+ create mode 100644 frontend/src/views/services/HomeServices.vue
+To github.com:Nicanor1999/maison-gansou.git
+   70daa1d..28019bf  master -> master
+Backup terminé à 2026-01-31 00:00:02

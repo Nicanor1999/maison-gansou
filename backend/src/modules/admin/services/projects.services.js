@@ -69,32 +69,33 @@ module.exports = class ProjectsServices extends CoreServices {
         schema.deletedBy = this.HelperMethods.getValidTrimData(payload.deletedBy);
       }
 
-
-      if (this.HelperMethods.issetData(payload.title)) {
-        schema.title = this.HelperMethods.getValidTrimData(payload.title);
+      // Assign project fields directly - empty strings are valid for text fields
+      if (payload.title !== undefined) {
+        schema.title = typeof payload.title === 'string' ? payload.title.trim() : payload.title;
       }
-      if (this.HelperMethods.issetData(payload.country)) {
-        schema.country = this.HelperMethods.getValidTrimData(payload.country);
+      if (payload.country !== undefined) {
+        schema.country = typeof payload.country === 'string' ? payload.country.trim() : payload.country;
       }
-      if (this.HelperMethods.issetData(payload.town)) {
-        schema.town = this.HelperMethods.getValidTrimData(payload.town);
+      if (payload.town !== undefined) {
+        schema.town = typeof payload.town === 'string' ? payload.town.trim() : payload.town;
       }
-      if (this.HelperMethods.issetData(payload.services)) {
-        schema.services = this.HelperMethods.getValidTrimData(payload.services);
+      if (payload.services !== undefined) {
+        schema.services = typeof payload.services === 'string' ? payload.services.trim() : payload.services;
       }
-      if (this.HelperMethods.issetData(payload.worksType)) {
-        schema.worksType = this.HelperMethods.getValidTrimData(payload.worksType);
+      if (payload.worksType !== undefined) {
+        schema.worksType = typeof payload.worksType === 'string' ? payload.worksType.trim() : payload.worksType;
       }
-      if (this.HelperMethods.issetData(payload.partners)) {
-        schema.partners = this.HelperMethods.getValidTrimData(payload.partners);
+      if (payload.partners !== undefined) {
+        schema.partners = payload.partners;
       }
-      if (this.HelperMethods.issetData(payload.section)) {
-        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
-        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
-        schema.section = this.HelperMethods.getValidTrimData(payload.section);
+      if (payload.sections && Array.isArray(payload.sections)) {
+        schema.sections = payload.sections;
       }
-      if (this.HelperMethods.issetData(payload.status)) {
-        schema.status = this.HelperMethods.getValidTrimData(payload.status);
+      if (payload.projectType !== undefined) {
+        schema.projectType = typeof payload.projectType === 'string' ? payload.projectType.trim() : payload.projectType;
+      }
+      if (payload.status !== undefined) {
+        schema.status = payload.status;
       }
 
 
@@ -136,32 +137,32 @@ module.exports = class ProjectsServices extends CoreServices {
         schema.deletedBy = this.HelperMethods.getValidTrimData(payload.deletedBy);
       }
 
-
-      if (this.HelperMethods.issetData(payload.title)) {
-        schema.title = this.HelperMethods.getValidTrimData(payload.title);
+      if (payload.title !== undefined) {
+        schema.title = typeof payload.title === 'string' ? payload.title.trim() : payload.title;
       }
-      if (this.HelperMethods.issetData(payload.country)) {
-        schema.country = this.HelperMethods.getValidTrimData(payload.country);
+      if (payload.country !== undefined) {
+        schema.country = typeof payload.country === 'string' ? payload.country.trim() : payload.country;
       }
-      if (this.HelperMethods.issetData(payload.town)) {
-        schema.town = this.HelperMethods.getValidTrimData(payload.town);
+      if (payload.town !== undefined) {
+        schema.town = typeof payload.town === 'string' ? payload.town.trim() : payload.town;
       }
-      if (this.HelperMethods.issetData(payload.services)) {
-        schema.services = this.HelperMethods.getValidTrimData(payload.services);
+      if (payload.services !== undefined) {
+        schema.services = typeof payload.services === 'string' ? payload.services.trim() : payload.services;
       }
-      if (this.HelperMethods.issetData(payload.worksType)) {
-        schema.worksType = this.HelperMethods.getValidTrimData(payload.worksType);
+      if (payload.worksType !== undefined) {
+        schema.worksType = typeof payload.worksType === 'string' ? payload.worksType.trim() : payload.worksType;
       }
-      if (this.HelperMethods.issetData(payload.partners)) {
-        schema.partners = this.HelperMethods.getValidTrimData(payload.partners);
+      if (payload.partners !== undefined) {
+        schema.partners = payload.partners;
       }
-      if (this.HelperMethods.issetData(payload.section)) {
-        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
-        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
-        schema.section = this.HelperMethods.getValidTrimData(payload.section);
+      if (payload.sections && Array.isArray(payload.sections)) {
+        schema.sections = payload.sections;
       }
-      if (this.HelperMethods.issetData(payload.status)) {
-        schema.status = this.HelperMethods.getValidTrimData(payload.status);
+      if (payload.projectType !== undefined) {
+        schema.projectType = typeof payload.projectType === 'string' ? payload.projectType.trim() : payload.projectType;
+      }
+      if (payload.status !== undefined) {
+        schema.status = payload.status;
       }
 
 
@@ -220,18 +221,10 @@ module.exports = class ProjectsServices extends CoreServices {
   /**
    * @getList
    */
-  getList = async (querySchema, match = {
-    matchSection: {}
-  }, session = null) => {
+  getList = async (querySchema, match = {}, session = null) => {
     try {
-      const {
-        matchSection,
-      } = match
       const data = []
-      const projectsFindData = await this.SessionManager.executeQueryHookWithSession(this.Projects.find(querySchema).populate({
-        path: "Section",
-        match: matchSection
-      }), session)
+      const projectsFindData = await this.SessionManager.executeQueryHookWithSession(this.Projects.find(querySchema), session)
 
       for (const item of projectsFindData) {
         if (item
@@ -254,9 +247,7 @@ module.exports = class ProjectsServices extends CoreServices {
     try {
       let data = null
 
-      const projectsFindOneData = await this.SessionManager.executeQueryHookWithSession(this.Projects.findOne(querySchema).populate({
-        path: "Section",
-      }), session)
+      const projectsFindOneData = await this.SessionManager.executeQueryHookWithSession(this.Projects.findOne(querySchema), session)
 
       if (projectsFindOneData) {
         data = await this.ProjectsResources.collection(projectsFindOneData)
@@ -283,32 +274,7 @@ module.exports = class ProjectsServices extends CoreServices {
         countDocumentSchema
       } = options
 
-      const servicePipeline = [{
-          $lookup: {
-            from: "sections",
-            localField: "Section",
-            foreignField: "_id",
-            as: "Section"
-          }
-        },
-
-        {
-          $addFields: {
-            Section: {
-              $ifNull: [{
-                $arrayElemAt: ['$Section', 0]
-              }, null]
-            }
-          }
-        },
-        {
-          $unwind: {
-            path: '$Section',
-            preserveNullAndEmptyArrays: true
-          }
-        },
-
-      ];
+      const servicePipeline = [];
       const paginationResponse = await this.getPaginateAggregateDataService({
         Model: this.Projects,
         perPage: perPage,

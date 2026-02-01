@@ -33,6 +33,7 @@ module.exports = class ProjectsRoutes extends ParentRoute {
       .addResponse(400, 'Bad request');
 
     router.route("/").post(
+      this.upload.defaultUpload(process.env.DEFAULT_UPLOAD || './public/uploads/default/' + 'Pictures', "-Pictures-").array("Pictures"),
       this.use(projectscontroller.create));
 
     // Route: Get List of Projects
@@ -61,6 +62,7 @@ module.exports = class ProjectsRoutes extends ParentRoute {
       .addResponse(200, 'Updated successfully', '#/components/schemas/UpdateProjectsResponse');
 
     router.route("/:id").put(
+      this.upload.defaultUpload(process.env.DEFAULT_UPLOAD || './public/uploads/default/' + 'Pictures', "-Pictures-").array("Pictures"),
       this.use(projectscontroller.update));
 
     // Route: Delete Projects by ID
