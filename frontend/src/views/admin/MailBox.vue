@@ -277,10 +277,12 @@
 
 <script>
 import { ref, computed, reactive } from 'vue'
+import { useConfirmModal } from '@/composables/useConfirmModal'
 
 export default {
   name: 'MailBoxView',
   setup() {
+    const { confirm: confirmModal, alert: alertModal } = useConfirmModal()
     const searchQuery = ref('')
     const activeFilter = ref('all')
     const selectedMessage = ref(null)
@@ -468,8 +470,9 @@ Sophie Lefebvre`,
       selectedMessage.value = null
     }
 
-    function deleteMessage(message) {
-      if (confirm('Êtes-vous sûr de vouloir supprimer ce message ?')) {
+    async function deleteMessage(message) {
+      const ok = await confirmModal({ title: 'Supprimer le message', message: 'Êtes-vous sûr de vouloir supprimer ce message ?' })
+      if (ok) {
         messages.value = messages.value.filter(m => m.id !== message.id)
         selectedMessage.value = null
       }
@@ -498,7 +501,7 @@ Sophie Lefebvre`,
     function sendReply() {
       // TODO: Implement email sending via API
       console.log('Sending email:', replyForm)
-      alert('Email envoyé avec succès !')
+      alertModal({ title: 'Succès', message: 'Email envoyé avec succès !', type: 'success' })
       closeReplyModal()
     }
 

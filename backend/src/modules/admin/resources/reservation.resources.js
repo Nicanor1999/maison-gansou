@@ -49,6 +49,7 @@ module.exports = class ReservationResources {
         paymentTransactionId: model.paymentTransactionId || null,
         paymentAmount: model.paymentAmount || null,
         paymentCompletedAt: model.paymentCompletedAt || null,
+        createdAt: model.createdAt,
       }
 
       return schema

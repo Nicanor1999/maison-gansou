@@ -573,10 +573,12 @@
 
 <script>
 import { ref, reactive, computed, onMounted } from 'vue'
+import { useConfirmModal } from '@/composables/useConfirmModal'
 
 export default {
   name: 'BlogView',
   setup() {
+    const { confirm: confirmModal, alert: alertModal } = useConfirmModal()
     const API_BASE = '/api/v1'
     const activeView = ref('articles')
     const showEditor = ref(false)
@@ -626,8 +628,8 @@ export default {
       isLoading.value = true
       try {
         const [articlesRes, tagsRes] = await Promise.all([
-          fetch(`${API_BASE}/article`, { headers: getHeaders() }),
-          fetch(`${API_BASE}/tags`, { headers: getHeaders() })
+          fetch(`${API_BASE}/article?perPage=100`, { headers: getHeaders() }),
+          fetch(`${API_BASE}/tags?perPage=100`, { headers: getHeaders() })
         ])
 
         if (articlesRes.ok) {
@@ -760,7 +762,7 @@ export default {
 
     async function saveArticle() {
       if (!articleForm.Title) {
-        alert('Veuillez entrer un titre pour l\'article')
+        alertModal({ title: 'Champ requis', message: 'Veuillez entrer un titre pour l\'article', type: 'warning' })
         return
       }
 
@@ -790,18 +792,19 @@ export default {
           closeEditor()
         } else {
           const error = await response.json()
-          alert(error.message || 'Erreur lors de la sauvegarde')
+          alertModal({ title: 'Erreur', message: error.message || 'Erreur lors de la sauvegarde', type: 'danger' })
         }
       } catch (error) {
         console.error('Error saving article:', error)
-        alert('Erreur lors de la sauvegarde')
+        alertModal({ title: 'Erreur', message: 'Erreur lors de la sauvegarde', type: 'danger' })
       } finally {
         isSaving.value = false
       }
     }
 
     async function deleteArticle(article) {
-      if (!confirm('Êtes-vous sûr de vouloir supprimer cet article ?')) return
+      const ok = await confirmModal({ title: 'Supprimer l\'article', message: 'Êtes-vous sûr de vouloir supprimer cet article ?' })
+      if (!ok) return
 
       try {
         const response = await fetch(`${API_BASE}/article/${article._id}`, {
@@ -812,7 +815,7 @@ export default {
         if (response.ok) {
           articles.value = articles.value.filter(a => a._id !== article._id)
         } else {
-          alert('Erreur lors de la suppression')
+          alertModal({ title: 'Erreur', message: 'Erreur lors de la suppression', type: 'danger' })
         }
       } catch (error) {
         console.error('Error deleting article:', error)
@@ -837,7 +840,7 @@ export default {
           showTagModal.value = false
         } else {
           const error = await response.json()
-          alert(error.message || 'Erreur lors de la création')
+          alertModal({ title: 'Erreur', message: error.message || 'Erreur lors de la création', type: 'danger' })
         }
       } catch (error) {
         console.error('Error creating tag:', error)
@@ -847,7 +850,8 @@ export default {
     }
 
     async function deleteTag(tag) {
-      if (!confirm('Êtes-vous sûr de vouloir supprimer ce tag ?')) return
+      const ok = await confirmModal({ title: 'Supprimer le tag', message: 'Êtes-vous sûr de vouloir supprimer ce tag ?' })
+      if (!ok) return
 
       try {
         const response = await fetch(`${API_BASE}/tags/${tag._id}`, {
@@ -858,7 +862,7 @@ export default {
         if (response.ok) {
           tags.value = tags.value.filter(t => t._id !== tag._id)
         } else {
-          alert('Erreur lors de la suppression')
+          alertModal({ title: 'Erreur', message: 'Erreur lors de la suppression', type: 'danger' })
         }
       } catch (error) {
         console.error('Error deleting tag:', error)

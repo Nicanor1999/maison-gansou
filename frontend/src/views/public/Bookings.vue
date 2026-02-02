@@ -524,12 +524,14 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import countries from '@/data/countries.json'
+import { useConfirmModal } from '@/composables/useConfirmModal'
 
 export default {
   name: 'BookingsPublicView',
   setup() {
     const route = useRoute()
     const router = useRouter()
+    const { alert: alertModal } = useConfirmModal()
     const countriesList = ref(countries)
     const showModal = ref(false)
     const showBookingForm = ref(false)
@@ -807,7 +809,7 @@ export default {
         showSuccessModal.value = true
       } catch (e) {
         console.error('Erreur lors de la réservation', e)
-        alert('Une erreur est survenue lors de la réservation. Veuillez réessayer.')
+        alertModal({ title: 'Erreur', message: 'Une erreur est survenue lors de la réservation. Veuillez réessayer.', type: 'danger' })
       } finally {
         isSubmitting.value = false
       }

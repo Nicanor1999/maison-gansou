@@ -2,7 +2,7 @@
     <div class="full-picture-container h-[30vh] md:h-screen flex justify-center items-center"
     data-aos="zoom-out">
         <img
-            :src="image"
+            :src="encodeURI(image)"
             :alt="alt || 'Image pleine largeur'"
             class="w-full h-full object-cover"
         />

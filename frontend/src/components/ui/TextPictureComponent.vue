@@ -6,7 +6,7 @@
         </div>
         <div class="picture-section">
             <img
-                :src="image"
+                :src="encodeURI(image)"
                 :alt="alt || 'Image'"
                 class="w-full h-auto object-cover"
             />
@@ -42,6 +42,7 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: center;
+  width: 93%;
 }
 
 .text-section .title {

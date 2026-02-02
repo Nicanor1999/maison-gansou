@@ -53,7 +53,7 @@
           <img
             v-if="project.coverImage"
             class="h-full rounded-none w-full object-cover"
-            :src="project.coverImage"
+            :src="encodeURI(project.coverImage)"
             :alt="project.title"
           />
           <div v-else class="h-full w-full bg-gray-200 flex items-center justify-center">
@@ -127,7 +127,7 @@ export default {
 
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${API_BASE}/projects?status=true`)
+        const res = await fetch(`${API_BASE}/projects?status=true&perPage=100`)
         if (res.ok) {
           const json = await res.json()
           const items = json.data || []

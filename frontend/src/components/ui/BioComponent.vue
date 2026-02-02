@@ -49,10 +49,10 @@ export default {
   },
   setup(props) {
     const serviceItems = computed(() =>
-      (props.servicesList || '').split('\n').filter(s => s.trim())
+      (props.servicesList || '').split(/[,\n]/).map(s => s.trim()).filter(Boolean)
     )
     const workTypeItems = computed(() =>
-      (props.workTypesList || '').split('\n').filter(s => s.trim())
+      (props.workTypesList || '').split(/[,\n]/).map(s => s.trim()).filter(Boolean)
     )
     const partnerItems = computed(() => {
       if (Array.isArray(props.partners)) return props.partners.filter(p => p)

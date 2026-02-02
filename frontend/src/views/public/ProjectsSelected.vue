@@ -17,8 +17,8 @@
         <BioComponent
           v-else-if="section.type === 'bio'"
           :content="section.content"
-          :servicesList="section.servicesList"
-          :workTypesList="section.workTypesList"
+          :servicesList="section.servicesList || project.services || ''"
+          :workTypesList="section.workTypesList || project.worksType || ''"
           :location="project.town ? `${project.town}, ${project.country}` : ''"
           :partners="project.partners"
         />

@@ -2,14 +2,14 @@
   <div class="double-pictures-container w-[93%] md:w-[80%] h-[70%] md:h-screen flex flex-col md:flex-row justify-between gap-10 md:gap-0">
     <div class="picture-wrapper w-full md:w-[47%] h-full">
       <img
-        :src="leftImage"
+        :src="encodeURI(leftImage)"
         :alt="leftAlt || 'Image gauche'"
         class="w-full h-full object-cover"
       />
     </div>
     <div class="picture-wrapper w-full md:w-[47%] h-full">
       <img
-        :src="rightImage"
+        :src="encodeURI(rightImage)"
         :alt="rightAlt || 'Image droite'"
         class="w-full h-full object-cover"
       />

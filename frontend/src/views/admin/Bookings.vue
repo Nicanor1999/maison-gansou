@@ -796,10 +796,12 @@
 
 <script>
 import { ref, computed, reactive, onMounted, watch } from 'vue'
+import { useConfirmModal } from '@/composables/useConfirmModal'
 
 export default {
   name: 'BookingsView',
   setup() {
+    const { confirm: confirmModal, alert: alertModal } = useConfirmModal()
     const activeTab = ref('reservations')
     const searchQuery = ref('')
     const statusFilter = ref('')
@@ -825,7 +827,7 @@ export default {
     async function fetchReservations() {
       try {
         const token = localStorage.getItem('accessToken')
-        const res = await fetch('/api/v1/reservation', {
+        const res = await fetch('/api/v1/reservation?perPage=100', {
           headers: {
             Authorization: token ? `Bearer ${token}` : undefined,
           },
@@ -854,8 +856,9 @@ export default {
           paymentAmount: r.paymentAmount || null,
           paymentCompletedAt: r.paymentCompletedAt || null,
           paymentUrl: null,
+          createdAt: r.createdAt || '',
           raw: r,
-        }))
+        })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       } catch (e) {
         console.error('Erreur lors du chargement des réservations', e)
       }
@@ -1071,7 +1074,7 @@ export default {
         }
       } catch (e) {
         console.error('Erreur lors de l\'initiation du paiement', e)
-        alert('Erreur lors de l\'initiation du paiement: ' + e.message)
+        alertModal({ title: 'Erreur', message: 'Erreur lors de l\'initiation du paiement: ' + e.message, type: 'danger' })
       }
     }
 
@@ -1287,7 +1290,7 @@ export default {
       // Validation
       if (!offerForm.title || !offerForm.bio || !offerForm.nightlyPrice || !offerForm.town) {
         console.log('Validation failed:', offerForm)
-        alert('Veuillez remplir tous les champs obligatoires (*)')
+        alertModal({ title: 'Champ requis', message: 'Veuillez remplir tous les champs obligatoires (*)', type: 'warning' })
         return
       }
 
@@ -1348,7 +1351,8 @@ export default {
     }
 
     async function deleteOffer(offer) {
-      if (confirm('Êtes-vous sûr de vouloir supprimer cette offre ?')) {
+      const ok = await confirmModal({ title: 'Supprimer l\'offre', message: 'Êtes-vous sûr de vouloir supprimer cette offre ?' })
+      if (ok) {
         const token = localStorage.getItem('accessToken')
         try {
           await fetch(`/api/v1/offer/${offer.id}`, {

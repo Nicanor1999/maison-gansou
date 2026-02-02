@@ -83,12 +83,6 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-router.afterEach(() => {
-  const ui = useUiStore()
-  // Ajouter un délai minimum pour voir le loader
-  setTimeout(() => {
-    ui.hideLoader()
-  }, 500)
-})
+// afterEach: le loader est géré par App.vue (MutationObserver + waitForImages)
 
 export default router;

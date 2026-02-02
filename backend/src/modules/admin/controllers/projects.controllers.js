@@ -49,7 +49,7 @@ module.exports = class ProjectsController extends CoreServices {
         const mapping = fileMapping[i]
         if (mapping && body.sections[mapping.sectionIndex] !== undefined) {
           const section = body.sections[mapping.sectionIndex]
-          const filePath = req.files[i].path
+          const filePath = '/' + req.files[i].path.replace(/^\.?\//, '')
           if (mapping.field === 'images') {
             if (!Array.isArray(section.images)) section.images = []
             section.images.push(filePath)

@@ -240,7 +240,7 @@
                     </div>
                   </div>
                 </div>
-                <input
+                <!-- <input
                   type="text"
                   v-model="section.headline"
                   class="w-full h-10 px-3 border border-gray-300 rounded-lg"
@@ -251,7 +251,7 @@
                   v-model="section.buttonText"
                   class="w-full h-10 px-3 border border-gray-300 rounded-lg"
                   placeholder="Texte du bouton (ex: Voir Plus)"
-                />
+                /> -->
               </div>
 
               <!-- Bio Section -->
@@ -607,6 +607,7 @@
 
 <script>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
+import { useConfirmModal } from '@/composables/useConfirmModal'
 
 export default {
   name: 'ProjectsView',
@@ -620,6 +621,7 @@ export default {
     const statusFilter = ref('')
     const editingProject = ref(null)
     const isLargeScreen = ref(window.innerWidth >= 1024)
+    const { confirm: confirmModal, alert: alertModal } = useConfirmModal()
     const API_BASE = '/api/v1'
 
     const getHeaders = () => {
@@ -655,7 +657,7 @@ export default {
 
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${API_BASE}/projects`, { headers: getHeaders() })
+        const res = await fetch(`${API_BASE}/projects?perPage=100`, { headers: getHeaders() })
         if (res.ok) {
           const json = await res.json()
           const items = json.data || json
@@ -926,16 +928,17 @@ export default {
         } else {
           const errText = await res.text()
           console.error('Error saving project:', errText)
-          alert('Erreur lors de la sauvegarde: ' + errText)
+          alertModal({ title: 'Erreur', message: 'Erreur lors de la sauvegarde: ' + errText, type: 'danger' })
         }
       } catch (err) {
         console.error('Error saving project:', err)
-        alert('Erreur réseau: ' + err.message)
+        alertModal({ title: 'Erreur', message: 'Erreur réseau: ' + err.message, type: 'danger' })
       }
     }
 
     async function deleteProject(project) {
-      if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+      const ok = await confirmModal({ title: 'Supprimer le projet', message: 'Êtes-vous sûr de vouloir supprimer ce projet ?' })
+      if (ok) {
         try {
           const res = await fetch(`${API_BASE}/projects/${project.id}`, {
             method: 'DELETE',

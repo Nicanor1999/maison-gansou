@@ -8,7 +8,7 @@
         'opacity-100 z-10': index === currentImageIndex,
         'opacity-0 z-0': index !== currentImageIndex,
       }"
-      :style="{ backgroundImage: `url(${image})` }"
+      :style="{ backgroundImage: `url(${encodeURI(image)})` }"
     ></div>
     <div class="absolute inset-0 bg-black/30 z-20"></div>
     <div class="absolute inset-0 z-30 flex items-center justify-center px-4 md:px-8 lg:px-12">
