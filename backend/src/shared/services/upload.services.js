@@ -77,14 +77,17 @@ module.exports = class UploadServiceServices {
         cb(null, folder);
       },
       filename: function(req, file, cb) {
+        // Sanitize original filename: replace problematic URL characters
+        const safeName = file.originalname.replace(/[#?%&=+]/g, '_')
+
         let name = new Date().toISOString().replace(/:/g, "-") +
           Math.round(Math.random() * 693) +
-          file.originalname
+          safeName
 
         if (separator) {
           name = new Date().toISOString().replace(/:/g, "-") +
             Math.round(Math.random() * 693) + separator +
-            file.originalname
+            safeName
         }
 
         cb(

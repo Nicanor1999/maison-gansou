@@ -1,34 +1,35 @@
 <template>
   <div
-    class="secondPart relative h-auto w-[93%] overflow-hidden flex flex-col md:flex-row md:justify-around"
+    class="secondPart relative h-auto w-[93%] max-w-[1200px] overflow-hidden flex flex-col md:flex-row md:justify-between"
   >
-    <div class="h-auto md:w-[50%]" data-aos="fade-right">
-      <p class="pt-6 text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+    <div class="h-auto md:w-[55%]" data-aos="fade-right">
+      <p class="pt-6 text-gray-700 leading-relaxed text-[15px] sm:text-[17px] lg:text-[18px]">
         {{ content }}
       </p>
     </div>
+    <div class="w-full md:w-px md:mx-8 my-8 md:my-0 bg-gray-200 flex-shrink-0"></div>
     <div
-      class="h-[60vh] w-full md:h-[80vh] md:w-[30%] pt-8 pb-8 md:p-0 flex flex-col justify-around"
+      class="h-auto w-full md:w-[35%] flex flex-col gap-8 md:gap-10 py-4"
     >
-      <div class="h-auto w-full" data-aos="flip-up">
-        <h2>SERVICE</h2>
-        <ul class="text-[var(--vt-c-text-dark-2)]">
+      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Service</h2>
+        <ul class="text-gray-600 text-sm">
           <li v-for="(service, i) in serviceItems" :key="i">{{ service }}</li>
         </ul>
       </div>
-      <div class="h-auto w-full" data-aos="flip-up">
-        <h2>TYPE DE TRAVAUX</h2>
-        <ul class="text-[var(--vt-c-text-dark-2)]">
+      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Type de travaux</h2>
+        <ul class="text-gray-600 text-sm">
           <li v-for="(work, i) in workTypeItems" :key="i">{{ work }}</li>
         </ul>
       </div>
-      <div class="h-auto w-full" data-aos="flip-up">
-        <h2>EMPLACEMENT</h2>
-        <p class="text-[var(--vt-c-text-dark-2)]">{{ location || '-' }}</p>
+      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Emplacement</h2>
+        <p class="text-gray-600 text-sm">{{ location || '-' }}</p>
       </div>
-      <div class="h-auto w-full" data-aos="flip-up">
-        <h2>PARTENAIRES</h2>
-        <ul class="text-[var(--vt-c-text-dark-2)]">
+      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Partenaires</h2>
+        <ul class="text-gray-600 text-sm">
           <li v-for="(partner, i) in partnerItems" :key="i">{{ partner }}</li>
         </ul>
       </div>

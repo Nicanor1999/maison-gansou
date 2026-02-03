@@ -1,6 +1,6 @@
 <template>
-    <div class="text-component w-[93%] md:w-[60%]">
-        <h2 v-if="title" class="title">{{ title }}</h2>
+    <div class="text-component w-[93%] max-w-[800px] mx-auto" data-aos="fade-up">
+        <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-gray-800 mb-6">{{ title }}</h2>
         <div class="content" v-html="text"></div>
     </div>
 </template>
@@ -25,15 +25,9 @@ export default {
   text-align: center;
 }
 
-.text-component .title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
 .text-component .content {
-  line-height: 1.6;
-  color: #333;
+  line-height: 1.8;
+  color: #4b5563;
   font-size: 15px;
 }
 

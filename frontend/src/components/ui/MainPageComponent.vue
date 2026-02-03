@@ -8,9 +8,9 @@
         'opacity-100 z-10': index === currentImageIndex,
         'opacity-0 z-0': index !== currentImageIndex,
       }"
-      :style="{ backgroundImage: `url(${encodeURI(image)})` }"
+      :style="{ backgroundImage: `url(${encodeURI(image).replace(/#/g, '%23')})` }"
     ></div>
-    <div class="absolute inset-0 bg-black/30 z-20"></div>
+    <div class="absolute inset-0 bg-black/20 z-20"></div>
     <div class="absolute inset-0 z-30 flex items-center justify-center px-4 md:px-8 lg:px-12">
       <div
         class="max-w-6xl h-[25%] md:h-[25%] lg:h-[25%] xl:h-[40%] 2xl:h-[35%] w-full text-center text-white flex flex-col justify-around"
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 
 export default {
   name: 'MainPageComponent',
@@ -47,13 +47,15 @@ export default {
     const currentImageIndex = ref(0)
     let intervalId = null
 
-    onMounted(() => {
-      if (props.images.length > 1) {
+    watch(() => props.images, (imgs) => {
+      if (intervalId) { clearInterval(intervalId); intervalId = null }
+      currentImageIndex.value = 0
+      if (imgs && imgs.length > 1) {
         intervalId = setInterval(() => {
-          currentImageIndex.value = (currentImageIndex.value + 1) % props.images.length
+          currentImageIndex.value = (currentImageIndex.value + 1) % imgs.length
         }, 5000)
       }
-    })
+    }, { immediate: true })
 
     onUnmounted(() => {
       if (intervalId) clearInterval(intervalId)

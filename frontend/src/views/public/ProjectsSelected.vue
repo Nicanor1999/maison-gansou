@@ -1,59 +1,64 @@
 <template>
-  <div class="relative w-full h-auto flex flex-col items-center gap-20">
+  <div class="relative w-full h-auto flex flex-col items-center bg-[#faf8f5]">
     <template v-if="loading">
       <div class="h-screen w-screen flex items-center justify-center">
         <p class="text-gray-500">Chargement...</p>
       </div>
     </template>
     <template v-else-if="project">
-      <template v-for="(section, index) in project.sections" :key="index">
-        <MainPageComponent
-          v-if="section.type === 'main-page'"
-          :images="section.images || []"
-          :headline="section.headline || project.title"
-          :buttonText="section.buttonText"
-          @scrollDown="scrollToSecondPart"
-        />
-        <BioComponent
-          v-else-if="section.type === 'bio'"
-          :content="section.content"
-          :servicesList="section.servicesList || project.services || ''"
-          :workTypesList="section.workTypesList || project.worksType || ''"
-          :location="project.town ? `${project.town}, ${project.country}` : ''"
-          :partners="project.partners"
-        />
-        <TextComponent
-          v-else-if="section.type === 'full-text'"
-          :title="section.title"
-          :text="section.content"
-        />
-        <FullPictureComponent
-          v-else-if="section.type === 'full-image'"
-          :image="section.image"
-          :alt="section.alt"
-        />
-        <PictureTextComponent
-          v-else-if="section.type === 'image-text'"
-          :image="section.image"
-          :title="section.title"
-          :text="section.content"
-          :alt="section.alt"
-        />
-        <TextPictureComponent
-          v-else-if="section.type === 'text-image'"
-          :image="section.image"
-          :title="section.title"
-          :text="section.content"
-          :alt="section.alt"
-        />
-        <DoublePicturesComponent
-          v-else-if="section.type === 'double-image'"
-          :leftImage="section.leftImage"
-          :rightImage="section.rightImage"
-          :leftAlt="section.leftAlt"
-          :rightAlt="section.rightAlt"
-        />
-      </template>
+      <div class="h-full w-full flex flex-col items-center">
+        <template v-for="(section, index) in project.sections" :key="index">
+          <!-- Espacement variable entre sections -->
+          <div v-if="index > 0" :class="sectionSpacing(section, project.sections[index - 1])"></div>
+
+          <MainPageComponent
+            v-if="section.type === 'main-page'"
+            :images="section.images || []"
+            :headline="section.headline || project.title"
+            :buttonText="section.buttonText"
+            @scrollDown="scrollToSecondPart"
+          />
+          <BioComponent
+            v-else-if="section.type === 'bio'"
+            :content="section.content"
+            :servicesList="section.servicesList || project.services || ''"
+            :workTypesList="section.workTypesList || project.worksType || ''"
+            :location="project.town ? `${project.town}, ${project.country}` : ''"
+            :partners="project.partners"
+          />
+          <TextComponent
+            v-else-if="section.type === 'full-text'"
+            :title="section.title"
+            :text="section.content"
+          />
+          <FullPictureComponent
+            v-else-if="section.type === 'full-image'"
+            :image="section.image"
+            :alt="section.alt"
+          />
+          <PictureTextComponent
+            v-else-if="section.type === 'image-text'"
+            :image="section.image"
+            :title="section.title"
+            :text="section.content"
+            :alt="section.alt"
+          />
+          <TextPictureComponent
+            v-else-if="section.type === 'text-image'"
+            :image="section.image"
+            :title="section.title"
+            :text="section.content"
+            :alt="section.alt"
+          />
+          <DoublePicturesComponent
+            v-else-if="section.type === 'double-image'"
+            :leftImage="section.leftImage"
+            :rightImage="section.rightImage"
+            :leftAlt="section.leftAlt"
+            :rightAlt="section.rightAlt"
+          />
+        </template>
+      </div>
     </template>
     <template v-else>
       <div class="h-screen w-screen flex items-center justify-center">
@@ -118,6 +123,15 @@ export default {
       }
     }
 
+    const sectionSpacing = (current, previous) => {
+      // Tight after hero
+      if (previous && previous.type === 'main-page') return 'h-16 md:h-24'
+      // More space before full-width images
+      if (current.type === 'full-image' || current.type === 'double-image') return 'h-24 md:h-40'
+      // Default
+      return 'h-20 md:h-32'
+    }
+
     const scrollToSecondPart = () => {
       const sections = document.querySelectorAll('.secondPart')
       if (sections.length) {
@@ -132,6 +146,7 @@ export default {
     return {
       project,
       loading,
+      sectionSpacing,
       scrollToSecondPart,
     }
   },

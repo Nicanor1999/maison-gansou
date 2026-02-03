@@ -182,7 +182,7 @@
           </div>
 
           <!-- Sections List -->
-          <div class="flex-1 h-full justify-center flex flex-col overflow-y-auto p-4 space-y-4">
+          <div class="flex-1 h-full flex flex-col overflow-y-auto p-4 gap-4 space-y-4">
             <div
               v-for="(section, index) in projectForm.sections"
               :key="section.id"
@@ -262,26 +262,20 @@
                   class="w-full min-h-[100px] p-3 border border-gray-300 rounded-lg resize-none"
                   placeholder="Description du projet..."
                 ></textarea>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="text-xs text-gray-500">Services</label>
-                    <textarea
-                      v-model="section.servicesList"
-                      rows="2"
-                      class="w-full min-h-[80px] p-3 border border-gray-300 rounded-lg text-sm resize-none"
-                      placeholder="Un service par ligne"
-                    ></textarea>
+                <!-- <div class="grid grid-cols-3 gap-3 mt-2">
+                  <div class="bg-gray-50 rounded-lg p-3">
+                    <label class="text-xs font-medium text-gray-500 uppercase">Service</label>
+                    <p class="text-sm text-gray-800 mt-1">{{ projectForm.services.join(', ') || '-' }}</p>
                   </div>
-                  <div>
-                    <label class="text-xs text-gray-500">Types de travaux</label>
-                    <textarea
-                      v-model="section.workTypesList"
-                      rows="2"
-                      class="w-full min-h-[80px] p-3 border border-gray-300 rounded-lg text-sm resize-none"
-                      placeholder="Un type par ligne"
-                    ></textarea>
+                  <div class="bg-gray-50 rounded-lg p-3">
+                    <label class="text-xs font-medium text-gray-500 uppercase">Type de travaux</label>
+                    <p class="text-sm text-gray-800 mt-1">{{ projectForm.workType || '-' }}</p>
                   </div>
-                </div>
+                  <div class="bg-gray-50 rounded-lg p-3">
+                    <label class="text-xs font-medium text-gray-500 uppercase">Emplacement</label>
+                    <p class="text-sm text-gray-800 mt-1">{{ projectForm.location || '-' }}</p>
+                  </div>
+                </div> -->
               </div>
 
               <!-- Full Text Section -->
@@ -289,7 +283,7 @@
                 <input
                   type="text"
                   v-model="section.title"
-                  class="w-full h-10 px-3 border border-gray-300 rounded-lg"
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg "
                   placeholder="Titre (optionnel)"
                 />
                 <textarea
@@ -388,7 +382,7 @@
             <span class="material-symbols-outlined mr-2 text-gray-500">visibility</span>
             <h3 class="font-semibold text-gray-700">Aperçu</h3>
           </div>
-          <div class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col items-center gap-4 w-full h-auto">
+          <div class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col items-center gap-8 w-full h-auto">
             <!-- Main Page Preview -->
             <div v-for="section in projectForm.sections" :key="section.id" class="space-y-4 w-full">
               <div v-if="section.type === 'main-page'" class="relative h-48 bg-gray-800 rounded-lg overflow-hidden">
@@ -417,14 +411,12 @@
                   <div>
                     <h4 class="font-semibold text-gray-800">SERVICE</h4>
                     <ul class="text-gray-500">
-                      <li v-for="(service, i) in (section.servicesList || '').split('\n').filter(s => s.trim())" :key="i">{{ service }}</li>
+                      <li v-for="(service, i) in projectForm.services" :key="i">{{ service }}</li>
                     </ul>
                   </div>
                   <div>
                     <h4 class="font-semibold text-gray-800">TYPE DE TRAVAUX</h4>
-                    <ul class="text-gray-500">
-                      <li v-for="(work, i) in (section.workTypesList || '').split('\n').filter(s => s.trim())" :key="i">{{ work }}</li>
-                    </ul>
+                    <p class="text-gray-500">{{ projectForm.workType || '-' }}</p>
                   </div>
                   <div>
                     <h4 class="font-semibold text-gray-800">EMPLACEMENT</h4>
@@ -438,7 +430,7 @@
               </div>
 
               <!-- Full Text Preview -->
-              <div v-if="section.type === 'full-text'" class="space-y-2">
+              <div v-if="section.type === 'full-text'" class="space-y-2 text-center">
                 <h3 v-if="section.title" class="text-lg font-semibold text-gray-800">{{ section.title }}</h3>
                 <p class="text-gray-600 leading-relaxed whitespace-pre-line">{{ section.content || 'Contenu du texte...' }}</p>
               </div>
@@ -482,13 +474,13 @@
               <!-- Double Image Preview -->
               <div v-if="section.type === 'double-image'" class="grid grid-cols-2 gap-4">
                 <div>
-                  <img v-if="section.leftImage" :src="section.leftImage" class="w-full rounded-lg" />
+                  <img v-if="section.leftImage" :src="section.leftImage" class="w-full h-full rounded-lg object-cover" />
                   <div v-else class="h-28 bg-gray-100 rounded-lg flex items-center justify-center">
                     <span class="text-gray-400 text-sm">Image gauche</span>
                   </div>
                 </div>
                 <div>
-                  <img v-if="section.rightImage" :src="section.rightImage" class="w-full rounded-lg" />
+                  <img v-if="section.rightImage" :src="section.rightImage" class="w-full h-full rounded-lg object-cover" />
                   <div v-else class="h-28 bg-gray-100 rounded-lg flex items-center justify-center">
                     <span class="text-gray-400 text-sm">Image droite</span>
                   </div>
@@ -750,7 +742,10 @@ export default {
           workType: project.workType,
           partners: project.partners,
           coverImage: project.coverImage,
-          sections: JSON.parse(JSON.stringify(project.sections))
+          sections: JSON.parse(JSON.stringify(project.sections)).map((s, i) => ({
+            ...s,
+            id: s.id || s._id || Date.now() + i
+          }))
         })
       } else {
         Object.assign(projectForm, {
@@ -815,8 +810,8 @@ export default {
 
     function moveSection(index, direction) {
       const newIndex = index + direction
-      const sections = projectForm.sections
-      ;[sections[index], sections[newIndex]] = [sections[newIndex], sections[index]]
+      const removed = projectForm.sections.splice(index, 1)[0]
+      projectForm.sections.splice(newIndex, 0, removed)
     }
 
     // Map blobURL -> File object for upload

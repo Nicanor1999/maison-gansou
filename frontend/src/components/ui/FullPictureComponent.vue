@@ -1,10 +1,10 @@
 <template>
-    <div class="full-picture-container h-[30vh] md:h-screen flex justify-center items-center"
-    data-aos="zoom-out">
+    <div class="w-full h-[40vh] md:h-screen overflow-hidden"
+    data-aos="fade">
         <img
-            :src="encodeURI(image)"
+            :src="encodeURI(image).replace(/#/g, '%23')"
             :alt="alt || 'Image pleine largeur'"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.01]"
         />
     </div>
 </template>
@@ -23,8 +23,4 @@ export default {
   }
 }
 </script>
-<style scoped>
-.full-picture-container {
-  width: 93%;
-}
-</style>
+<style scoped></style>

@@ -1,17 +1,23 @@
 <template>
-    <div class="text-picture-container">
-        <div class="text-section">
-            <h2 v-if="title" class="title">{{ title }}</h2>
-            <p class="content text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">{{ text }}</p>
-        </div>
-        <div class="picture-section">
-            <img
-                :src="encodeURI(image)"
-                :alt="alt || 'Image'"
-                class="w-full h-auto object-cover"
-            />
-        </div>
+  <div class="text-picture-container">
+    <div class="text-section flex flex-col justify-center px-4">
+      <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-gray-800 mb-6" data-aos="fade-right" data-aos-duration="1500">{{ title }}</h2>
+      <p
+        class="text-gray-700 leading-relaxed text-[15px] sm:text-[17px] lg:text-[18px]"
+        data-aos="fade-right"
+        data-aos-duration="1000"
+      >
+        {{ text }}
+      </p>
     </div>
+    <div class="picture-section overflow-hidden">
+      <img
+        :src="encodeURI(image).replace(/#/g, '%23')"
+        :alt="alt || 'Image'"
+        class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+      />
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -19,21 +25,21 @@ export default {
   props: {
     image: {
       type: String,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     text: {
       type: String,
-      required: true
+      required: true,
     },
     alt: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 <style scoped>
@@ -43,16 +49,17 @@ export default {
   gap: 2rem;
   align-items: center;
   width: 93%;
+  max-width: 1200px;
 }
 
-.text-section .title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+.picture-section {
+  height: 50vh;
 }
 
-.text-section .content {
-  line-height: 1.6;
+@media (min-width: 768px) {
+  .picture-section {
+    height: 85vh;
+  }
 }
 
 @media (max-width: 768px) {
