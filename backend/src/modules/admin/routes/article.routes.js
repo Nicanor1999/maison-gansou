@@ -35,6 +35,10 @@ module.exports = class ArticleRoutes extends ParentRoute {
       .addResponse(400, 'Bad request');
 
     router.route("/").post(
+      this.upload.defaultUpload(process.env.DEFAULT_UPLOAD || './public/uploads/articles/', "-Articles-").fields([
+        { name: 'CoverImage', maxCount: 1 },
+        { name: 'Pictures' }
+      ]),
       adminauthmiddlewares.authorizeAdmin('*'),
       this.use(articlecontroller.create));
 
@@ -60,6 +64,10 @@ module.exports = class ArticleRoutes extends ParentRoute {
       .addResponse(200, 'Updated successfully', '#/components/schemas/UpdateArticleResponse');
 
     router.route("/:id").put(
+      this.upload.defaultUpload(process.env.DEFAULT_UPLOAD || './public/uploads/articles/', "-Articles-").fields([
+        { name: 'CoverImage', maxCount: 1 },
+        { name: 'Pictures' }
+      ]),
       adminauthmiddlewares.authorizeAdmin('*'),
       this.use(articlecontroller.update));
 

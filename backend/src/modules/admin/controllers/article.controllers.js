@@ -1,5 +1,5 @@
 /**
- * @ArticleController 
+ * @ArticleController
  */
 
 const CoreServices = require("../../../shared/services/core.services")
@@ -11,31 +11,75 @@ module.exports = class ArticleController extends CoreServices {
     this.ArticleServices = new(require("../../admin/services/article.services"))();
     this.ArticleValidations = require("../../admin/validations/article.validations");
   }
+
+  /**
+   * Parse FormData body: sections, tags, fileMapping are JSON strings
+   * Distribute uploaded files into sections based on fileMapping
+   */
+  _parseBodyAndFiles = (req) => {
+    const body = { ...req.body }
+
+    // Parse JSON strings
+    if (typeof body.sections === 'string') {
+      try { body.sections = JSON.parse(body.sections) } catch (e) { body.sections = [] }
+    }
+    if (typeof body.tags === 'string') {
+      try { body.tags = JSON.parse(body.tags) } catch (e) { body.tags = [] }
+    }
+
+    let fileMapping = []
+    if (typeof body.fileMapping === 'string') {
+      try { fileMapping = JSON.parse(body.fileMapping) } catch (e) { fileMapping = [] }
+      delete body.fileMapping
+    }
+
+    // Convert status from string to boolean (FormData sends strings)
+    if (typeof body.status === 'string') {
+      body.status = body.status === 'true'
+    }
+
+    // Handle files
+    if (req.files) {
+      // Handle CoverImage
+      if (req.files.CoverImage && req.files.CoverImage.length > 0) {
+        const coverFile = req.files.CoverImage[0]
+        body.coverImage = '/' + coverFile.path.replace(/^\.?\//, '')
+      }
+
+      // Handle Pictures (section images)
+      if (req.files.Pictures && req.files.Pictures.length > 0 && body.sections) {
+        for (let i = 0; i < req.files.Pictures.length; i++) {
+          const mapping = fileMapping[i]
+          if (mapping && body.sections[mapping.sectionIndex] !== undefined) {
+            const section = body.sections[mapping.sectionIndex]
+            const filePath = '/' + req.files.Pictures[i].path.replace(/^\.?\//, '')
+            if (mapping.field === 'images') {
+              if (!Array.isArray(section.images)) section.images = []
+              section.images.push(filePath)
+            } else {
+              section[mapping.field] = filePath
+            }
+          }
+        }
+      }
+    }
+
+    return body
+  };
+
   /**
    * Article Create
    * ******************
    * @name create
    * @route  POST /article
-   * @type 
-   * @description 
-   * ******************
-   * 
    */
   create = async (req, res) => {
-    // Validate data
-    const {
-      error
-    } = this.ArticleValidations.CreateValidation(req.body);
+    const body = this._parseBodyAndFiles(req)
+
+    const { error } = this.ArticleValidations.CreateValidation(body);
     if (error) throw new this.ValidationError(error.details[0].message);
 
-    const profile = req.admin;
-
-
-    const payload = {
-      ...req.body
-    }
-
-    const save = await this.ArticleServices.create(payload, profile);
+    const save = await this.ArticleServices.create(body);
 
     res.json({
       data: save,
@@ -43,36 +87,24 @@ module.exports = class ArticleController extends CoreServices {
       message: this.SUCCESS_MESSAGES.CREATED_SUCCESSFULLY('Article')
     })
   };
+
   /**
    * Article Update
    * ******************
    * @name update
    * @route  PUT /article/:id
-   * @type 
-   * @description 
-   * ******************
-   * 
    */
   update = async (req, res) => {
-    // Validate data
-    const {
-      error
-    } = this.ArticleValidations.UpdateValidation(req.body);
-    if (error) throw new this.ValidationError(error.details[0].message);
+    const body = this._parseBodyAndFiles(req)
 
-    const profile = req.admin;
+    const { error } = this.ArticleValidations.UpdateValidation(body);
+    if (error) throw new this.ValidationError(error.details[0].message);
 
     const query = {
       _id: req.params.id,
-      createdBy: profile._id
     }
 
-
-    const payload = {
-      ...req.body
-    }
-
-    const article = await this.ArticleServices.update(query, payload, profile);
+    const article = await this.ArticleServices.update(query, body);
 
     res.json({
       data: article,
@@ -80,24 +112,18 @@ module.exports = class ArticleController extends CoreServices {
       message: this.SUCCESS_MESSAGES.UPDATED_SUCCESSFULLY('Article')
     })
   };
+
   /**
    * Article Delete
    * ******************
    * @route  DELETE /article/:id
-   * @type 
-   * @description 
-   * ******************
-   * 
    */
   delete = async (req, res) => {
-    const profile = req.admin;
-
     const query = {
       _id: req.params.id,
-      createdBy: profile._id
     }
 
-    const data = await this.ArticleServices.delete(query, profile)
+    const data = await this.ArticleServices.delete(query)
 
     res.json({
       data: data,
@@ -105,15 +131,12 @@ module.exports = class ArticleController extends CoreServices {
       message: this.SUCCESS_MESSAGES.DELETED_SUCCESSFULLY('Article')
     })
   };
+
   /**
    * Article findAll
    * ******************
    * @name findAll
    * @route  GET /article
-   * @type 
-   * @description 
-   * ******************
-   * 
    */
   findAll = async (req, res) => {
     const query = req.query
@@ -137,51 +160,24 @@ module.exports = class ArticleController extends CoreServices {
     let countDocumentSchema = {}
 
     const querySchema = []
-    if (query.createdBy) {
+    if (query.title) {
       querySchema.push({
-        ["createdBy._id"]: this.HelperMethods.generateObjectId(query.createdBy)
-      })
-    }
-    if (query.updatedBy) {
-      querySchema.push({
-        ["updatedBy._id"]: this.HelperMethods.generateObjectId(query.updatedBy)
-      })
-    }
-    if (query.deletedBy) {
-      querySchema.push({
-        ["deletedBy._id"]: this.HelperMethods.generateObjectId(query.deletedBy)
-      })
-    }
-    if (query.Tags) {
-      querySchema.push({
-        ["Tags._id"]: this.HelperMethods.generateObjectId(query.Tags)
-      })
-    }
-    if (query.Title) {
-      querySchema.push({
-        Title: {
-          $regex: ".*" + query.Title + ".*",
+        title: {
+          $regex: ".*" + query.title + ".*",
           $options: "i",
         }
       })
-
     }
-    if (query.Section) {
+    if (query.status == 'true') {
       querySchema.push({
-        ["Section._id"]: this.HelperMethods.generateObjectId(query.Section)
+        status: true
       })
     }
-    if (query.Statut == 'true') {
+    if (query.status == 'false') {
       querySchema.push({
-        Statut: true
+        status: false
       })
     }
-    if (query.Statut == 'false') {
-      querySchema.push({
-        Statut: false
-      })
-    }
-
 
     options.countDocumentSchema = this.convertArrayToObjectQuerySchema(querySchema, countDocumentSchema, {
       ignoredSubPrivateData: true
@@ -198,7 +194,6 @@ module.exports = class ArticleController extends CoreServices {
       })
     }
 
-
     const output = await this.ArticleServices.getPaginatedList(pipeline, options)
 
     res.json({
@@ -212,15 +207,12 @@ module.exports = class ArticleController extends CoreServices {
       success: true,
     })
   };
+
   /**
    * Article FindOne
    * ******************
    * @name findOne
    * @route  GET /article/:id
-   * @type 
-   * @description 
-   * ******************
-   * 
    */
   findOne = async (req, res) => {
     const querySchema = {
@@ -228,7 +220,7 @@ module.exports = class ArticleController extends CoreServices {
     }
 
     const data = await this.ArticleServices.findOne(querySchema)
-    if (!data) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND('this admin'), this.ERROR_CODES.CAN_NOT_FIND, this.STATUS_CODES.NOT_FOUND)
+    if (!data) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND('this article'), this.ERROR_CODES.CAN_NOT_FIND, this.STATUS_CODES.NOT_FOUND)
     res.json({
       data: data,
       success: true,

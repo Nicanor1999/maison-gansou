@@ -122,7 +122,7 @@
             Retour
           </button>
           <span class="text-gray-300">|</span>
-          <h2 class="text-lg font-semibold text-gray-800">{{ editingProject ? 'Modifier le projet' : 'Nouveau projet' }}</h2>
+          <p class="text-lg font-semibold text-gray-800">{{ editingProject ? 'Modifier le projet' : 'Nouveau projet' }}</p>
         </div>
         <div class="flex gap-3">
           <button
@@ -718,7 +718,10 @@ export default {
     }
 
     function formatDate(dateString) {
-      return new Date(dateString).toLocaleDateString('fr-FR', {
+      if (!dateString) return '-'
+      const date = new Date(dateString)
+      if (isNaN(date.getTime())) return '-'
+      return date.toLocaleDateString('fr-FR', {
         day: 'numeric',
         month: 'short',
         year: 'numeric'

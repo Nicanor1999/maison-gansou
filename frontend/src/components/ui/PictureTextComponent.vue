@@ -4,7 +4,7 @@
       <img :src="encodeURI(image).replace(/#/g, '%23')" :alt="alt || 'Image'" class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]" />
     </div>
     <div class="text-section w-full md:w-[40%] py-8 md:py-0 md:h-full text-center flex flex-col justify-center px-4">
-      <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-gray-800 mb-6" data-aos="fade-left" data-aos-duration="1500">{{ title }}</h2>
+      <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-[var(--bg-1)] mb-6" data-aos="fade-left" data-aos-duration="1500">{{ title }}</h2>
       <p
         class="text-gray-700 leading-relaxed text-[15px] sm:text-[17px] lg:text-[18px]"
         data-aos="fade-left"

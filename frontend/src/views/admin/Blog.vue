@@ -29,7 +29,7 @@
           </button>
         </div>
         <button
-          v-if="activeView === 'articles'"
+          v-if="activeView === 'articles' && !showEditor"
           @click="openArticleEditor()"
           class="h-10 px-6 bg-[var(--second-orange)] text-[var(--bg-1)] rounded-lg hover:bg-[var(--second-orange)]/90 transition-colors flex items-center justify-center font-medium"
         >
@@ -62,7 +62,15 @@
               class="h-10 w-32 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-2"
             >
               <option value="">Tous les tags</option>
-              <option v-for="tag in tags" :key="tag._id" :value="tag._id">{{ tag.Name }}</option>
+              <option v-for="tag in tags" :key="tag._id" :value="tag._id">{{ tag.Tags }}</option>
+            </select>
+            <select
+              v-model="statusFilter"
+              class="h-10 w-32 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent px-2"
+            >
+              <option value="">Tous</option>
+              <option value="published">Publié</option>
+              <option value="draft">Brouillon</option>
             </select>
           </div>
         </div>
@@ -79,26 +87,34 @@
           >
             <div class="h-40 w-full bg-gray-200 relative overflow-hidden">
               <img
-                v-if="article.CoverImage"
-                :src="article.CoverImage"
-                :alt="article.Title"
+                v-if="getArticleCoverImage(article)"
+                :src="getArticleCoverImage(article)"
+                :alt="article.title"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div v-else class="w-full h-full flex items-center justify-center">
                 <span class="material-symbols-outlined text-gray-400 text-4xl">article</span>
               </div>
+              <span
+                :class="[
+                  'absolute top-2 right-2 text-xs font-medium rounded-full px-2 py-1',
+                  article.status ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
+                ]"
+              >
+                {{ article.status ? 'Publié' : 'Brouillon' }}
+              </span>
             </div>
             <div class="h-36 w-[90%] mx-auto flex flex-col justify-around py-2">
               <div class="flex flex-wrap gap-1">
                 <span
-                  v-for="tag in article.Tags"
+                  v-for="tag in article.tags"
                   :key="tag._id || tag"
                   class="text-xs bg-blue-100 text-blue-600 rounded-full px-2 py-1"
                 >
-                  {{ typeof tag === 'object' ? tag.Name : getTagName(tag) }}
+                  {{ typeof tag === 'object' ? tag.Tags : getTagName(tag) }}
                 </span>
               </div>
-              <h3 class="font-semibold text-lg text-gray-800 line-clamp-2">{{ article.Title }}</h3>
+              <h3 class="font-semibold text-lg text-gray-800 line-clamp-2">{{ article.title }}</h3>
               <p class="text-sm text-gray-500">{{ formatDate(article.createdAt) }}</p>
               <div class="flex justify-end gap-1">
                 <button
@@ -122,7 +138,7 @@
       </div>
 
       <!-- Article Editor -->
-      <div v-if="showEditor" class="h-full flex flex-col gap-4">
+      <div v-if="showEditor" class="h-[90vh] flex flex-col gap-4">
         <!-- Editor Header -->
         <div class="flex items-center justify-between h-14 bg-white rounded-xl shadow-sm border border-gray-100 px-6">
           <div class="flex items-center gap-4">
@@ -145,11 +161,18 @@
               Infos article
             </button>
             <button
-              @click="saveArticle()"
+              @click="saveArticle(false)"
+              :disabled="isSaving"
+              class="h-10 px-4 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+            >
+              Brouillon
+            </button>
+            <button
+              @click="saveArticle(true)"
               :disabled="isSaving"
               class="h-10 px-6 bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 disabled:opacity-50"
             >
-              {{ isSaving ? 'Enregistrement...' : 'Enregistrer' }}
+              Publier
             </button>
           </div>
         </div>
@@ -170,7 +193,7 @@
                 </button>
                 <div
                   v-if="showSectionMenu"
-                  class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border z-10 overflow-y-auto"
+                  class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border z-10 overflow-y-auto max-h-80"
                 >
                   <button
                     v-for="option in sectionOptions"
@@ -189,7 +212,7 @@
             </div>
 
             <!-- Sections List -->
-            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+            <div class="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col gap-4">
               <div
                 v-for="(section, index) in articleForm.sections"
                 :key="section.id"
@@ -221,14 +244,54 @@
                   </div>
                 </div>
 
+                <!-- Main Page Section -->
+                <div v-if="section.type === 'main-page'" class="p-4 space-y-3">
+                  <div>
+                    <label class="text-xs text-gray-500">Images de fond (carrousel)</label>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                      <div
+                        v-for="(img, imgIndex) in section.images"
+                        :key="imgIndex"
+                        class="relative w-20 h-16 bg-gray-100 rounded overflow-hidden"
+                      >
+                        <img :src="img" class="w-full h-full object-cover" />
+                        <button
+                          @click="removeMainImage(section, imgIndex)"
+                          class="absolute top-0 right-0 bg-red-500 text-white rounded-bl"
+                        >
+                          <span class="material-symbols-outlined text-xs">close</span>
+                        </button>
+                      </div>
+                      <div class="w-20 h-16 border-2 border-dashed border-gray-300 rounded flex items-center justify-center">
+                        <input type="file" accept="image/*" class="hidden" :id="'main-images-' + section.id" @change="(e) => addMainImage(e, section)" />
+                        <label :for="'main-images-' + section.id" class="cursor-pointer">
+                          <span class="material-symbols-outlined text-gray-400">add</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Bio Section -->
-                <div v-if="section.type === 'bio'" class="p-4">
-                  <textarea
-                    v-model="section.content"
-                    rows="4"
-                    class="w-full min-h-[100px] p-3 border border-gray-300 rounded-lg resize-none"
-                    placeholder="Texte de présentation..."
-                  ></textarea>
+                <div v-if="section.type === 'bio'" class="p-4 space-y-3">
+                  <div>
+                    <label class="text-xs text-gray-500 mb-1 block">Description</label>
+                    <textarea
+                      v-model="section.content"
+                      rows="4"
+                      class="w-full min-h-[100px] p-3 border border-gray-300 rounded-lg resize-none"
+                      placeholder="Texte de présentation..."
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-500 mb-1 block">Partenaires (séparés par virgule)</label>
+                    <input
+                      type="text"
+                      v-model="section.partners"
+                      class="w-full h-10 px-3 border border-gray-300 rounded-lg text-sm"
+                      placeholder="Partenaire 1, Partenaire 2..."
+                    />
+                  </div>
                 </div>
 
                 <!-- Full Text Section -->
@@ -336,31 +399,32 @@
               <h3 class="font-semibold text-gray-700">Aperçu</h3>
             </div>
             <div class="flex-1 overflow-y-auto p-6 space-y-4">
-              <!-- Thumbnail Preview -->
-              <div v-if="articleForm.CoverImage" class="w-full h-40 rounded-lg overflow-hidden">
-                <img :src="articleForm.CoverImage" class="w-full h-full object-cover" />
-              </div>
-              <div v-else class="w-full h-40 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span class="text-gray-400">Image de couverture</span>
-              </div>
-              
-              <h1 class="text-2xl font-bold text-gray-800">{{ articleForm.Title || 'Titre de l\'article' }}</h1>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  v-for="tagId in articleForm.Tags"
-                  :key="tagId"
-                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
-                >
-                  {{ getTagName(tagId) }}
-                </span>
-              </div>
-              
-              <hr class="my-4" />
-              
               <div v-for="section in articleForm.sections" :key="section.id" class="space-y-4">
+                <!-- Main Page Preview -->
+                <div v-if="section.type === 'main-page'" class="relative h-48 bg-gray-800 rounded-lg overflow-hidden">
+                  <div
+                    v-if="section.images && section.images.length > 0"
+                    class="absolute inset-0 bg-cover bg-center"
+                    :style="{ backgroundImage: `url(${section.images[0]})` }"
+                  ></div>
+                  <div class="absolute inset-0 bg-black/30"></div>
+                  <div class="absolute inset-0 flex items-center justify-center text-white text-center">
+                    <p class="text-xl font-light italic">{{ articleForm.title || 'Titre de l\'article' }}</p>
+                  </div>
+                </div>
                 <!-- Bio Preview -->
-                <div v-if="section.type === 'bio'" class="text-gray-600 leading-relaxed whitespace-pre-line">
-                  {{ section.content || 'Texte de présentation...' }}
+                <div v-if="section.type === 'bio'" class="flex flex-col md:flex-row gap-4 border rounded-lg p-4 bg-gray-50">
+                  <div :class="section.partners ? 'md:w-[70%]' : 'w-full'">
+                    <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
+                      {{ section.content || 'Texte de présentation...' }}
+                    </p>
+                  </div>
+                  <div v-if="section.partners" class="md:w-[30%] flex flex-col gap-3 text-xs">
+                    <div class="border-l-2 border-orange-400 pl-2">
+                      <span class="text-gray-400 uppercase text-[10px]">Partenaires</span>
+                      <p class="text-gray-600">{{ section.partners }}</p>
+                    </div>
+                  </div>
                 </div>
                 <!-- Full Text Preview -->
                 <div v-if="section.type === 'full-text'" class="space-y-2">
@@ -437,28 +501,41 @@
               <span class="material-symbols-outlined">close</span>
             </button>
           </div>
-          <div class="p-6 space-y-5">
+          <div class="p-6 space-y-5 flex flex-col gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Titre de l'article</label>
               <input
                 type="text"
-                v-model="articleForm.Title"
+                v-model="articleForm.title"
                 class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--bg-1)] focus:border-transparent"
                 placeholder="Entrez le titre de l'article"
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Image de couverture</label>
-              <div class="border-2 border-dashed border-gray-300 rounded-lg h-40 flex flex-col items-center justify-center hover:border-[var(--bg-1)] transition-colors">
-                <input type="file" accept="image/*" class="hidden" id="article-thumbnail-modal" @change="handleThumbnail" />
-                <label for="article-thumbnail-modal" class="cursor-pointer text-center w-full h-full flex flex-col items-center justify-center">
-                  <img v-if="articleForm.CoverImage" :src="articleForm.CoverImage" class="max-h-32 mx-auto rounded" />
-                  <div v-else>
-                    <span class="material-symbols-outlined text-gray-400 text-3xl">cloud_upload</span>
-                    <p class="text-sm text-gray-500 mt-1">Cliquez pour télécharger</p>
-                  </div>
-                </label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Images du carrousel (Page Principale)</label>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <div
+                  v-for="(img, imgIndex) in mainPageImages"
+                  :key="imgIndex"
+                  class="relative w-24 h-20 bg-gray-100 rounded overflow-hidden"
+                >
+                  <img :src="img" class="w-full h-full object-cover" />
+                  <button
+                    @click="removeMainPageImage(imgIndex)"
+                    class="absolute top-0 right-0 bg-red-500 text-white rounded-bl p-0.5"
+                  >
+                    <span class="material-symbols-outlined text-xs">close</span>
+                  </button>
+                </div>
+                <div class="w-24 h-20 border-2 border-dashed border-gray-300 rounded flex items-center justify-center hover:border-[var(--bg-1)] transition-colors">
+                  <input type="file" accept="image/*" class="hidden" id="main-page-images-modal" @change="addMainPageImage" />
+                  <label for="main-page-images-modal" class="cursor-pointer w-full h-full flex flex-col items-center justify-center">
+                    <span class="material-symbols-outlined text-gray-400">add</span>
+                    <p class="text-xs text-gray-500">Ajouter</p>
+                  </label>
+                </div>
               </div>
+              <p class="text-xs text-gray-400 mt-1">Ces images seront affichées dans le carrousel de la page principale de l'article</p>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
@@ -469,7 +546,7 @@
                   @click="toggleTag(tag._id)"
                   :class="[
                     'h-10 px-4 rounded-full text-sm transition-colors',
-                    articleForm.Tags.includes(tag._id)
+                    articleForm.tags.includes(tag._id)
                       ? 'bg-[var(--bg-1)] text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   ]"
@@ -587,6 +664,7 @@ export default {
     const showArticleInfoModal = ref(false)
     const searchQuery = ref('')
     const tagFilter = ref('')
+    const statusFilter = ref('')
     const newTagName = ref('')
     const editingArticle = ref(null)
     const isLoading = ref(true)
@@ -595,6 +673,7 @@ export default {
 
     // Section options
     const sectionOptions = [
+      { type: 'main-page', label: 'Page Principale', description: 'Première section avec carrousel', icon: 'home' },
       { type: 'bio', label: 'Bio', description: 'Texte de présentation', icon: 'description' },
       { type: 'full-text', label: 'Full Text', description: 'Bloc de texte complet', icon: 'notes' },
       { type: 'full-image', label: 'Full Image', description: 'Image pleine largeur', icon: 'panorama' },
@@ -606,19 +685,29 @@ export default {
     const tags = ref([])
     const articles = ref([])
 
+    // Map blobURL -> File object for upload
+    const pendingFiles = new Map()
+
     const articleForm = reactive({
       _id: null,
-      Title: '',
-      CoverImage: null,
-      Tags: [],
+      title: '',
+      tags: [],
       sections: []
+    })
+
+    // Computed pour accéder aux images de la section main-page
+    const mainPageSection = computed(() => {
+      return articleForm.sections.find(s => s.type === 'main-page')
+    })
+
+    const mainPageImages = computed(() => {
+      return mainPageSection.value?.images || []
     })
 
     // API Helper
     const getHeaders = () => {
       const token = localStorage.getItem('accessToken')
       return {
-        'Content-Type': 'application/json',
         ...(token && { 'Authorization': `Bearer ${token}` })
       }
     }
@@ -651,10 +740,13 @@ export default {
     const filteredArticles = computed(() => {
       return articles.value.filter(a => {
         const matchesSearch = searchQuery.value === '' ||
-          (a.Title && a.Title.toLowerCase().includes(searchQuery.value.toLowerCase()))
-        const matchesTag = tagFilter.value === '' || 
-          (a.Tags && a.Tags.some(t => (typeof t === 'object' ? t._id : t) === tagFilter.value))
-        return matchesSearch && matchesTag
+          (a.title && a.title.toLowerCase().includes(searchQuery.value.toLowerCase()))
+        const matchesTag = tagFilter.value === '' ||
+          (a.tags && a.tags.some(t => (typeof t === 'object' ? t._id : t) === tagFilter.value))
+        const matchesStatus = statusFilter.value === '' ||
+          (statusFilter.value === 'published' && a.status) ||
+          (statusFilter.value === 'draft' && !a.status)
+        return matchesSearch && matchesTag && matchesStatus
       })
     })
 
@@ -663,15 +755,32 @@ export default {
       return tag ? tag.Tags : ''
     }
 
+    // Récupérer l'image de couverture depuis la section main-page
+    function getArticleCoverImage(article) {
+      if (!article.sections || article.sections.length === 0) return null
+      const mainPage = article.sections.find(s => s.type === 'main-page')
+      if (mainPage && mainPage.images && mainPage.images.length > 0) {
+        return mainPage.images[0]
+      }
+      // Fallback: première image trouvée dans les sections
+      for (const section of article.sections) {
+        if (section.image) return section.image
+        if (section.images && section.images.length > 0) return section.images[0]
+      }
+      return null
+    }
+
     function getArticleCountForTag(tagId) {
-      return articles.value.filter(a => 
-        a.Tags && a.Tags.some(t => (typeof t === 'object' ? t._id : t) === tagId)
+      return articles.value.filter(a =>
+        a.tags && a.tags.some(t => (typeof t === 'object' ? t._id : t) === tagId)
       ).length
     }
 
     function formatDate(dateString) {
-      if (!dateString) return ''
-      return new Date(dateString).toLocaleDateString('fr-FR', {
+      if (!dateString) return '-'
+      const date = new Date(dateString)
+      if (isNaN(date.getTime())) return '-'
+      return date.toLocaleDateString('fr-FR', {
         day: 'numeric',
         month: 'short',
         year: 'numeric'
@@ -684,21 +793,23 @@ export default {
     }
 
     function openArticleEditor(article = null) {
+      pendingFiles.clear()
       editingArticle.value = article
       if (article) {
         Object.assign(articleForm, {
           _id: article._id,
-          Title: article.Title || '',
-          CoverImage: article.CoverImage || null,
-          Tags: article.Tags ? article.Tags.map(t => typeof t === 'object' ? t._id : t) : [],
-          sections: article.Section ? JSON.parse(JSON.stringify(article.Section)) : []
+          title: article.title || '',
+          tags: article.tags ? article.tags.map(t => typeof t === 'object' ? t._id : t) : [],
+          sections: article.sections ? JSON.parse(JSON.stringify(article.sections)).map((s, i) => ({
+            ...s,
+            id: s.id || s._id || Date.now() + i
+          })) : []
         })
       } else {
         Object.assign(articleForm, {
           _id: null,
-          Title: '',
-          CoverImage: null,
-          Tags: [],
+          title: '',
+          tags: [],
           sections: []
         })
       }
@@ -709,22 +820,49 @@ export default {
     function closeEditor() {
       showEditor.value = false
       editingArticle.value = null
+      pendingFiles.clear()
     }
 
     function toggleTag(tagId) {
-      const index = articleForm.Tags.indexOf(tagId)
+      const index = articleForm.tags.indexOf(tagId)
       if (index === -1) {
-        articleForm.Tags.push(tagId)
+        articleForm.tags.push(tagId)
       } else {
-        articleForm.Tags.splice(index, 1)
+        articleForm.tags.splice(index, 1)
       }
     }
 
-    function handleThumbnail(event) {
+    // Ajouter une image au carrousel de la page principale
+    function addMainPageImage(event) {
       const file = event.target.files[0]
       if (file) {
-        articleForm.CoverImage = URL.createObjectURL(file)
-        articleForm.coverImageFile = file
+        // S'assurer qu'une section main-page existe
+        let mainPage = articleForm.sections.find(s => s.type === 'main-page')
+        if (!mainPage) {
+          mainPage = {
+            id: Date.now(),
+            type: 'main-page',
+            images: [],
+            headline: '',
+            buttonText: ''
+          }
+          articleForm.sections.unshift(mainPage) // Ajouter au début
+        }
+        const blobUrl = URL.createObjectURL(file)
+        pendingFiles.set(blobUrl, file)
+        mainPage.images.push(blobUrl)
+      }
+      // Reset input
+      event.target.value = ''
+    }
+
+    // Supprimer une image du carrousel
+    function removeMainPageImage(index) {
+      const mainPage = articleForm.sections.find(s => s.type === 'main-page')
+      if (mainPage && mainPage.images) {
+        const url = mainPage.images[index]
+        if (url) pendingFiles.delete(url)
+        mainPage.images.splice(index, 1)
       }
     }
 
@@ -737,57 +875,144 @@ export default {
         image: null,
         alt: '',
         leftImage: null,
-        rightImage: null
+        rightImage: null,
+        images: [],
+        headline: '',
+        buttonText: '',
+        // Bio specific field
+        partners: ''
       }
       articleForm.sections.push(section)
       showSectionMenu.value = false
     }
 
     function removeSection(index) {
+      const section = articleForm.sections[index]
+      // Clean up pending files for this section
+      if (section.image && pendingFiles.has(section.image)) {
+        pendingFiles.delete(section.image)
+      }
+      if (section.leftImage && pendingFiles.has(section.leftImage)) {
+        pendingFiles.delete(section.leftImage)
+      }
+      if (section.rightImage && pendingFiles.has(section.rightImage)) {
+        pendingFiles.delete(section.rightImage)
+      }
+      if (section.images) {
+        section.images.forEach(img => {
+          if (pendingFiles.has(img)) pendingFiles.delete(img)
+        })
+      }
       articleForm.sections.splice(index, 1)
     }
 
     function moveSection(index, direction) {
       const newIndex = index + direction
-      const sections = articleForm.sections
-      ;[sections[index], sections[newIndex]] = [sections[newIndex], sections[index]]
+      const removed = articleForm.sections.splice(index, 1)[0]
+      articleForm.sections.splice(newIndex, 0, removed)
     }
 
     function handleSectionImage(event, section, field = 'image') {
       const file = event.target.files[0]
       if (file) {
-        section[field] = URL.createObjectURL(file)
+        const blobUrl = URL.createObjectURL(file)
+        pendingFiles.set(blobUrl, file)
+        section[field] = blobUrl
       }
     }
 
-    async function saveArticle() {
-      if (!articleForm.Title) {
+    function addMainImage(event, section) {
+      const file = event.target.files[0]
+      if (file) {
+        if (!section.images) section.images = []
+        const blobUrl = URL.createObjectURL(file)
+        pendingFiles.set(blobUrl, file)
+        section.images.push(blobUrl)
+      }
+    }
+
+    function removeMainImage(section, index) {
+      const url = section.images[index]
+      if (url) pendingFiles.delete(url)
+      section.images.splice(index, 1)
+    }
+
+    async function saveArticle(publish) {
+      if (!articleForm.title) {
         alertModal({ title: 'Champ requis', message: 'Veuillez entrer un titre pour l\'article', type: 'warning' })
         return
       }
 
       isSaving.value = true
       try {
-        const payload = {
-          Title: articleForm.Title,
-          CoverImage: articleForm.CoverImage,
-          Tags: articleForm.Tags,
-          Section: articleForm.sections
-        }
+        const formData = new FormData()
+        const fileMapping = []
 
-        const url = articleForm._id 
+        // Build sections data
+        const sectionsData = articleForm.sections.map((s, sectionIndex) => {
+          const section = {
+            type: s.type,
+            order: sectionIndex,
+            title: s.title || '',
+            content: s.content || '',
+            alt: s.alt || '',
+            headline: s.headline || '',
+            buttonText: s.buttonText || '',
+            image: '',
+            leftImage: '',
+            rightImage: '',
+            images: [],
+            // Bio specific field
+            partners: s.partners || '',
+          }
+
+          // Handle single image fields
+          for (const field of ['image', 'leftImage', 'rightImage']) {
+            const val = s[field]
+            if (!val) continue
+            if (pendingFiles.has(val)) {
+              formData.append('Pictures', pendingFiles.get(val))
+              fileMapping.push({ sectionIndex, field })
+            } else {
+              section[field] = val // existing server path
+            }
+          }
+
+          // Handle images array (main-page carousel)
+          if (s.images && s.images.length > 0) {
+            for (const imgUrl of s.images) {
+              if (pendingFiles.has(imgUrl)) {
+                formData.append('Pictures', pendingFiles.get(imgUrl))
+                fileMapping.push({ sectionIndex, field: 'images' })
+              } else {
+                section.images.push(imgUrl) // existing server path
+              }
+            }
+          }
+
+          return section
+        })
+
+        formData.append('title', articleForm.title)
+        formData.append('tags', JSON.stringify(articleForm.tags))
+        formData.append('status', publish)
+        formData.append('sections', JSON.stringify(sectionsData))
+        formData.append('fileMapping', JSON.stringify(fileMapping))
+
+        const url = articleForm._id
           ? `${API_BASE}/article/${articleForm._id}`
           : `${API_BASE}/article`
-        
         const method = articleForm._id ? 'PUT' : 'POST'
 
+        const token = localStorage.getItem('accessToken')
         const response = await fetch(url, {
           method,
-          headers: getHeaders(),
-          body: JSON.stringify(payload)
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+          body: formData
         })
 
         if (response.ok) {
+          pendingFiles.clear()
           await fetchData()
           closeEditor()
         } else {
@@ -829,7 +1054,10 @@ export default {
       try {
         const response = await fetch(`${API_BASE}/tags`, {
           method: 'POST',
-          headers: getHeaders(),
+          headers: {
+            'Content-Type': 'application/json',
+            ...getHeaders()
+          },
           body: JSON.stringify({ Tags: newTagName.value.trim() })
         })
 
@@ -881,6 +1109,7 @@ export default {
       showArticleInfoModal,
       searchQuery,
       tagFilter,
+      statusFilter,
       newTagName,
       isLoading,
       isSaving,
@@ -890,18 +1119,23 @@ export default {
       articles,
       filteredArticles,
       articleForm,
+      mainPageImages,
       getTagName,
+      getArticleCoverImage,
       getArticleCountForTag,
       formatDate,
       getSectionLabel,
       openArticleEditor,
       closeEditor,
       toggleTag,
-      handleThumbnail,
+      addMainPageImage,
+      removeMainPageImage,
       addSection,
       removeSection,
       moveSection,
       handleSectionImage,
+      addMainImage,
+      removeMainImage,
       saveArticle,
       deleteArticle,
       createTag,

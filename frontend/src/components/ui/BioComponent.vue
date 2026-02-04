@@ -2,38 +2,38 @@
   <div
     class="secondPart relative h-auto w-[93%] max-w-[1200px] overflow-hidden flex flex-col md:flex-row md:justify-between"
   >
-    <div class="h-auto md:w-[55%]" data-aos="fade-right">
+    <div :class="hasRightColumn ? 'h-auto md:w-[55%]' : 'h-auto w-full'" data-aos="fade-right">
       <p class="pt-6 text-gray-700 leading-relaxed text-[15px] sm:text-[17px] lg:text-[18px]">
         {{ content }}
       </p>
     </div>
-    <div class="w-full md:w-px md:mx-8 my-8 md:my-0 bg-gray-200 flex-shrink-0"></div>
-    <div
-      class="h-auto w-full md:w-[35%] flex flex-col gap-8 md:gap-10 py-4"
-    >
-      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
-        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Service</h2>
-        <ul class="text-gray-600 text-sm">
-          <li v-for="(service, i) in serviceItems" :key="i">{{ service }}</li>
-        </ul>
+    <template v-if="hasRightColumn">
+      <div class="w-full md:w-px md:mx-8 my-8 md:my-0 bg-gray-200 flex-shrink-0"></div>
+      <div class="h-auto w-full md:w-[35%] flex flex-col gap-8 md:gap-10 py-4">
+        <div v-if="serviceItems.length > 0" class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+          <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Service</h2>
+          <ul class="text-gray-600 text-sm">
+            <li v-for="(service, i) in serviceItems" :key="i">{{ service }}</li>
+          </ul>
+        </div>
+        <div v-if="workTypeItems.length > 0" class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+          <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Type de travaux</h2>
+          <ul class="text-gray-600 text-sm">
+            <li v-for="(work, i) in workTypeItems" :key="i">{{ work }}</li>
+          </ul>
+        </div>
+        <div v-if="location" class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+          <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Emplacement</h2>
+          <p class="text-gray-600 text-sm">{{ location }}</p>
+        </div>
+        <div v-if="partnerItems.length > 0" class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
+          <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Partenaires</h2>
+          <ul class="text-gray-600 text-sm">
+            <li v-for="(partner, i) in partnerItems" :key="i">{{ partner }}</li>
+          </ul>
+        </div>
       </div>
-      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
-        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Type de travaux</h2>
-        <ul class="text-gray-600 text-sm">
-          <li v-for="(work, i) in workTypeItems" :key="i">{{ work }}</li>
-        </ul>
-      </div>
-      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
-        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Emplacement</h2>
-        <p class="text-gray-600 text-sm">{{ location || '-' }}</p>
-      </div>
-      <div class="border-l-2 border-[var(--second-orange)] pl-4" data-aos="fade-up">
-        <h2 class="tracking-[0.2em] text-[11px] text-gray-400 uppercase font-medium mb-2">Partenaires</h2>
-        <ul class="text-gray-600 text-sm">
-          <li v-for="(partner, i) in partnerItems" :key="i">{{ partner }}</li>
-        </ul>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
@@ -57,10 +57,18 @@ export default {
     )
     const partnerItems = computed(() => {
       if (Array.isArray(props.partners)) return props.partners.filter(p => p)
-      return (props.partners || '').split('\n').filter(s => s.trim())
+      return (props.partners || '').split(/[,\n]/).map(s => s.trim()).filter(Boolean)
     })
 
-    return { serviceItems, workTypeItems, partnerItems }
+    // Afficher la colonne droite seulement s'il y a des données
+    const hasRightColumn = computed(() => {
+      return serviceItems.value.length > 0 ||
+             workTypeItems.value.length > 0 ||
+             props.location ||
+             partnerItems.value.length > 0
+    })
+
+    return { serviceItems, workTypeItems, partnerItems, hasRightColumn }
   },
 }
 </script>

@@ -16,7 +16,7 @@
         class="max-w-6xl h-[25%] md:h-[25%] lg:h-[25%] xl:h-[40%] 2xl:h-[35%] w-full text-center text-white flex flex-col justify-around"
       >
         <p
-          class="text-[1.5rem] md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-light italic mb-6 md:mb-4 lg:mb-5 drop-shadow-lg text-gray-100"
+          class="text-[2rem] md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-light italic mb-6 md:mb-4 lg:mb-5 drop-shadow-lg text-gray-100"
         >
           {{ headline }}
         </p>

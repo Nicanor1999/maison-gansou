@@ -28,6 +28,7 @@ module.exports = class ProjectsResources {
         sections: model.sections,
         projectType: model.projectType,
         status: model.status,
+        createdAt: model.createdAt,
       }
 
       return schema

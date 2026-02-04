@@ -1,5 +1,5 @@
 /**
- * @ArticleServices 
+ * @ArticleServices
  */
 
 const CoreServices = require("../../../shared/services/core.services")
@@ -9,7 +9,6 @@ module.exports = class ArticleServices extends CoreServices {
     super();
     this.Article = require("../../admin/models/article.model");
     this.ArticleResources = require("../../admin/resources/article.resources");
-    this.SharedAdminServices = new(require("../../admin/services/shared.admin.services"))();
   }
   /**
    * @instanceAlreadyExist
@@ -17,20 +16,16 @@ module.exports = class ArticleServices extends CoreServices {
   instanceAlreadyExist = async (payload, session = null) => {
     try {
       return await this.SessionManager.executeQueryHookWithSession(this.Article.findOne({
-        // your condition
-        name: payload.name,
+        title: payload.title,
       }), session)
-
-
     } catch (error) {
       throw error;
-
     }
   };
   /**
    * @findOrCreate
    */
-  findOrCreate = async (payload, profile, session = null) => {
+  findOrCreate = async (payload, session = null) => {
     try {
       const articleExist = await this.instanceAlreadyExist(payload, session)
 
@@ -38,7 +33,7 @@ module.exports = class ArticleServices extends CoreServices {
       if (articleExist) {
         save = articleExist
       } else {
-        save = await this.create(payload, profile, session)
+        save = await this.create(payload, session)
       }
 
       return save
@@ -50,46 +45,36 @@ module.exports = class ArticleServices extends CoreServices {
   /**
    * @create
    */
-  create = async (payload, profile, session = null) => {
+  create = async (payload, session = null) => {
     try {
-      const options = session ? {
-        session
-      } : {}
+      const options = session ? { session } : {}
 
       const schema = {}
-      if (this.HelperMethods.issetData(payload.Tags)) {
-        const Tags = await this.SharedAdminServices.findTagsById(this.HelperMethods.getValidTrimData(payload.Tags), session)
-        if (!Tags) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Tags"));
 
-        schema.Tags = this.HelperMethods.getValidTrimData(payload.Tags);
+      if (payload.title !== undefined) {
+        schema.title = typeof payload.title === 'string' ? payload.title.trim() : payload.title;
+      }
+      if (payload.coverImage !== undefined) {
+        schema.coverImage = payload.coverImage;
+      }
+      if (payload.tags !== undefined) {
+        schema.tags = payload.tags;
+      }
+      if (payload.sections && Array.isArray(payload.sections)) {
+        schema.sections = payload.sections;
+      }
+      if (payload.status !== undefined) {
+        schema.status = payload.status;
+      }
+      if (payload.createdBy !== undefined) {
+        schema.createdBy = payload.createdBy;
       }
 
-      if (this.HelperMethods.issetData(payload.Title)) {
-        schema.Title = this.HelperMethods.getValidTrimData(payload.Title);
-      }
-      if (this.HelperMethods.issetData(payload.Section)) {
-        const Section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.Section), session)
-        if (!Section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
+      const article = new this.Article(schema);
+      const save = await article.save(options);
 
-        schema.Section = this.HelperMethods.getValidTrimData(payload.Section);
-      }
+      return save
 
-      if (this.HelperMethods.issetData(payload.tags)) {
-        const tags = await this.SharedAdminServices.findTagsById(this.HelperMethods.getValidTrimData(payload.tags), session)
-        if (!tags) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this tags"));
-        schema.tags = this.HelperMethods.getValidTrimData(payload.tags);
-      }
-      if (this.HelperMethods.issetData(payload.title)) {
-        schema.title = this.HelperMethods.getValidTrimData(payload.title);
-      }
-      if (this.HelperMethods.issetData(payload.section)) {
-        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
-        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this section"));
-        schema.section = this.HelperMethods.getValidTrimData(payload.section);
-      }
-      if (this.HelperMethods.issetData(payload.statut)) {
-        schema.statut = this.HelperMethods.getValidTrimData(payload.statut);
-      }
     } catch (error) {
       throw error;
     }
@@ -97,57 +82,42 @@ module.exports = class ArticleServices extends CoreServices {
   /**
    * @update
    */
-  update = async (query, payload, profile, session = null) => {
+  update = async (query, payload, session = null) => {
     try {
-      const options = session ? {
-        session
-      } : {
-        new: true
-      };
+      const options = session ? { session } : { new: true };
 
       const article = await this.SessionManager.executeQueryHookWithSession(this.Article.findOne(query), session);
 
       if (!article) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND('this article'))
 
       const schema = {}
-      if (this.HelperMethods.issetData(payload.Tags)) {
-        const Tags = await this.SharedAdminServices.findTagsById(this.HelperMethods.getValidTrimData(payload.Tags), session)
-        if (!Tags) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Tags"));
 
-        schema.Tags = this.HelperMethods.getValidTrimData(payload.Tags);
+      if (payload.title !== undefined) {
+        schema.title = typeof payload.title === 'string' ? payload.title.trim() : payload.title;
       }
-
-      if (this.HelperMethods.issetData(payload.Title)) {
-        schema.Title = this.HelperMethods.getValidTrimData(payload.Title);
+      if (payload.coverImage !== undefined) {
+        schema.coverImage = payload.coverImage;
       }
-      if (this.HelperMethods.issetData(payload.Section)) {
-        const Section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.Section), session)
-        if (!Section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this Section"));
-
-        schema.Section = this.HelperMethods.getValidTrimData(payload.Section);
+      if (payload.tags !== undefined) {
+        schema.tags = payload.tags;
       }
-
-      if (this.HelperMethods.issetData(payload.tags)) {
-        const tags = await this.SharedAdminServices.findTagsById(this.HelperMethods.getValidTrimData(payload.tags), session)
-        if (!tags) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this tags"));
-        schema.tags = this.HelperMethods.getValidTrimData(payload.tags);
+      if (payload.sections && Array.isArray(payload.sections)) {
+        schema.sections = payload.sections;
       }
-      if (this.HelperMethods.issetData(payload.title)) {
-        schema.title = this.HelperMethods.getValidTrimData(payload.title);
+      if (payload.status !== undefined) {
+        schema.status = payload.status;
       }
-      if (this.HelperMethods.issetData(payload.section)) {
-        const section = await this.SharedAdminServices.findSectionById(this.HelperMethods.getValidTrimData(payload.section), session)
-        if (!section) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND("this section"));
-        schema.section = this.HelperMethods.getValidTrimData(payload.section);
-      }
-      if (this.HelperMethods.issetData(payload.statut)) {
-        schema.statut = this.HelperMethods.getValidTrimData(payload.statut);
+      if (payload.updatedBy !== undefined) {
+        schema.updatedBy = payload.updatedBy;
       }
 
-
+      const data = await this.Article.findOneAndUpdate(
+        { _id: article._id },
+        schema,
+        options
+      );
 
       return data
-
 
     } catch (error) {
       throw error;
@@ -156,19 +126,17 @@ module.exports = class ArticleServices extends CoreServices {
   /**
    * @delete
    */
-  delete = async (query, profile, session = null) => {
+  delete = async (query, session = null) => {
     try {
-
       const article = await this.SessionManager.executeQueryHookWithSession(this.Article.findOne(query), session);
       if (!article) throw new this.NotFoundError(this.ERROR_MESSAGES.CAN_NOT_FIND('this article'))
 
-      await article.softDelete(profile._id, session);
+      await article.softDelete(undefined, session);
 
       return article
 
     } catch (error) {
       throw error;
-
     }
   };
   /**
@@ -184,7 +152,6 @@ module.exports = class ArticleServices extends CoreServices {
 
       return await this.ArticleResources.ref(article)
 
-
     } catch (error) {
       throw error;
     }
@@ -192,47 +159,16 @@ module.exports = class ArticleServices extends CoreServices {
   /**
    * @getList
    */
-  getList = async (querySchema, match = {
-    matchCreatedBy: {},
-    matchUpdatedBy: {},
-    matchDeletedBy: {},
-    matchTags: {},
-    matchSection: {}
-  }, session = null) => {
+  getList = async (querySchema, match = {}, session = null) => {
     try {
-      const {
-        matchCreatedBy,
-        matchUpdatedBy,
-        matchDeletedBy,
-        matchTags,
-        matchSection,
-      } = match
       const data = []
-      const articleFindData = await this.SessionManager.executeQueryHookWithSession(this.Article.find(querySchema).populate({
-        path: "createdBy",
-        match: matchCreatedBy
-      }).populate({
-        path: "updatedBy",
-        match: matchUpdatedBy
-      }).populate({
-        path: "deletedBy",
-        match: matchDeletedBy
-      }).populate({
-        path: "Tags",
-        match: matchTags
-      }).populate({
-        path: "Section",
-        match: matchSection
-      }), session)
+      const articleFindData = await this.SessionManager.executeQueryHookWithSession(
+        this.Article.find(querySchema).populate({ path: "tags" }),
+        session
+      )
 
       for (const item of articleFindData) {
-        if (item
-          //&&item.createdBy
-          //&&item.updatedBy
-          //&&item.deletedBy
-          //&&item.Tags
-          //&&item.Section
-        ) {
+        if (item) {
           data.push(await this.ArticleResources.collection(item))
         }
       }
@@ -250,17 +186,10 @@ module.exports = class ArticleServices extends CoreServices {
     try {
       let data = null
 
-      const articleFindOneData = await this.SessionManager.executeQueryHookWithSession(this.Article.findOne(querySchema).populate({
-        path: "createdBy",
-      }).populate({
-        path: "updatedBy",
-      }).populate({
-        path: "deletedBy",
-      }).populate({
-        path: "Tags",
-      }).populate({
-        path: "Section",
-      }), session)
+      const articleFindOneData = await this.SessionManager.executeQueryHookWithSession(
+        this.Article.findOne(querySchema).populate({ path: "tags" }),
+        session
+      )
 
       if (articleFindOneData) {
         data = await this.ArticleResources.collection(articleFindOneData)
@@ -268,10 +197,8 @@ module.exports = class ArticleServices extends CoreServices {
 
       return data
 
-
     } catch (error) {
       throw error;
-
     }
   };
   /**
@@ -287,132 +214,17 @@ module.exports = class ArticleServices extends CoreServices {
         countDocumentSchema
       } = options
 
-      const servicePipeline = [{
-          $lookup: {
-            from: "admins",
-            localField: "createdBy",
-            foreignField: "_id",
-            as: "createdBy"
-          }
-        },
-
-        {
-          $addFields: {
-            createdBy: {
-              $ifNull: [{
-                $arrayElemAt: ['$createdBy', 0]
-              }, null]
-            }
-          }
-        },
-        {
-          $unwind: {
-            path: '$createdBy',
-            preserveNullAndEmptyArrays: true
-          }
-        },
-
-        {
-          $lookup: {
-            from: "admins",
-            localField: "updatedBy",
-            foreignField: "_id",
-            as: "updatedBy"
-          }
-        },
-
-        {
-          $addFields: {
-            updatedBy: {
-              $ifNull: [{
-                $arrayElemAt: ['$updatedBy', 0]
-              }, null]
-            }
-          }
-        },
-        {
-          $unwind: {
-            path: '$updatedBy',
-            preserveNullAndEmptyArrays: true
-          }
-        },
-
-        {
-          $lookup: {
-            from: "admins",
-            localField: "deletedBy",
-            foreignField: "_id",
-            as: "deletedBy"
-          }
-        },
-
-        {
-          $addFields: {
-            deletedBy: {
-              $ifNull: [{
-                $arrayElemAt: ['$deletedBy', 0]
-              }, null]
-            }
-          }
-        },
-        {
-          $unwind: {
-            path: '$deletedBy',
-            preserveNullAndEmptyArrays: true
-          }
-        },
-
+      const servicePipeline = [
         {
           $lookup: {
             from: "tags",
-            localField: "Tags",
+            localField: "tags",
             foreignField: "_id",
-            as: "Tags"
+            as: "tags"
           }
-        },
-
-        {
-          $addFields: {
-            Tags: {
-              $ifNull: [{
-                $arrayElemAt: ['$Tags', 0]
-              }, null]
-            }
-          }
-        },
-        {
-          $unwind: {
-            path: '$Tags',
-            preserveNullAndEmptyArrays: true
-          }
-        },
-
-        {
-          $lookup: {
-            from: "sections",
-            localField: "Section",
-            foreignField: "_id",
-            as: "Section"
-          }
-        },
-
-        {
-          $addFields: {
-            Section: {
-              $ifNull: [{
-                $arrayElemAt: ['$Section', 0]
-              }, null]
-            }
-          }
-        },
-        {
-          $unwind: {
-            path: '$Section',
-            preserveNullAndEmptyArrays: true
-          }
-        },
-
+        }
       ];
+
       const paginationResponse = await this.getPaginateAggregateDataService({
         Model: this.Article,
         perPage: perPage,
@@ -421,7 +233,6 @@ module.exports = class ArticleServices extends CoreServices {
         route: route,
         pipeline: servicePipeline.concat(inputPipeline),
         countDocumentSchema: countDocumentSchema
-
       })
 
       const response = paginationResponse.data
@@ -429,7 +240,6 @@ module.exports = class ArticleServices extends CoreServices {
       const data = await Promise.all(
         response.map(item => this.ArticleResources.collection(item))
       );
-
 
       return {
         "page": Number(page),
@@ -441,10 +251,8 @@ module.exports = class ArticleServices extends CoreServices {
         "data": data
       }
 
-
     } catch (error) {
       throw error;
-
     }
   };
 

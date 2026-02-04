@@ -24,6 +24,7 @@ const routes = [
         {path:'/', name:'home', component: Public.HomePublicView},
         {path:'/about-us', name:'about-us', component: Public.AboutUsPublicView},
         {path:'/blog', name:'blog', component: Public.BlogPublicView},
+        {path:'/blog/:id', name:'blog-article', component: Public.ArticlePublicView},
         {path:'/bookings', name:'bookings', component: Public.BookingsPublicView},
         {path:'/contacts', name:'contacts', component: Public.ContactsPublicView},
         {path:'/projects', name:'projects', component: Public.ProjectsPublicView},

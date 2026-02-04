@@ -65,7 +65,7 @@
         <p class="text-gray-500">Projet introuvable</p>
       </div>
     </template>
-    <div class="bg-[var(--bg-3)] h-[40vh] md:h-screen w-screen flex justify-center">
+    <div class="h-[40vh] md:h-screen w-screen flex justify-center">
       <div class="h-full w-[93%] flex items-center">
         <ProjectsComponent />
       </div>
@@ -78,7 +78,7 @@
   </div>
 </template>
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import MainPageComponent from '@/components/ui/MainPageComponent.vue'
 import BioComponent from '@/components/ui/BioComponent.vue'
@@ -141,6 +141,16 @@ export default {
 
     onMounted(() => {
       fetchProject()
+    })
+
+    // Re-fetch when navigating between projects
+    watch(() => route.params.id, (newId, oldId) => {
+      if (newId && newId !== oldId) {
+        loading.value = true
+        project.value = null
+        fetchProject()
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
     })
 
     return {

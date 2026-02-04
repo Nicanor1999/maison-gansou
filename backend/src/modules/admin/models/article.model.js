@@ -25,26 +25,43 @@ const Schema = new mongoose.Schema({
     ref: "Admin"
   },
 
-  tags: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: false,
-    ref: "Tags"
-  },
-
   title: {
     type: String,
     required: false,
   },
 
-  section: {
-    type: mongoose.Schema.Types.ObjectId,
+  coverImage: {
+    type: String,
     required: false,
-    ref: "Section"
   },
 
-  statut: {
+  tags: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tags"
+  }],
+
+  sections: [{
+    type: { type: String, enum: ['main-page', 'bio', 'full-text', 'full-image', 'text-image', 'image-text', 'double-image'] },
+    order: { type: Number },
+    title: { type: String },
+    content: { type: String },
+    image: { type: String },
+    alt: { type: String },
+    leftImage: { type: String },
+    rightImage: { type: String },
+    leftAlt: { type: String },
+    rightAlt: { type: String },
+    images: [{ type: String }],
+    headline: { type: String },
+    buttonText: { type: String },
+    // Bio specific field
+    partners: { type: String },
+  }],
+
+  status: {
     type: Boolean,
     required: false,
+    default: false,
   },
 }, {
   timestamps: true

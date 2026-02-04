@@ -1,7 +1,7 @@
 <template>
   <div class="text-picture-container">
     <div class="text-section flex flex-col justify-center px-4">
-      <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-gray-800 mb-6" data-aos="fade-right" data-aos-duration="1500">{{ title }}</h2>
+      <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-[var(--bg-1)] mb-6" data-aos="fade-right" data-aos-duration="1500">{{ title }}</h2>
       <p
         class="text-gray-700 leading-relaxed text-[15px] sm:text-[17px] lg:text-[18px]"
         data-aos="fade-right"

@@ -1,6 +1,6 @@
 <template>
     <div class="text-component w-[93%] max-w-[800px] mx-auto" data-aos="fade-up">
-        <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-gray-800 mb-6">{{ title }}</h2>
+        <h2 v-if="title" class="font-light text-2xl lg:text-3xl tracking-wide text-[var(--bg-1)] mb-6">{{ title }}</h2>
         <div class="content" v-html="text"></div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 /**
- * @ArticleResources 
+ * @ArticleResources
  */
 module.exports = class ArticleResources {
 
@@ -12,27 +12,26 @@ module.exports = class ArticleResources {
   static async collection(model, filter = {}) {
     try {
       if (!model) return null
-      const {} = filter
 
       const schema = {
         _id: model._id,
+        title: model.title,
+        coverImage: model.coverImage,
+        tags: model.tags,
+        sections: model.sections,
+        status: model.status,
+        createdAt: model.createdAt,
         createdBy: model.createdBy,
         updatedBy: model.updatedBy,
-        deletedBy: model.deletedBy,
-        Tags: model.Tags,
-        Title: model.Title,
-        Section: model.Section,
-        Statut: model.Statut,
       }
 
       return schema
     } catch (error) {
-
       throw error
     }
   }
   /**
-   * @ref 
+   * @ref
    */
   static async ref(model, filter = {}) {
     try {
@@ -40,8 +39,12 @@ module.exports = class ArticleResources {
 
       const schema = {
         _id: model._id,
-        Title: model.Title,
-        Statut: model.Statut,
+        title: model.title,
+        coverImage: model.coverImage,
+        tags: model.tags,
+        sections: model.sections,
+        status: model.status,
+        createdAt: model.createdAt,
       }
 
       return schema
