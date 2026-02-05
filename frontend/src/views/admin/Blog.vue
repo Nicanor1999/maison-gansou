@@ -516,7 +516,7 @@
               <div class="flex flex-wrap gap-2 mt-2">
                 <div
                   v-for="(img, imgIndex) in mainPageImages"
-                  :key="imgIndex"
+                  :key="'mp-' + imgIndex + '-' + img"
                   class="relative w-24 h-20 bg-gray-100 rounded overflow-hidden"
                 >
                   <img :src="img" class="w-full h-full object-cover" />

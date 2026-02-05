@@ -5,6 +5,7 @@
 
 require('dotenv').config();
 const CoreServices = require("../../../shared/services/core.services")
+const EmailServices = require("../../../shared/services/email.services")
 const axios = require('axios')
 
 module.exports = class PaymentServices extends CoreServices {
@@ -244,6 +245,47 @@ module.exports = class PaymentServices extends CoreServices {
       });
 
       this.Logger.info(`Payment ${paymentStatus} for reservation: ${reservation._id}`);
+
+      // Send confirmation email when payment is completed
+      if (paymentStatus === 'completed' && reservation.email) {
+        try {
+          const fullReservation = await this.Reservation.findById(reservation._id).populate('offer');
+
+          const formatDate = (dateString) => {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return '-';
+            return date.toLocaleDateString('fr-FR', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            });
+          };
+
+          const emailResult = await EmailServices.sendEmail(
+            fullReservation.email,
+            {
+              clientName: `${fullReservation.firstNameClient || ''} ${fullReservation.lastNameClient || ''}`.trim() || 'Client',
+              reservationId: fullReservation._id,
+              offerTitle: fullReservation.offer?.title || 'Location',
+              amount: fullReservation.paymentAmount,
+              startDate: formatDate(fullReservation.startDate),
+              arrivalDate: formatDate(fullReservation.arrivalDate),
+              transactionId: id,
+              year: new Date().getFullYear(),
+            },
+            'payment-confirmation'
+          );
+
+          if (emailResult && emailResult.success) {
+            this.Logger.info(`Payment confirmation email sent to: ${fullReservation.email}`);
+          } else {
+            this.Logger.error(`Payment confirmation email failed for: ${fullReservation.email}`, emailResult?.error);
+          }
+        } catch (emailError) {
+          this.Logger.error('Failed to send payment confirmation email:', emailError.message);
+        }
+      }
 
       return {
         success: true,

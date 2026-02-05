@@ -3,7 +3,7 @@
     <transition name="navbar-fade">
       <div
         v-if="hasScrolledToSecondPart && !isMenuOpen && isScrollingDown"
-        class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-sm z-100"
+        class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-sm z-100 border-[1px] border-[var(--vt-c-text-dark-3)]"
       ></div>
     </transition>
     <router-link class="fixed left-[3vw] top-[1vh] md:top-[1vh] z-150" to="/">

@@ -125,18 +125,17 @@ select:focus {
 
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --bg-1: #032B5E;
-  --bg-2: #F79315;
-  --bg-3: #F2FDFF;
+  --bg-1: #032b5e;
+  --bg-2: #f79315;
+  --bg-3: #f2fdff;
 
-  --second-orange: #FDB352;
-  --bg-nav: #292D2F;
-  --bg-hidden: #FEFADC;
+  --second-orange: #fdb352;
+  --bg-nav: #292d2f;
+  --bg-hidden: #fefadc;
   --blue-aqua: #6bdfe3;
 
-
-  --primary: #F3DFA2;
-  --important: #BB4430;
+  --primary: #f3dfa2;
+  --important: #bb4430;
   --vt-c-black-mute: #282828;
 
   --vt-c-indigo: #2c3e50;
@@ -150,6 +149,7 @@ select:focus {
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(139, 139, 139, 0.64);
+  --vt-c-text-dark-3: rgba(207, 207, 207, 0.64);
 }
 
 /* semantic color variables for this project */
@@ -219,69 +219,70 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2 {
-  font-family: "Universal Serif", serif;
+h1,
+h2 {
+  font-family: 'Universal Serif', serif;
   font-weight: normal;
   font-style: normal;
 }
 
 /* Lato font classes */
 .lato-thin {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 100;
   font-style: normal;
 }
 
 .lato-light {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 300;
   font-style: normal;
 }
 
 .lato-regular {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .lato-bold {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
 .lato-black {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 900;
   font-style: normal;
 }
 
 .lato-thin-italic {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 100;
   font-style: italic;
 }
 
 .lato-light-italic {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 300;
   font-style: italic;
 }
 
 .lato-regular-italic {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-style: italic;
 }
 
 .lato-bold-italic {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   font-style: italic;
 }
 
 .lato-black-italic {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 900;
   font-style: italic;
 }
