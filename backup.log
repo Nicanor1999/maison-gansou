@@ -328,3 +328,23 @@ warning: in the working copy of 'frontend/src/views/public/index.js', CRLF will 
 To github.com:Nicanor1999/maison-gansou.git
    ffa706b..ccc5d1e  master -> master
 Backup terminé à 2026-02-04 00:00:03
+warning: in the working copy of 'frontend/src/views/public/Home.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+[master 024751f] Sauvegarde automatique 2026-02-05 00:00:01
+ 22 files changed, 2030 insertions(+), 191 deletions(-)
+ create mode 100644 backend/src/modules/admin/controllers/message.controllers.js
+ create mode 100644 backend/src/modules/admin/models/message.model.js
+ create mode 100644 backend/src/modules/admin/resources/message.resources.js
+ create mode 100644 backend/src/modules/admin/routes/message.routes.js
+ create mode 100644 backend/src/modules/admin/services/message.services.js
+ create mode 100644 backend/src/modules/admin/validations/message.validations.js
+ create mode 100644 backend/src/shared/snippets/email_markup/templates/admin-reply/html.njk
+ create mode 100644 backend/src/shared/snippets/email_markup/templates/admin-reply/subject.njk
+ create mode 100644 backend/src/shared/snippets/email_markup/templates/payment-confirmation/html.njk
+ create mode 100644 backend/src/shared/snippets/email_markup/templates/payment-confirmation/subject.njk
+ create mode 100644 frontend/src/assets/pictures/L.jpg
+ create mode 100644 frontend/src/components/ui/CarouselComponent.vue
+To github.com:Nicanor1999/maison-gansou.git
+   ccc5d1e..024751f  master -> master
+Backup terminé à 2026-02-05 00:00:04
