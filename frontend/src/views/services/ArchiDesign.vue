@@ -16,7 +16,7 @@
           </li>
           <li class="">
             <router-link to="" class="px-2 py-2 text-center hover:text-black"
-              >LE PROCESS</router-link
+              >LE PROCESSUS</router-link
             >
           </li>
           <li class="">
@@ -189,6 +189,205 @@
         </div>
       </div>
     </div>
+    <div
+      class="relative h-auto w-[93%] bg-yellow-500 border-b-[1px] border-[var(--vt-c-text-dark-2)] flex flex-col items-center gap-30"
+    >
+      <div class="h-auto w-full md:w-[80%] flex flex-col">
+        <h3
+          class="pb-10 pt-10 md:w-[40%] text-[var(--bg-1)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
+        >
+          LE PROCESSUS
+        </h3>
+        <div
+          class="grid grid-rows-6 md:grid-rows-3 gap-6 md:grid-cols-2 h-auto w-full bg-green-300"
+        >
+          <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
+            <div class="h-[50%] w-full relative">
+              <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+              <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
+                <div
+                  class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
+                >
+                  RIBA 1 – Cahier des charges et Étude de Conception
+                </div>
+              </div>
+            </div>
+            <p class="text-justify text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+              La première étape consiste à bien comprendre vos objectifs. Nous prenons en compte vos
+              besoins afin de concevoir une solution adaptée à votre budget. Après une première
+              visite sur place, nous établissons une proposition détaillée d'honoraires de
+              conception et un devis pour la consultation initiale. Sur votre demande, nous
+              réalisons un relevé topographique complet de la propriété.
+            </p>
+            <span class="italic text-[var(--bg-1)] font-bold"
+              >RIBA Etape 0 & 1<span class="text-gray-600"> (2 semaines)</span></span
+            >
+          </div>
+          <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
+            <div class="h-[50%] w-full relative">
+              <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+              <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
+                <div
+                  class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
+                >
+                  RIBA 2 – Développement du Concept
+                </div>
+              </div>
+            </div>
+            <p class="text-justify text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+              Cette phase de conception est un processus collaboratif et agréable où nous
+              travaillons avec vous pour définir l'agencement optimal répondant à vos besoins. Nous
+              proposons un service complet de dessin CAO architectural, complété par des
+              visualisations 3D, allant de l'esquisse de base aux images de synthèse détaillées,
+              afin de vous aider à visualiser pleinement le projet proposé.
+            </p>
+            <span class="italic text-[var(--bg-1)] font-bold"
+              >RIBA Etape 2<span class="text-gray-600"> (4-6 semaines)</span></span
+            >
+          </div>
+          <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
+            <div class="h-[50%] w-full relative">
+              <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+              <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
+                <div
+                  class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
+                >
+                  RIBA 3 – Planification et Conception dévelopée
+                </div>
+              </div>
+            </div>
+            <p class="text-justify text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+              Après validation du concept, nous gérons les autorisations administratives avec un
+              taux de réussite de plus de 97 %, puis coordonnons l’ensemble des intervenants
+              techniques afin d’assurer une conception fluide, collaborative.Nous assurons la
+              centralisation et l’intégration de toutes les études techniques, garantissant ainsi un
+              projet parfaitement maîtrisé.
+            </p>
+            <span class="italic text-[var(--bg-1)] font-bold"
+              >RIBA Etape 3<span class="text-gray-600"> (10 semaines)</span></span
+            >
+          </div>
+          <div class="h-[60vh] md:h-screen 2xl:h-[60vh] bg-white flex flex-col justify-between">
+            <div class="h-[50%] w-full relative">
+              <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+              <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
+                <div
+                  class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
+                >
+                  RIBA 4 – Conception Technique
+                </div>
+              </div>
+            </div>
+            <p class="text-justify text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+              La coordination du design est au cœur de la phase de pré-construction. Nous préparons
+              un dossier technique complet, intégrant l’ensemble des études spécialisées, afin de
+              valider tous les choix en amont et d’optimiser coûts et délais. Une fois finalisé, le
+              dossier de consultation est transmis pour chiffrage définitif.
+            </p>
+            <span class="italic text-[var(--bg-1)] font-bold"
+              >RIBA Etape 4<span class="text-gray-600"> (6-8 semaines)</span></span
+            >
+          </div>
+          <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
+            <div class="h-[50%] w-full relative">
+              <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+              <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
+                <div
+                  class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
+                >
+                  CONCEPTION - Accord de Mitoyenneté
+                </div>
+              </div>
+            </div>
+            <p class="text-justify text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+              Dans la plupart des cas, les travaux de structure nécessiteront un accord de
+              mitoyenneté. Nous vous recommanderons un géomètre-expert qui se chargera d'émettre les
+              notifications nécessaires dès le début du processus. Ce processus pouvant être long à
+              mettre en œuvre, nous recommandons généralement de l'entamer le plus tôt possible dans
+              la phase de conception.
+            </p>
+            <span class="italic text-[var(--bg-1)] font-bold"
+              ><span class="text-gray-600"> (10-12 semaines)</span></span
+            >
+          </div>
+          <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
+            <div class="h-[50%] w-full relative">
+              <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+              <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
+                <div
+                  class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
+                >
+                  CONCEPTION – Design D'intérieur
+                </div>
+              </div>
+            </div>
+            <p class="text-justify text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]">
+              Lorsqu’un projet représente un investissement important, le choix des finitions est
+              essentiel. Nous proposons un service de design d’intérieur complet ou à l’heure,
+              parfaitement intégré à notre démarche architecturale, afin de vous accompagner dans la
+              sélection des matériaux, équipements sanitaires, palettes de couleurs, luminaires et
+              finitions, pour un résultat cohérent et maîtrisé.
+            </p>
+            <span class="italic text-[var(--bg-1)] font-bold"
+              ><span class="text-gray-600">(8-12 semaines)</span></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="h-[35vh] md:h-screen w-full flex flex-col justify-center">
+        <div class="h-full md:h-[95%] w-full flex flex-col items-center">
+          <img src="@/assets/pictures/L.jpg" alt="" class="h-[100%] w-full" />
+          <div
+            class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
+          >
+            Open Plan Living, London
+          </div>
+        </div>
+      </div>
+      <div
+        class="h-[25vh] md:h-[60vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-blue-300"
+      >
+        <div
+          class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
+        >
+          <h3
+            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
+          >
+            POURQUOI CHOISIR MAISON GANSOU?
+          </h3>
+          <div
+            class="md:w-[40%] text-justify md:text-left text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
+          >
+            <p>
+              - Découvrez les demeures les plus prestigieuses et les zones protégées de Cotonou.
+            </p>
+            <br />
+            <p class="">- Service intégré : architecture, aménagement intérieur, construction</p>
+            <br />
+            <p class="">
+              - Des solutions sur mesure qui respectent le patrimoine tout en embrassant la vie
+              moderne
+            </p>
+            <!-- <button
+              class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
+            >
+              En savoir plus
+            </button> -->
+          </div>
+        </div>
+      </div>
+      <div class="h-[35vh] md:h-screen w-full flex flex-col justify-center">
+        <div class="h-full md:h-[95%] w-full flex flex-col items-center">
+          <img src="@/assets/pictures/L.jpg" alt="" class="h-[100%] w-full" />
+          <div
+            class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
+          >
+            Open Plan Living, London
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative"></div>
   </div>
 </template>
 <script>
