@@ -176,9 +176,35 @@ export default {
       userMenuOpen.value = !userMenuOpen.value
     }
 
-    const logout = () => {
+    // Session timeout: 3 hours
+    const SESSION_TIMEOUT = 3 * 60 * 60 * 1000
+
+    const clearSession = () => {
       localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
+      localStorage.removeItem('user')
+      localStorage.removeItem('adminLoginTime')
+      localStorage.removeItem('rememberMe')
+    }
+
+    const isSessionExpired = () => {
+      const loginTime = localStorage.getItem('adminLoginTime')
+      if (!loginTime) return true
+      const elapsed = Date.now() - parseInt(loginTime, 10)
+      return elapsed > SESSION_TIMEOUT
+    }
+
+    const logout = () => {
+      clearSession()
       router.push('/admin/login')
+    }
+
+    // Check session validity on mount and periodically
+    const checkSession = () => {
+      if (isSessionExpired()) {
+        clearSession()
+        router.push({ name: 'admin-login', query: { expired: '1' } })
+      }
     }
 
     const handleClickOutside = (event) => {
@@ -187,12 +213,22 @@ export default {
       }
     }
 
+    // Session check interval (every 5 minutes)
+    let sessionCheckInterval = null
+
     onMounted(() => {
       document.addEventListener('click', handleClickOutside)
+      // Check session on mount
+      checkSession()
+      // Check session every 5 minutes
+      sessionCheckInterval = setInterval(checkSession, 5 * 60 * 1000)
     })
 
     onUnmounted(() => {
       document.removeEventListener('click', handleClickOutside)
+      if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval)
+      }
     })
 
     return {

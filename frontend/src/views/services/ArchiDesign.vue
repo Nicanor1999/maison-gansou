@@ -1,10 +1,10 @@
 <template>
   <div class="relative bg-white w-screen h-auto flex flex-col items-center">
     <div
-      class="header relative bg-red-300 h-[110vh] w-[93%] md:h-[150vh] flex flex-col items-center gap-10"
+      class="header relative h-[110vh] w-[93%] md:h-[150vh] flex flex-col items-center gap-10"
     >
       <nav
-        class="bg-green-300 h-[25vh] md:h-[30vh] w-full pt-[20vh] md:pt-[25vh] flex justify-center"
+        class="h-[25vh] md:h-[30vh] w-full pt-[20vh] md:pt-[25vh] flex justify-center"
       >
         <ul
           class="flex items-center h-auto gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar text-gray-500 bg-white"
@@ -40,10 +40,10 @@
       </div>
     </div>
     <div
-      class="relative h-[350vh] w-full md:h-[650vh] bg-purple-200 flex flex-col justify-around items-center md:justify-start border-b-[1px] border-[var(--vt-c-text-dark-2)]"
+      class="relative h-[350vh] w-full md:h-[650vh] flex flex-col justify-around items-center md:justify-start border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
       <div
-        class="h-[20%] md:h-[25%] w-[93%] flex flex-col justify-between md:justify-around md:flex-row items-center bg-blue-300"
+        class="h-[20%] md:h-[25%] w-[93%] flex flex-col justify-between md:justify-around md:flex-row items-center"
       >
         <div
           class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-      <div class="h-[10%] md:h-[20%] w-[93%] flex flex-col justify-center">
+      <div class="h-[10%] md:h-[20%] w-[93%] flex flex-col justify-center md:justify-start">
         <div class="h-full md:h-[80%] w-full flex flex-col items-center">
           <img src="@/assets/pictures/L.jpg" alt="" class="h-[100%] md:w-[50%] w-full" />
           <div
@@ -92,13 +92,13 @@
         </div>
       </div>
       <div
-        class="h-[20%] md:h-[25%] w-[93%] flex flex-col justify-between md:justify-around md:flex-row items-center bg-blue-300"
+        class="h-[20%] md:h-[25%] w-[93%] flex flex-col justify-between md:justify-around md:flex-row items-center"
       >
         <div
           class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
         >
           <h3
-            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
+            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold text-center md:text-left"
           >
             NOS SERVICES DE CONCEPTION ARCHITECTURALE
           </h3>
@@ -140,14 +140,14 @@
           </div>
         </div>
       </div>
-      <div class="h-[10%] md:h-[25%] w-[93%] flex flex-col items-center">
+      <div class="h-[10%] md:h-[25%] w-[93%] flex flex-col items-center bg-blue-300">
         <img src="@/assets/pictures/L.jpg" alt="" class="h-full w-full" />
         <div class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide">
           Open Plan Living, London
         </div>
       </div>
       <div
-        class="h-[20%] md:h-[25%] w-[93%] flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-blue-300"
+        class="h-[20%] md:h-[25%] w-[93%] flex flex-col justify-between md:justify-center md:flex-row md:items-end"
       >
         <div
           class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
@@ -190,7 +190,7 @@
       </div>
     </div>
     <div
-      class="relative h-auto w-[93%] bg-yellow-500 border-b-[1px] border-[var(--vt-c-text-dark-2)] flex flex-col items-center gap-30"
+      class="relative h-auto w-[93%] border-b-[1px] border-[var(--vt-c-text-dark-2)] flex flex-col items-center gap-30"
     >
       <div class="h-auto w-full md:w-[80%] flex flex-col">
         <h3
@@ -199,9 +199,9 @@
           LE PROCESSUS
         </h3>
         <div
-          class="grid grid-rows-6 md:grid-rows-3 gap-6 md:grid-cols-2 h-auto w-full bg-green-300"
+          class="grid grid-rows-6 md:grid-rows-3 gap-20 md:gap-6 md:gap-y-30 md:grid-cols-2 h-auto w-full"
         >
-          <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
+          <div class="h-auto md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
               <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
@@ -242,7 +242,8 @@
               afin de vous aider à visualiser pleinement le projet proposé.
             </p>
             <span class="italic text-[var(--bg-1)] font-bold"
-              >RIBA Etape 2<span class="text-gray-600"> (4-6 semaines)</span></span
+              >RIBA Etape 2<span class="text-gray-600"> (4-6 semaines)</span></span    
+              
             >
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
@@ -345,18 +346,18 @@
         </div>
       </div>
       <div
-        class="h-[25vh] md:h-[60vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-blue-300"
+        class="h-[35vh] md:h-[60vh] w-screen flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-[var(--bg-1)]"
       >
         <div
           class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
         >
           <h3
-            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
+            class="md:w-[40%] text-white md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
           >
             POURQUOI CHOISIR MAISON GANSOU?
           </h3>
           <div
-            class="md:w-[40%] text-justify md:text-left text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
+            class="md:w-[40%] text-justify md:text-left text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] text-white"
           >
             <p>
               - Découvrez les demeures les plus prestigieuses et les zones protégées de Cotonou.
@@ -376,8 +377,8 @@
           </div>
         </div>
       </div>
-      <div class="h-[35vh] md:h-screen w-full flex flex-col justify-center">
-        <div class="h-full md:h-[95%] w-full flex flex-col items-center">
+      <div class="h-[35vh] md:h-screen w-full flex flex-col justify-start">
+        <div class="h-[80%] w-full flex flex-col items-center">
           <img src="@/assets/pictures/L.jpg" alt="" class="h-[100%] w-full" />
           <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
@@ -387,16 +388,78 @@
         </div>
       </div>
     </div>
-    <div class="relative"></div>
+    <div
+      class="relative h-auto w-[93%] bg-pink-500 flex flex-col items-center"
+    >
+      <div
+        class="h-[80vh] md:h-[120vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-blue-300"
+      >
+        <div
+          class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
+        >
+          <h3
+            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
+          >
+            SERVICES ET FRAIS
+          </h3>
+          <div
+            class="md:w-[40%] text-justify md:text-left text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
+          >
+            <p>
+              Nos honoraires de conception sont extrêmement compétitifs au regard du service que
+              nous offrons. Nous ne pratiquons ni frais cachés ni formules de rémunération complexes
+              et opaques basées sur un pourcentage. Notre processus, jusqu'à l'appel d'offres, se
+              déroule en trois étapes définies, chacune reposant sur des livrables précis et le plan
+              de travail RIBA. Ainsi, nos clients connaissent l'intégralité de nos honoraires dès le
+              départ et ne s'engagent que pour chaque étape.
+            </p>
+            <br />
+            <p class="">
+              Lorsque Zulufish est engagé pour entreprendre la construction, tous les frais de
+              gestion de projet ultérieurs sont inclus dans le prix de la construction, ce qui fait
+              de la formule conception-construction un choix très rentable par rapport au modèle
+              traditionnel architecte/entrepreneur.
+            </p>
+            <br />
+            <button
+              class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
+            >
+              En savoir plus
+            </button>
+            <p class="pt-6">→ Prendre rendez-vous pour une consultation</p>
+            <p class="">→ Découvrez nos projets</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="thirdPart relative border-[1px] border-[var(--vt-c-text-dark-2)] bg-[var(--bg-3)] h-[40vh] md:h-screen w-screen flex justify-center"
+    >
+      <div class="h-full w-[93%] flex items-center">
+        <ProjectsComponent />
+      </div>
+    </div>
+    <div class="h-[50vh] md:h-screen w-[93%] flex items-center">
+      <ServicesComponent />
+    </div>
+    <div
+      class="footerPart relative h-[85vh] bg-[var(--bg-1)] w-screen flex justify-center items-center border-[var(--bg-2)] border-t-4"
+    >
+      <FooterComponent />
+    </div>
   </div>
 </template>
 <script>
 import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
+import ServicesComponent from '@/components/ui/ServicesComponent.vue'
+import FooterComponent from '@/components/views/public/FooterComponent.vue';
 
 export default {
   name: 'ArchiDesignView',
   components: {
     ProjectsComponent,
+    ServicesComponent,
+    FooterComponent
   },
 }
 </script>

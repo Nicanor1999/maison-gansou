@@ -46,15 +46,15 @@ module.exports = class AuthConfig {
 
         // Actor-specific overrides
         const actorOverrides = {
-            // SUPER_ADMIN: {
-            //     accessTokenExpiry: 12 * 60 * 60 * 1000, // 12 hours (more secure)
-            //     passwordPolicy: {
-            //         minLength: 12,
-            //         requireSpecialChars: true,
-            //         minEntropy: 60
-            //     }
-            // },
-
+            ADMIN: {
+                accessTokenExpiry: 3 * 60 * 60 * 1000, // 3 hours for admin sessions
+                refreshTokenExpiry: 3 * 60 * 60 * 1000, // 3 hours (same as access token - no auto-refresh)
+                sessionSettings: {
+                    maxActiveSessions: 3,
+                    sessionTimeout: 3 * 60 * 60 * 1000, // 3 hours
+                    allowConcurrentSessions: true
+                }
+            },
         };
 
         // Merge base config with actor-specific overrides

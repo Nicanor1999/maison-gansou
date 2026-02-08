@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 h-full">
       <!-- Messages List -->
       <div class="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
-        <!-- Search + Compose -->
+        <!-- Search + Sync + Compose -->
         <div class="h-16 flex items-center border-b px-4 gap-2 flex-shrink-0">
           <div class="relative flex-1">
             <input
@@ -14,6 +14,14 @@
             />
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
           </div>
+          <button
+            @click="syncEmails"
+            :disabled="syncing"
+            class="h-10 w-10 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center flex-shrink-0 disabled:opacity-50"
+            title="Synchroniser les emails"
+          >
+            <span :class="['material-symbols-outlined text-gray-600', syncing ? 'animate-spin' : '']">sync</span>
+          </button>
           <button
             @click="openComposeModal"
             class="h-10 px-4 bg-[var(--bg-1)] text-white rounded-lg hover:bg-[var(--bg-1)]/90 transition-colors flex items-center gap-1 flex-shrink-0"
@@ -404,9 +412,12 @@ export default {
     const activeFilter = ref('all')
     const selectedMessage = ref(null)
     const showReplyModal = ref(false)
+    const showComposeModal = ref(false)
     const isForwarding = ref(false)
     const loading = ref(false)
     const sendingReply = ref(false)
+    const sendingCompose = ref(false)
+    const syncing = ref(false)
 
     const getHeaders = () => {
       const token = localStorage.getItem('accessToken')
@@ -416,9 +427,11 @@ export default {
     }
 
     const filters = computed(() => [
-      { id: 'all', label: 'Tous', count: messages.value.length },
-      { id: 'unread', label: 'Non lus', count: messages.value.filter(m => !m.read).length },
-      { id: 'starred', label: 'Favoris', count: messages.value.filter(m => m.starred).length },
+      { id: 'all', label: 'Tous', count: messages.value.filter(m => !m.archived).length },
+      { id: 'inbound', label: 'Reçus', count: messages.value.filter(m => m.direction === 'inbound' && !m.archived).length },
+      { id: 'outbound', label: 'Envoyés', count: messages.value.filter(m => m.direction === 'outbound' && !m.archived).length },
+      { id: 'unread', label: 'Non lus', count: messages.value.filter(m => !m.read && !m.archived).length },
+      { id: 'starred', label: 'Favoris', count: messages.value.filter(m => m.starred && !m.archived).length },
       { id: 'archived', label: 'Archivés', count: messages.value.filter(m => m.archived).length }
     ])
 
@@ -426,6 +439,13 @@ export default {
       to: '',
       subject: '',
       content: ''
+    })
+
+    const composeForm = reactive({
+      to: '',
+      subject: '',
+      content: '',
+      category: 'contact'
     })
 
     const messages = ref([])
@@ -467,10 +487,27 @@ export default {
           subject.includes(search)
 
         let matchesFilter = true
-        if (activeFilter.value === 'unread') matchesFilter = !m.read
-        if (activeFilter.value === 'starred') matchesFilter = m.starred
-        if (activeFilter.value === 'archived') matchesFilter = m.archived
-        if (activeFilter.value === 'all') matchesFilter = !m.archived
+        switch (activeFilter.value) {
+          case 'inbound':
+            matchesFilter = m.direction === 'inbound' && !m.archived
+            break
+          case 'outbound':
+            matchesFilter = m.direction === 'outbound' && !m.archived
+            break
+          case 'unread':
+            matchesFilter = !m.read && !m.archived
+            break
+          case 'starred':
+            matchesFilter = m.starred && !m.archived
+            break
+          case 'archived':
+            matchesFilter = m.archived
+            break
+          case 'all':
+          default:
+            matchesFilter = !m.archived
+            break
+        }
 
         return matchesSearch && matchesFilter
       })
@@ -596,6 +633,51 @@ export default {
       showReplyModal.value = false
     }
 
+    function openComposeModal() {
+      composeForm.to = ''
+      composeForm.subject = ''
+      composeForm.content = ''
+      composeForm.category = 'contact'
+      showComposeModal.value = true
+    }
+
+    function closeComposeModal() {
+      showComposeModal.value = false
+    }
+
+    async function sendCompose() {
+      if (!composeForm.to || !composeForm.subject || !composeForm.content) {
+        alertModal({ title: 'Erreur', message: 'Veuillez remplir tous les champs obligatoires.', type: 'error' })
+        return
+      }
+      sendingCompose.value = true
+      try {
+        const response = await fetch(`${API_BASE}/message/compose`, {
+          method: 'POST',
+          headers: { ...getHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: composeForm.to,
+            subject: composeForm.subject,
+            content: composeForm.content,
+            category: composeForm.category
+          })
+        })
+        const result = await response.json()
+        if (result.success) {
+          alertModal({ title: 'Succès', message: 'Email envoyé avec succès !', type: 'success' })
+          closeComposeModal()
+          await fetchMessages()
+        } else {
+          alertModal({ title: 'Erreur', message: result.message || 'Erreur lors de l\'envoi', type: 'error' })
+        }
+      } catch (error) {
+        console.error('Erreur envoi message:', error)
+        alertModal({ title: 'Erreur', message: 'Erreur lors de l\'envoi de l\'email.', type: 'error' })
+      } finally {
+        sendingCompose.value = false
+      }
+    }
+
     async function sendReply() {
       if (!replyForm.to || !replyForm.subject || !replyForm.content) {
         alertModal({ title: 'Erreur', message: 'Veuillez remplir tous les champs.', type: 'error' })
@@ -628,6 +710,40 @@ export default {
       }
     }
 
+    async function syncEmails() {
+      syncing.value = true
+      try {
+        const response = await fetch(`${API_BASE}/message/sync`, {
+          method: 'POST',
+          headers: getHeaders()
+        })
+        const result = await response.json()
+        if (result.success) {
+          alertModal({
+            title: 'Synchronisation terminée',
+            message: result.message || `${result.data?.saved || 0} nouveaux emails synchronisés`,
+            type: 'success'
+          })
+          await fetchMessages()
+        } else {
+          alertModal({
+            title: 'Erreur',
+            message: result.message || 'Erreur lors de la synchronisation',
+            type: 'error'
+          })
+        }
+      } catch (error) {
+        console.error('Erreur sync:', error)
+        alertModal({
+          title: 'Erreur',
+          message: 'Erreur lors de la synchronisation des emails.',
+          type: 'error'
+        })
+      } finally {
+        syncing.value = false
+      }
+    }
+
     onMounted(() => {
       fetchMessages()
     })
@@ -640,10 +756,14 @@ export default {
       filteredMessages,
       selectedMessage,
       showReplyModal,
+      showComposeModal,
       isForwarding,
       replyForm,
+      composeForm,
       loading,
       sendingReply,
+      sendingCompose,
+      syncing,
       getCategoryLabel,
       formatTime,
       formatDate,
@@ -655,7 +775,11 @@ export default {
       openForwardModal,
       closeReplyModal,
       sendReply,
-      fetchMessages
+      openComposeModal,
+      closeComposeModal,
+      sendCompose,
+      fetchMessages,
+      syncEmails
     }
   }
 }

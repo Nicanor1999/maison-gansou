@@ -72,15 +72,42 @@ const router = createRouter({
     }
 })
 
+// Session timeout: 3 hours in milliseconds
+const SESSION_TIMEOUT = 3 * 60 * 60 * 1000
+
+// Check if admin session has expired
+function isSessionExpired() {
+  const loginTime = localStorage.getItem('adminLoginTime')
+  if (!loginTime) return true
+  const elapsed = Date.now() - parseInt(loginTime, 10)
+  return elapsed > SESSION_TIMEOUT
+}
+
+// Clear admin session data
+function clearAdminSession() {
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
+  localStorage.removeItem('user')
+  localStorage.removeItem('adminLoginTime')
+  localStorage.removeItem('rememberMe')
+}
+
 router.beforeEach((to, from, next) => {
   const ui = useUiStore()
   ui.showLoader()
 
   if (to.meta.requiresAuth) {
     const accessToken = localStorage.getItem('accessToken')
-    if (!accessToken) {
+
+    // Check if token exists and session is not expired
+    if (!accessToken || isSessionExpired()) {
+      clearAdminSession()
       ui.hideLoader()
-      return next({ name: 'admin-login' })
+      // Store intended destination for redirect after login
+      if (to.name !== 'admin-login') {
+        localStorage.setItem('redirectAfterLogin', to.fullPath)
+      }
+      return next({ name: 'admin-login', query: { expired: isSessionExpired() && accessToken ? '1' : undefined } })
     }
   }
 

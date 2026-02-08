@@ -3,6 +3,8 @@
  */
 
 const CoreServices = require("../../../shared/services/core.services")
+const ImapServices = require("../../../shared/services/imap.services")
+
 module.exports = class MessageController extends CoreServices {
 
   constructor() {
@@ -212,6 +214,42 @@ module.exports = class MessageController extends CoreServices {
       data: message,
       success: true,
       message: 'Email envoyé avec succès'
+    })
+  };
+
+  /**
+   * Sync emails from IMAP
+   * @route  POST /message/sync
+   */
+  sync = async (req, res) => {
+    if (!ImapServices.isConfigured()) {
+      throw new this.ValidationError('IMAP n\'est pas configuré');
+    }
+
+    const result = await ImapServices.syncEmails({
+      limit: 100
+    });
+
+    res.json({
+      data: result,
+      success: result.success,
+      message: result.success
+        ? `Synchronisation terminée: ${result.saved} nouveaux, ${result.skipped} ignorés`
+        : 'Échec de la synchronisation'
+    })
+  };
+
+  /**
+   * Get sync status
+   * @route  GET /message/sync/status
+   */
+  syncStatus = async (req, res) => {
+    const status = ImapServices.getSyncStatus();
+
+    res.json({
+      data: status,
+      success: true,
+      message: 'Statut de synchronisation récupéré'
     })
   };
 

@@ -48,6 +48,22 @@ module.exports = class MessageRoutes extends ParentRoute {
       adminauthmiddlewares.authorizeAdmin('*'),
       this.use(messagecontroller.compose));
 
+    // Route: Sync emails from IMAP
+    swaggerBuilder.addRoute('/api/v1/message/sync', 'post', 'Sync emails from IMAP server', ['Message'])
+      .addResponse(200, 'Sync result', '#/components/schemas/SyncMessageResponse');
+
+    router.route("/sync").post(
+      adminauthmiddlewares.authorizeAdmin('*'),
+      this.use(messagecontroller.sync));
+
+    // Route: Get sync status
+    swaggerBuilder.addRoute('/api/v1/message/sync/status', 'get', 'Get IMAP sync status', ['Message'])
+      .addResponse(200, 'Sync status', '#/components/schemas/SyncStatusResponse');
+
+    router.route("/sync/status").get(
+      adminauthmiddlewares.authorizeAdmin('*'),
+      this.use(messagecontroller.syncStatus));
+
     // Route: Get Message by ID
     swaggerBuilder.addRoute('/api/v1/message/{id}', 'get', 'Get one message by ID', ['Message'])
       .addPathParam('id', 'string', 'message id', true)

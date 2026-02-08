@@ -19,6 +19,15 @@
       <div class="bg-white rounded-2xl shadow-2xl p-8">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Connexion</h2>
 
+        <!-- Session Expired Warning -->
+        <div
+          v-if="sessionExpired"
+          class="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-3"
+        >
+          <span class="material-symbols-outlined text-amber-500">schedule</span>
+          <p class="text-amber-700 text-sm">Votre session a expiré. Veuillez vous reconnecter.</p>
+        </div>
+
         <!-- Error Message -->
         <div
           v-if="errorMessage"
@@ -131,23 +140,37 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
   name: 'LoginAdminView',
   setup() {
     const router = useRouter()
-    
+    const route = useRoute()
+
     const form = reactive({
       email: '',
       password: '',
       rememberMe: false
     })
-    
+
     const showPassword = ref(false)
     const isLoading = ref(false)
     const errorMessage = ref('')
+
+    // Check if redirected due to session expiration
+    const sessionExpired = computed(() => route.query.expired === '1')
+
+    // Clear any stale session data on mount
+    onMounted(() => {
+      if (sessionExpired.value) {
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        localStorage.removeItem('user')
+        localStorage.removeItem('adminLoginTime')
+      }
+    })
 
     const handleLogin = async () => {
       isLoading.value = true
@@ -175,13 +198,24 @@ export default {
         localStorage.setItem('accessToken', data.accessToken)
         localStorage.setItem('refreshToken', data.refreshToken)
         localStorage.setItem('user', JSON.stringify(data.user))
-        
+
+        // Store login timestamp for session timeout check (3 hours)
+        localStorage.setItem('adminLoginTime', Date.now().toString())
+
         if (form.rememberMe) {
           localStorage.setItem('rememberMe', 'true')
         }
 
-        // Redirect to admin dashboard
-        router.push({ name: 'admin-dashboard' })
+        // Check if there's a redirect destination stored
+        const redirectPath = localStorage.getItem('redirectAfterLogin')
+        localStorage.removeItem('redirectAfterLogin')
+
+        // Redirect to intended page or admin dashboard
+        if (redirectPath && redirectPath !== '/admin/login') {
+          router.push(redirectPath)
+        } else {
+          router.push({ name: 'admin-dashboard' })
+        }
       } catch (error) {
         errorMessage.value = error.message || 'Email ou mot de passe incorrect'
       } finally {
@@ -194,6 +228,7 @@ export default {
       showPassword,
       isLoading,
       errorMessage,
+      sessionExpired,
       handleLogin
     }
   }

@@ -67,11 +67,20 @@ const Schema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['sent', 'failed', 'pending'],
+    enum: ['sent', 'failed', 'pending', 'received'],
     default: 'pending',
   },
   template: {
     type: String,
+    required: false,
+  },
+  externalMessageId: {
+    type: String,
+    required: false,
+    index: true,
+  },
+  receivedAt: {
+    type: Date,
     required: false,
   },
   parentMessage: {
@@ -81,7 +90,9 @@ const Schema = new mongoose.Schema({
   },
   attachments: [{
     name: { type: String },
-    url: { type: String }
+    url: { type: String },
+    size: { type: Number },
+    contentType: { type: String }
   }],
 }, {
   timestamps: true

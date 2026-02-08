@@ -51,9 +51,8 @@ const getCronJobs = () => {
     // -------------------------------
     // Manually register specific jobs
     // -------------------------------
-    // Example:
-    // const UpdateStatusUserJob = require('../modules/user/jobs/update.status.user.job.js');
-    // jobs.push({ JobClass: UpdateStatusUserJob, schedule: '0 2 * * *' });
+    // Note: EmailSyncJob is auto-loaded from modules/admin/crons/
+    // Only add jobs here if AUTO_LOAD_JOBS is false
 
     return jobs;
 };
