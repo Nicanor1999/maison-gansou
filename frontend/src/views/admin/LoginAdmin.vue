@@ -11,12 +11,12 @@
         <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-xl mb-4">
           <span class="text-4xl font-bold text-[var(--bg-1)]">MG</span>
         </div>
-        <h1 class="text-3xl font-bold text-white mb-2">Administration</h1>
+        <!-- <h1 class="text-3xl font-bold text-white mb-2">Administration</h1> -->
         <p class="text-white/70">Maison GANSOU - Espace Admin</p>
       </div>
 
       <!-- Login Card -->
-      <div class="bg-white rounded-2xl shadow-2xl p-8">
+      <div class="bg-white flex flex-col rounded-2xl shadow-2xl p-8">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Connexion</h2>
 
         <!-- Session Expired Warning -->
@@ -37,7 +37,7 @@
           <p class="text-red-600 text-sm">{{ errorMessage }}</p>
         </div>
 
-        <form @submit.prevent="handleLogin" class="space-y-5">
+        <form @submit.prevent="handleLogin" class="space-y-5 flex flex-col gap-4">
           <!-- Email Field -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">

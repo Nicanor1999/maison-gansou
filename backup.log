@@ -360,3 +360,14 @@ warning: in the working copy of 'frontend/src/views/services/ArchiDesign.vue', C
 To github.com:Nicanor1999/maison-gansou.git
    b2fd228..f872c67  master -> master
 Backup terminé à 2026-02-07 00:00:03
+warning: in the working copy of 'frontend/src/views/admin/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/ArchiDesign.vue', CRLF will be replaced by LF the next time Git touches it
+[master e5a2062] Sauvegarde automatique 2026-02-08 00:00:01
+ 16 files changed, 10394 insertions(+), 58 deletions(-)
+ create mode 100644 backend/package-lock.json
+ create mode 100644 backend/src/jobs/emailSync.job.js
+ create mode 100644 backend/src/modules/admin/crons/email.sync.admin.job.js
+ create mode 100644 backend/src/shared/services/imap.services.js
+To github.com:Nicanor1999/maison-gansou.git
+   f872c67..e5a2062  master -> master
+Backup terminé à 2026-02-08 00:00:03

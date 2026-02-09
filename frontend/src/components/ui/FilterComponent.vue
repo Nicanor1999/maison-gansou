@@ -158,19 +158,25 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useUiStore } from '@/stores/ui'
 
 export default {
   name: 'FilterComponent',
+  props: {
+    initialFilters: {
+      type: Object,
+      default: () => ({ type: '', service: '', workType: '' })
+    }
+  },
   emits: ['apply-filters'],
   setup(props, { emit }) {
     const uiStore = useUiStore()
     const transitionName = ref('slide-down')
     const filters = ref({
-      type: '',
-      service: '',
-      workType: '',
+      type: props.initialFilters.type || '',
+      service: props.initialFilters.service || '',
+      workType: props.initialFilters.workType || '',
     })
 
     const isFilterOpen = computed(() => uiStore.isFilterOpen)
@@ -199,6 +205,15 @@ export default {
         transitionName.value = 'slide-down'
       }
     }
+
+    // Sync filters when initialFilters prop changes
+    watch(() => props.initialFilters, (newFilters) => {
+      filters.value = {
+        type: newFilters.type || '',
+        service: newFilters.service || '',
+        workType: newFilters.workType || '',
+      }
+    }, { deep: true })
 
     onMounted(() => {
       updateTransition()

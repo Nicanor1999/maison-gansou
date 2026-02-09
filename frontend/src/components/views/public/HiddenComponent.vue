@@ -26,7 +26,7 @@
                 <span class="material-symbols-outlined menu-icon-left">folder_open</span>
                 <span class="menu-text">Projets</span>
               </router-link>
-              <router-link to="/about" class="menu-item group" @click="closeMenu">
+              <router-link to="/about-us" class="menu-item group" @click="closeMenu">
                 <span class="material-symbols-outlined menu-icon-left">info</span>
                 <span class="menu-text">À propos de nous</span>
               </router-link>

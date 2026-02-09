@@ -34,7 +34,7 @@ module.exports = class AdminAuthRoutes extends ParentRoute {
       .addResponse(400, 'Bad request');
 
     router.route("/verify-account").post(this.use(adminauthcontroller.verifyAccount));
-
+w
     // Route: Resend Admin Account Verification Code
     swaggerBuilder.addRoute('/api/v1/admin/auth/resend-account-verification-code', 'post', 'Resend admin account verification code', ['AdminAuth'])
       .addRequestBody('#/components/schemas/ResendAdminAccountVerificationCodePayload', 'Resend Admin Account Verification Code')

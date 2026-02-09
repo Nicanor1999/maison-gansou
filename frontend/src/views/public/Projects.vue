@@ -1,6 +1,6 @@
 <template>
   <div class="h-auto w-screen bg-white pt-[20%] md:pt-[7%] flex flex-col items-center">
-    <FilterComponent @apply-filters="handleApplyFilters" />
+    <FilterComponent :initial-filters="activeFilters" @apply-filters="handleApplyFilters" />
     <div
       @click="toggleFilter"
       :class="[
@@ -26,6 +26,23 @@
       >
         {{ isFilterOpen ? 'close' : 'filter_alt' }}
       </span>
+    </div>
+    <!-- Indicateur de filtres actifs -->
+    <div v-if="hasActiveFilters" class="w-[93%] mt-6 flex flex-wrap items-center gap-3">
+      <span class="text-gray-500 text-sm">Filtres actifs:</span>
+      <span v-if="activeFilters.type" class="filter-tag">
+        {{ activeFilters.type === 'commercial' ? 'Commercial' : 'Résidentiel' }}
+      </span>
+      <span v-if="activeFilters.service" class="filter-tag">
+        {{ getServiceLabel(activeFilters.service) }}
+      </span>
+      <span v-if="activeFilters.workType" class="filter-tag">
+        {{ getWorkTypeLabel(activeFilters.workType) }}
+      </span>
+      <button @click="clearFilters" class="clear-filters-btn">
+        <span class="material-symbols-outlined text-sm">close</span>
+        Effacer les filtres
+      </button>
     </div>
     <div class="h-auto w-[93%]">
       <div class="h-[2vh] md:h-[1vh] w-full flex items-end">
@@ -66,8 +83,13 @@
         </div>
       </div>
     </div>
-    <div v-if="projects.length === 0 && !loading" class="h-[30vh] flex items-center justify-center text-gray-400">
-      Aucun projet disponible
+    <div v-if="projects.length === 0 && !loading" class="h-[30vh] w-[93%] flex flex-col items-center justify-center text-gray-400">
+      <span class="material-symbols-outlined text-6xl mb-4">search_off</span>
+      <p v-if="hasActiveFilters">Aucun projet ne correspond aux filtres sélectionnés</p>
+      <p v-else>Aucun projet disponible</p>
+      <button v-if="hasActiveFilters" @click="clearFilters" class="mt-4 clear-filters-btn">
+        Effacer les filtres
+      </button>
     </div>
     <div
       class="h-[30vh] md:h-[60vh] w-[93%] flex items-center justify-center tracking-[3px] text-[var(--vt-c-text-dark-2)]"
@@ -116,8 +138,33 @@ export default {
     const cursorX = ref(0)
     const cursorY = ref(0)
     const projects = ref([])
+    const allProjects = ref([])
     const loading = ref(true)
+    const activeFilters = ref({
+      type: '',
+      service: '',
+      workType: ''
+    })
     const API_BASE = '/api/v1'
+
+    // Mapping des valeurs de filtre vers les valeurs en base
+    const serviceMapping = {
+      'architectural-design': 'Conception Architecturale',
+      'design-build': 'Conception et Construction',
+      'interior-design': "Architecture d'Intérieur",
+      'real-estate': "Gestion d'Actifs Immobiliers"
+    }
+
+    const workTypeMapping = {
+      'full-refurbishment': 'Rénovation',
+      'interior-fit-out': 'Décoration',
+      'new-build': 'Construction'
+    }
+
+    const typeMapping = {
+      'commercial': 'Commercial',
+      'residential': 'Residential'
+    }
 
     const isFilterOpen = computed(() => uiStore.isFilterOpen)
 
@@ -127,11 +174,12 @@ export default {
 
     const fetchProjects = async () => {
       try {
+        loading.value = true
         const res = await fetch(`${API_BASE}/projects?status=true&perPage=100`)
         if (res.ok) {
           const json = await res.json()
           const items = json.data || []
-          projects.value = items.map(p => {
+          allProjects.value = items.map(p => {
             // Extract cover image from first main-page section
             let coverImage = null
             if (p.sections && p.sections.length > 0) {
@@ -144,10 +192,12 @@ export default {
               _id: p._id,
               title: p.title || '',
               services: p.services || '',
+              worksType: p.worksType || '',
               projectType: p.projectType || '',
               coverImage,
             }
           })
+          applyFiltersToProjects()
         }
       } catch (err) {
         console.error('Error fetching projects:', err)
@@ -156,8 +206,65 @@ export default {
       }
     }
 
+    const applyFiltersToProjects = () => {
+      let filtered = [...allProjects.value]
+
+      // Filtrer par type de projet (Commercial/Residential)
+      if (activeFilters.value.type) {
+        const mappedType = typeMapping[activeFilters.value.type]
+        filtered = filtered.filter(p => p.projectType === mappedType)
+      }
+
+      // Filtrer par service
+      if (activeFilters.value.service) {
+        const mappedService = serviceMapping[activeFilters.value.service]
+        filtered = filtered.filter(p =>
+          p.services && p.services.toLowerCase().includes(mappedService.toLowerCase())
+        )
+      }
+
+      // Filtrer par type de travaux
+      if (activeFilters.value.workType) {
+        const mappedWorkType = workTypeMapping[activeFilters.value.workType]
+        filtered = filtered.filter(p =>
+          p.worksType && p.worksType.toLowerCase().includes(mappedWorkType.toLowerCase())
+        )
+      }
+
+      projects.value = filtered
+    }
+
     const handleApplyFilters = (filters) => {
-      console.log('Filtres appliqués:', filters)
+      activeFilters.value = { ...filters }
+      applyFiltersToProjects()
+    }
+
+    const clearFilters = () => {
+      activeFilters.value = { type: '', service: '', workType: '' }
+      applyFiltersToProjects()
+    }
+
+    const hasActiveFilters = computed(() => {
+      return activeFilters.value.type || activeFilters.value.service || activeFilters.value.workType
+    })
+
+    const getServiceLabel = (key) => {
+      const labels = {
+        'architectural-design': 'Conception Architecturale',
+        'design-build': 'Conception et Construction',
+        'interior-design': 'Architecture D\'intérieure',
+        'real-estate': 'Gestion D\'actifs Immobiliers'
+      }
+      return labels[key] || key
+    }
+
+    const getWorkTypeLabel = (key) => {
+      const labels = {
+        'full-refurbishment': 'Rénovation Complète',
+        'interior-fit-out': 'Aménagement Intérieur',
+        'new-build': 'Construction Neuve'
+      }
+      return labels[key] || key
     }
 
     const navigateToProject = (projectId) => {
@@ -187,6 +294,11 @@ export default {
       isFilterOpen,
       toggleFilter,
       handleApplyFilters,
+      clearFilters,
+      hasActiveFilters,
+      activeFilters,
+      getServiceLabel,
+      getWorkTypeLabel,
       navigateToProject,
       cursorActive,
       cursorX,
@@ -260,5 +372,38 @@ export default {
 
 .custom-cursor.active {
   opacity: 1;
+}
+
+/* Filter tags */
+.filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background-color: var(--bg-1);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.clear-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background-color: transparent;
+  color: var(--second-orange);
+  border: 1px solid var(--second-orange);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-filters-btn:hover {
+  background-color: var(--second-orange);
+  color: white;
 }
 </style>
