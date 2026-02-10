@@ -58,7 +58,7 @@
     </div>
     <div class="grid grid-rows-3 md:grid-cols-3 gap-10 h-auto w-[93%]">
       <div
-        v-for="project in projects"
+        v-for="project in displayedProjects"
         :key="project._id"
         class="h-[40vh] w-full project-card"
         @click="navigateToProject(project._id)"
@@ -92,9 +92,11 @@
       </button>
     </div>
     <div
-      class="h-[30vh] md:h-[60vh] w-[93%] flex items-center justify-center tracking-[3px] text-[var(--vt-c-text-dark-2)]"
+      v-if="hasMoreProjects"
+      @click="showMoreProjects"
+      class="h-[15vh] md:h-[20vh] w-[93%] flex items-center justify-center tracking-[3px] text-[var(--vt-c-text-dark-2)] hover:text-[var(--bg-1)] hover:cursor-pointer transition-colors duration-300"
     >
-      VOIR PLUS
+      VOIR PLUS ({{ remainingProjectsCount }})
     </div>
     <div class="h-[50vh] md:h-screen w-[93%]">
       <ServicesComponent />
@@ -140,6 +142,7 @@ export default {
     const projects = ref([])
     const allProjects = ref([])
     const loading = ref(true)
+    const displayedCount = ref(9)
     const activeFilters = ref({
       type: '',
       service: '',
@@ -236,17 +239,35 @@ export default {
 
     const handleApplyFilters = (filters) => {
       activeFilters.value = { ...filters }
+      displayedCount.value = 9
       applyFiltersToProjects()
     }
 
     const clearFilters = () => {
       activeFilters.value = { type: '', service: '', workType: '' }
+      displayedCount.value = 9
       applyFiltersToProjects()
     }
 
     const hasActiveFilters = computed(() => {
       return activeFilters.value.type || activeFilters.value.service || activeFilters.value.workType
     })
+
+    const displayedProjects = computed(() => {
+      return projects.value.slice(0, displayedCount.value)
+    })
+
+    const hasMoreProjects = computed(() => {
+      return projects.value.length > displayedCount.value
+    })
+
+    const remainingProjectsCount = computed(() => {
+      return projects.value.length - displayedCount.value
+    })
+
+    const showMoreProjects = () => {
+      displayedCount.value += 9
+    }
 
     const getServiceLabel = (key) => {
       const labels = {
@@ -307,6 +328,10 @@ export default {
       hideCustomCursor,
       updateCursorPosition,
       projects,
+      displayedProjects,
+      hasMoreProjects,
+      remainingProjectsCount,
+      showMoreProjects,
       loading,
     }
   },
