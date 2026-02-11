@@ -76,7 +76,7 @@
             <h3 class="font-semibold text-[var(--bg-1)] text-lg mb-4">Suivez-nous</h3>
             <div class="flex gap-4">
               <a
-                href="https://facebook.com/maisongansou"
+                href="https://www.facebook.com/share/1GSwhBZS14/"
                 target="_blank"
                 class="w-12 h-12 bg-[var(--bg-1)] hover:bg-[var(--second-orange)] rounded-full flex items-center justify-center transition-all duration-300"
               >
@@ -94,7 +94,7 @@
                 </svg>
               </a>
               <a
-                href="https://tiktok.com/@maisongansou"
+                href="https://www.tiktok.com/@maisongansouinterior"
                 target="_blank"
                 class="w-12 h-12 bg-[var(--bg-1)] hover:bg-[var(--second-orange)] rounded-full flex items-center justify-center transition-all duration-300"
               >
@@ -115,9 +115,10 @@
           </div>
         </div>
 
+
         <!-- Contact Form -->
-        <div class="order-1 lg:order-2" data-aos="fade-left">
-          <div class="bg-gray-50 rounded-2xl p-6 md:p-8 shadow-lg flex flex-col gap-6">
+        <div class="order-1 lg:order-2" data-aos="fade-left"> 
+          <div class="bg-gray-50 rounded-2xl p-6 md:p-8 shadow-lg flex flex-col gap-6 text-center">
             <h3 class="text-2xl md:text-3xl font-bold text-gray-700 mb-6">Envoyez-nous un message</h3>
 
             <form @submit.prevent="submitContact" class="flex flex-col gap-5">
@@ -301,7 +302,7 @@ export default {
 
       try {
         // Create a message in the admin mailbox
-        const response = await fetch('/api/v1/message', {
+        const response = await fetch('/api/v1/message/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -312,9 +313,6 @@ export default {
             phone: form.phone,
             subject: form.subject,
             content: form.message,
-            category: 'contact',
-            direction: 'inbound',
-            status: 'received',
           }),
         })
 

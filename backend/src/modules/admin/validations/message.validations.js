@@ -50,4 +50,33 @@ module.exports = class MessageValidations {
     return schema.validate(data);
   }
 
+  /**
+   * ContactFormValidation (Public - No Auth Required)
+   */
+  static ContactFormValidation(data) {
+    const validationSchema = {
+      senderName: Joi.string().required().messages({
+        'string.empty': 'Le nom est requis',
+        'any.required': 'Le nom est requis'
+      }),
+      senderEmail: Joi.string().email().required().messages({
+        'string.email': 'Email invalide',
+        'string.empty': 'L\'email est requis',
+        'any.required': 'L\'email est requis'
+      }),
+      phone: Joi.string().allow('', null),
+      subject: Joi.string().required().messages({
+        'string.empty': 'Le sujet est requis',
+        'any.required': 'Le sujet est requis'
+      }),
+      content: Joi.string().required().messages({
+        'string.empty': 'Le message est requis',
+        'any.required': 'Le message est requis'
+      }),
+    }
+
+    const schema = Joi.object(validationSchema);
+    return schema.validate(data);
+  }
+
 }

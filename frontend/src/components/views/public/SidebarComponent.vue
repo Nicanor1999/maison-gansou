@@ -8,14 +8,14 @@
                 class="nav-link text-sm lg:text-base xl:text-base 2xl:text-lg transition-all relative"
                 style="font-weight: 500;"
                 active-class="nav-active"
-                >Réservations</router-link
+                >Nos Apparts</router-link
               >
               <router-link
                 to="/projects"
                 class="nav-link text-sm lg:text-base xl:text-base 2xl:text-lg transition-all relative"
                 style="font-weight: 500;"
                 active-class="nav-active"
-                >Projects</router-link
+                >Projets</router-link
               >
               <router-link
                 to="/services"

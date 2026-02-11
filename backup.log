@@ -381,3 +381,13 @@ warning: in the working copy of 'frontend/src/views/public/Projects.vue', CRLF w
 To github.com:Nicanor1999/maison-gansou.git
    e5a2062..85442f8  master -> master
 Backup terminé à 2026-02-09 00:00:03
+warning: in the working copy of 'frontend/src/views/public/Projects.vue', CRLF will be replaced by LF the next time Git touches it
+[master 4fb46a9] Sauvegarde automatique 2026-02-10 00:00:01
+ 7 files changed, 447 insertions(+), 4 deletions(-)
+ create mode 100644 backup-mongodb.log
+ create mode 100755 backup-mongodb.sh
+ create mode 100644 backups/mongodb/mongodb_backup_2026-02-09_01-19-50.tar.gz
+ create mode 100755 restore-mongodb.sh
+To github.com:Nicanor1999/maison-gansou.git
+   85442f8..4fb46a9  master -> master
+Backup terminé à 2026-02-10 00:00:03

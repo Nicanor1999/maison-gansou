@@ -23,6 +23,15 @@ module.exports = class MessageRoutes extends ParentRoute {
      */
     const swaggerBuilder = new SwaggerRouteBuilder('Message');
 
+    // Route: Public Contact Form (no authentication required)
+    swaggerBuilder.addRoute('/api/v1/message/contact', 'post', 'Submit contact form (public)', ['Message'])
+      .addRequestBody('#/components/schemas/ContactFormPayload', 'Contact Form')
+      .addResponse(201, 'Message sent successfully', '#/components/schemas/ContactFormResponse')
+      .addResponse(400, 'Bad request');
+
+    router.route("/contact").post(
+      this.use(messagecontroller.createContact));
+
     // Route: Get List of Messages
     swaggerBuilder.addRoute('/api/v1/message', 'get', 'Get list of messages', ['Message'])
       .addQueryParam('perPage', 'string', 'Items per page', false)

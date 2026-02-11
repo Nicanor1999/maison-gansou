@@ -1,6 +1,6 @@
 <template>
   <div class="h-[70%] w-full flex flex-col justify-around">
-    <div class="w-full flex justify-between">
+    <div class="w-full flex justify-between" data-aos="fade-up">
       <div class="text-black text-sm sm:text-base md:text-lg lg:text-xl font-bold">Articles Récents</div>
       <router-link to="/blog" class="text-black hover:text-[#F79315] cursor-pointer hover:underline underline-offset-1 text-sm sm:text-base md:text-lg lg:text-xl">Voir Tout→</router-link>
     </div>
@@ -15,6 +15,8 @@
         :key="`article-${index}`"
         :to="`/blog/${article.id}`"
         class="articleElement h-full w-[70%] sm:w-[35%] xl:w-[30%] flex-shrink-0 flex flex-col justify-around"
+        data-aos="fade-left"
+        :data-aos-delay="(index % 4) * 100"
         @mouseenter="showCustomCursor"
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"

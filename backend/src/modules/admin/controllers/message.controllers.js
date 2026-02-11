@@ -14,6 +14,38 @@ module.exports = class MessageController extends CoreServices {
   }
 
   /**
+   * Create Contact Message (Public - No Auth Required)
+   * @route  POST /message/contact
+   */
+  createContact = async (req, res) => {
+    const { error } = this.MessageValidations.ContactFormValidation(req.body);
+    if (error) throw new this.ValidationError(error.details[0].message);
+
+    const payload = {
+      senderName: req.body.senderName,
+      senderEmail: req.body.senderEmail,
+      phone: req.body.phone || '',
+      subject: req.body.subject,
+      content: req.body.content,
+      category: 'contact',
+      direction: 'inbound',
+      status: 'received',
+      read: false,
+      starred: false,
+      archived: false,
+      receivedAt: new Date(),
+    };
+
+    const message = await this.MessageServices.create(payload);
+
+    res.status(201).json({
+      data: message,
+      success: true,
+      message: 'Votre message a été envoyé avec succès'
+    });
+  };
+
+  /**
    * Message FindAll
    * @route  GET /message
    */

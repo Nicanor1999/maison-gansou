@@ -51,6 +51,7 @@
       <div class="h-[30vh] md:h-[50vh] w-full flex justify-center items-center">
         <h2
           class="font-bold text-[var(--bg-1)] tracking-[7px] text-[25px] md:text-[40px] text-center"
+          data-aos="fade-up"
         >
           DES ESPACES MAJESTUEUX
         </h2>
@@ -58,9 +59,11 @@
     </div>
     <div class="grid grid-rows-3 md:grid-cols-3 gap-10 h-auto w-[93%]">
       <div
-        v-for="project in displayedProjects"
+        v-for="(project, index) in displayedProjects"
         :key="project._id"
         class="h-[40vh] w-full project-card"
+        data-aos="fade-up"
+        :data-aos-delay="(index % 3) * 100"
         @click="navigateToProject(project._id)"
         @mouseenter="showCustomCursor"
         @mouseleave="hideCustomCursor"
@@ -95,6 +98,7 @@
       v-if="hasMoreProjects"
       @click="showMoreProjects"
       class="h-[15vh] md:h-[20vh] w-[93%] flex items-center justify-center tracking-[3px] text-[var(--vt-c-text-dark-2)] hover:text-[var(--bg-1)] hover:cursor-pointer transition-colors duration-300"
+      data-aos="fade-up"
     >
       VOIR PLUS ({{ remainingProjectsCount }})
     </div>

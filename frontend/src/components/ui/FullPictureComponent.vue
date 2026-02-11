@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-[40vh] md:h-screen overflow-hidden"
+    <div class="w-[93%] h-[40vh] md:h-screen overflow-hidden"
     data-aos="fade">
         <img
             :src="encodeURI(image).replace(/#/g, '%23')"

@@ -1,6 +1,6 @@
 <template>
   <div class="h-[80%] w-full flex flex-col items-between">
-    <div class="h-[10%] w-full flex justify-between">
+    <div class="h-[10%] w-full flex justify-between" data-aos="fade-up">
       <div class="text-black text-sm sm:text-base md:text-lg lg:text-xl font-bold">
         Nos Services
       </div>
@@ -13,6 +13,8 @@
     <div class="h-[80%] w-full flex gap-4 overflow-x-scroll hide-scrollbar">
       <div
         class="servicesElement h-full relative w-[80%] sm:w-[40%] xl:w-[31%] flex-shrink-0 flex flex-col items-center justify-around"
+        data-aos="fade-left"
+        data-aos-delay="0"
         @mouseenter="showCustomCursor"
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
@@ -28,6 +30,8 @@
       </div>
       <div
         class="servicesElement h-full relative w-[80%] sm:w-[40%] xl:w-[31%] flex-shrink-0 flex flex-col items-center justify-around"
+        data-aos="fade-left"
+        data-aos-delay="100"
         @mouseenter="showCustomCursor"
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
@@ -43,6 +47,8 @@
       </div>
       <div
         class="servicesElement h-full relative w-[80%] sm:w-[40%] xl:w-[31%] flex-shrink-0 flex flex-col items-center justify-around"
+        data-aos="fade-left"
+        data-aos-delay="200"
         @mouseenter="showCustomCursor"
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
@@ -58,6 +64,8 @@
       </div>
       <div
         class="servicesElement h-full relative w-[80%] sm:w-[40%] xl:w-[31%] flex-shrink-0 flex flex-col items-center justify-around"
+        data-aos="fade-left"
+        data-aos-delay="300"
         @mouseenter="showCustomCursor"
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"

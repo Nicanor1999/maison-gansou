@@ -1,16 +1,16 @@
 <template>
   <div class="footer h-[85%] w-[93%]">
     <div class="h-[66%] w-full flex flex-col justify-between">
-      <div class="h-[20%] text-center">
+      <div class="h-[20%] text-center" data-aos="fade-up">
         Si vous avez un projet ou une commande dont vous souhaitez discuter,
         <a class="underline hover:text-[var(--second-orange)]" href="#">envoyez-nous un email</a> ou
         appelez-nous au +229 01 60 73 97 55
       </div>
       <div class="h-[35%] w-full flex justify-between md:justify-around">
-        <div class="h-full w-[30%] md:h-full md:w-[10%] flex items-center">
+        <div class="h-full w-[30%] md:h-full md:w-[10%] flex items-center" data-aos="fade-right" data-aos-delay="100">
           <img class="h-full w-full" src="@/assets/pictures/MG logo 2.png" alt="" />
         </div>
-        <div class="h-full w-[35%] flex justify-end">
+        <div class="h-full w-[35%] flex justify-end" data-aos="fade-left" data-aos-delay="100">
           <ul class="h-full  flex flex-col justify-around text-right">
             <li class="underline">SUIVEZ-NOUS</li>
             <li>Facebook</li>
@@ -19,7 +19,7 @@
           </ul>
         </div>
       </div>
-      <div class="h-[15%] md:h-[20%] w-full flex flex-col justify-between items-center">
+      <div class="h-[15%] md:h-[20%] w-full flex flex-col justify-between items-center" data-aos="fade-up" data-aos-delay="200">
         <span class="text-[var(--second-orange)] font-bold">NEWSLETTER</span>
         <form class="w-[80%] md:w-[40%] flex justify-between border-b-[2px] border-white" action="">
           <input

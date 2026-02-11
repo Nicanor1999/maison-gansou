@@ -41,7 +41,7 @@
         défiler la page pour découvrir une vue d’ensemble de nos prestations, ou utilisez les
         onglets ci-dessus pour accéder à des informations détaillées sur chaque service.
       </div>
-      <div class="h-[50%] w-full bg-white flex items-center justify-center">
+      <div class="h-[50%] w-[93%] bg-white flex items-center justify-center">
         <CarouselComponent :images="carouselImages" class="h-[90%] w-[50%] md:w-[50%]" />
       </div>
     </div>

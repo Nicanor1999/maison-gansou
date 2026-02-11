@@ -48,10 +48,10 @@
           <!-- Bouton CTA -->
           <div class="mt-6 md:mt-10 lg:mt-12" data-aos="flip-up" data-aos-duration="3000">
             <router-link
-              to="/bookings"
+              to="/contacts"
               class="inline-block text-[var(--bg-1)] bg-[var(--second-orange)] px-2 py-1 md:px-6 md:py-2 lg:px-6 lg:py-3 xl:px-4 xl:py-2 rounded-lg text-[12px] md:text-lg lg:text-xl xl:text-[15px] hover:bg-yellow-400 hover:text-white hover:font-bold transition-all duration-300 transform hover:scale-105 shadow-xl"
             >
-              Réservez maintenant
+              Prendre Rendez-vous
             </router-link>
           </div>
         </div>
