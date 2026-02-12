@@ -1,38 +1,48 @@
 <template>
   <div class="relative bg-white">
+    <!-- Navigation des services (visible quand pas encore scrollé) -->
+    <nav
+      ref="servicesNav"
+      :class="[
+        'services-nav z-50 flex justify-center items-center transition-all duration-500 ease-in-out',
+        isNavSticky && isMdScreen ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'
+      ]"
+      class="absolute w-screen pt-[20vh] md:pt-[25vh]"
+      style="top: 0"
+    >
+      <ul class="flex gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar h-auto w-full md:w-[70%] text-gray-500">
+        <li class="min-w-max h-[4vh] flex items-center justify-center">
+          <router-link
+            to="/services/architectural-design"
+            class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+            >CONCEPTION ARCHITECTURALE</router-link
+          >
+        </li>
+        <li class="min-w-max h-[4vh] flex items-center justify-center">
+          <router-link
+            to="/services/interior-design"
+            class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+            >DECORATION TEXTILE</router-link
+          >
+        </li>
+        <li class="min-w-max h-[4vh] flex items-center justify-center">
+          <router-link to="/services/design-build" class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+            >CONCEPTION ET CONSTRUCTION</router-link
+          >
+        </li>
+        <li class="min-w-max h-[4vh] flex items-center justify-center">
+          <router-link to="/services/immo-gest" class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+            >GESTION IMMOBILIERE</router-link
+          >
+        </li>
+      </ul>
+    </nav>
+
     <div
       class="header relative h-[130vh] w-screen md:h-[200vh] flex flex-col items-center justify-around border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
-      <nav class="h-[10vh] w-screen flex justify-center items-end pt-[20vh] md:pt-[25vh]">
-        <ul
-          class="flex h-auto w-full md:w-[70%] gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar text-gray-500"
-        >
-          <li class="min-w-max h-[4vh] flex items-center justify-center">
-            <router-link
-              to="/services/architectural-design"
-              class="px-2 py-2 text-center hover:text-black"
-              >CONCEPTION ARCHITECTURALE</router-link
-            >
-          </li>
-          <li class="min-w-max h-[4vh] bg-white flex items-center justify-center">
-            <router-link
-              to="/services/interior-design"
-              class="px-2 py-2 text-center hover:text-black"
-              >DECORATION TEXTILE</router-link
-            >
-          </li>
-          <li class="min-w-max h-[4vh] bg-white flex items-center justify-center">
-            <router-link to="/services/design-build" class="px-2 py-2 text-center hover:text-black"
-              >CONCEPTION ET CONSTRUCTION</router-link
-            >
-          </li>
-          <li class="min-w-max h-[4vh] bg-white flex items-center justify-center">
-            <router-link to="/services/immo-gest" class="px-2 py-2 text-center hover:text-black"
-              >GESTION IMMOBILIERE</router-link
-            >
-          </li>
-        </ul>
-      </nav>
+      <!-- Espace réservé pour le nav initial -->
+      <div class="h-[10vh] w-screen pt-[20vh] md:pt-[25vh]"></div>
       <div
         class="h-[15%] md:h-[10%] md:w-[45%] text-center bg-white flex items-center text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
       >
@@ -89,12 +99,12 @@
       </div>
       <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/L.jpg" alt="" />
-          <div
+          <img src="@/assets/pictures/M.jpg" alt="" />
+          <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
             Open Plan Living, London
-          </div>
+          </div> -->
         </div>
         <div class="h-[60%] md:h-[35%] flex items-end md:items-center">
           <ProjectsComponent />
@@ -105,18 +115,18 @@
       class="relative h-[180vh] w-full md:h-[350vh] flex flex-col justify-around items-center md:justify-end border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
       <div
-        class="h-[40%] w-[93%] flex flex-col justify-between md:justify-around md:flex-row items-center"
+        class="h-[40%] w-full flex flex-col justify-between md:justify-around md:flex-row items-center"
       >
         <div
-          class="h-full md:h-[80%] w-full flex flex-col justify-between md:justify-around md:flex-row items-center md:items-start"
+          class="h-full md:h-[50%]  bg-[var(--bg-1)] w-full flex flex-col justify-between md:justify-around md:flex-row items-center md:items-start"
         >
           <h3
-            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
+            class="md:w-[40%] text-[var(--second-orange)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
           >
-            ARCHITECTURE D'INTÉRIEUR
+            DECORATION TEXTILE
           </h3>
           <div
-            class="md:w-[40%] text-center md:text-left text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
+            class="md:w-[40%] text-center md:text-left text-white text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
           >
             <p>
               S’appuyant sur l’expertise de Caroline Milns en design textile et sur sa maîtrise
@@ -277,6 +287,7 @@
 import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
 import CarouselComponent from '@/components/ui/CarouselComponent.vue'
+import { useUiStore } from '@/stores/ui'
 
 export default {
   name: 'HomeServicesView',
@@ -292,29 +303,123 @@ export default {
         new URL('@/assets/pictures/B.jpg', import.meta.url).href,
         new URL('@/assets/pictures/C.jpg', import.meta.url).href,
       ],
+      isNavSticky: false,
+      scrollThreshold: 100, // Point de déclenchement en pixels
+      isMdScreen: window.innerWidth >= 768, // md breakpoint
+      servicesNavItems: [
+        { label: 'CONCEPTION ARCHITECTURALE', path: '/services/architectural-design' },
+        { label: 'DECORATION TEXTILE', path: '/services/interior-design' },
+        { label: 'CONCEPTION ET CONSTRUCTION', path: '/services/design-build' },
+        { label: 'GESTION IMMOBILIERE', path: '/services/immo-gest' },
+      ],
     }
+  },
+  setup() {
+    const uiStore = useUiStore()
+    return { uiStore }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
+    this.handleScroll() // Vérifier l'état initial
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
+    // Nettoyer le store quand on quitte la page
+    this.uiStore.hideServicesNav()
+  },
+  methods: {
+    handleResize() {
+      const wasMdScreen = this.isMdScreen
+      this.isMdScreen = window.innerWidth >= 768
+
+      // Si on passe de md à mobile, cacher le nav sticky
+      if (wasMdScreen && !this.isMdScreen && this.isNavSticky) {
+        this.isNavSticky = false
+        this.uiStore.hideServicesNav()
+      }
+      // Si on passe de mobile à md, vérifier le scroll
+      if (!wasMdScreen && this.isMdScreen) {
+        this.handleScroll()
+      }
+    },
+    handleScroll() {
+      // Ne pas appliquer l'effet sticky sur mobile (< md)
+      if (!this.isMdScreen) {
+        if (this.isNavSticky) {
+          this.isNavSticky = false
+          this.uiStore.hideServicesNav()
+        }
+        return
+      }
+
+      const scrollY = window.scrollY
+      const wasSticky = this.isNavSticky
+      this.isNavSticky = scrollY > this.scrollThreshold
+
+      // Mettre à jour le store quand l'état sticky change
+      if (this.isNavSticky && !wasSticky) {
+        // Devient sticky -> afficher dans la navbar principale
+        this.uiStore.setServicesNav(true, this.servicesNavItems)
+      } else if (!this.isNavSticky && wasSticky) {
+        // N'est plus sticky -> cacher dans la navbar principale
+        this.uiStore.hideServicesNav()
+      }
+    },
   },
 }
 </script>
 <style scoped>
-@media (min-width: 768px) {
-  .hide-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE et Edge */
-  }
+/* Navigation sticky des services */
+.services-nav {
+  will-change: transform, top, height;
+}
 
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari et Opera */
+.services-nav.fixed {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
-@media (min-width: 1536px) {
+
+/* Hide scrollbar */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE et Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari et Opera */
+}
+
+@media (min-width: 768px) {
   .hide-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE et Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari et Opera */
+    display: none;
+  }
+}
+
+@media (min-width: 1536px) {
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

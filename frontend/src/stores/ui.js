@@ -5,6 +5,8 @@ export const useUiStore = defineStore('ui', {
     isLoading: false,
     isMenuOpen: false,
     isFilterOpen: false,
+    showServicesNav: false,
+    servicesNavItems: [],
   }),
   actions: {
     showLoader() {
@@ -30,6 +32,13 @@ export const useUiStore = defineStore('ui', {
     },
     openFilter() {
       this.isFilterOpen = true
+    },
+    setServicesNav(show, items = []) {
+      this.showServicesNav = show
+      this.servicesNavItems = items
+    },
+    hideServicesNav() {
+      this.showServicesNav = false
     },
   },
 })

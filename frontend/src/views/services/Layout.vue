@@ -2,9 +2,23 @@
   <div>
     <transition name="navbar-fade">
       <div
-        v-if="hasScrolledToSecondPart && !isMenuOpen && isScrollingDown"
-        class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-sm z-100 border-[1px] border-[var(--vt-c-text-dark-3)]"
-      ></div>
+        v-if="(hasScrolledToSecondPart && !isMenuOpen && isScrollingDown) || showServicesNav"
+        class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-sm z-100 border-[1px] border-[var(--vt-c-text-dark-3)] flex items-center justify-center"
+      >
+        <!-- Services navigation from store -->
+        <transition name="services-nav-fade">
+          <nav v-if="showServicesNav" class="services-nav-container">
+            <ul class="flex gap-2 md:gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar items-center text-gray-600 text-xs md:text-sm">
+              <li v-for="item in servicesNavItems" :key="item.path" class="min-w-max">
+                <router-link
+                  :to="item.path"
+                  class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+                >{{ item.label }}</router-link>
+              </li>
+            </ul>
+          </nav>
+        </transition>
+      </div>
     </transition>
     <router-link class="fixed left-[3vw] top-[1vh] md:top-[1vh] z-150" to="/">
       <transition name="logo-fade" mode="out-in">
@@ -73,6 +87,8 @@ export default {
 
     const isMenuOpen = computed(() => uiStore.isMenuOpen)
     const isFilterOpen = computed(() => uiStore.isFilterOpen)
+    const showServicesNav = computed(() => uiStore.showServicesNav)
+    const servicesNavItems = computed(() => uiStore.servicesNavItems)
     const isHomePage = computed(() => route.name === 'home' || route.path === '/')
     const isProjectSelectedPage = computed(() => route.name === 'projects-selected')
 
@@ -174,6 +190,8 @@ export default {
     return {
       isMenuOpen,
       isFilterOpen,
+      showServicesNav,
+      servicesNavItems,
       menuIconKey,
       logoSrc,
       currentLogo,
@@ -230,5 +248,30 @@ export default {
 
 .navbar-fade-leave-to {
   opacity: 0;
+}
+
+.services-nav-container {
+  max-width: 90%;
+  overflow-x: auto;
+}
+
+.services-nav-fade-enter-active,
+.services-nav-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.services-nav-fade-enter-from,
+.services-nav-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 </style>
