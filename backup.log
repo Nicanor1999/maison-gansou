@@ -403,3 +403,12 @@ warning: in the working copy of 'frontend/src/views/public/Projects.vue', CRLF w
 To github.com:Nicanor1999/maison-gansou.git
    4fb46a9..23610f1  master -> master
 Backup terminé à 2026-02-11 00:00:03
+warning: in the working copy of 'frontend/src/stores/ui.js', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/Layout.vue', CRLF will be replaced by LF the next time Git touches it
+[master 8dbe2f3] Sauvegarde automatique 2026-02-12 00:00:01
+ 6 files changed, 265 insertions(+), 50 deletions(-)
+ create mode 100644 frontend/src/assets/pictures/M.jpg
+To github.com:Nicanor1999/maison-gansou.git
+   23610f1..8dbe2f3  master -> master
+Backup terminé à 2026-02-12 00:00:04
