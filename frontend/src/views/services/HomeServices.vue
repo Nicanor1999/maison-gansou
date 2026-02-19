@@ -90,7 +90,7 @@
               s'impliquer pleinement dans le processus de conception et d'en profiter pleinement.
             </p>
             <button
-              class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
+              class="bg-transparent border border-[var(--bg-1)] rounded-[8px] text-[var(--bg-1)] p-2 hover:bg-[var(--bg-1)] hover:text-white transition-colors duration-300"
             >
               En savoir plus
             </button>
@@ -112,13 +112,13 @@
       </div>
     </div>
     <div
-      class="relative h-[180vh] w-full md:h-[350vh] flex flex-col justify-around items-center md:justify-end border-b-[1px] border-[var(--vt-c-text-dark-2)]"
+      class="relative h-[180vh] md:h-[180vh] bg-[var(--bg-1)] w-full md:h-[350vh] flex flex-col justify-around items-center md:justify-between border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
       <div
-        class="h-[40%] w-full flex flex-col justify-between md:justify-around md:flex-row items-center"
+        class="h-[40%] md:h-[30%] w-full flex flex-col justify-between md:justify-around md:flex-row items-center"
       >
         <div
-          class="h-full md:h-[50%]  bg-[var(--bg-1)] w-full flex flex-col justify-between md:justify-around md:flex-row items-center md:items-start"
+          class="h-[80%] md:h-[70%] w-full flex flex-col justify-around md:flex-row items-center md:items-start"
         >
           <h3
             class="md:w-[40%] text-[var(--second-orange)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
@@ -150,16 +150,16 @@
           </div>
         </div>
       </div>
-      <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
+      <div class="h-[50%] md:h-[70%] w-[93%] flex flex-col justify-around">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/L.jpg" alt="" />
-          <div
-            class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
+          <img src="@/assets/pictures/N.jpg" alt="" class="h-full w-full md:w-full object-cover" />
+          <!-- <div
+            class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide text-white"
           >
             Open Plan Living, London
-          </div>
+          </div> -->
         </div>
-        <div class="h-[60%] md:h-[35%] flex items-end md:items-center">
+        <div class="h-[60%] md:h-[35%] flex items-end md:items-center text-white">
           <ProjectsComponent />
         </div>
       </div>
@@ -199,7 +199,7 @@
               s'impliquer pleinement dans le processus de conception et d'en profiter pleinement.
             </p>
             <button
-              class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
+              class="bg-transparent border border-[var(--bg-1)] rounded-[8px] text-[var(--bg-1)] p-2 hover:bg-[var(--bg-1)] hover:text-white transition-colors duration-300"
             >
               En savoir plus
             </button>
@@ -209,11 +209,11 @@
       <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
         <div class="h-[40%] md:h-[55%]">
           <img src="@/assets/pictures/L.jpg" alt="" />
-          <div
+          <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
             Open Plan Living, London
-          </div>
+          </div> -->
         </div>
         <div class="h-[60%] md:h-[35%] flex items-end md:items-center">
           <ProjectsComponent />
@@ -255,7 +255,7 @@
               interlocuteur unique et une responsabilité centralisée à chaque étape du projet.
             </p>
             <button
-              class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
+              class="bg-transparent border border-[var(--bg-1)] rounded-[8px] text-[var(--bg-1)] p-2 hover:bg-[var(--bg-1)] hover:text-white transition-colors duration-300"
             >
               En savoir plus
             </button>
@@ -264,12 +264,12 @@
       </div>
       <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/L.jpg" alt="" />
-          <div
+          <img src="@/assets/pictures/O.jpg" alt="" />
+          <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
             Open Plan Living, London
-          </div>
+          </div> -->
         </div>
         <div class="h-[60%] md:h-[35%] flex items-end md:items-center">
           <ProjectsComponent />

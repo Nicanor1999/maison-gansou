@@ -1,8 +1,8 @@
 <template>
   <div class="h-[70%] w-full flex flex-col justify-around">
     <div class="w-full flex justify-between" data-aos="fade-up">
-      <div class="text-black text-sm sm:text-base md:text-lg lg:text-xl font-bold">Projets Récents</div>
-      <router-link to="/projects" class="text-black hover:text-[#F79315] cursor-pointer hover:underline underline-offset-1 text-sm sm:text-base md:text-lg lg:text-xl">Voir Tout→</router-link>
+      <div class="text-sm sm:text-base md:text-lg lg:text-xl font-bold">Projets Récents</div>
+      <router-link to="/projects" class="hover:text-[#F79315] cursor-pointer hover:underline underline-offset-1 text-sm sm:text-base md:text-lg lg:text-xl">Voir Tout→</router-link>
     </div>
     <div
       ref="scrollContainer"
