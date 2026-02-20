@@ -14,24 +14,24 @@
         <li class="min-w-max h-[4vh] flex items-center justify-center">
           <router-link
             to="/services/architectural-design"
-            class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+            class="px-2 py-2 text-center hover:font-bold hover:text-[var(--bg-2)] transition-colors duration-300"
             >CONCEPTION ARCHITECTURALE</router-link
           >
         </li>
         <li class="min-w-max h-[4vh] flex items-center justify-center">
           <router-link
             to="/services/interior-design"
-            class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+            class="px-2 py-2 text-center hover:font-bold hover:text-[var(--bg-2)] transition-colors duration-300"
             >DECORATION TEXTILE</router-link
           >
         </li>
         <li class="min-w-max h-[4vh] flex items-center justify-center">
-          <router-link to="/services/design-build" class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+          <router-link to="/services/design-build" class="px-2 py-2 text-center hover:font-bold hover:text-[var(--bg-2)] transition-colors duration-300"
             >CONCEPTION ET CONSTRUCTION</router-link
           >
         </li>
         <li class="min-w-max h-[4vh] flex items-center justify-center">
-          <router-link to="/services/immo-gest" class="px-2 py-2 text-center hover:font-bold hover:text-[var(--second-orange)] transition-colors duration-300"
+          <router-link to="/services/immo-gest" class="px-2 py-2 text-center hover:font-bold hover:text-[var(--bg-2)] transition-colors duration-300"
             >GESTION IMMOBILIERE</router-link
           >
         </li>
@@ -112,7 +112,7 @@
       </div>
     </div>
     <div
-      class="relative h-[180vh] md:h-[180vh] bg-[var(--bg-1)] w-full md:h-[350vh] flex flex-col justify-around items-center md:justify-between border-b-[1px] border-[var(--vt-c-text-dark-2)]"
+      class="relative h-[180vh] md:h-[180vh] bg-[var(--bg-3)] w-full md:h-[350vh] flex flex-col justify-around items-center md:justify-between border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
       <div
         class="h-[40%] md:h-[30%] w-full flex flex-col justify-between md:justify-around md:flex-row items-center"
@@ -121,12 +121,12 @@
           class="h-[80%] md:h-[70%] w-full flex flex-col justify-around md:flex-row items-center md:items-start"
         >
           <h3
-            class="md:w-[40%] text-[var(--second-orange)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
+            class="md:w-[40%] text-[var(--bg-2)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
           >
             DECORATION TEXTILE
           </h3>
           <div
-            class="md:w-[40%] text-center md:text-left text-white text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
+            class="md:w-[40%] text-center md:text-left text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px]"
           >
             <p>
               S’appuyant sur l’expertise de Caroline Milns en design textile et sur sa maîtrise
@@ -143,7 +143,7 @@
               créativité ludique.
             </p>
             <button
-              class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
+              class="bg-transparent border border-[var(--bg-2)] rounded-[8px] text-[var(--bg-2)] p-2 hover:bg-[var(--bg-2)] hover:text-white transition-colors duration-300"
             >
               En savoir plus
             </button>
@@ -159,8 +159,8 @@
             Open Plan Living, London
           </div> -->
         </div>
-        <div class="h-[60%] md:h-[35%] flex items-end md:items-center text-white">
-          <ProjectsComponent />
+        <div class="h-[60%] md:h-[35%] flex items-end md:items-center">
+          <ProjectsComponent title="" />
         </div>
       </div>
     </div>
@@ -221,7 +221,7 @@
       </div>
     </div>
     <div
-      class="relative h-[180vh] w-full md:h-[350vh] flex flex-col justify-around items-center md:justify-end border-b-[1px] border-[var(--vt-c-text-dark-2)]"
+      class="relative h-[180vh] w-full md:h-[350vh] bg-[var(--bg-3)] flex flex-col justify-around items-center md:justify-end border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
       <div
         class="h-[40%] w-[93%] flex flex-col justify-between md:justify-around md:flex-row items-center"
@@ -230,7 +230,7 @@
           class="h-full md:h-[80%] w-full flex flex-col justify-between md:justify-around md:flex-row items-center md:items-start"
         >
           <h3
-            class="md:w-[40%] text-[var(--bg-1)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
+            class="md:w-[40%] text-[var(--bg-2)] md:tracking-wide md:text-xl lg:text-2xl font-bold"
           >
             CONCEPTION ET CONSTRUCTION
           </h3>
@@ -255,7 +255,7 @@
               interlocuteur unique et une responsabilité centralisée à chaque étape du projet.
             </p>
             <button
-              class="bg-transparent border border-[var(--bg-1)] rounded-[8px] text-[var(--bg-1)] p-2 hover:bg-[var(--bg-1)] hover:text-white transition-colors duration-300"
+              class="bg-transparent border border-[var(--bg-2)] rounded-[8px] text-[var(--bg-2)] p-2 hover:bg-[var(--bg-2)] hover:text-white transition-colors duration-300"
             >
               En savoir plus
             </button>

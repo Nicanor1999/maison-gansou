@@ -1,11 +1,7 @@
 <template>
   <div class="relative bg-white w-screen h-auto flex flex-col items-center">
-    <div
-      class="header relative h-[110vh] w-[93%] md:h-[150vh] flex flex-col items-center gap-10"
-    >
-      <nav
-        class="h-[25vh] md:h-[30vh] w-full pt-[20vh] md:pt-[25vh] flex justify-center"
-      >
+    <div class="header relative h-[110vh] w-[93%] md:h-[150vh] flex flex-col items-center gap-10">
+      <nav class="h-[25vh] md:h-[30vh] w-full pt-[20vh] md:pt-[25vh] flex justify-center">
         <ul
           class="flex items-center h-auto gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar text-gray-500 bg-white"
         >
@@ -27,16 +23,21 @@
         </ul>
       </nav>
       <div
-        class="h-[70vh] md:h-[100vh] w-full flex flex-col items-center justify-around text-center bg-white"
+        class="h-[70vh] md:h-[200vh] w-full relative flex flex-col items-center justify-around text-center bg-white"
       >
         <h2
-          class="text-xl tracking-wide md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[var(--bg-1)]"
+          class="text-xl tracking-wide md:hidden md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[var(--bg-1)]"
         >
           CONCEPTION ARCHITECTURALE
         </h2>
-        <div class="h-[50vh] md:h-[70vh] md:w-[39%]">
+        <div class="h-[50vh] md:h-[70vh] md:w-[50%]">
           <img src="@/assets/pictures/L.jpg" alt="" class="object-cover h-full w-full" />
         </div>
+        <h2
+          class="hidden md:block sticky bottom-20 text-xl tracking-wide md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[var(--bg-1)]"
+        >
+          CONCEPTION ARCHITECTURALE
+        </h2>
       </div>
     </div>
     <div
@@ -242,8 +243,7 @@
               afin de vous aider à visualiser pleinement le projet proposé.
             </p>
             <span class="italic text-[var(--bg-1)] font-bold"
-              >RIBA Etape 2<span class="text-gray-600"> (4-6 semaines)</span></span    
-              
+              >RIBA Etape 2<span class="text-gray-600"> (4-6 semaines)</span></span
             >
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
@@ -388,9 +388,7 @@
         </div>
       </div>
     </div>
-    <div
-      class="relative h-auto w-[93%] bg-pink-500 flex flex-col items-center"
-    >
+    <div class="relative h-auto w-[93%] bg-pink-500 flex flex-col items-center">
       <div
         class="h-[80vh] md:h-[120vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-blue-300"
       >
@@ -452,14 +450,14 @@
 <script>
 import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
 import ServicesComponent from '@/components/ui/ServicesComponent.vue'
-import FooterComponent from '@/components/views/public/FooterComponent.vue';
+import FooterComponent from '@/components/views/public/FooterComponent.vue'
 
 export default {
   name: 'ArchiDesignView',
   components: {
     ProjectsComponent,
     ServicesComponent,
-    FooterComponent
+    FooterComponent,
   },
 }
 </script>

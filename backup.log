@@ -443,3 +443,11 @@ Backup terminé à 2026-02-17 00:00:03
 To github.com:Nicanor1999/maison-gansou.git
    6c9dd60..40715fe  master -> master
 Backup terminé à 2026-02-18 00:00:03
+warning: in the working copy of 'frontend/src/components/ui/ProjectsComponent.vue', CRLF will be replaced by LF the next time Git touches it
+[master 277d15c] Sauvegarde automatique 2026-02-19 00:00:01
+ 5 files changed, 24 insertions(+), 19 deletions(-)
+ create mode 100644 frontend/src/assets/pictures/N.jpg
+ create mode 100644 frontend/src/assets/pictures/O.jpg
+To github.com:Nicanor1999/maison-gansou.git
+   40715fe..277d15c  master -> master
+Backup terminé à 2026-02-19 00:00:04
