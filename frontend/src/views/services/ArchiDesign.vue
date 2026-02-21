@@ -30,7 +30,7 @@
         >
           CONCEPTION ARCHITECTURALE
         </h2>
-        <div class="h-[50vh] md:h-[70vh] md:w-[50%]">
+        <div class="h-[50vh] md:h-[90vh] md:w-[50%]">
           <img src="@/assets/pictures/L.jpg" alt="" class="object-cover h-full w-full" />
         </div>
         <h2
@@ -141,7 +141,7 @@
           </div>
         </div>
       </div>
-      <div class="h-[10%] md:h-[25%] w-[93%] flex flex-col items-center bg-blue-300">
+      <div class="h-[10%] md:h-[25%] w-[93%] flex flex-col items-center">
         <img src="@/assets/pictures/L.jpg" alt="" class="h-full w-full" />
         <div class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide">
           Open Plan Living, London
@@ -352,7 +352,7 @@
           class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
         >
           <h3
-            class="md:w-[40%] text-white md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
+            class="md:w-[40%] text-[var(--bg-2)] md:tracking-wide text-lg md:text-xl lg:text-2xl font-bold"
           >
             POURQUOI CHOISIR MAISON GANSOU?
           </h3>
@@ -388,9 +388,9 @@
         </div>
       </div>
     </div>
-    <div class="relative h-auto w-[93%] bg-pink-500 flex flex-col items-center">
+    <div class="relative h-auto w-[93%] flex flex-col items-center">
       <div
-        class="h-[80vh] md:h-[120vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-end bg-blue-300"
+        class="h-[80vh] md:h-[120vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-center"
       >
         <div
           class="h-full md:h-[80%] w-full flex flex-col justify-around md:justify-around md:flex-row items-center md:items-start"
@@ -434,7 +434,7 @@
       class="thirdPart relative border-[1px] border-[var(--vt-c-text-dark-2)] bg-[var(--bg-3)] h-[40vh] md:h-screen w-screen flex justify-center"
     >
       <div class="h-full w-[93%] flex items-center">
-        <ProjectsComponent />
+        <ProjectsComponent title="" />
       </div>
     </div>
     <div class="h-[50vh] md:h-screen w-[93%] flex items-center">
