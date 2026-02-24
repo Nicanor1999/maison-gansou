@@ -6,18 +6,21 @@
           class="flex items-center h-auto gap-4 overflow-x-auto whitespace-nowrap hide-scrollbar text-gray-500 bg-white"
         >
           <li class="">
-            <router-link to="" class="px-2 py-2 text-center hover:text-black"
-              >CE QUE NOUS FAISONS</router-link
+            <a href="#firstSection" class="px-2 py-2 text-center hover:text-[var(--bg-2)] cursor-pointer"
+              @click.prevent="scrollToSection('firstSection')"
+              >CE QUE NOUS FAISONS</a
             >
           </li>
           <li class="">
-            <router-link to="" class="px-2 py-2 text-center hover:text-black"
-              >LE PROCESSUS</router-link
+            <a href="#processSection" class="px-2 py-2 text-center hover:text-[var(--bg-2)] cursor-pointer"
+              @click.prevent="scrollToSection('processSection')"
+              >LE PROCESSUS</a
             >
           </li>
           <li class="">
-            <router-link to="" class="px-2 py-2 text-center hover:text-black"
-              >SERVICES & FRAIS</router-link
+            <a href="#servicesSection" class="px-2 py-2 text-center hover:text-[var(--bg-2)] cursor-pointer"
+              @click.prevent="scrollToSection('servicesSection')"
+              >SERVICES & FRAIS</a
             >
           </li>
         </ul>
@@ -41,6 +44,7 @@
       </div>
     </div>
     <div
+      id="firstSection"
       class="relative h-[350vh] w-full md:h-[650vh] flex flex-col justify-around items-center md:justify-start border-b-[1px] border-[var(--vt-c-text-dark-2)]"
     >
       <div
@@ -191,6 +195,7 @@
       </div>
     </div>
     <div
+      id="processSection"
       class="relative h-auto w-[93%] border-b-[1px] border-[var(--vt-c-text-dark-2)] flex flex-col items-center gap-30"
     >
       <div class="h-auto w-full md:w-[80%] flex flex-col">
@@ -388,7 +393,9 @@
         </div>
       </div>
     </div>
-    <div class="relative h-auto w-[93%] flex flex-col items-center">
+    <div
+      id="servicesSection"
+     class="relative h-auto w-[93%] flex flex-col items-center">
       <div
         class="h-[80vh] md:h-[120vh] w-full flex flex-col justify-between md:justify-center md:flex-row md:items-center"
       >
@@ -434,7 +441,7 @@
       class="thirdPart relative border-[1px] border-[var(--vt-c-text-dark-2)] bg-[var(--bg-3)] h-[40vh] md:h-screen w-screen flex justify-center"
     >
       <div class="h-full w-[93%] flex items-center">
-        <ProjectsComponent title="" />
+        <ProjectsComponent title="Projets Phares" />
       </div>
     </div>
     <div class="h-[50vh] md:h-screen w-[93%] flex items-center">
@@ -459,6 +466,14 @@ export default {
     ServicesComponent,
     FooterComponent,
   },
+  methods: {
+    scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }
 }
 </script>
 <style scoped>
