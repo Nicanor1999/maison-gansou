@@ -426,13 +426,13 @@
               traditionnel architecte/entrepreneur.
             </p>
             <br />
-            <button
+            <!-- <button
               class="bg-transparent border border-[var(--second-orange)] rounded-[8px] text-[var(--second-orange)] p-2 hover:bg-[var(--second-orange)] hover:text-white transition-colors duration-300"
             >
               En savoir plus
             </button>
             <p class="pt-6">→ Prendre rendez-vous pour une consultation</p>
-            <p class="">→ Découvrez nos projets</p>
+            <p class="">→ Découvrez nos projets</p> -->
           </div>
         </div>
       </div>
