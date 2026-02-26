@@ -4,8 +4,8 @@
     <section class="hero-section">
       <div class="hero-overlay"></div>
       <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-        <h1 class="hero-title">A Propos de Nous</h1>
-        <p class="hero-subtitle">Maison Gansou - Excellence en Architecture et Hospitalite</p>
+        <h2 class="hero-title">A Propos de Nous</h2>
+        <!-- <p class="hero-subtitle">Maison Gansou - Excellence en Architecture et Hospitalite</p> -->
         <div class="hero-breadcrumb">
           <router-link to="/">Accueil</router-link>
           <span class="separator">/</span>
@@ -32,7 +32,7 @@
           </div>
           <div class="intro-content" data-aos="fade-left" data-aos-duration="800">
             <span class="section-tag">Qui Sommes-Nous</span>
-            <h2 class="section-title">Maison Gansou, Votre Partenaire de Confiance</h2>
+            <h3 class="section-title">Maison Gansou, Votre Partenaire de Confiance</h3>
             <p class="intro-text">
               Maison Gansou est une entreprise beninoise specialisee dans l'architecture, la
               construction et l'hebergement de qualite. Fondee avec la vision de transformer le

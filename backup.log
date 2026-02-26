@@ -480,3 +480,12 @@ warning: in the working copy of 'frontend/src/views/services/ArchiDesign.vue', C
 To github.com:Nicanor1999/maison-gansou.git
    417e55e..e8e4093  master -> master
 Backup terminé à 2026-02-24 00:00:03
+warning: in the working copy of 'frontend/src/views/services/ArchiDesign.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/DesignBuild.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/ImmoGest.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/services/InteriorDesign.vue', CRLF will be replaced by LF the next time Git touches it
+[master e54bfc4] Sauvegarde automatique 2026-02-25 00:00:01
+ 5 files changed, 1330 insertions(+), 11 deletions(-)
+To github.com:Nicanor1999/maison-gansou.git
+   e8e4093..e54bfc4  master -> master
+Backup terminé à 2026-02-25 00:00:03
