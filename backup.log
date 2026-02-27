@@ -489,3 +489,10 @@ warning: in the working copy of 'frontend/src/views/services/InteriorDesign.vue'
 To github.com:Nicanor1999/maison-gansou.git
    e8e4093..e54bfc4  master -> master
 Backup terminé à 2026-02-25 00:00:03
+warning: in the working copy of 'frontend/src/components/views/public/HiddenComponent.vue', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'frontend/src/views/public/AboutUs.vue', CRLF will be replaced by LF the next time Git touches it
+[master fb56882] Sauvegarde automatique 2026-02-26 00:00:01
+ 3 files changed, 20 insertions(+), 11 deletions(-)
+To github.com:Nicanor1999/maison-gansou.git
+   e54bfc4..fb56882  master -> master
+Backup terminé à 2026-02-26 00:00:03
