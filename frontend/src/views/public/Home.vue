@@ -69,7 +69,7 @@
         </p>
         <div class="h-[70%] md:h-[60%] flex flex-col sm:flex-row justify-between">
           <div class="h-[40%] sm:w-[35%] sm:h-[50%]" data-aos="fade-right">
-            <img class="h-full w-full object-cover" src="@/assets/pictures/D.jpg" alt="" />
+            <img class="h-full w-full object-cover" src="@/assets/pictures/D.jpg" alt="Cabinet d'architecture MAISON GANSOU Cotonou" />
           </div>
           <div class="h-[50%] sm:w-[65%] flex flex-col justify-end items-center md:justify-around">
             <p
@@ -219,7 +219,7 @@
             @mousemove="updateCursorPosition"
           >
             <div class="h-[80%]">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="Article blog architecture MAISON GANSOU" />
             </div>
             <div class="h-[15%] flex flex-col justify-around text-center">
               <span>~~12 Décembre 2025~~</span>
@@ -233,7 +233,7 @@
             @mousemove="updateCursorPosition"
           >
             <div class="h-[80%]">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="Article blog architecture MAISON GANSOU" />
             </div>
             <div class="h-[15%] flex flex-col justify-around text-center">
               <span>~~12 Décembre 2025~~</span>
@@ -247,7 +247,7 @@
             @mousemove="updateCursorPosition"
           >
             <div class="h-[80%]">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="Article blog architecture MAISON GANSOU" />
             </div>
             <div class="h-[15%] flex flex-col justify-around text-center">
               <span>~~12 Décembre 2025~~</span>
@@ -261,7 +261,7 @@
             @mousemove="updateCursorPosition"
           >
             <div class="h-[80%]">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="Article blog architecture MAISON GANSOU" />
             </div>
             <div class="h-[15%] flex flex-col justify-around text-center">
               <span>~~12 Décembre 2025~~</span>
@@ -275,7 +275,7 @@
             @mousemove="updateCursorPosition"
           >
             <div class="h-[80%]">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="Article blog architecture MAISON GANSOU" />
             </div>
             <div class="h-[15%] flex flex-col justify-around text-center">
               <span>~~12 Décembre 2025~~</span>
@@ -305,6 +305,7 @@
 import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
 import ServicesComponent from '@/components/ui/ServicesComponent.vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'HomePublicView',
@@ -312,6 +313,9 @@ export default {
     ProjectsComponent,
     ServicesComponent,
     FooterComponent,
+  },
+  setup() {
+    useSeoMeta(seoConfigs.home)
   },
   data() {
     return {

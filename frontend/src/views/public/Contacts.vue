@@ -268,6 +268,7 @@
 import { ref, reactive } from 'vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
 import { useConfirmModal } from '@/composables/useConfirmModal'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'ContactsPublicView',
@@ -275,6 +276,7 @@ export default {
     FooterComponent,
   },
   setup() {
+    useSeoMeta(seoConfigs.contacts)
     const { alert: alertModal } = useConfirmModal()
     const isSubmitting = ref(false)
     const showSuccessModal = ref(false)

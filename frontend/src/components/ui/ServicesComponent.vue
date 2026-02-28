@@ -19,7 +19,7 @@
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
       >
-        <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="" />
+        <img class="h-full w-full object-cover" src="@/assets/pictures/E.jpg" alt="Service de conception architecturale MAISON GANSOU" loading="lazy" decoding="async" />
         <div class="h-full w-[80%] flex items-center justify-center absolute z-0">
           <div
             class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -36,7 +36,7 @@
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
       >
-        <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="" />
+        <img class="h-full w-full object-cover" src="@/assets/pictures/G.jpg" alt="Service de conception et construction MAISON GANSOU" loading="lazy" decoding="async" />
         <div class="h-full w-[80%] flex items-center justify-center absolute">
           <div
             class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -53,7 +53,7 @@
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
       >
-        <img class="h-full w-full object-cover blur-[0.5px]" src="@/assets/pictures/H.jpg" alt="" />
+        <img class="h-full w-full object-cover blur-[0.5px]" src="@/assets/pictures/H.jpg" alt="Service d'architecture d'intérieur MAISON GANSOU" loading="lazy" decoding="async" />
         <div class="h-full w-[80%] flex items-center justify-center absolute">
           <div
             class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -70,7 +70,7 @@
         @mouseleave="hideCustomCursor"
         @mousemove="updateCursorPosition"
       >
-        <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+        <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Service de gestion d'actifs immobiliers MAISON GANSOU" loading="lazy" decoding="async" />
         <div class="h-full w-[80%] flex items-center justify-center absolute">
           <div
             class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"

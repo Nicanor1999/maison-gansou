@@ -129,6 +129,7 @@ import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import ServicesComponent from '@/components/ui/ServicesComponent.vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'ProjectsPublicView',
@@ -138,6 +139,7 @@ export default {
     FooterComponent,
   },
   setup() {
+    useSeoMeta(seoConfigs.projects)
     const uiStore = useUiStore()
     const router = useRouter()
     const cursorActive = ref(false)

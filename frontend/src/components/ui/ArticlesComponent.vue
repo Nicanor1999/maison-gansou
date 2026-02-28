@@ -22,7 +22,7 @@
         @mousemove="updateCursorPosition"
       >
         <div v-if="article.image" class="h-[80%] w-full overflow-hidden rounded-lg">
-          <img class="h-full w-full object-cover" :src="article.image" :alt="article.title" />
+          <img class="h-full w-full object-cover" :src="article.image" :alt="article.title" loading="lazy" decoding="async" />
         </div>
         <div v-else class="h-[80%] w-full bg-gray-200 flex items-center justify-center rounded-lg">
           <span class="material-symbols-outlined text-gray-400 text-5xl">article</span>

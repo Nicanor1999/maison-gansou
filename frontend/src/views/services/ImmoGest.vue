@@ -34,7 +34,7 @@
           GESTION IMMOBILIÈRE
         </h2>
         <div class="h-[50vh] md:h-[90vh] md:w-[50%]">
-          <img src="@/assets/pictures/I.jpg" alt="" class="object-cover h-full w-full" />
+          <img src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" class="object-cover h-full w-full" />
         </div>
         <h2
           class="hidden md:block sticky bottom-20 text-xl tracking-wide md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[var(--bg-1)]"
@@ -79,7 +79,7 @@
       </div>
       <div class="h-[10%] md:h-[20%] w-[93%] flex flex-col justify-center md:justify-start">
         <div class="h-full md:h-[80%] w-full flex flex-col items-center">
-          <img src="@/assets/pictures/I.jpg" alt="" class="h-[100%] md:w-[50%] w-full" />
+          <img src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" class="h-[100%] md:w-[50%] w-full" />
           <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="h-[10%] md:h-[25%] w-[93%] flex flex-col items-center">
-        <img src="@/assets/pictures/I.jpg" alt="" class="h-full w-full" />
+        <img src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" class="h-full w-full" />
         <div class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide">
           Immeuble de Rapport, Porto-Novo
         </div>
@@ -180,7 +180,7 @@
         >
           <div class="h-auto md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
                 <div
                   class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -201,7 +201,7 @@
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
                 <div
                   class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -222,7 +222,7 @@
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
                 <div
                   class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -243,7 +243,7 @@
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-[60vh] bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
                 <div
                   class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -264,7 +264,7 @@
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
                 <div
                   class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -285,7 +285,7 @@
           </div>
           <div class="h-[60vh] md:h-screen 2xl:h-50vh bg-white flex flex-col justify-between">
             <div class="h-[50%] w-full relative">
-              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="" />
+              <img class="h-full w-full object-cover" src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" />
               <div class="h-full w-full flex items-center justify-center absolute top-0 z-0">
                 <div
                   class="h-[25%] w-[80%] rounded-[8px] bg-white opacity-70 flex items-center justify-center text-[var(--font-color)] text-center text-xl sm:text-xl md:text-xl xl:text-2xl"
@@ -308,7 +308,7 @@
       </div>
       <div class="h-[35vh] md:h-screen w-full flex flex-col justify-center">
         <div class="h-full md:h-[95%] w-full flex flex-col items-center">
-          <img src="@/assets/pictures/I.jpg" alt="" class="h-[100%] w-full" />
+          <img src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" class="h-[100%] w-full" />
           <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
@@ -344,7 +344,7 @@
       </div>
       <div class="h-[35vh] md:h-screen w-full flex flex-col justify-start">
         <div class="h-[80%] w-full flex flex-col items-center">
-          <img src="@/assets/pictures/I.jpg" alt="" class="h-[100%] w-full" />
+          <img src="@/assets/pictures/I.jpg" alt="Gestion immobilière MAISON GANSOU" class="h-[100%] w-full" />
           <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
@@ -413,6 +413,7 @@
 import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
 import ServicesComponent from '@/components/ui/ServicesComponent.vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'ImmoGestView',
@@ -420,6 +421,9 @@ export default {
     ProjectsComponent,
     ServicesComponent,
     FooterComponent,
+  },
+  setup() {
+    useSeoMeta(seoConfigs.services.immoGest)
   },
   methods: {
     scrollToSection(sectionId) {

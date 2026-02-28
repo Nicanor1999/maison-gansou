@@ -8,7 +8,7 @@
       </div>
       <div class="h-[35%] w-full flex justify-between md:justify-around">
         <div class="h-full w-[30%] md:h-full md:w-[10%] flex items-center" data-aos="fade-right" data-aos-delay="100">
-          <img class="h-full w-full" src="@/assets/pictures/MG logo 2.png" alt="" />
+          <img class="h-full w-full" src="@/assets/pictures/MG logo 2.png" alt="Logo MAISON GANSOU - Cabinet d'architecture" />
         </div>
         <div class="h-full w-[35%] flex justify-end" data-aos="fade-left" data-aos-delay="100">
           <ul class="h-full  flex flex-col justify-around text-right">

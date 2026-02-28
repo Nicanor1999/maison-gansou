@@ -525,10 +525,12 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import countries from '@/data/countries.json'
 import { useConfirmModal } from '@/composables/useConfirmModal'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'BookingsPublicView',
   setup() {
+    useSeoMeta(seoConfigs.bookings)
     const route = useRoute()
     const router = useRouter()
     const { alert: alertModal } = useConfirmModal()

@@ -1,0 +1,17 @@
+# robots.txt - MAISON GANSOU
+# https://maisongansou.com
+
+User-agent: *
+Allow: /
+
+# Pages interdites aux robots
+Disallow: /admin/
+Disallow: /admin
+Disallow: /login
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://maisongansou.com/sitemap.xml
+
+# Crawl-delay pour eviter la surcharge
+Crawl-delay: 1

@@ -99,7 +99,7 @@
       </div>
       <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/M.jpg" alt="" />
+          <img src="@/assets/pictures/M.jpg" alt="Services MAISON GANSOU" />
           <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
@@ -152,7 +152,7 @@
       </div>
       <div class="h-[50%] md:h-[70%] w-[93%] flex flex-col justify-around">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/N.jpg" alt="" class="h-full w-full md:w-full object-cover" />
+          <img src="@/assets/pictures/N.jpg" alt="Services MAISON GANSOU" class="h-full w-full md:w-full object-cover" />
           <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide text-white"
           >
@@ -208,7 +208,7 @@
       </div>
       <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/L.jpg" alt="" />
+          <img src="@/assets/pictures/L.jpg" alt="Services MAISON GANSOU" />
           <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
@@ -264,7 +264,7 @@
       </div>
       <div class="h-[40%] md:h-[60%] w-[93%] flex flex-col justify-between">
         <div class="h-[40%] md:h-[55%]">
-          <img src="@/assets/pictures/O.jpg" alt="" />
+          <img src="@/assets/pictures/O.jpg" alt="Services MAISON GANSOU" />
           <!-- <div
             class="text-[15px] sm:text-[20px] md:text-[25px] lg:text-[18px] pt-4 md:tracking-wide"
           >
@@ -288,6 +288,7 @@ import ProjectsComponent from '@/components/ui/ProjectsComponent.vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
 import CarouselComponent from '@/components/ui/CarouselComponent.vue'
 import { useUiStore } from '@/stores/ui'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'HomeServicesView',
@@ -295,6 +296,9 @@ export default {
     ProjectsComponent,
     FooterComponent,
     CarouselComponent,
+  },
+  setup() {
+    useSeoMeta(seoConfigs.services.home)
   },
   data() {
     return {

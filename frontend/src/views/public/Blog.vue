@@ -193,6 +193,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import ServicesComponent from '@/components/ui/ServicesComponent.vue'
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'BlogPublicView',
@@ -201,6 +202,7 @@ export default {
     FooterComponent,
   },
   setup() {
+    useSeoMeta(seoConfigs.blog)
     const router = useRouter()
     const API_BASE = '/api/v1'
 

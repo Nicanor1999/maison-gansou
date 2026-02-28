@@ -267,11 +267,15 @@
 import FooterComponent from '@/components/views/public/FooterComponent.vue'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { useSeoMeta, seoConfigs } from '@/composables/useSeoMeta'
 
 export default {
   name: 'AboutUsPublicView',
   components: {
     FooterComponent,
+  },
+  setup() {
+    useSeoMeta(seoConfigs.about)
   },
   data() {
     return {
