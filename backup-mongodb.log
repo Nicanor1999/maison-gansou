@@ -528,3 +528,159 @@ mongodb_backup_2026-03-01_03-00-01/gansou_db/authsecurityaudits.bson
 -rw-r--r-- 1 root root 19K Feb 15 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-15_03-00-01.tar.gz
 -rw-r--r-- 1 root root 19K Feb 22 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-22_03-00-01.tar.gz
 -rw-r--r-- 1 root root 19K Mar  1 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-01_03-00-01.tar.gz
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] Demarrage de la sauvegarde MongoDB
+2026-03-08 03:00:01 [INFO] Demarrage de la sauvegarde MongoDB
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] Container MongoDB detecte: maison-mongodb
+2026-03-08 03:00:01 [INFO] Container MongoDB detecte: maison-mongodb
+2026-03-08 03:00:01 [INFO] Creation du dump MongoDB...
+2026-03-08 03:00:01 [INFO] Creation du dump MongoDB...
+2026-03-08T03:00:01.300+0000	writing gansou_db.authsecurityaudits to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authsecurityaudits.bson
+2026-03-08T03:00:01.301+0000	writing gansou_db.reservations to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/reservations.bson
+2026-03-08T03:00:01.300+0000	writing gansou_db.authsecurityaudits to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authsecurityaudits.bson
+2026-03-08T03:00:01.301+0000	writing gansou_db.reservations to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/reservations.bson
+2026-03-08T03:00:01.301+0000	writing gansou_db.authsessions to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authsessions.bson
+2026-03-08T03:00:01.301+0000	writing gansou_db.authsessions to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authsessions.bson
+2026-03-08T03:00:01.301+0000	writing gansou_db.projects to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/projects.bson
+2026-03-08T03:00:01.301+0000	writing gansou_db.projects to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/projects.bson
+2026-03-08T03:00:01.303+0000	done dumping gansou_db.reservations (25 documents)
+2026-03-08T03:00:01.303+0000	done dumping gansou_db.reservations (25 documents)
+2026-03-08T03:00:01.303+0000	writing gansou_db.messages to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/messages.bson
+2026-03-08T03:00:01.303+0000	writing gansou_db.messages to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/messages.bson
+2026-03-08T03:00:01.304+0000	done dumping gansou_db.authsecurityaudits (34 documents)
+2026-03-08T03:00:01.304+0000	done dumping gansou_db.authsecurityaudits (34 documents)
+2026-03-08T03:00:01.304+0000	writing gansou_db.authidentitysecurities to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentitysecurities.bson
+2026-03-08T03:00:01.304+0000	writing gansou_db.authidentitysecurities to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentitysecurities.bson
+2026-03-08T03:00:01.305+0000	done dumping gansou_db.authsessions (17 documents)
+2026-03-08T03:00:01.305+0000	writing gansou_db.offers to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/offers.bson
+2026-03-08T03:00:01.305+0000	done dumping gansou_db.authsessions (17 documents)
+2026-03-08T03:00:01.305+0000	writing gansou_db.offers to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/offers.bson
+2026-03-08T03:00:01.307+0000	done dumping gansou_db.projects (13 documents)
+2026-03-08T03:00:01.308+0000	writing gansou_db.tags to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/tags.bson
+2026-03-08T03:00:01.307+0000	done dumping gansou_db.projects (13 documents)
+2026-03-08T03:00:01.308+0000	writing gansou_db.tags to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/tags.bson
+2026-03-08T03:00:01.309+0000	done dumping gansou_db.messages (11 documents)
+2026-03-08T03:00:01.309+0000	writing gansou_db.authidentities to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentities.bson
+2026-03-08T03:00:01.309+0000	done dumping gansou_db.messages (11 documents)
+2026-03-08T03:00:01.309+0000	writing gansou_db.authidentities to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentities.bson
+2026-03-08T03:00:01.309+0000	done dumping gansou_db.authidentitysecurities (4 documents)
+2026-03-08T03:00:01.309+0000	writing gansou_db.admins to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/admins.bson
+2026-03-08T03:00:01.309+0000	done dumping gansou_db.offers (4 documents)
+2026-03-08T03:00:01.309+0000	writing gansou_db.mfaconfigs to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/mfaconfigs.bson
+2026-03-08T03:00:01.309+0000	done dumping gansou_db.authidentitysecurities (4 documents)
+2026-03-08T03:00:01.309+0000	writing gansou_db.admins to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/admins.bson
+2026-03-08T03:00:01.309+0000	done dumping gansou_db.offers (4 documents)
+2026-03-08T03:00:01.309+0000	writing gansou_db.mfaconfigs to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/mfaconfigs.bson
+2026-03-08T03:00:01.311+0000	done dumping gansou_db.tags (3 documents)
+2026-03-08T03:00:01.311+0000	writing gansou_db.articles to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/articles.bson
+2026-03-08T03:00:01.311+0000	done dumping gansou_db.tags (3 documents)
+2026-03-08T03:00:01.311+0000	writing gansou_db.articles to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/articles.bson
+2026-03-08T03:00:01.311+0000	done dumping gansou_db.admins (3 documents)
+2026-03-08T03:00:01.311+0000	writing gansou_db.sections to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/sections.bson
+2026-03-08T03:00:01.311+0000	done dumping gansou_db.admins (3 documents)
+2026-03-08T03:00:01.311+0000	writing gansou_db.sections to /tmp/mongodb_backup_2026-03-08_03-00-01/gansou_db/sections.bson
+2026-03-08T03:00:01.312+0000	done dumping gansou_db.authidentities (3 documents)
+2026-03-08T03:00:01.312+0000	done dumping gansou_db.authidentities (3 documents)
+2026-03-08T03:00:01.312+0000	done dumping gansou_db.mfaconfigs (0 documents)
+2026-03-08T03:00:01.312+0000	done dumping gansou_db.mfaconfigs (0 documents)
+2026-03-08T03:00:01.312+0000	done dumping gansou_db.sections (0 documents)
+2026-03-08T03:00:01.312+0000	done dumping gansou_db.sections (0 documents)
+2026-03-08T03:00:01.313+0000	done dumping gansou_db.articles (0 documents)
+2026-03-08T03:00:01.313+0000	done dumping gansou_db.articles (0 documents)
+2026-03-08 03:00:01 [[0;32mSUCCESS[0m] Dump MongoDB cree avec succes
+2026-03-08 03:00:01 [[0;32mSUCCESS[0m] Dump MongoDB cree avec succes
+2026-03-08 03:00:01 [INFO] Compression du backup...
+2026-03-08 03:00:01 [INFO] Compression du backup...
+mongodb_backup_2026-03-08_03-00-01/
+mongodb_backup_2026-03-08_03-00-01/gansou_db/
+mongodb_backup_2026-03-08_03-00-01/gansou_db/offers.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/sections.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/mfaconfigs.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentitysecurities.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/projects.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/projects.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/reservations.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/articles.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/reservations.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/mfaconfigs.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/prelude.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/offers.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentitysecurities.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentities.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/tags.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/articles.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/messages.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/messages.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsessions.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsecurityaudits.metadata.json
+mongodb_backup_2026-03-08_03-00-01/
+mongodb_backup_2026-03-08_03-00-01/gansou_db/
+mongodb_backup_2026-03-08_03-00-01/gansou_db/offers.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/sections.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/mfaconfigs.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentitysecurities.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/projects.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/projects.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/reservations.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/articles.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/reservations.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/mfaconfigs.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/prelude.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/offers.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentitysecurities.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentities.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/tags.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/articles.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/messages.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/messages.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsessions.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsecurityaudits.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsessions.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/tags.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/sections.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/admins.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentities.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/admins.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsecurityaudits.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsessions.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/tags.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/sections.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/admins.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authidentities.bson
+mongodb_backup_2026-03-08_03-00-01/gansou_db/admins.metadata.json
+mongodb_backup_2026-03-08_03-00-01/gansou_db/authsecurityaudits.bson
+2026-03-08 03:00:01 [[0;32mSUCCESS[0m] Backup compresse: /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-08_03-00-01.tar.gz (20K)
+2026-03-08 03:00:01 [[0;32mSUCCESS[0m] Backup compresse: /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-08_03-00-01.tar.gz (20K)
+2026-03-08 03:00:01 [[1;33mWARNING[0m] Configuration S3 incomplete. Backup local uniquement.
+2026-03-08 03:00:01 [[1;33mWARNING[0m] Configuration S3 incomplete. Backup local uniquement.
+2026-03-08 03:00:01 [[1;33mWARNING[0m] Configurez les variables AWS dans /root/MaisonGANSOU/backend/.env
+2026-03-08 03:00:01 [[1;33mWARNING[0m] Configurez les variables AWS dans /root/MaisonGANSOU/backend/.env
+2026-03-08 03:00:01 [INFO] Nettoyage des anciens backups (> 30 jours)...
+2026-03-08 03:00:01 [INFO] Nettoyage des anciens backups (> 30 jours)...
+2026-03-08 03:00:01 [INFO] 0 ancien(s) backup(s) supprime(s)
+2026-03-08 03:00:01 [INFO] 0 ancien(s) backup(s) supprime(s)
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [[0;32mSUCCESS[0m] Sauvegarde terminee avec succes!
+2026-03-08 03:00:01 [[0;32mSUCCESS[0m] Sauvegarde terminee avec succes!
+2026-03-08 03:00:01 [INFO] Fichier local: /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-08_03-00-01.tar.gz
+2026-03-08 03:00:01 [INFO] Fichier local: /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-08_03-00-01.tar.gz
+2026-03-08 03:00:01 [INFO] Taille: 20K
+2026-03-08 03:00:01 [INFO] Taille: 20K
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] ==========================================
+2026-03-08 03:00:01 [INFO] Backups disponibles:
+2026-03-08 03:00:01 [INFO] Backups disponibles:
+-rw-rw-r-- 1 root root 16K Feb  9 01:19 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-09_01-19-50.tar.gz
+-rw-r--r-- 1 root root 19K Feb 15 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-15_03-00-01.tar.gz
+-rw-r--r-- 1 root root 19K Feb 22 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-22_03-00-01.tar.gz
+-rw-r--r-- 1 root root 19K Mar  1 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-01_03-00-01.tar.gz
+-rw-r--r-- 1 root root 19K Mar  8 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-08_03-00-01.tar.gz
+-rw-rw-r-- 1 root root 16K Feb  9 01:19 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-09_01-19-50.tar.gz
+-rw-r--r-- 1 root root 19K Feb 15 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-15_03-00-01.tar.gz
+-rw-r--r-- 1 root root 19K Feb 22 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-02-22_03-00-01.tar.gz
+-rw-r--r-- 1 root root 19K Mar  1 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-01_03-00-01.tar.gz
+-rw-r--r-- 1 root root 19K Mar  8 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-03-08_03-00-01.tar.gz
