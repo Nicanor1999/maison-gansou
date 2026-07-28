@@ -1297,3 +1297,10 @@ Backup terminé à 2026-07-25 00:00:04
 To github.com:Nicanor1999/maison-gansou.git
    4bab952..796e9e3  master -> master
 Backup terminé à 2026-07-26 00:00:04
+[master 6b0428f] Sauvegarde automatique 2026-07-27 00:00:01
+ 4 files changed, 161 insertions(+)
+ delete mode 100644 backups/mongodb/mongodb_backup_2026-06-21_03-00-01.tar.gz
+ create mode 100644 backups/mongodb/mongodb_backup_2026-07-26_03-00-01.tar.gz
+To github.com:Nicanor1999/maison-gansou.git
+   796e9e3..6b0428f  master -> master
+Backup terminé à 2026-07-27 00:00:03
