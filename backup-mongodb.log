@@ -4896,3 +4896,16 @@ mongodb_backup_2026-09-13_03-00-01/gansou_db/authsecurityaudits.bson
 -rw-r--r-- 1 root root 28K Aug 30 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-08-30_03-00-01.tar.gz
 -rw-r--r-- 1 root root 28K Sep  6 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-09-06_03-00-01.tar.gz
 -rw-r--r-- 1 root root 28K Sep 13 03:00 /root/MaisonGANSOU/backups/mongodb/mongodb_backup_2026-09-13_03-00-01.tar.gz
+2026-09-20 03:00:01 [INFO] ==========================================
+2026-09-20 03:00:01 [INFO] ==========================================
+2026-09-20 03:00:01 [INFO] Demarrage de la sauvegarde MongoDB
+2026-09-20 03:00:01 [INFO] Demarrage de la sauvegarde MongoDB
+2026-09-20 03:00:01 [INFO] ==========================================
+2026-09-20 03:00:01 [INFO] ==========================================
+2026-09-20 03:00:01 [INFO] Container MongoDB detecte: maison-mongodb
+2026-09-20 03:00:01 [INFO] Container MongoDB detecte: maison-mongodb
+2026-09-20 03:00:01 [INFO] Creation du dump MongoDB...
+2026-09-20 03:00:01 [INFO] Creation du dump MongoDB...
+Error response from daemon: Container 516ad09b9c12b824b496cc396df950462a1df9b97a81e1c9c9f0562924ffdc7d is restarting, wait until the container is running
+Error response from daemon: Container 516ad09b9c12b824b496cc396df950462a1df9b97a81e1c9c9f0562924ffdc7d is restarting, wait until the container is running
+Error response from daemon: Could not find the file /tmp/mongodb_backup_2026-09-20_03-00-01 in container maison-mongodb
