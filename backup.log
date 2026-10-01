@@ -1612,3 +1612,44 @@ Backup terminé à 2026-09-25 00:00:04
 To github.com:Nicanor1999/maison-gansou.git
    78e1a75..07c3ac5  master -> master
 Backup terminé à 2026-09-26 00:00:04
+[master cb54840] Sauvegarde automatique 2026-09-27 00:00:01
+ 1 file changed, 5 insertions(+)
+To github.com:Nicanor1999/maison-gansou.git
+   07c3ac5..cb54840  master -> master
+Backup terminé à 2026-09-27 00:00:03
+fatal: unable to write loose object file: No space left on device
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   backup-mongodb.log
+	modified:   backup.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Aucun changement à commiter → on passe au push (au cas où)
+Everything up-to-date
+Backup terminé à 2026-09-28 00:00:03
+fatal: unable to write loose object file: No space left on device
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   backup-mongodb.log
+	modified:   backup.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Aucun changement à commiter → on passe au push (au cas où)
+Everything up-to-date
+Backup terminé à 2026-09-29 00:00:02
+fatal: unable to write loose object file: No space left on device
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   backup-mongodb.log
+	modified:   backup.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Aucun changement à commiter → on passe au push (au cas où)
+Everything up-to-date
+Backup terminé à 2026-09-30 00:00:03

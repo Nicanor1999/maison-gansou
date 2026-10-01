@@ -4909,3 +4909,16 @@ mongodb_backup_2026-09-13_03-00-01/gansou_db/authsecurityaudits.bson
 Error response from daemon: Container 516ad09b9c12b824b496cc396df950462a1df9b97a81e1c9c9f0562924ffdc7d is restarting, wait until the container is running
 Error response from daemon: Container 516ad09b9c12b824b496cc396df950462a1df9b97a81e1c9c9f0562924ffdc7d is restarting, wait until the container is running
 Error response from daemon: Could not find the file /tmp/mongodb_backup_2026-09-20_03-00-01 in container maison-mongodb
+2026-09-27 03:00:01 [INFO] ==========================================
+2026-09-27 03:00:01 [INFO] ==========================================
+2026-09-27 03:00:01 [INFO] Demarrage de la sauvegarde MongoDB
+2026-09-27 03:00:01 [INFO] Demarrage de la sauvegarde MongoDB
+2026-09-27 03:00:01 [INFO] ==========================================
+2026-09-27 03:00:01 [INFO] ==========================================
+2026-09-27 03:00:01 [INFO] Container MongoDB detecte: maison-mongodb
+2026-09-27 03:00:01 [INFO] Container MongoDB detecte: maison-mongodb
+2026-09-27 03:00:01 [INFO] Creation du dump MongoDB...
+2026-09-27 03:00:01 [INFO] Creation du dump MongoDB...
+Error response from daemon: container 516ad09b9c12b824b496cc396df950462a1df9b97a81e1c9c9f0562924ffdc7d is not running
+Error response from daemon: container 516ad09b9c12b824b496cc396df950462a1df9b97a81e1c9c9f0562924ffdc7d is not running
+Error response from daemon: mkdir /var/lib/docker/overlay2/708d2e56bab3dd236b2fa74616014c4819cb7ee0362ed971f93207bb6f1d07e3/merged: no space left on device
