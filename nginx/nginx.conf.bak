@@ -53,11 +53,6 @@ http {
         # Taille max upload
         client_max_body_size 50M;
 
-        # Bloquer accès fichiers sensibles et scans
-        location ~* (Dockerfile|\.env|\.git|docker-compose|proc/self) {
-            return 404;
-        }
-
         # Cache static assets
         location ~* \.(jpg|jpeg|png|gif|ico|css|js|woff|woff2|ttf|svg|webp)$ {
             proxy_pass http://frontend;
