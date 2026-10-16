@@ -1730,3 +1730,10 @@ Backup terminé à 2026-10-13 00:00:04
 To github.com:Nicanor1999/maison-gansou.git
    91f7086..f96b1f0  master -> master
 Backup terminé à 2026-10-14 00:00:05
+[master 05a53d8] Sauvegarde automatique 2026-10-15 00:00:01
+ 5 files changed, 147 insertions(+), 2 deletions(-)
+ create mode 100644 nginx/ssl/mariage-fullchain.pem
+ create mode 100644 nginx/ssl/mariage-privkey.pem
+To github.com:Nicanor1999/maison-gansou.git
+   f96b1f0..05a53d8  master -> master
+Backup terminé à 2026-10-15 00:00:05
