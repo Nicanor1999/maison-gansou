@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BourseCheck — Veille Master & IA | Bénin</title>
+<style>
+  :root {
+    --bg: #0b0f17;
+    --surface: #111827;
+    --surface-2: #1f2937;
+    --border: #27354f;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --accent: #38bdf8;
+    --accent-2: #0ea5e9;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background: var(--bg); color: var(--text); font-family: var(--font); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 28px 24px; }
+  header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom: 28px; }
+  header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin:0; }
+  header p { margin:6px 0 0; color: var(--muted); font-size: 14px; max-width: 720px; line-height:1.5; }
+  .profile { background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; font-size: 13px; color: var(--muted); max-width: 420px; }
+  .profile strong { color: var(--text); }
+  .filters { display:flex; flex-wrap:wrap; gap: 12px; margin-bottom: 24px; }
+  .filters select, .filters input { background: var(--surface); color: var(--text); border:1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 14px; min-width: 160px; }
+  .filters select:focus, .filters input:focus { outline:none; border-color: var(--accent); }
+  .filter-group { display:flex; flex-direction:column; gap:4px; }
+  .filter-group label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .stats { display:flex; gap: 10px; margin-bottom: 22px; flex-wrap:wrap; }
+  .stat { background: var(--surface); border:1px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 13px; }
+  .stat b { color: var(--text); }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+  .card { background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); display:flex; flex-direction:column; gap: 12px; transition: transform .15s ease, border-color .15s ease; }
+  .card:hover { transform: translateY(-2px); border-color: #374861; }
+  .card.hidden { display:none; }
+  .card-header { display:flex; justify-content:space-between; align-items:flex-start; gap: 10px; }
+  .card-title { font-size: 17px; font-weight: 700; line-height:1.25; }
+  .badges { display:flex; flex-wrap:wrap; gap: 6px; }
+  .badge { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 4px 8px; border-radius: 6px; background: var(--surface-2); color: var(--muted); border:1px solid var(--border); }
+  .badge.funding-complet { background: rgba(52,211,153,.12); color: var(--success); border-color: rgba(52,211,153,.25); }
+  .badge.funding-partiel { background: rgba(251,191,36,.12); color: var(--warning); border-color: rgba(251,191,36,.25); }
+  .badge.funding-autofinancement { background: rgba(248,113,113,.12); color: var(--danger); border-color: rgba(248,113,113,.25); }
+  .badge.level-master { background: rgba(56,189,248,.12); color: var(--accent); border-color: rgba(56,189,248,.25); }
+  .badge.level-spécialisé { background: rgba(139,92,246,.12); color: #a78bfa; border-color: rgba(139,92,246,.25); }
+  .badge.level-bachelor { background: rgba(52,211,153,.08); color: #34d399; border-color: rgba(52,211,153,.2); }
+  .meta { display:flex; flex-direction:column; gap: 6px; font-size: 13px; color: var(--muted); }
+  .meta .row { display:flex; gap: 8px; align-items:center; }
+  .deadline { color: var(--text); font-weight: 600; }
+  .deadline.open { color: var(--success); }
+  .deadline.urgent { color: var(--warning); }
+  .deadline.closed { color: var(--danger); }
+  .desc { font-size: 13.5px; line-height:1.55; color: var(--muted); }
+  .actions { margin-top:auto; padding-top: 10px; }
+  .btn { display:inline-flex; align-items:center; gap: 8px; background: var(--accent-2); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; border:none; cursor:pointer; }
+  .btn:hover { background: var(--accent); }
+  .source { font-size: 12px; color: #6b7280; margin-top: 4px; }
+  .source a { color: #6b7280; }
+  .empty { color: var(--muted); text-align:center; padding: 40px 20px; font-size: 14px; }
+  .last-updated { text-align:center; color: var(--muted); font-size: 12px; margin-bottom: 20px; }
+  footer { margin-top: 40px; padding-top: 20px; border-top:1px solid var(--border); color: var(--muted); font-size: 12px; text-align:center; }
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    header { flex-direction:column; }
+    .filters { flex-direction:column; }
+    .filters select, .filters input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>BourseCheck — Veille Master & IA</h1>
+      <p>Opportunités de Master et formations spécialisées en Informatique & Intelligence Artificielle, accessibles depuis le Bénin, avec financements.</p>
+    </div>
+    <div class="profile">
+      <strong>Profil de référence</strong><br>
+      Licence professionnelle Informatique/TIC • 4+ ans exp. développement web & UI/UX<br>
+      Stack: Vue.js, Node.js, Express.js, MongoDB, Docker
+    </div>
+  </header>
+
+  <div class="last-updated">Dernière mise à jour : 07 November 2026 à 11:26 UTC</div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>Destination</label>
+      <select id="filter-country">
+        <option value="all">Tous les pays</option>
+        <option value="Canada">Canada</option>
+        <option value="France">France</option>
+        <option value="USA">USA</option>
+        <option value="Chine">Chine</option>
+        <option value="Allemagne">Allemagne</option>
+        <option value="Autres">Autres pays</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Niveau</label>
+      <select id="filter-level">
+        <option value="all">Tous les niveaux</option>
+        <option value="Master">Master</option>
+        <option value="Spécialisé">Formation spécialisée</option>
+        <option value="Bachelor">Bachelor / Licence</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Financement</label>
+      <select id="filter-funding">
+        <option value="all">Tous</option>
+        <option value="Complet">Complet (bourse intégrale)</option>
+        <option value="Partiel">Partiel</option>
+        <option value="Autofinancement">Autofinancement possible</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Recherche</label>
+      <input id="filter-text" type="text" placeholder="Mots-clés (IA, data, logiciel...)">
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <div class="grid" id="grid"></div>
+  <footer>
+    Données consolidées à partir de sources officielles. Vérifiez toujours les dates limites et l’éligibilité sur le site officiel avant de postuler.<br>
+    Certaines opportunités sont annuelles — si la date est passée, consultez le site pour la prochaine session.
+  </footer>
+</div>
+
+<script>
+const data = [
+  {
+    "id": 1,
+    "title": "Programme de bourses France Excellence Eiffel",
+    "country": "France",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-01-06",
+    "deadlineText": "6 janvier 2026 (via l’établissement)",
+    "status": "open",
+    "domain": "Informatique, IA, Sciences de l’ingénieur",
+    "source": "Campus France (live)",
+    "sourceUrl": "https://www.campusfrance.org/fr/le-programme-de-bourses-eiffel",
+    "applyUrl": "https://www.campusfrance.org/fr/le-programme-de-bourses-eiffel",
+    "desc": "Bourse d’excellence du gouvernement français pour les futurs décideurs du secteur privé et public. Couvre frais de voyage, santé, mensualités et frais de scolarité. Vous devez d’abord postuler à un Master dans un établissement français agréé qui vous présentera au concours Eiffel. Limite d’âge : 29 ans max au niveau Master."
+  },
+  {
+    "id": 2,
+    "title": "Master Erasmus Mundus Joint Masters — IA & Data",
+    "country": "France",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-01-15",
+    "deadlineText": "Octobre – Janvier (cycles annuels)",
+    "status": "upcoming",
+    "domain": "IA, Data Science, Informatique",
+    "source": "Erasmus+ (live)",
+    "sourceUrl": "https://erasmus-plus.ec.europa.eu/opportunities/opportunities-for-individuals/students/erasmus-mundus-joint-masters",
+    "applyUrl": "https://master-admissions.eu/",
+    "desc": "Masters internationaux prestigieux dispensés par un consortium d’universités européennes. Bourses complètes disponibles pour les meilleurs profils mondiaux."
+  },
+  {
+    "id": 3,
+    "title": "Mastères Spécialisés — Cybersécurité, Data & Cloud",
+    "country": "France",
+    "level": "Spécialisé",
+    "funding": "Partiel",
+    "deadline": "2027-06-30",
+    "deadlineText": "Variables (souvent mai–juin)",
+    "status": "upcoming",
+    "domain": "Cybersécurité, Cloud, Data, IA",
+    "source": "Grandes Écoles françaises",
+    "sourceUrl": "https://www.campusfrance.org/fr/les-bourses-pour-les-etudiants-etrangers",
+    "applyUrl": "https://www.campusfrance.org/fr/les-bourses-pour-les-etudiants-etrangers",
+    "desc": "Formations ciblées de 1 à 2 ans pour professionnels. Votre profil avec Docker, MongoDB et Vue.js correspond parfaitement aux MS en Architecture Cloud, DevOps et Sécurité des SI."
+  },
+  {
+    "id": 4,
+    "title": "Mastercard Foundation Scholars Program — UBC / UofT / McGill",
+    "country": "Canada",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-02-15",
+    "deadlineText": "Décembre – Février (selon l’université)",
+    "status": "upcoming",
+    "domain": "Informatique, IA, Développement durable",
+    "source": "Mastercard Foundation",
+    "sourceUrl": "https://mastercardfdn.org/all-programs/scholars/",
+    "applyUrl": "https://mastercardfdn.org/all-programs/scholars/",
+    "desc": "Bourses complètes pour étudiants africains de talent. Les universités partenaires canadiennes proposent des Masters en informatique et data science. Couvre frais de scolarité, voyage, assurance, logement et allocation mensuelle."
+  },
+  {
+    "id": 5,
+    "title": "Programme Canadien de bourses pour la Francophonie (PCBF)",
+    "country": "Canada",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-03-31",
+    "deadlineText": "Mars (vérifier dates exactes annuelles)",
+    "status": "upcoming",
+    "domain": "Tous domaines (Informatique inclus)",
+    "source": "Gouvernement du Canada",
+    "sourceUrl": "https://www.scholarships-bourses.gc.ca/accueil-home.aspx",
+    "applyUrl": "https://www.scholarships-bourses.gc.ca/accueil-home.aspx",
+    "desc": "Destiné aux ressortissants des pays francophiles, incluant le Bénin. Finance des études supérieures au Canada. Master de 1 à 2 ans. Nécessite une admission préalable dans une université canadienne partenaire et un excellent niveau de français."
+  },
+  {
+    "id": 6,
+    "title": "Ontario Graduate Scholarship (OGS)",
+    "country": "Canada",
+    "level": "Master",
+    "funding": "Partiel",
+    "deadline": "2027-10-01",
+    "deadlineText": "Octobre (dépend de l’université ontarienne)",
+    "status": "upcoming",
+    "domain": "Informatique, IA, Sciences",
+    "source": "Gouvernement de l’Ontario",
+    "sourceUrl": "https://osap.gov.on.ca/OSAPPortal/en/A-ZListofAid/PRDR019245.html",
+    "applyUrl": "https://osap.gov.on.ca/OSAPPortal/en/A-ZListofAid/PRDR019245.html",
+    "desc": "Bourse au mérite pour étudiants inscrits en Master dans une université ontarienne. Montant ~5 000 $CAD par session. Complément parfait à un autofinancement ou une bourse partielle. UofT, Waterloo, McMaster et Queen’s ont des programmes solides en CS/IA."
+  },
+  {
+    "id": 7,
+    "title": "Fulbright Foreign Student Program — Bénin",
+    "country": "USA",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-05-15",
+    "deadlineText": "Mai – Juin (date ambassade US Bénin)",
+    "status": "upcoming",
+    "domain": "Tous domaines (Informatique & IA acceptés)",
+    "source": "Fulbright (live)",
+    "sourceUrl": "https://bj.usembassy.gov/education-culture/educational-exchanges/",
+    "applyUrl": "https://foreign.fulbrightonline.org/about/foreign-student-program",
+    "desc": "Programme phare du gouvernement américain pour les étudiants étrangers. Master ou PhD dans une université américaine. Couvre frais de scolarité, voyage, assurance santé et allocation de vie. Le processus est géré par l’ambassade US au Bénin."
+  },
+  {
+    "id": 8,
+    "title": "AAUW International Fellowships",
+    "country": "USA",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2026-11-15",
+    "deadlineText": "15 novembre 2026",
+    "status": "upcoming",
+    "domain": "Tous domaines (Informatique & IA inclus)",
+    "source": "American Association of University Women",
+    "sourceUrl": "https://www.aauw.org/resources/programs/fellowships-grants/international-fellowships/",
+    "applyUrl": "https://www.aauw.org/resources/programs/fellowships-grants/international-fellowships/",
+    "desc": "Réservé aux femmes non résidentes aux USA. Master/Doctorat. Montant jusqu’à 20 000 $USD pour le Master. Excellent pour un Master en CS/IA dans une université américaine."
+  },
+  {
+    "id": 9,
+    "title": "Hubert H. Humphrey Fellowship",
+    "country": "USA",
+    "level": "Spécialisé",
+    "funding": "Complet",
+    "deadline": "2027-07-15",
+    "deadlineText": "Juillet (via l’ambassade US Bénin)",
+    "status": "upcoming",
+    "domain": "Technologie, Développement économique, Leadership",
+    "source": "U.S. Department of State",
+    "sourceUrl": "https://www.humphreyfellowship.org/",
+    "applyUrl": "https://www.humphreyfellowship.org/",
+    "desc": "Programme non-diplômant de 10 mois pour professionnels expérimentés. Axé sur le leadership et le développement des compétences. Adapté si vous souhaitez un programme court et intense en gestion technologique / innovation."
+  },
+  {
+    "id": 10,
+    "title": "Chinese Government Scholarship (CSC) — Type A & B",
+    "country": "Chine",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-04-15",
+    "deadlineText": "Mars – Avril (Ambassade de Chine Bénin)",
+    "status": "upcoming",
+    "domain": "Informatique, IA, Sciences et technologies",
+    "source": "China Scholarship Council (CSC)",
+    "sourceUrl": "https://www.campuschina.org/",
+    "applyUrl": "https://www.campuschina.org/",
+    "desc": "Bourse complète du gouvernement chinois : frais de scolarité, logement en université, assurance santé et allocation mensuelle. Type A via l’ambassade de Chine au Bénin ; Type B directement via l’université. Meilleures destinations : Tsinghua, USTC, Zhejiang University, Shanghai Jiao Tong."
+  },
+  {
+    "id": 11,
+    "title": "Silk Road Scholarship / Belt and Road Scholarships",
+    "country": "Chine",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-04-30",
+    "deadlineText": "Mars – Avril (selon la province)",
+    "status": "upcoming",
+    "domain": "Informatique, IA, Ingénierie",
+    "source": "Provinces chinoises / Universités partenaires",
+    "sourceUrl": "https://www.campuschina.org/",
+    "applyUrl": "https://www.campuschina.org/",
+    "desc": "Bourses ciblées pour les pays africains participants à la Belt and Road Initiative. Couvrent frais de scolarité et logement. Rechercher les programmes des provinces du Jiangsu, Zhejiang et Beijing."
+  },
+  {
+    "id": 12,
+    "title": "DAAD EPOS — Development-Related Postgraduate Courses",
+    "country": "Allemagne",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-08-31",
+    "deadlineText": "Août – Octobre (selon le cours)",
+    "status": "upcoming",
+    "domain": "Informatique appliquée, Data Science, Gestion de projet IT",
+    "source": "DAAD",
+    "sourceUrl": "https://www.daad.de/en/study-and-research-in-germany/scholarships/",
+    "applyUrl": "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database.html",
+    "desc": "Cours de Master destinés aux professionnels des pays en développement (le Bénin est éligible). Bourse complète : 934 €/mois + assurance + voyage + frais de scolarité. Votre expérience professionnelle est un atout majeur (2 ans minimum requis)."
+  },
+  {
+    "id": 13,
+    "title": "Heinrich Böll Foundation Scholarships",
+    "country": "Allemagne",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-03-01",
+    "deadlineText": "1er mars 2027 (Master)",
+    "status": "upcoming",
+    "domain": "Tous domaines (Sciences et technologies inclus)",
+    "source": "Heinrich Böll Stiftung",
+    "sourceUrl": "https://www.boell.de/en/foundation/scholarships",
+    "applyUrl": "https://www.boell.de/en/foundation/scholarships",
+    "desc": "Bourse pour étudiants internationaux avec engagement sociopolitique. Master ou Doctorat. Montant mensuel + frais de scolarité + voyage. Votre profil devra mettre en avant un engagement citoyen ou environnemental en complément de votre parcours technique."
+  },
+  {
+    "id": 14,
+    "title": "Deutschlandstipendium",
+    "country": "Allemagne",
+    "level": "Master",
+    "funding": "Partiel",
+    "deadline": "2027-07-31",
+    "deadlineText": "Variables (souvent juillet)",
+    "status": "upcoming",
+    "domain": "Tous domaines",
+    "source": "Gouvernement fédéral allemand",
+    "sourceUrl": "https://www.deutschlandstipendium.de/deutschlandstipendium/de/home/home_node.html",
+    "applyUrl": "https://www.deutschlandstipendium.de/deutschlandstipendium/de/home/home_node.html",
+    "desc": "Bourse au méritant de 300 €/mois accordée par les universités allemandes. Complémentaire à d’autres sources de financement. Accessible à tous les étudiants inscrits dans une université allemande."
+  },
+  {
+    "id": 15,
+    "title": "Chevening Scholarships",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-11-05",
+    "deadlineText": "5 novembre 2027 (cycle annuel)",
+    "status": "upcoming",
+    "domain": "Tous domaines (Informatique & IA inclus)",
+    "source": "UK Foreign, Commonwealth & Development Office",
+    "sourceUrl": "https://www.chevening.org/",
+    "applyUrl": "https://www.chevening.org/apply/",
+    "desc": "Master d’un an dans une université britannique. Bourse complète : frais de scolarité, voyage, allocation mensuelle. Le Bénin est éligible. Vous devez justifier de 2 ans d’expérience professionnelle (vous en avez 4+)."
+  },
+  {
+    "id": 16,
+    "title": "Commonwealth Scholarships",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-10-15",
+    "deadlineText": "Octobre 2027 (date CSC annuelle)",
+    "status": "upcoming",
+    "domain": "Tous domaines",
+    "source": "Commonwealth Scholarship Commission UK",
+    "sourceUrl": "https://cscuk.fcdo.gov.uk/",
+    "applyUrl": "https://cscuk.fcdo.gov.uk/apply/",
+    "desc": "Pour les pays du Commonwealth et pays à revenu faible/moyen (le Bénin est éligible). Master de 1 an au Royaume-Uni. Bourse complète. Nécessite un projet de développement durable aligné avec les ODD."
+  },
+  {
+    "id": 17,
+    "title": "Swedish Institute Scholarships for Global Professionals (SISS)",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-02-10",
+    "deadlineText": "Février 2027 (session annuelle)",
+    "status": "upcoming",
+    "domain": "Tous domaines (Sustainability, Innovation, Tech)",
+    "source": "Swedish Institute",
+    "sourceUrl": "https://www.si.se/en/apply/scholarships/swedish-institute-scholarships-for-global-professionals/",
+    "applyUrl": "https://www.si.se/en/apply/scholarships/swedish-institute-scholarships-for-global-professionals/",
+    "desc": "Master en Suède entièrement financé. Frais de scolarité, voyage, allocation mensuelle, assurances. Destiné aux professionnels ayant un projet de leadership. KTH, Chalmers et Uppsala University proposent d’excellents Masters en Computer Science et AI."
+  },
+  {
+    "id": 18,
+    "title": "Australia Awards — Bénin",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-04-30",
+    "deadlineText": "Avril – Mai 2027 (vérifier la fenêtre annuelle)",
+    "status": "upcoming",
+    "domain": "Informatique, IA, Gouvernance numérique",
+    "source": "Australian Government / DFAT",
+    "sourceUrl": "https://www.dfat.gov.au/people-to-people/australia-awards",
+    "applyUrl": "https://www.dfat.gov.au/people-to-people/australia-awards",
+    "desc": "Bourse complète du gouvernement australien pour les talents africains. Master de 1 à 2 ans. Couvre frais de scolarité, voyage, allocation mensuelle, formation préalable. Nécessite un engagement de retour au pays."
+  },
+  {
+    "id": 19,
+    "title": "MEXT Scholarship (Japan)",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-04-30",
+    "deadlineText": "Avril – Mai 2027 (Ambassade du Japon Bénin)",
+    "status": "upcoming",
+    "domain": "Sciences, Technologies, Informatique",
+    "source": "Ministry of Education, Culture, Sports, Science and Technology (MEXT)",
+    "sourceUrl": "https://www.mext.go.jp/en/policy/education/highered/title02/detail02/sdc16p1r0202-r02.htm",
+    "applyUrl": "https://www.mext.go.jp/en/policy/education/highered/title02/detail02/sdc16p1r0202-r02.htm",
+    "desc": "Bourse gouvernementale japonaise via l’ambassade du Japon au Bénin. Master en informatique/IA dans les universités japonaises de renom (Tokyo Tech, Osaka, Tohoku). Frais de scolarité, voyage, allocation mensuelle. Programmes en anglais existent."
+  },
+  {
+    "id": 20,
+    "title": "Global Korea Scholarship (GKS)",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-02-28",
+    "deadlineText": "Février – Mars 2027 (voie ambassade)",
+    "status": "upcoming",
+    "domain": "Informatique, IA, Sciences",
+    "source": "National Institute for International Education (NIIED)",
+    "sourceUrl": "https://www.studyinkorea.go.kr/",
+    "applyUrl": "https://www.studyinkorea.go.kr/",
+    "desc": "Bourse complète pour Master en Corée du Sud. Couvre frais de scolarité, allocation mensuelle, voyage, cours de coréen. KAIST, SNU et Yonsei ont des programmes très forts en informatique et IA."
+  },
+  {
+    "id": 21,
+    "title": "ARES Scholarships (Belgique)",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2027-01-30",
+    "deadlineText": "Janvier 2027 (date annuelle)",
+    "status": "upcoming",
+    "domain": "Informatique appliquée, Développement",
+    "source": "Académie de Recherche et d’Enseignement Supérieur (ARES)",
+    "sourceUrl": "https://www.aress-ac.be/",
+    "applyUrl": "https://www.aress-ac.be/",
+    "desc": "Bourses pour pays en développement dont le Bénin. Master de 1 an en Belgique. Formation en informatique appliquée au développement. Frais de voyage, scolarité, assurance, allocation mensuelle."
+  },
+  {
+    "id": 22,
+    "title": "Swiss Government Excellence Scholarships",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2026-11-30",
+    "deadlineText": "Novembre 2026 (par l’ambassade de Suisse)",
+    "status": "upcoming",
+    "domain": "Tous domaines (Sciences et technologies inclus)",
+    "source": "State Secretariat for Education, Research and Innovation (SERI)",
+    "sourceUrl": "https://www.sbfi.admin.ch/sbfi/en/home/education/scholarships-and-grants/swiss-government-excellence-scholarships.html",
+    "applyUrl": "https://www.sbfi.admin.ch/sbfi/en/home/education/scholarships-and-grants/swiss-government-excellence-scholarships.html",
+    "desc": "Bourse pour recherche ou Master dans les HES et universités suisses. EPFL et ETH Zurich sont parmi les meilleures du monde en informatique. Postulez via l’ambassade de Suisse au Bénin ou au Ghana (compétence territoriale)."
+  },
+  {
+    "id": 23,
+    "title": "EPFL Master Fellowships",
+    "country": "Autres",
+    "level": "Master",
+    "funding": "Complet",
+    "deadline": "2026-12-15",
+    "deadlineText": "15 décembre 2026",
+    "status": "upcoming",
+    "domain": "Informatique, Data Science, IA",
+    "source": "École polytechnique fédérale de Lausanne (EPFL)",
+    "sourceUrl": "https://www.epfl.ch/education/master/programs/",
+    "applyUrl": "https://www.epfl.ch/education/master/programs/",
+    "desc": "Bourse d’excellence pour Master à l’EPFL. Montant 10 000 CHF/semestre + frais de scolarité. EPFL est top mondial en informatique. Votre parcours professionnel sera un atout dans la candidature."
+  },
+  {
+    "id": 24,
+    "title": "EPITA Bachelor Informatique — Cycle préparatoire intégré",
+    "country": "France",
+    "level": "Bachelor",
+    "funding": "Partiel",
+    "deadline": "2027-07-15",
+    "deadlineText": "Juillet 2027 (rentrée de septembre)",
+    "status": "upcoming",
+    "domain": "Informatique, Développement logiciel, Cybersécurité",
+    "source": "EPITA",
+    "sourceUrl": "https://www.epita.fr/",
+    "applyUrl": "https://www.epita.fr/",
+    "desc": "Bachelor en informatique de 3 ans (ou admission directe en année 2 ou 3 avec une Licence professionnelle). EPITA est une grande école d’ingénieurs en informatique reconnue internationalement. Les diplômés peuvent poursuivre en Master ou entrer directement sur le marché du travail en Europe."
+  },
+  {
+    "id": 25,
+    "title": "Epitech Bachelor — Web, Mobile & DevOps",
+    "country": "France",
+    "level": "Bachelor",
+    "funding": "Partiel",
+    "deadline": "2027-08-31",
+    "deadlineText": "Août 2027 (rentrée de septembre)",
+    "status": "upcoming",
+    "domain": "Développement web, DevOps, IA",
+    "source": "Epitech",
+    "sourceUrl": "https://www.epitech.eu/",
+    "applyUrl": "https://www.epitech.eu/",
+    "desc": "Grande école du numérique axée sur la pédagogie par projet. Le Bachelor Epitech dure 3 ans et forme des développeurs full-stack. Votre profil Vue.js/Node.js/Docker est exactement ce qu’ils recherchent. Admission possible en année 2 ou 3 via VAE ou équivalence de Licence."
+  },
+  {
+    "id": 26,
+    "title": "CSC Chinese Government Scholarship — Bachelor (Type A/B)",
+    "country": "Chine",
+    "level": "Bachelor",
+    "funding": "Complet",
+    "deadline": "2027-03-31",
+    "deadlineText": "Mars 2027 (Ambassade de Chine Bénin)",
+    "status": "upcoming",
+    "domain": "Informatique, Sciences et technologies",
+    "source": "China Scholarship Council (CSC)",
+    "sourceUrl": "https://www.campuschina.org/",
+    "applyUrl": "https://www.campuschina.org/",
+    "desc": "Bourse complète du gouvernement chinois pour Bachelor (licence) en informatique. Couvre frais de scolarité, logement, assurance santé et allocation mensuelle. Postulez via l’ambassade de Chine au Bénin ou directement via les universités partenaires."
+  },
+  {
+    "id": 27,
+    "title": "Ontario Colleges — Advanced Diplomas IT & Programming",
+    "country": "Canada",
+    "level": "Bachelor",
+    "funding": "Partiel",
+    "deadline": "2027-02-01",
+    "deadlineText": "Février 2027 (cycles d’admission)",
+    "status": "upcoming",
+    "domain": "Programmation informatique, Réseaux, Cybersécurité",
+    "source": "Colleges ontariens (Sheridan, Seneca, Humber)",
+    "sourceUrl": "https://www.ontariocolleges.ca/",
+    "applyUrl": "https://www.ontariocolleges.ca/",
+    "desc": "Advanced Diplomas (équivalent Licence) de 3 ans en informatique. Les colleges ontariens offrent des programmes très pratiques en développement logiciel, réseaux et cybersécurité. Frais de scolarité abordables, possibilité de transfert vers un Bachelor à l’université. Permis de travail PGWP disponible après graduation."
+  },
+  {
+    "id": 28,
+    "title": "TU Delft Bachelor Computer Science & Engineering",
+    "country": "Autres",
+    "level": "Bachelor",
+    "funding": "Autofinancement",
+    "deadline": "2027-01-15",
+    "deadlineText": "15 janvier 2027",
+    "status": "upcoming",
+    "domain": "Computer Science, Engineering, IA",
+    "source": "Delft University of Technology (TU Delft)",
+    "sourceUrl": "https://www.tudelft.nl/en/education/undergraduate-students",
+    "applyUrl": "https://www.tudelft.nl/en/education/undergraduate-students",
+    "desc": "Bachelor de 3 ans en anglais à l’une des meilleures universités d’Europe. Frais de scolarité bas pour les étudiants hors UE (~12 000 €/an). Excellente réputation en Computer Science. Nécessite un bon niveau d’anglais (IELTS 6.5+)."
+  },
+  {
+    "id": 29,
+    "title": "KTH Royal Institute — Bachelor ICT & Design",
+    "country": "Autres",
+    "level": "Bachelor",
+    "funding": "Autofinancement",
+    "deadline": "2027-01-15",
+    "deadlineText": "15 janvier 2027",
+    "status": "upcoming",
+    "domain": "ICT, Design, Informatique",
+    "source": "KTH Royal Institute of Technology (Suède)",
+    "sourceUrl": "https://www.kth.se/en/studies/bachelor",
+    "applyUrl": "https://www.kth.se/en/studies/bachelor",
+    "desc": "Bachelor en anglais à Stockholm. Programme axé sur la conception de systèmes d’information et l’UX/UI. Frais de scolarité pour les étudiants hors UE (~14 000 €/an). KTH est la meilleure université technique de Scandinavie."
+  },
+  {
+    "id": 30,
+    "title": "University of the People — Bachelor Computer Science",
+    "country": "USA",
+    "level": "Bachelor",
+    "funding": "Partiel",
+    "deadline": "2027-03-15",
+    "deadlineText": "Sessions continues (15 mars, 15 sept)",
+    "status": "upcoming",
+    "domain": "Computer Science, Développement web",
+    "source": "University of the People",
+    "sourceUrl": "https://www.uopeople.edu/",
+    "applyUrl": "https://www.uopeople.edu/",
+    "desc": "Université américaine 100% en ligne et sans frais de scolarité (uniquement frais d’examen ~$140/cours). Bachelor en Computer Science de 4 ans. Très flexible pour les professionnels qui veulent obtenir un diplôme américain tout en travaillant."
+  },
+  {
+    "id": 31,
+    "title": "DAAD EPOS — Bachelor-related prep courses (Studienkolleg)",
+    "country": "Allemagne",
+    "level": "Bachelor",
+    "funding": "Complet",
+    "deadline": "2027-09-30",
+    "deadlineText": "Septembre 2027",
+    "status": "upcoming",
+    "domain": "Informatique, Sciences, Technologie",
+    "source": "DAAD / Studienkolleg",
+    "sourceUrl": "https://www.daad.de/en/study-and-research-in-germany/scholarships/",
+    "applyUrl": "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database.html",
+    "desc": "Si votre Licence professionnelle n’est pas reconnue comme équivalente au Bachillerat allemand, le Studienkolleg est une passerelle d’un an vers un Bachelor universitaire allemand. Bourses DAAD disponibles pour couvrir les frais. Le Bénin est éligible."
+  }
+];
+
+const grid = document.getElementById('grid');
+const stats = document.getElementById('stats');
+const fCountry = document.getElementById('filter-country');
+const fLevel = document.getElementById('filter-level');
+const fFunding = document.getElementById('filter-funding');
+const fText = document.getElementById('filter-text');
+
+function statusClass(dateStr, status) {
+  if (status === 'upcoming') return 'open';
+  if (status === 'open') return 'open';
+  if (status === 'closed') return 'closed';
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = (d - now) / (1000*60*60*24);
+  if (diff < 0) return 'closed';
+  if (diff <= 45) return 'urgent';
+  return 'open';
+}
+
+function statusLabel(dateStr, status) {
+  if (status === 'upcoming') return 'À venir';
+  if (status === 'open') return 'Ouvert';
+  if (status === 'closed') return 'Clôturé';
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = (d - now) / (1000*60*60*24);
+  if (diff < 0) return 'Clôturé';
+  if (diff <= 45) return 'Urgent';
+  return 'Ouvert';
+}
+
+function render() {
+  const c = fCountry.value;
+  const l = fLevel.value;
+  const f = fFunding.value;
+  const t = fText.value.toLowerCase().trim();
+  let visible = 0;
+  grid.innerHTML = '';
+  data.forEach(item => {
+    const matchCountry = c === 'all' || item.country === c;
+    const matchLevel = l === 'all' || item.level === l || (l==='Spécialisé' && item.level==='Spécialisé');
+    const matchFunding = f === 'all' || item.funding === f || (f==='Autofinancement' && item.funding!=='Complet');
+    const matchText = !t || item.title.toLowerCase().includes(t) || item.desc.toLowerCase().includes(t) || item.domain.toLowerCase().includes(t);
+    if (matchCountry && matchLevel && matchFunding && matchText) {
+      visible++;
+      const sClass = statusClass(item.deadline, item.status);
+      const sLabel = statusLabel(item.deadline, item.status);
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-title">${item.title}</div>
+        </div>
+        <div class="badges">
+          <span class="badge level-${item.level.toLowerCase()}">${item.level}</span>
+          <span class="badge funding-${item.funding.toLowerCase()}">${item.funding}</span>
+          <span class="badge">${item.country}</span>
+          <span class="badge">${item.domain.split(',')[0]}</span>
+        </div>
+        <div class="meta">
+          <div class="row">
+            <span>📅 Échéance : <span class="deadline ${sClass}">${item.deadlineText} — ${sLabel}</span></span>
+          </div>
+          <div class="row">
+            <span>🏛️ Source : ${item.source}</span>
+          </div>
+        </div>
+        <div class="desc">${item.desc}</div>
+        <div class="actions">
+          <a class="btn" href="${item.applyUrl}" target="_blank" rel="noopener">Candidater ↗</a>
+          <div class="source"><a href="${item.sourceUrl}" target="_blank" rel="noopener">Source officielle</a></div>
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+  });
+  stats.innerHTML = `
+    <div class="stat"><b>${visible}</b> opportunité${visible>1?'s':''} affichée${visible>1?'s':''}</div>
+    <div class="stat"><b>${data.filter(i=>statusClass(i.deadline,i.status)==='open' || statusClass(i.deadline,i.status)==='urgent').length}</b> actuellement ouvertes</div>
+  `;
+  if (visible === 0) {
+    grid.innerHTML = '<div class="empty">Aucune opportunité ne correspond aux filtres sélectionnés.</div>';
+  }
+}
+
+[fCountry, fLevel, fFunding, fText].forEach(el => el.addEventListener('input', render));
+render();
+</script>
+</body>
+</html>
