@@ -1927,3 +1927,10 @@ Backup terminé à 2026-11-19 00:00:03
 To github.com:Nicanor1999/maison-gansou.git
    9406373..02aff64  master -> master
 Backup terminé à 2026-11-20 00:00:04
+[master 5ebb963] Sauvegarde automatique 2026-11-21 00:00:01
+ 6 files changed, 163 insertions(+), 2 deletions(-)
+ create mode 100644 frontend/index.html.bak
+ create mode 100644 frontend/src/vite-ghsa-85b73c7b.txt
+To github.com:Nicanor1999/maison-gansou.git
+   02aff64..5ebb963  master -> master
+Backup terminé à 2026-11-21 00:00:03
